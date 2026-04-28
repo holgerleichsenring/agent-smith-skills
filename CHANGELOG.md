@@ -1,5 +1,19 @@
 # Changelog
 
+## 1.0.0 (2026-04-28)
+
+
+### Bug Fixes
+
+* **package:** use newline-separated manifest, fix GNU tar argument order ([c1e2bc6](https://github.com/holgerleichsenring/agent-smith-skills/commit/c1e2bc642345d74b8e0869e1a1dfb5c9bbb512b6))
+
+
+### Miscellaneous Chores
+
+* configure release-please for automated versioning ([bbc05b8](https://github.com/holgerleichsenring/agent-smith-skills/commit/bbc05b869c1e6a286fd062bfd1fbca271aa79b65))
+
+## Changelog
+
 All notable changes to the agentsmith-skills catalog are documented here.
 Versions follow [Semantic Versioning](https://semver.org/).
 
