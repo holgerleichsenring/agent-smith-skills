@@ -27,13 +27,13 @@ ARCHIVE_PATH="${OUTPUT_DIR}/${ARCHIVE_NAME}"
 # Source directories included in the release. Sorted so the manifest is stable.
 SOURCES=(skills patterns)
 
-# Filter the manifest deterministically.
+# Filter the manifest deterministically (newline-separated, sorted).
 MANIFEST_FILE="$(mktemp)"
 trap 'rm -f "${MANIFEST_FILE}"' EXIT
 
 for src in "${SOURCES[@]}"; do
   if [[ -d "${src}" ]]; then
-    find "${src}" -type f -print0 | LC_ALL=C sort -z >> "${MANIFEST_FILE}"
+    find "${src}" -type f >> "${MANIFEST_FILE}"
   fi
 done
 
@@ -41,6 +41,8 @@ if [[ ! -s "${MANIFEST_FILE}" ]]; then
   echo "package.sh: no source files found in ${SOURCES[*]}" >&2
   exit 2
 fi
+
+LC_ALL=C sort -o "${MANIFEST_FILE}" "${MANIFEST_FILE}"
 
 # GNU tar has --mtime, --owner, --group, --numeric-owner; BSD tar via libarchive
 # also accepts --uid/--gid. We use the GNU-flavored options that gtar (Linux)
@@ -54,18 +56,20 @@ else
   exit 3
 fi
 
+# GNU tar consumes positional flags in order — --no-recursion must precede
+# --files-from to apply to the manifest paths. Manifest is pre-sorted so we
+# don't need --sort=name (which only affects tar's own dir walks anyway).
 "${TAR}" \
-  --create \
-  --gzip \
-  --file="${ARCHIVE_PATH}" \
-  --files-from="${MANIFEST_FILE}" \
   --no-recursion \
-  --sort=name \
   --owner=0 \
   --group=0 \
   --numeric-owner \
   --mtime='@0' \
-  --format=gnu
+  --format=gnu \
+  --create \
+  --gzip \
+  --file="${ARCHIVE_PATH}" \
+  --files-from="${MANIFEST_FILE}"
 
 # SHA256 sidecar (bsdsum and coreutils sha256sum both produce the same content).
 if command -v sha256sum >/dev/null 2>&1; then
