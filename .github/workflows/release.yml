@@ -1,0 +1,33 @@
+name: release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build deterministic tarball
+        run: |
+          chmod +x scripts/package.sh
+          scripts/package.sh "${GITHUB_REF_NAME}"
+
+      - name: Verify SHA256 sidecar
+        run: |
+          cd dist
+          sha256sum -c "agentsmith-skills-${GITHUB_REF_NAME}.tar.gz.sha256"
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            dist/agentsmith-skills-${{ github.ref_name }}.tar.gz
+            dist/agentsmith-skills-${{ github.ref_name }}.tar.gz.sha256
+          generate_release_notes: true

@@ -1,0 +1,40 @@
+# Azure DevOps pipeline template — pull a versioned agentsmith-skills release.
+#
+# Usage from a consuming pipeline:
+#
+#   resources:
+#     repositories:
+#       - repository: agentsmith-skills
+#         type: github
+#         name: holgerleichsenring/agentsmith-skills
+#         endpoint: <github-service-connection>
+#
+#   steps:
+#     - template: ado/templates/pull-skills.yml@agentsmith-skills
+#       parameters:
+#         skillsVersion: v1.0.0
+#         outputDir: $(Pipeline.Workspace)/skills
+parameters:
+  - name: skillsVersion
+    type: string
+    default: v1.0.0
+  - name: outputDir
+    type: string
+    default: $(Pipeline.Workspace)/agentsmith-skills
+  - name: repositoryUrl
+    type: string
+    default: ''
+  - name: agentSmithImage
+    type: string
+    default: holgerleichsenring/agent-smith:latest
+
+steps:
+  - script: |
+      set -euo pipefail
+      mkdir -p "${{ parameters.outputDir }}"
+      docker run --rm \
+        --env "AGENTSMITH_SKILLS_REPOSITORY_URL=${{ parameters.repositoryUrl }}" \
+        --volume "${{ parameters.outputDir }}:/skills" \
+        ${{ parameters.agentSmithImage }} \
+        skills pull --version "${{ parameters.skillsVersion }}" --output /skills
+    displayName: "Pull agentsmith-skills ${{ parameters.skillsVersion }}"
