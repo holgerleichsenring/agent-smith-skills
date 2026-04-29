@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v1.0.0...v1.1.0) (2026-04-29)
+
+
+### Features
+
+* **api-security:** add controller-implementation-reviewer + security-headers-auditor (p0104) ([c112bdd](https://github.com/holgerleichsenring/agent-smith-skills/commit/c112bdd4854947ba21d1412d626581da1f84c393))
+
 ## 1.0.0 (2026-04-28)
 
 
