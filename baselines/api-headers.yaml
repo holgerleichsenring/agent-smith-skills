@@ -1,0 +1,54 @@
+# Default API security-header baseline. Customers override by replacing this
+# file (loaded via IBaselineLoader, p0104). Tuned to OWASP ASVS L1.
+
+baseline_name: api-headers/default
+profile: public-facing
+description: "Default expected HTTP security headers for a public-facing API. Override by replacing this file."
+
+headers:
+  - name: Strict-Transport-Security
+    severity_when_missing: high
+    allowed_value_patterns:
+      - "max-age=(?:1[5-9]\\d{6}|[2-9]\\d{7,})"   # ≥ ~6 months
+    notes: "Require HSTS with reasonably long max-age. includeSubDomains recommended."
+
+  - name: Content-Security-Policy
+    severity_when_missing: medium
+    forbidden_substrings:
+      - "unsafe-inline"
+      - "unsafe-eval"
+    notes: "API endpoints rarely render HTML, but if they do, CSP must not allow inline scripts."
+
+  - name: X-Content-Type-Options
+    severity_when_missing: medium
+    expected_value: "nosniff"
+    notes: "Prevents MIME sniffing. Only valid value is 'nosniff'."
+
+  - name: X-Frame-Options
+    severity_when_missing: medium
+    allowed_values:
+      - DENY
+      - SAMEORIGIN
+    notes: "Clickjacking defense. ALLOWALL or unset is unacceptable for state-changing APIs."
+
+  - name: Referrer-Policy
+    severity_when_missing: low
+    forbidden_values:
+      - "unsafe-url"
+    notes: "Recommend strict-origin-when-cross-origin or no-referrer for credentialed APIs."
+
+  - name: Permissions-Policy
+    severity_when_missing: low
+    notes: "Restricts powerful browser features. Default-permissive ('*') is bad practice."
+
+cookies:
+  session:
+    secure: required
+    http_only: required
+    same_site: [Strict, Lax]
+    severity_when_missing: high
+  auth:
+    secure: required
+    http_only: required
+    same_site: [Strict, Lax]
+    severity_when_missing: critical
