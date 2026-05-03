@@ -1,0 +1,62 @@
+# Anti-pattern reference for the architect skill.
+#
+# Cited via {{ref:anti-patterns}} from architect body. Each entry names an
+# anti-pattern, describes its harm, and lists concrete signals an architect
+# can flag in a code review or plan critique.
+
+anti_patterns:
+  - name: anemic_domain_model
+    harm: "Domain objects are bags of getters/setters; behavior lives in service classes that manipulate them. The model carries no invariants, all rules live in transactional scripts."
+    signals:
+      - "Domain classes have no methods other than property accessors"
+      - "Service classes named *Manager, *Helper, *Util that mutate domain object state"
+      - "Validation logic duplicated across every service touching an entity"
+
+  - name: god_object
+    harm: "A single class accumulates responsibilities until it knows about everything. Becomes a bottleneck for changes and a magnet for unrelated bugs."
+    signals:
+      - "A class with > 20 methods spanning multiple concerns (persistence + validation + formatting)"
+      - "The same class injected into half the application"
+      - "Fixes in one feature regularly break unrelated features in this class"
+
+  - name: circular_dependency_between_layers
+    harm: "Lower layer (e.g. Domain) references upper layer (e.g. Application or Infrastructure). Breaks the dependency rule and makes the domain untestable in isolation."
+    signals:
+      - "Domain code imports types from Infrastructure, Application, or Web"
+      - "Compile-time references that would require both projects in the same compilation unit"
+      - "Tests that need DI container or HTTP context to exercise domain logic"
+
+  - name: leaky_abstraction
+    harm: "An abstraction exposes implementation details that consumers must know to use it correctly. The abstraction's value is reduced; consumers couple to internals."
+    signals:
+      - "Repository methods returning ORM-specific types (DbSet, IQueryable<T>)"
+      - "API contracts that require knowledge of internal database column names"
+      - "Configuration types that leak provider-specific keys (aws_*, gcp_*) into a 'generic' interface"
+
+  - name: premature_abstraction
+    harm: "Abstraction introduced before two real consumers exist. Forces every change through indirection that serves no actual flexibility need."
+    signals:
+      - "Single-implementation interfaces with no second implementation planned"
+      - "Generic <T> parameters used by exactly one type"
+      - "Strategy patterns where only one strategy was ever implemented"
+
+  - name: singleton_as_global_state
+    harm: "Singleton used to share mutable state across the application. Creates hidden coupling, makes testing painful, and serializes concurrent access."
+    signals:
+      - "Static state mutated from multiple threads without synchronization"
+      - "Tests requiring teardown/reset of a singleton between cases"
+      - "Code that depends on call ordering across unrelated components"
+
+  - name: database_as_integration_layer
+    harm: "Two services communicate by reading/writing the same database tables. Couples them tightly without an explicit contract; either side's schema change breaks the other."
+    signals:
+      - "Multiple services with direct write access to a shared table"
+      - "Schema migrations that require coordinated deployment of unrelated services"
+      - "Foreign keys crossing service ownership boundaries"
+
+  - name: configuration_as_logic
+    harm: "Conditional behavior driven by environment-specific config flags. Production behaves differently from staging in ways that are not exercised by any test."
+    signals:
+      - "if (env == \"production\") branches in business logic"
+      - "Feature flags with permanent on/off divergence rather than time-bounded rollouts"
+      - "Bugs that only reproduce in one environment because of conditional code paths"
