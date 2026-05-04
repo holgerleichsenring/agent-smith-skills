@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.3.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v1.2.0...v1.3.0) (2026-05-04)
+
+
+### Features
+
+* **p0111b:** migrate api-security skills to v2 frontmatter (backfill) ([#5](https://github.com/holgerleichsenring/agent-smith-skills/issues/5)) ([3ca6202](https://github.com/holgerleichsenring/agent-smith-skills/commit/3ca6202f1ad05aea95ecd2a3d9e21dcf49a5892a))
+
 ## [1.2.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v1.1.0...v1.2.0) (2026-05-04)
 
 
