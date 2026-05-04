@@ -1,10 +1,11 @@
 ---
 name: auth-config-reviewer
 description: "Source-code review of authentication configuration: disabled JWT validation, dead authorization middleware, missing security headers, unsafe CORS"
-version: 1.0.0
+version: 2.0.0
+roles_supported: [analyst]
 ---
 
-# Auth Config Reviewer
+## as_analyst
 
 You review the authentication and authorization configuration directly in source.
 You only run when source is available (`api_source_available: true`). Output every

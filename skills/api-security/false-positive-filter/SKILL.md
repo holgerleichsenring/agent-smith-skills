@@ -1,10 +1,11 @@
 ---
 name: false-positive-filter
 description: "Always required whenever other skills produce findings. Reviews all findings from api-vuln-analyst, api-design-auditor, and auth-tester regardless of source. Enforces confidence threshold ≥7, removes infrastructure findings, design recommendations without exploit paths, and invalid findings. Without this skill the output contains unfiltered noise. Must always be included in api-security-scan."
-version: 1.0.0
+version: 2.0.0
+roles_supported: [filter]
 ---
 
-# False Positive Filter
+## as_filter
 
 You are a false positive filter for API security findings. You review findings
 from all other API security skills and remove those that are invalid, out of scope,

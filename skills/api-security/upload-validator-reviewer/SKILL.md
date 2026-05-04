@@ -1,10 +1,11 @@
 ---
 name: upload-validator-reviewer
 description: "Source-code review of file-upload handlers: content sniffing vs header-only MIME, magic bytes, filename sanitization, server-side size limits"
-version: 1.0.0
+version: 2.0.0
+roles_supported: [analyst]
 ---
 
-# Upload Validator Reviewer
+## as_analyst
 
 You inspect file-upload handler bodies and verify input validation. You only run
 when source is available. Output every finding with `evidence_mode: analyzed_from_source`
