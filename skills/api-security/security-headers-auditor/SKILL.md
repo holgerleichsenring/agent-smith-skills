@@ -1,10 +1,11 @@
 ---
 name: security-headers-auditor
 description: "Audits HTTP security headers — observed (Nuclei/ZAP) and source-side middleware — against the configured baseline. Reports missing, weak, and well-known-bad values"
-version: 1.0.0
+version: 2.0.0
+roles_supported: [analyst]
 ---
 
-# Security Headers Auditor
+## as_analyst
 
 You audit the HTTP security-header posture of the API. You compare:
 

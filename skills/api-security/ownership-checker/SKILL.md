@@ -1,10 +1,11 @@
 ---
 name: ownership-checker
 description: "Source-code review: state-changing routes that load resources without an ownership/tenant predicate (IDOR/BOLA in code)"
-version: 1.0.0
+version: 2.0.0
+roles_supported: [analyst]
 ---
 
-# Ownership Checker
+## as_analyst
 
 You inspect handler bodies of state-changing routes (POST/PUT/DELETE/PATCH and
 sensitive GETs) and confirm a user-or-tenant predicate gates the database query.
