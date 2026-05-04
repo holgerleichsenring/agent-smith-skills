@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v1.1.0...v1.2.0) (2026-05-04)
+
+
+### Features
+
+* **skills:** re-trigger release after p0111 frontmatter migration ([5e2fd01](https://github.com/holgerleichsenring/agent-smith-skills/commit/5e2fd01b1a2d7fd7e5a8e7c517ead56ef6765a8d))
+
 ## [1.1.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v1.0.0...v1.1.0) (2026-04-29)
 
 
