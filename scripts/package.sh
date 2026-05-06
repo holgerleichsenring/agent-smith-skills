@@ -25,7 +25,9 @@ ARCHIVE_NAME="agentsmith-skills-${VERSION}.tar.gz"
 ARCHIVE_PATH="${OUTPUT_DIR}/${ARCHIVE_NAME}"
 
 # Source directories included in the release. Sorted so the manifest is stable.
-SOURCES=(skills patterns)
+# baselines/ is consumed by skills like security-headers-auditor (api-headers.yaml)
+# and must ship with the tarball or BaselineLoader can't find it on the consumer.
+SOURCES=(baselines patterns skills)
 
 # Filter the manifest deterministically (newline-separated, sorted).
 MANIFEST_FILE="$(mktemp)"
