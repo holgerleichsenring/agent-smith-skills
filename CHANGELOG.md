@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.1](https://github.com/holgerleichsenring/agent-smith-skills/compare/v1.4.0...v1.4.1) (2026-05-06)
+
+
+### Bug Fixes
+
+* **release:** ship baselines/ in the catalog tarball ([#9](https://github.com/holgerleichsenring/agent-smith-skills/issues/9)) ([71dc687](https://github.com/holgerleichsenring/agent-smith-skills/commit/71dc687322b8fc1d91990e6dec63c1df610fea5d))
+
 ## [1.4.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v1.3.0...v1.4.0) (2026-05-06)
 
 
