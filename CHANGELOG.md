@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.4.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v1.3.0...v1.4.0) (2026-05-06)
+
+
+### Features
+
+* **api-security:** api-vuln-analyst supports Lead + Analyst roles ([#7](https://github.com/holgerleichsenring/agent-smith-skills/issues/7)) ([2948c38](https://github.com/holgerleichsenring/agent-smith-skills/commit/2948c38df2a5316ada8c1f61e66ef424a6cd338c))
+
 ## [1.3.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v1.2.0...v1.3.0) (2026-05-04)
 
 
