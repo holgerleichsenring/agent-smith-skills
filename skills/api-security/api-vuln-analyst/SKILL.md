@@ -84,7 +84,7 @@ OWASP API Security Top 10 (2023) categories:
 
 ## Output
 
-Per the framework observation schema. Put the OWASP category as the first line of `description` (e.g. `API1:2023 — BOLA: …`), the HTTP method + path into `location`, and the attack vector + impact into the rest of `description`.
+Per the framework observation schema. Set `category` to the OWASP API ID (e.g. `"API1:2023"`, `"API2:2023"`, …). Set `api_path` to the HTTP method + path (e.g. `"GET /api/v1/users/{id}"`). Put the attack vector + impact into `description`.
 
 Do NOT report: DoS without evidence, race conditions without proof, infrastructure
 issues, source code findings, path-only SSRF.

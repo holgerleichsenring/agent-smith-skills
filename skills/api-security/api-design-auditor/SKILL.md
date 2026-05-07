@@ -60,4 +60,4 @@ Analyze each of the following categories systematically:
 
 ## Output
 
-Per the framework observation schema. Put the schema/endpoint location (HTTP method + path, or "schema-level" for global issues) into `location`, the specific schema path + security impact into `description`, and lead the `rationale` with the matching category from the six above (e.g. `Category 3 (REST Semantics): …`).
+Per the framework observation schema. Set `category` to one of `"sensitive-data"`, `"enum-opacity"`, `"rest-semantics"`, `"route-consistency"`, `"missing-constraints"`, `"spectral-finding"`. For endpoint-level issues set `api_path` (e.g. `"GET /api/users"`); for schema-level issues set `schema_name`; otherwise leave both null. Put the specific schema path + security impact into `description`.

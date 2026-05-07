@@ -34,4 +34,4 @@ Check for:
 
 ## Output
 
-Per the framework observation schema. HTTP method + path or schema name goes into `location`; `description` covers what data is exposed and why it matters; prefix `rationale` with `evidence: confirmed` (probe comparison showed exposure) or `evidence: potential` (schema inference only).
+Per the framework observation schema. Set `api_path` to HTTP method + path for endpoint-level findings, or `schema_name` for schema-level findings. `description` covers what data is exposed and why it matters. Set `evidence_mode` to `"confirmed"` (probe comparison showed exposure) or `"potential"` (schema inference only).

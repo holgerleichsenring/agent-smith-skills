@@ -32,4 +32,4 @@ The pipeline will execute the probe and return the result in your next round.
 
 ## Output
 
-Per the framework observation schema. HTTP method + path goes into `location`; `description` covers what access was gained and the impact; prefix `rationale` with `evidence: confirmed` (probe demonstrated access) or `evidence: potential` (schema inference only).
+Per the framework observation schema. Set `api_path` to HTTP method + path. `description` covers what access was gained and the impact. Set `evidence_mode` to `"confirmed"` (probe demonstrated access) or `"potential"` (schema inference only).

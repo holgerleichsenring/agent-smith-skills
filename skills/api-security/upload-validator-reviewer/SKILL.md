@@ -49,7 +49,7 @@ and `file:line`.
 
 ## Output
 
-Per the framework observation schema. `concern: "security"`, `location: "src/Controllers/AvatarController.cs:34"`, and lead the `rationale` with `evidence: analyzed_from_source` since this skill only runs with source available.
+Per the framework observation schema. `concern: "security"`, set `file` + `start_line` to the source location (e.g. `"src/Controllers/AvatarController.cs"` + `34`), and `evidence_mode: "analyzed_from_source"` since this skill only runs with source available.
 
 Example for an unchecked upload on `POST /api/avatars`: description `"POST /api/avatars accepts ContentType from header; no magic-byte check"`, suggestion `"Read the first 8 bytes and validate against known image signatures"`, severity `"high"`, confidence `85`.
 

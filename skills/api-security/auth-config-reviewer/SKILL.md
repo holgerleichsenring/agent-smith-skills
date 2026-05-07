@@ -44,6 +44,6 @@ Inputs you receive:
 
 ## Output
 
-Per the framework observation schema. `concern: "security"`, `location: "src/Program.cs:42"`, and lead the `rationale` with `evidence: analyzed_from_source` since this skill only runs with source available.
+Per the framework observation schema. `concern: "security"`, set `file` + `start_line` to the source location (e.g. `"src/Program.cs"` + `42`), and `evidence_mode: "analyzed_from_source"` since this skill only runs with source available.
 
 Multi-stack examples in `source.md`.

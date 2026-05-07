@@ -35,4 +35,4 @@ Test categories:
 
 ## Output
 
-Per the framework observation schema. HTTP method + path goes into `location`; `description` covers what validation is missing and the attack potential; prefix `rationale` with `evidence: confirmed` (probe demonstrated the vulnerability) or `evidence: potential` (schema inference only).
+Per the framework observation schema. Set `api_path` to HTTP method + path. `description` covers what validation is missing and the attack potential. Set `evidence_mode` to `"confirmed"` (probe demonstrated the vulnerability) or `"potential"` (schema inference only).
