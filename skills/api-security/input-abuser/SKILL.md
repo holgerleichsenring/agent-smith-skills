@@ -33,10 +33,6 @@ Test categories:
 - SQL injection markers in string fields ('OR 1=1--)
 - Path traversal in file-related parameters (../../etc/passwd)
 
-Output format per finding:
-- severity: HIGH | MEDIUM | LOW
-- endpoint: HTTP method + path
-- title: max 80 chars
-- description: what validation is missing and attack potential
-- confidence: 1-10
-- evidence_mode: confirmed (if probe showed vulnerability) | potential (schema inference)
+## Output
+
+Per the framework observation schema. HTTP method + path goes into `location`; `description` covers what validation is missing and the attack potential; prefix `rationale` with `evidence: confirmed` (probe demonstrated the vulnerability) or `evidence: potential` (schema inference only).

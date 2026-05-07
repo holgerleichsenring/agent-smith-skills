@@ -30,10 +30,6 @@ To request an HTTP probe, output a JSON block:
 
 The pipeline will execute the probe and return the result in your next round.
 
-Output format per finding:
-- severity: HIGH | MEDIUM | LOW
-- endpoint: HTTP method + path
-- title: max 80 chars
-- description: what access was gained and impact
-- confidence: 1-10
-- evidence_mode: confirmed (if backed by probe) | potential (schema inference)
+## Output
+
+Per the framework observation schema. HTTP method + path goes into `location`; `description` covers what access was gained and the impact; prefix `rationale` with `evidence: confirmed` (probe demonstrated access) or `evidence: potential` (schema inference only).

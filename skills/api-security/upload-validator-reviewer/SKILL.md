@@ -47,18 +47,10 @@ and `file:line`.
 - Internal admin uploads behind strong auth
 - Test fixtures and sample fixtures (`tests/`, `samples/`) — not user-reachable
 
-## Output format
+## Output
 
-```json
-{
-  "concern": "security",
-  "severity": "high",
-  "description": "POST /api/avatars accepts ContentType from header; no magic-byte check",
-  "suggestion": "Read the first 8 bytes and validate against known image signatures",
-  "confidence": 85,
-  "location": "src/Controllers/AvatarController.cs:34",
-  "evidence_mode": "analyzed_from_source"
-}
-```
+Per the framework observation schema. `concern: "security"`, `location: "src/Controllers/AvatarController.cs:34"`, and lead the `rationale` with `evidence: analyzed_from_source` since this skill only runs with source available.
+
+Example for an unchecked upload on `POST /api/avatars`: description `"POST /api/avatars accepts ContentType from header; no magic-byte check"`, suggestion `"Read the first 8 bytes and validate against known image signatures"`, severity `"high"`, confidence `85`.
 
 Multi-stack examples in `source.md`.

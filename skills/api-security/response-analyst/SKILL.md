@@ -32,10 +32,6 @@ Check for:
 - 404 vs 403 distinction leaking resource existence
 - Verbose validation errors revealing field constraints
 
-Output format per finding:
-- severity: HIGH | MEDIUM | LOW
-- endpoint: HTTP method + path, or schema name
-- title: max 80 chars
-- description: what data is exposed and why it matters
-- confidence: 1-10
-- evidence_mode: confirmed (if probe comparison showed exposure) | potential (schema inference)
+## Output
+
+Per the framework observation schema. HTTP method + path or schema name goes into `location`; `description` covers what data is exposed and why it matters; prefix `rationale` with `evidence: confirmed` (probe comparison showed exposure) or `evidence: potential` (schema inference only).

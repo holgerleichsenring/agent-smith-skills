@@ -29,10 +29,6 @@ Request probes:
 {"probe": {"persona": "user2", "method": "GET", "url": "/api/orders/123"}}
 ```
 
-Output format per finding:
-- severity: HIGH | MEDIUM | LOW (cross-user data access = HIGH)
-- endpoint: HTTP method + path
-- title: max 80 chars
-- description: what data was accessible and BOLA category (API1:2023)
-- confidence: 1-10
-- evidence_mode: confirmed (if probe showed access) | potential (schema inference)
+## Output
+
+Per the framework observation schema. HTTP method + path goes into `location`; lead `description` with `API1:2023 — BOLA: …` and what data was accessible; prefix `rationale` with `evidence: confirmed` (probe demonstrated access) or `evidence: potential` (schema inference only). Cross-user data access → `severity: high`.

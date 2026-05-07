@@ -44,18 +44,10 @@ A handler reads or mutates a resource by primary key with no ownership check.
 - Resource keyed by GUID **and** the GUID is generated server-side per user (then
   enumeration is the concern, not ownership — call out separately)
 
-## Output format
+## Output
 
-```json
-{
-  "concern": "security",
-  "severity": "critical",
-  "description": "PUT /api/orders/{id} loads order by id only; no UserId predicate",
-  "suggestion": "Add `&& o.UserId == currentUser.Id` to the query and re-check after load",
-  "confidence": 90,
-  "location": "src/Controllers/OrdersController.cs:78",
-  "evidence_mode": "analyzed_from_source"
-}
-```
+Per the framework observation schema. `concern: "security"`, `location: "src/Controllers/OrdersController.cs:78"`, and lead the `rationale` with `evidence: analyzed_from_source` since this skill only runs with source available.
+
+Example for a missing ownership predicate on `PUT /api/orders/{id}`: description `"PUT /api/orders/{id} loads order by id only; no UserId predicate"`, suggestion `"Add && o.UserId == currentUser.Id to the query and re-check after load"`, severity `"high"`, confidence `90`.
 
 Multi-stack examples in `source.md`.

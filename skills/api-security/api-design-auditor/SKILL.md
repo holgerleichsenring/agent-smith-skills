@@ -58,10 +58,6 @@ Analyze each of the following categories systematically:
 - Identify false positives from Spectral
 - Group related Spectral findings into actionable themes
 
-Output format per finding:
-- severity: HIGH | MEDIUM | LOW
-- category: one of the 6 categories above
-- endpoint: HTTP method + path, or "schema-level" for global issues
-- title: max 80 chars
-- description: specific schema location + security impact
-- confidence: 1-10
+## Output
+
+Per the framework observation schema. Put the schema/endpoint location (HTTP method + path, or "schema-level" for global issues) into `location`, the specific schema path + security impact into `description`, and lead the `rationale` with the matching category from the six above (e.g. `Category 3 (REST Semantics): …`).

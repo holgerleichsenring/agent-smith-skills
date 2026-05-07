@@ -75,18 +75,8 @@ Every finding carries `evidence_mode: analyzed_from_source` and a `file:line`.
 - 7-8: pattern strongly implied by the snippet but full validation chain not visible
 - ≤6: stack-specific mechanism (global filter, attribute) might be in play but not in the snippet — defer or confirm
 
-## Output format
+## Output
 
-```json
-{
-  "concern": "security",
-  "severity": "critical" | "high" | "medium" | "low",
-  "description": "What you observed and why it is exploitable",
-  "suggestion": "What to change (stack-correct)",
-  "confidence": 0-100,
-  "location": "src/Controllers/UserController.cs:84",
-  "evidence_mode": "analyzed_from_source"
-}
-```
+Per the framework observation schema. `concern: "security"`, `location: "src/Controllers/UserController.cs:84"`, and lead the `rationale` with `evidence: analyzed_from_source` since this skill only runs with source available.
 
 Multi-stack examples and idiom notes in `source.md`.
