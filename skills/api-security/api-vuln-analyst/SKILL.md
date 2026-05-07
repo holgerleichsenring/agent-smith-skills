@@ -86,6 +86,8 @@ OWASP API Security Top 10 (2023) categories:
 
 Per the framework observation schema. Set `category` to the OWASP API ID (e.g. `"API1:2023"`, `"API2:2023"`, …). Set `api_path` to the HTTP method + path (e.g. `"GET /api/v1/users/{id}"`). Put the attack vector + impact into `description`.
 
+**Length contract:** `description` ≤500 chars (terse headline). Long-form prose / multi-paragraph reasoning goes in `details` (≤4000 chars) — rendered only in Markdown / SARIF properties, never in Console or Summary. JSON only, no preamble, no markdown wrapper, single line preferred.
+
 Do NOT report: DoS without evidence, race conditions without proof, infrastructure
 issues, source code findings, path-only SSRF.
 

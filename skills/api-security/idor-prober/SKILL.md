@@ -32,3 +32,5 @@ Request probes:
 ## Output
 
 Per the framework observation schema. Set `category: "API1:2023"` and `api_path` to HTTP method + path. Set `evidence_mode` to `"confirmed"` (probe demonstrated access) or `"potential"` (schema inference only). Put what data was accessible into `description`. Cross-user data access → `severity: "high"`.
+
+**Length contract:** `description` ≤500 chars (terse headline). Long-form prose / multi-paragraph reasoning goes in `details` (≤4000 chars) — rendered only in Markdown / SARIF properties, never in Console or Summary. JSON only, no preamble, no markdown wrapper, single line preferred.

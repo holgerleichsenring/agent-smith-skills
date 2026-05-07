@@ -50,4 +50,6 @@ Produce the final ordered list of findings, with:
 
 ## Output
 
-Per the framework observation schema. Set `category: "chain"`. For single-endpoint chains, set `api_path`; for multi-endpoint chains, leave `api_path` null and put the full chain narrative into `description`. Set `evidence_mode` to `"confirmed"` or `"potential"`. Use `confidence` on the 0-100 scale (not 1-10).
+Per the framework observation schema. Set `category: "chain"`. For single-endpoint chains, set `api_path`; for multi-endpoint chains, leave `api_path` null and put the chain headline into `description` and the full chain narrative into `details`. Set `evidence_mode` to `"confirmed"` or `"potential"`. Use `confidence` on the 0-100 scale (not 1-10).
+
+**Length contract:** `description` ≤500 chars (terse headline). Long-form prose / multi-paragraph reasoning goes in `details` (≤4000 chars) — rendered only in Markdown / SARIF properties, never in Console or Summary. JSON only, no preamble, no markdown wrapper, single line preferred.

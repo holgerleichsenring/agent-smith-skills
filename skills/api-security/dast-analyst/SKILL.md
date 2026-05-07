@@ -26,3 +26,5 @@ You correlate ZAP scan findings with static analysis results.
 ## Output
 
 Per the framework observation schema. Set `category` to the OWASP category (e.g. `"A01"`, `"A02"`, …). Set `api_path` to HTTP method + path. Cross-references to static findings (if any) belong in `rationale` (e.g. `correlated-static: <static-finding-title>`). Drop suspected false positives at source — do not emit them.
+
+**Length contract:** `description` ≤500 chars (terse headline). Long-form prose / multi-paragraph reasoning goes in `details` (≤4000 chars) — rendered only in Markdown / SARIF properties, never in Console or Summary. JSON only, no preamble, no markdown wrapper, single line preferred.

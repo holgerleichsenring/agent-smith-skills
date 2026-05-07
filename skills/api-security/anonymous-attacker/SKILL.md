@@ -33,3 +33,5 @@ Check for:
 ## Output
 
 Per the framework observation schema. Put the HTTP method + path into `api_path`, the attack scenario into `description`, and set `evidence_mode` to `"confirmed"` if a probe demonstrated access or `"potential"` if you inferred from the schema alone.
+
+**Length contract:** `description` ≤500 chars (terse headline). Long-form prose / multi-paragraph reasoning goes in `details` (≤4000 chars) — rendered only in Markdown / SARIF properties, never in Console or Summary. JSON only, no preamble, no markdown wrapper, single line preferred.

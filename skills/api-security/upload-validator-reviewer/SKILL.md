@@ -53,4 +53,6 @@ Per the framework observation schema. `concern: "security"`, set `file` + `start
 
 Example for an unchecked upload on `POST /api/avatars`: description `"POST /api/avatars accepts ContentType from header; no magic-byte check"`, suggestion `"Read the first 8 bytes and validate against known image signatures"`, severity `"high"`, confidence `85`.
 
+**Length contract:** `description` ≤500 chars (terse headline). Long-form prose / multi-paragraph reasoning goes in `details` (≤4000 chars) — rendered only in Markdown / SARIF properties, never in Console or Summary. JSON only, no preamble, no markdown wrapper, single line preferred.
+
 Multi-stack examples in `source.md`.

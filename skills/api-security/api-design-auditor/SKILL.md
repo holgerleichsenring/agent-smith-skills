@@ -61,3 +61,5 @@ Analyze each of the following categories systematically:
 ## Output
 
 Per the framework observation schema. Set `category` to one of `"sensitive-data"`, `"enum-opacity"`, `"rest-semantics"`, `"route-consistency"`, `"missing-constraints"`, `"spectral-finding"`. For endpoint-level issues set `api_path` (e.g. `"GET /api/users"`); for schema-level issues set `schema_name`; otherwise leave both null. Put the specific schema path + security impact into `description`.
+
+**Length contract:** `description` ≤500 chars (terse headline). Long-form prose / multi-paragraph reasoning goes in `details` (≤4000 chars) — rendered only in Markdown / SARIF properties, never in Console or Summary. JSON only, no preamble, no markdown wrapper, single line preferred.
