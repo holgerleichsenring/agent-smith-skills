@@ -1,0 +1,55 @@
+name: Package Release
+
+# Triggers on any GitHub release publication — both releases created by
+# release-please and releases created manually (e.g. recovery scenarios where
+# the release-please flow was bypassed). Decoupling the package step from
+# release-please.yml means a missed/skipped release-please run no longer
+# leaves the release without its tarball asset.
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Tag to package (e.g. v1.7.0)"
+        required: true
+
+permissions:
+  contents: write
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Resolve tag
+        id: tag
+        run: |
+          if [[ "${{ github.event_name }}" == "release" ]]; then
+            echo "name=${{ github.event.release.tag_name }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "name=${{ inputs.tag }}" >> "$GITHUB_OUTPUT"
+          fi
+
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ steps.tag.outputs.name }}
+
+      - name: Build deterministic tarball
+        run: |
+          chmod +x scripts/package.sh
+          scripts/package.sh "${{ steps.tag.outputs.name }}"
+
+      - name: Verify SHA256 sidecar
+        run: |
+          cd dist
+          sha256sum -c "agentsmith-skills-${{ steps.tag.outputs.name }}.tar.gz.sha256"
+
+      - name: Upload assets to release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release upload "${{ steps.tag.outputs.name }}" \
+            "dist/agentsmith-skills-${{ steps.tag.outputs.name }}.tar.gz" \
+            "dist/agentsmith-skills-${{ steps.tag.outputs.name }}.tar.gz.sha256" \
+            --clobber
