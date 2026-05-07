@@ -25,4 +25,4 @@ You correlate ZAP scan findings with static analysis results.
 
 ## Output
 
-Per the framework observation schema. Lead `description` with the OWASP category (e.g. `A01: …`); HTTP method + path goes into `location`; cross-references to static findings (if any) belong in `rationale` (e.g. `correlated-static: <static-finding-title>`). Drop suspected false positives at source — do not emit them with `false_positive: true`.
+Per the framework observation schema. Set `category` to the OWASP category (e.g. `"A01"`, `"A02"`, …). Set `api_path` to HTTP method + path. Cross-references to static findings (if any) belong in `rationale` (e.g. `correlated-static: <static-finding-title>`). Drop suspected false positives at source — do not emit them.

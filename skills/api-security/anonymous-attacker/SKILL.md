@@ -32,4 +32,4 @@ Check for:
 
 ## Output
 
-Per the framework observation schema. Put the HTTP method + path into `location`, the attack scenario into `description`, and prefix the rationale with `evidence: confirmed` or `evidence: potential` depending on whether a probe demonstrated access or you inferred from the schema alone.
+Per the framework observation schema. Put the HTTP method + path into `api_path`, the attack scenario into `description`, and set `evidence_mode` to `"confirmed"` if a probe demonstrated access or `"potential"` if you inferred from the schema alone.

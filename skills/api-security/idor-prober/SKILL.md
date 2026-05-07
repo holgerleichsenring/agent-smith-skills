@@ -31,4 +31,4 @@ Request probes:
 
 ## Output
 
-Per the framework observation schema. HTTP method + path goes into `location`; lead `description` with `API1:2023 — BOLA: …` and what data was accessible; prefix `rationale` with `evidence: confirmed` (probe demonstrated access) or `evidence: potential` (schema inference only). Cross-user data access → `severity: high`.
+Per the framework observation schema. Set `category: "API1:2023"` and `api_path` to HTTP method + path. Set `evidence_mode` to `"confirmed"` (probe demonstrated access) or `"potential"` (schema inference only). Put what data was accessible into `description`. Cross-user data access → `severity: "high"`.

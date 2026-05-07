@@ -59,4 +59,4 @@ Dynamic-vs-source disagreement → severity `medium`, suggest reviewing reverse-
 
 ## Output
 
-Per the framework observation schema. `concern: "security"`; put the file:line into `location` when the finding is source-confirmed, otherwise leave it null; lead `rationale` with one of `evidence: analyzed_from_source`, `evidence: dynamic`, or `evidence: configuration_drift` to mark the signal type.
+Per the framework observation schema. `concern: "security"`, `category: "headers"`. For source-confirmed findings set `file` + `start_line` and `evidence_mode: "analyzed_from_source"`. For dynamic-only findings (Nuclei/ZAP) leave `file`/`start_line` null and set `evidence_mode: "confirmed"`. For dynamic-vs-source drift, set `evidence_mode: "confirmed"` and lead `rationale` with `"configuration drift: <description>"`.

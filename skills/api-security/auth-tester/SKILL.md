@@ -46,4 +46,4 @@ Bearer vs Cookie:
 
 ## Output
 
-Per the framework observation schema. Lead `description` with the OWASP category (e.g. `API2:2023 — Broken Authentication: …`); put HTTP method + path into `location` (or `"token-level"` for JWT/OAuth issues that aren't endpoint-specific).
+Per the framework observation schema. Set `category` to the OWASP API ID (e.g. `"API2:2023"`). Set `api_path` to the HTTP method + path; for JWT/OAuth issues that aren't endpoint-specific, set `category: "auth"` and leave `api_path` null.

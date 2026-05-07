@@ -46,7 +46,7 @@ A handler reads or mutates a resource by primary key with no ownership check.
 
 ## Output
 
-Per the framework observation schema. `concern: "security"`, `location: "src/Controllers/OrdersController.cs:78"`, and lead the `rationale` with `evidence: analyzed_from_source` since this skill only runs with source available.
+Per the framework observation schema. `concern: "security"`, set `file` + `start_line` to the source location (e.g. `"src/Controllers/OrdersController.cs"` + `78`), and `evidence_mode: "analyzed_from_source"` since this skill only runs with source available.
 
 Example for a missing ownership predicate on `PUT /api/orders/{id}`: description `"PUT /api/orders/{id} loads order by id only; no UserId predicate"`, suggestion `"Add && o.UserId == currentUser.Id to the query and re-check after load"`, severity `"high"`, confidence `90`.
 

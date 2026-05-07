@@ -50,4 +50,4 @@ Produce the final ordered list of findings, with:
 
 ## Output
 
-Per the framework observation schema. Put the HTTP method + path into `location` (use `"chain"` for multi-endpoint chains), the full attack narrative including chain steps into `description`, and prefix `rationale` with `evidence: confirmed` or `evidence: potential` plus the list of contributing finding titles when applicable (`chain: [finding-title-1, finding-title-2]`).
+Per the framework observation schema. Set `category: "chain"`. For single-endpoint chains, set `api_path`; for multi-endpoint chains, leave `api_path` null and put the full chain narrative into `description`. Set `evidence_mode` to `"confirmed"` or `"potential"`. Use `confidence` on the 0-100 scale (not 1-10).
