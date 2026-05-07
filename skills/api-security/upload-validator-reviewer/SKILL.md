@@ -3,6 +3,19 @@ name: upload-validator-reviewer
 description: "Source-code review of file-upload handlers: content sniffing vs header-only MIME, magic bytes, filename sanitization, server-side size limits"
 version: 2.0.0
 roles_supported: [analyst]
+
+activation:
+  positive:
+    - {key: api_source_available, desc: "Source code is available for static review"}
+    - {key: upload_handlers_mapped, desc: "ApiCodeContext mapped upload handlers"}
+  negative:
+    - {key: source_unavailable, desc: "No source code available — passive schema-only mode"}
+    - {key: no_upload_endpoints, desc: "No multipart/form-data endpoints in the API"}
+
+role_assignment:
+  analyst:
+    positive:
+      - {key: upload_review_needed, desc: "Source available — code-aware upload-handler review possible"}
 ---
 
 ## as_analyst
