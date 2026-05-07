@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.7.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v1.6.1...v1.7.0) (2026-05-07)
+
+
+### Features
+
+* **api-security:** length contract for description/details (p0124) — every `## Output` section now states the channel-split rule: `description` ≤500 chars (terse headline rendered everywhere), long-form prose / multi-paragraph reasoning goes in `details` (≤4000 chars, rendered only in Markdown / SARIF properties, never in Console or Summary). JSON only, no preamble, no markdown wrapper, single line preferred. Affects all 16 api-security skills.
+
 ## [1.6.1](https://github.com/holgerleichsenring/agent-smith-skills/compare/v1.6.0...v1.6.1) (2026-05-07)
 
 

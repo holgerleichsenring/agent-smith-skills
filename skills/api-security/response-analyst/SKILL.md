@@ -48,3 +48,5 @@ Check for:
 ## Output
 
 Per the framework observation schema. Set `api_path` to HTTP method + path for endpoint-level findings, or `schema_name` for schema-level findings. `description` covers what data is exposed and why it matters. Set `evidence_mode` to `"confirmed"` (probe comparison showed exposure) or `"potential"` (schema inference only).
+
+**Length contract:** `description` ≤500 chars (terse headline). Long-form prose / multi-paragraph reasoning goes in `details` (≤4000 chars) — rendered only in Markdown / SARIF properties, never in Console or Summary. JSON only, no preamble, no markdown wrapper, single line preferred.

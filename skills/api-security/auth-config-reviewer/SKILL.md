@@ -58,4 +58,6 @@ Inputs you receive:
 
 Per the framework observation schema. `concern: "security"`, set `file` + `start_line` to the source location (e.g. `"src/Program.cs"` + `42`), and `evidence_mode: "analyzed_from_source"` since this skill only runs with source available.
 
+**Length contract:** `description` ≤500 chars (terse headline). Long-form prose / multi-paragraph reasoning goes in `details` (≤4000 chars) — rendered only in Markdown / SARIF properties, never in Console or Summary. JSON only, no preamble, no markdown wrapper, single line preferred.
+
 Multi-stack examples in `source.md`.

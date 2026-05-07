@@ -61,5 +61,7 @@ You MUST include every single finding that passes the filter — do NOT summariz
 do NOT limit the count, do NOT omit findings to save space.
 Include a summary: "Retained X of Y findings (Z filtered as false positives)"
 
+**Length contract:** When emitting kept observations, preserve the original `description` (≤500 chars headline) and `details` (≤4000 chars optional body). JSON only, no preamble, no markdown wrapper, single line preferred. The framework filters in batches under the model's max_output_tokens; emit only the kept observations from THIS batch — the framework concatenates batch outputs.
+
 Err on the side of removing findings. A false positive wastes developer time.
 A genuine finding that is slightly underreported can be caught in the next scan.

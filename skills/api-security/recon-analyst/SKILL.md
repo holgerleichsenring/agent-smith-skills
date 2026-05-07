@@ -51,3 +51,5 @@ Unauthenticated surface:
 ## Output
 
 Per the framework observation schema. Set `api_path` to HTTP method + path; for schema-level issues leave `api_path` null and set `category: "schema-level"`. `description` covers what an attacker learns and how they use it. Set `evidence_mode: "potential"` (always — this skill is passive-only).
+
+**Length contract:** `description` ≤500 chars (terse headline). Long-form prose / multi-paragraph reasoning goes in `details` (≤4000 chars) — rendered only in Markdown / SARIF properties, never in Console or Summary. JSON only, no preamble, no markdown wrapper, single line preferred.

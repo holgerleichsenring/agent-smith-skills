@@ -60,6 +60,8 @@ A handler reads or mutates a resource by primary key with no ownership check.
 
 Per the framework observation schema. `concern: "security"`, set `file` + `start_line` to the source location (e.g. `"src/Controllers/OrdersController.cs"` + `78`), and `evidence_mode: "analyzed_from_source"` since this skill only runs with source available.
 
+**Length contract:** `description` ≤500 chars (terse headline). Long-form prose / multi-paragraph reasoning goes in `details` (≤4000 chars) — rendered only in Markdown / SARIF properties, never in Console or Summary. JSON only, no preamble, no markdown wrapper, single line preferred.
+
 Example for a missing ownership predicate on `PUT /api/orders/{id}`: description `"PUT /api/orders/{id} loads order by id only; no UserId predicate"`, suggestion `"Add && o.UserId == currentUser.Id to the query and re-check after load"`, severity `"high"`, confidence `90`.
 
 Multi-stack examples in `source.md`.

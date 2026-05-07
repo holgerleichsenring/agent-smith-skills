@@ -60,3 +60,5 @@ Bearer vs Cookie:
 ## Output
 
 Per the framework observation schema. Set `category` to the OWASP API ID (e.g. `"API2:2023"`). Set `api_path` to the HTTP method + path; for JWT/OAuth issues that aren't endpoint-specific, set `category: "auth"` and leave `api_path` null.
+
+**Length contract:** `description` ≤500 chars (terse headline). Long-form prose / multi-paragraph reasoning goes in `details` (≤4000 chars) — rendered only in Markdown / SARIF properties, never in Console or Summary. JSON only, no preamble, no markdown wrapper, single line preferred.

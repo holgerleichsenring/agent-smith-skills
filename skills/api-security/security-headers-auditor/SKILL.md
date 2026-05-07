@@ -73,3 +73,5 @@ Dynamic-vs-source disagreement → severity `medium`, suggest reviewing reverse-
 ## Output
 
 Per the framework observation schema. `concern: "security"`, `category: "headers"`. For source-confirmed findings set `file` + `start_line` and `evidence_mode: "analyzed_from_source"`. For dynamic-only findings (Nuclei/ZAP) leave `file`/`start_line` null and set `evidence_mode: "confirmed"`. For dynamic-vs-source drift, set `evidence_mode: "confirmed"` and lead `rationale` with `"configuration drift: <description>"`.
+
+**Length contract:** `description` ≤500 chars (terse headline). Long-form prose / multi-paragraph reasoning goes in `details` (≤4000 chars) — rendered only in Markdown / SARIF properties, never in Console or Summary. JSON only, no preamble, no markdown wrapper, single line preferred.
