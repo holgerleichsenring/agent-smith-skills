@@ -34,6 +34,10 @@ concepts:
     - {key: cryptography, desc: "Project performs encryption, signing, hashing, or key management"}
     - {key: ai_or_llm_code, desc: "Project includes AI/LLM/MCP integration code (prompts, tools, agents, RAG)"}
     - {key: pii_handling, desc: "Project processes personally identifiable information (PII) or personal data"}
+    - {key: auth_scheme_present, desc: "API target declares one or more security schemes in its OpenAPI spec (OAuth2, bearer, apiKey)"}
+    - {key: id_path_parameters, desc: "API target exposes routes with id-style path parameters ({id}, {userId}, {orderId})"}
+    - {key: request_body_endpoints, desc: "API target exposes endpoints accepting request bodies (POST/PUT/PATCH with content)"}
+    - {key: role_based_endpoints, desc: "API target implies role-based access (admin paths, scope-restricted operations, role enums in schema)"}
 
   change_signals:
     - {key: pattern_decision, desc: "Pattern- or boundary-decision in ticket"}
@@ -75,3 +79,14 @@ concepts:
     - {key: nuclei_findings, desc: "Current run has Nuclei scan findings ready for OWASP API categorisation"}
     - {key: api_target, desc: "Pipeline target is a REST or GraphQL API surface"}
     - {key: owasp_api_concern, desc: "Ticket or run context flags an OWASP API Security Top 10 concern"}
+    - {key: api_security_scan, desc: "Active pipeline is api-security-scan (vs generic security-scan or other pipeline types)"}
+    - {key: swagger_spec, desc: "OpenAPI/Swagger spec was loaded successfully and is available to skills"}
+    - {key: api_source_available, desc: "Repo source for the API target was cloned and is available for code-aware static review"}
+    - {key: auth_bootstrap_files, desc: "Auth-bootstrap source excerpts (Program.cs, Startup, security middleware) are extracted and ready for review"}
+    - {key: controller_handlers_mapped, desc: "ApiCodeContext mapped controller routes to source handlers — handler-bodies available for ownership / authorization review"}
+    - {key: upload_handlers_mapped, desc: "ApiCodeContext mapped file-upload handlers — handler-bodies available for upload-validator review"}
+    - {key: header_findings, desc: "Current run has header-related findings from Nuclei or ZAP ready for posture review"}
+    - {key: api_headers_baseline, desc: "api-headers baseline (baselines/api-headers.yaml) loaded and available for header-audit comparison"}
+    - {key: multiple_personas, desc: "Multiple authentication personas (user1+user2, user1+admin) are configured for active probing"}
+    - {key: findings_present, desc: "Current run has produced at least one observation (any concern, any source)"}
+    - {key: multiple_findings, desc: "Current run has produced multiple observations that may share root causes worth chaining"}
