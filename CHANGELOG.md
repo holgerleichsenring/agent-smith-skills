@@ -1,11 +1,18 @@
 # Changelog
 
-## [1.5.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v1.4.0...v1.5.0) (2026-05-06)
+## [1.5.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v1.4.1...v1.5.0) (2026-05-07)
 
 
 ### Features
 
 * **api-security:** strip per-SKILL Output format sections — framework observation-schema is now the single source of truth, ending severity drift (`critical`/`warning`/etc.) and field-shape conflicts that broke ObservationParser. Domain-specific guidance (OWASP category, evidence_mode, endpoint location) moves into description/rationale/location of the framework schema. Affects all 16 api-security skills (p0122).
+
+## [1.4.1](https://github.com/holgerleichsenring/agent-smith-skills/compare/v1.4.0...v1.4.1) (2026-05-06)
+
+
+### Bug Fixes
+
+* **release:** ship baselines/ in the catalog tarball ([#9](https://github.com/holgerleichsenring/agent-smith-skills/issues/9)) ([71dc687](https://github.com/holgerleichsenring/agent-smith-skills/commit/71dc687322b8fc1d91990e6dec63c1df610fea5d))
 
 ## [1.4.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v1.3.0...v1.4.0) (2026-05-06)
 
