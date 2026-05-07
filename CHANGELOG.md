@@ -5,6 +5,13 @@
 
 ### Features
 
+* **api-security:** typed observation-schema fields (p0123) ([#14](https://github.com/holgerleichsenring/agent-smith-skills/issues/14)) ([a22fb3f](https://github.com/holgerleichsenring/agent-smith-skills/commit/a22fb3f77a4c6cce8610f15a97c7445541c6be98))
+
+## [1.6.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v1.5.0...v1.6.0) (2026-05-07)
+
+
+### Features
+
 * **api-security:** typed observation-schema fields (p0123) — per-skill hints updated from rationale-prefix conventions to typed `evidence_mode` / `category` / `file` / `start_line` / `api_path` / `schema_name` fields. Framework absorbed Finding into SkillObservation as the universal pipeline carrier; skills now write structured location data directly instead of free-text Location strings. Affects all 16 api-security skills.
 
 ## [1.5.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v1.4.1...v1.5.0) (2026-05-07)
