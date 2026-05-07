@@ -23,12 +23,6 @@ You correlate ZAP scan findings with static analysis results.
 - Cookie flags on non-session cookies
 - Generic information disclosure on health/status endpoints
 
-## Output format per finding
-- severity: CRITICAL | HIGH | MEDIUM | LOW
-- confidence: 1-10
-- owasp_category: A01-A10
-- endpoint: HTTP method + path
-- title: max 80 chars
-- description: what was found + business impact
-- correlated_static: reference to static finding if exists
-- false_positive: true/false with reason
+## Output
+
+Per the framework observation schema. Lead `description` with the OWASP category (e.g. `A01: …`); HTTP method + path goes into `location`; cross-references to static findings (if any) belong in `rationale` (e.g. `correlated-static: <static-finding-title>`). Drop suspected false positives at source — do not emit them with `false_positive: true`.

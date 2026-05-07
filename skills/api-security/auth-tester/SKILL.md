@@ -44,10 +44,6 @@ Bearer vs Cookie:
 - Cookies without Secure, HttpOnly, or SameSite=Strict/Lax flags noted
   in schema or Nuclei response headers
 
-Output format per finding:
-- severity: HIGH | MEDIUM | LOW
-- owasp_category: e.g. API2:2023 — Broken Authentication
-- endpoint: HTTP method + path, or "token-level" for JWT/OAuth issues
-- title: max 80 chars
-- description: detailed explanation with attack scenario and impact
-- confidence: 1-10
+## Output
+
+Per the framework observation schema. Lead `description` with the OWASP category (e.g. `API2:2023 — Broken Authentication: …`); put HTTP method + path into `location` (or `"token-level"` for JWT/OAuth issues that aren't endpoint-specific).

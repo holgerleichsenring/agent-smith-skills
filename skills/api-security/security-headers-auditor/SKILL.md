@@ -57,16 +57,6 @@ Dynamic-vs-source disagreement → severity `medium`, suggest reviewing reverse-
 - 7-8: dynamic-only signal, source not available
 - ≤6: only one weak indicator with conflicting evidence
 
-## Output format
+## Output
 
-```json
-{
-  "concern": "security",
-  "severity": "critical" | "high" | "medium" | "low",
-  "description": "Which header, what is missing or weak, why it matters for this API",
-  "suggestion": "Concrete value or middleware change",
-  "confidence": 0-100,
-  "location": "src/Program.cs:42" | null,
-  "evidence_mode": "analyzed_from_source" | "dynamic" | "configuration_drift"
-}
-```
+Per the framework observation schema. `concern: "security"`; put the file:line into `location` when the finding is source-confirmed, otherwise leave it null; lead `rationale` with one of `evidence: analyzed_from_source`, `evidence: dynamic`, or `evidence: configuration_drift` to mark the signal type.

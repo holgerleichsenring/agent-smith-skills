@@ -35,10 +35,6 @@ Unauthenticated surface:
 - Health check and status endpoints that reveal system state
 - Swagger/OpenAPI spec itself exposed publicly
 
-Output format per finding:
-- severity: HIGH | MEDIUM | LOW
-- endpoint: HTTP method + path, or "schema-level"
-- title: max 80 chars
-- description: what an attacker learns and how they use it
-- confidence: 1-10
-- evidence_mode: potential (always — this skill is passive-only)
+## Output
+
+Per the framework observation schema. HTTP method + path goes into `location` (or `"schema-level"` for global issues); `description` covers what an attacker learns and how they use it; lead `rationale` with `evidence: potential` (always — this skill is passive-only).

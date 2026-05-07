@@ -48,11 +48,6 @@ Produce the final ordered list of findings, with:
 - New chain findings (describing the multi-step attack path)
 - Clear distinction between confirmed (probe-backed) and potential (schema-inferred) findings
 
-Output format per finding:
-- severity: CRITICAL | HIGH | MEDIUM | LOW
-- endpoint: HTTP method + path (or "chain" for multi-endpoint chains)
-- title: max 80 chars
-- description: full attack narrative including chain steps if applicable
-- confidence: 1-10
-- evidence_mode: confirmed | potential
-- chain_members: list of original finding titles that form the chain (if applicable)
+## Output
+
+Per the framework observation schema. Put the HTTP method + path into `location` (use `"chain"` for multi-endpoint chains), the full attack narrative including chain steps into `description`, and prefix `rationale` with `evidence: confirmed` or `evidence: potential` plus the list of contributing finding titles when applicable (`chain: [finding-title-1, finding-title-2]`).

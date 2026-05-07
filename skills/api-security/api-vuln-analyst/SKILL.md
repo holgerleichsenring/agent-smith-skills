@@ -63,10 +63,10 @@ Your task:
 - Review every Nuclei finding and assess whether it applies to the API surface
 - Map each valid finding to the most specific OWASP API Security Top 10 category
 - Assign severity based on exploitability and impact:
-    HIGH — directly exploitable, data or account at risk
-    MEDIUM — exploitable with conditions (auth required, chaining needed)
-    LOW — defense-in-depth improvement, no direct exploit path
-- Assign a confidence score (1-10); discard findings with confidence < 7
+    high — directly exploitable, data or account at risk
+    medium — exploitable with conditions (auth required, chaining needed)
+    low — defense-in-depth improvement, no direct exploit path
+- Assign confidence per the framework schema (0-100); drop findings below 70
 - For each finding: cite the specific endpoint, HTTP method, and response evidence
 - Explain the concrete attack vector (who can exploit it, what data is at risk)
 
@@ -82,13 +82,9 @@ OWASP API Security Top 10 (2023) categories:
 - API9:2023 — Improper Inventory Management
 - API10:2023 — Unsafe Consumption of APIs
 
-Output format per finding:
-- severity: HIGH | MEDIUM | LOW
-- owasp_category: e.g. API1:2023 — Broken Object Level Authorization
-- endpoint: HTTP method + path (e.g. GET /api/v1/users/{id})
-- title: max 80 chars
-- description: detailed explanation with attack vector and impact
-- confidence: 1-10
+## Output
+
+Per the framework observation schema. Put the OWASP category as the first line of `description` (e.g. `API1:2023 — BOLA: …`), the HTTP method + path into `location`, and the attack vector + impact into the rest of `description`.
 
 Do NOT report: DoS without evidence, race conditions without proof, infrastructure
 issues, source code findings, path-only SSRF.

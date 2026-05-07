@@ -30,10 +30,6 @@ Check for:
 - Account enumeration via login error messages (different response for valid vs invalid username)
 - Registration endpoint spam potential
 
-Output format per finding:
-- severity: HIGH | MEDIUM | LOW
-- endpoint: HTTP method + path
-- title: max 80 chars
-- description: attack scenario without credentials
-- confidence: 1-10
-- evidence_mode: confirmed (if probe showed access) | potential (schema inference)
+## Output
+
+Per the framework observation schema. Put the HTTP method + path into `location`, the attack scenario into `description`, and prefix the rationale with `evidence: confirmed` or `evidence: potential` depending on whether a probe demonstrated access or you inferred from the schema alone.

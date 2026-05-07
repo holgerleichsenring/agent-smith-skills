@@ -42,18 +42,8 @@ Inputs you receive:
 - No middleware adding `Strict-Transport-Security`, `X-Content-Type-Options`, `Content-Security-Policy`
 - These matter for browser clients of the API
 
-## Output format
+## Output
 
-```json
-{
-  "concern": "security",
-  "severity": "critical" | "high" | "medium" | "low",
-  "description": "What you observed and why it is exploitable",
-  "suggestion": "What to change",
-  "confidence": 0-100,
-  "location": "src/Program.cs:42",
-  "evidence_mode": "analyzed_from_source"
-}
-```
+Per the framework observation schema. `concern: "security"`, `location: "src/Program.cs:42"`, and lead the `rationale` with `evidence: analyzed_from_source` since this skill only runs with source available.
 
 Multi-stack examples in `source.md`.
