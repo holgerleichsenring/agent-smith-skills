@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.6.1](https://github.com/holgerleichsenring/agent-smith-skills/compare/v1.6.0...v1.6.1) (2026-05-07)
+
+
+### Bug Fixes
+
+* **api-security:** add activation + role_assignment metadata to all skills ([#16](https://github.com/holgerleichsenring/agent-smith-skills/issues/16)) ([02240e0](https://github.com/holgerleichsenring/agent-smith-skills/commit/02240e0013d8a784b478a012d8644604ffef3f2a))
+
 ## [1.6.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v1.5.0...v1.6.0) (2026-05-07)
 
 
