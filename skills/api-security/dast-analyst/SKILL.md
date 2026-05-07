@@ -2,7 +2,7 @@
 name: dast-analyst
 description: "Correlates OWASP ZAP dynamic findings with static analysis results, filters auth-protected false positives, maps to OWASP Top 10"
 version: 2.0.0
-roles_supported: [analyst, lead]
+roles_supported: [analyst]
 
 activation:
   positive:
@@ -12,12 +12,6 @@ activation:
     - {key: empty_dast, desc: "ZAP produced zero findings"}
 
 role_assignment:
-  lead:
-    positive:
-      - {key: dast_primary, desc: "ZAP/DAST findings dominate this run"}
-    negative:
-      - {key: nuclei_primary, desc: "Nuclei findings dominate (api-vuln-analyst leads)"}
-      - {key: design_primary, desc: "API-design audit is the primary task (api-design-auditor leads)"}
   analyst:
     positive:
       - {key: dast_correlation_needed, desc: "ZAP findings need OWASP categorization and correlation"}
