@@ -72,3 +72,6 @@ concepts:
     - {key: security_findings_present, desc: "Current pipeline run has produced security observations"}
     - {key: scan_context, desc: "Active pipeline is a scan pipeline (security-scan, api-scan)"}
     - {key: multiple_finding_sources, desc: "Findings in current run come from multiple sources (commodity tools + LLM skills)"}
+    - {key: nuclei_findings, desc: "Current run has Nuclei scan findings ready for OWASP API categorisation"}
+    - {key: api_target, desc: "Pipeline target is a REST or GraphQL API surface"}
+    - {key: owasp_api_concern, desc: "Ticket or run context flags an OWASP API Security Top 10 concern"}
