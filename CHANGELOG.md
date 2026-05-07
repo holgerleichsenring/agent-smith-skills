@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.7.1](https://github.com/holgerleichsenring/agent-smith-skills/compare/v1.7.0...v1.7.1) (2026-05-07)
+
+
+### Bug Fixes
+
+* **api-security:** close vocab gap + drop unused Lead role from 2 skills ([#20](https://github.com/holgerleichsenring/agent-smith-skills/issues/20)) ([0677d3d](https://github.com/holgerleichsenring/agent-smith-skills/commit/0677d3db40d8ea6452012bcd09321e7d3511e1fc))
+
 ## [1.7.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v1.6.1...v1.7.0) (2026-05-07)
 
 
