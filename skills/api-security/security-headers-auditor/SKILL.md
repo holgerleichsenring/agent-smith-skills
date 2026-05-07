@@ -3,6 +3,19 @@ name: security-headers-auditor
 description: "Audits HTTP security headers — observed (Nuclei/ZAP) and source-side middleware — against the configured baseline. Reports missing, weak, and well-known-bad values"
 version: 2.0.0
 roles_supported: [analyst]
+
+activation:
+  positive:
+    - {key: header_findings, desc: "Nuclei/ZAP reported header-related findings"}
+    - {key: api_headers_baseline, desc: "api-headers baseline is loaded for comparison"}
+  negative:
+    - {key: empty_scan, desc: "No header findings to audit"}
+
+role_assignment:
+  analyst:
+    positive:
+      - {key: header_audit_needed, desc: "Pipeline needs HTTP security header audit"}
+      - {key: api_security_scan, desc: "api-security-scan pipeline always benefits from header audit"}
 ---
 
 ## as_analyst

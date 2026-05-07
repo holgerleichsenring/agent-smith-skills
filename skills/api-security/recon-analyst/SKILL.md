@@ -3,6 +3,19 @@ name: recon-analyst
 description: "Passive reconnaissance: maps the attack surface from the outside — visible endpoints, headers, version disclosure, unauthenticated surface area"
 version: 2.0.0
 roles_supported: [analyst]
+
+activation:
+  positive:
+    - {key: swagger_spec, desc: "OpenAPI spec available for surface mapping"}
+    - {key: api_target, desc: "Target is a REST or GraphQL API"}
+  negative:
+    - {key: ui_only, desc: "Target is a static-content site without API surface"}
+
+role_assignment:
+  analyst:
+    positive:
+      - {key: recon_perspective_needed, desc: "Pipeline benefits from outside-in attack-surface mapping"}
+      - {key: api_security_scan, desc: "api-security-scan pipeline always benefits from recon perspective"}
 ---
 
 ## as_analyst

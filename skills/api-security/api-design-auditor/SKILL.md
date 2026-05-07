@@ -2,7 +2,26 @@
 name: api-design-auditor
 description: "Deep schema analysis of swagger.json — structural security, data exposure, REST semantics, and Spectral findings interpretation"
 version: 2.0.0
-roles_supported: [analyst]
+roles_supported: [analyst, lead]
+
+activation:
+  positive:
+    - {key: swagger_spec, desc: "OpenAPI/Swagger spec available for schema analysis"}
+    - {key: spectral_findings, desc: "Spectral lint produced findings to contextualize"}
+  negative:
+    - {key: ui_only, desc: "Target is a static-content site without API surface"}
+
+role_assignment:
+  lead:
+    positive:
+      - {key: design_primary, desc: "API-design audit is the primary task"}
+    negative:
+      - {key: nuclei_primary, desc: "Nuclei findings dominate (api-vuln-analyst leads)"}
+      - {key: dast_primary, desc: "ZAP/DAST findings dominate (dast-analyst leads)"}
+  analyst:
+    positive:
+      - {key: schema_review_needed, desc: "Pipeline benefits from schema-design analysis"}
+      - {key: api_security_scan, desc: "api-security-scan pipeline always benefits from this perspective"}
 ---
 
 ## as_analyst
