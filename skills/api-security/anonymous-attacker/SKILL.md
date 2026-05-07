@@ -3,6 +3,19 @@ name: anonymous-attacker
 description: "Tests unauthenticated attack surface: public endpoints, rate limiting gaps, token entropy, brute-force vectors, resource exhaustion"
 version: 2.0.0
 roles_supported: [analyst]
+
+activation:
+  positive:
+    - {key: api_target, desc: "Target is a REST or GraphQL API"}
+    - {key: swagger_spec, desc: "OpenAPI spec available for endpoint enumeration"}
+  negative:
+    - {key: ui_only, desc: "Target is a static-content site without API surface"}
+
+role_assignment:
+  analyst:
+    positive:
+      - {key: unauthenticated_surface, desc: "Pipeline benefits from anonymous-attacker perspective"}
+      - {key: api_security_scan, desc: "api-security-scan pipeline always benefits from this perspective"}
 ---
 
 ## as_analyst

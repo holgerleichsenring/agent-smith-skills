@@ -3,6 +3,19 @@ name: idor-prober
 description: "Tests Insecure Direct Object References (IDOR/BOLA): cross-user resource access via sequential IDs, guessable references, missing ownership checks"
 version: 2.0.0
 roles_supported: [analyst]
+
+activation:
+  positive:
+    - {key: id_path_parameters, desc: "API has endpoints with id path parameters"}
+    - {key: multiple_personas, desc: "Multiple authenticated personas configured for cross-user probing"}
+  negative:
+    - {key: ui_only, desc: "Target is a static-content site without API surface"}
+
+role_assignment:
+  analyst:
+    positive:
+      - {key: bola_review_needed, desc: "Pipeline needs OWASP API1:2023 BOLA coverage"}
+      - {key: api_security_scan, desc: "api-security-scan pipeline always benefits from IDOR perspective"}
 ---
 
 ## as_analyst

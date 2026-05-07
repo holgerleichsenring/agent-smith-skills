@@ -3,6 +3,19 @@ name: chain-analyst
 description: "Executor: receives all contributor findings, reasons about multi-step attack chains, adjusts severity for combined impact, deduplicates findings"
 version: 2.0.0
 roles_supported: [filter]
+
+activation:
+  positive:
+    - {key: multiple_findings, desc: "Multiple findings present that may form attack chains"}
+    - {key: api_security_scan, desc: "Pipeline is api-security-scan"}
+  negative:
+    - {key: empty_scan, desc: "No findings to chain"}
+
+role_assignment:
+  filter:
+    positive:
+      - {key: chain_synthesis_needed, desc: "Multi-step attack reasoning is required before final filter"}
+      - {key: api_security_scan, desc: "api-security-scan pipeline always synthesizes chains before delivery"}
 ---
 
 ## as_filter
