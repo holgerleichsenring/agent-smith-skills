@@ -304,3 +304,22 @@ concepts:
     type: bool
     description: "Current run has produced multiple observations that may share root causes worth chaining"
     writers: []
+
+  # --- p0125c: typed publication by pre-skill handlers ---
+  - name: pipeline_name
+    type: enum
+    enum_values: [api-security-scan, security-scan, fix-bug, feature-implementation, mad-discussion]
+    description: "Identity of the currently routing pipeline; published once at the head of every chain"
+    writers: [PipelineNameInitializerHandler]
+  - name: source_available
+    type: bool
+    description: "Source repository was successfully resolved (cloned or bind-mounted) for this run"
+    writers: [CheckoutSourceHandler, TryCheckoutSourceHandler]
+  - name: context_yaml_present
+    type: bool
+    description: ".agentsmith/context.yaml is present in the working repo"
+    writers: [BootstrapCheckHandler]
+  - name: coding_principles_present
+    type: bool
+    description: ".agentsmith/coding-principles.md is present in the working repo"
+    writers: [BootstrapCheckHandler]
