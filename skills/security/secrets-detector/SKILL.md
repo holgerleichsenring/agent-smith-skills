@@ -1,37 +1,13 @@
 ---
-name: secrets-detector
-version: 2.0.0
-description: >
-  Secrets detection specialist — hardcoded API keys, tokens, connection
-  strings, private keys, credentials in source. Analyst role.
-
-roles_supported: [analyst]
-
-activation:
-  positive:
-    - {key: code_change, desc: "Ticket changes executable code"}
-    - {key: configuration_management, desc: "Project consumes runtime configuration"}
-    - {key: secrets_risk_pattern, desc: "Diff includes patterns suggestive of credentials or keys"}
-  negative:
-    - {key: typo_or_docs, desc: "Documentation, comment, or typo change"}
-
-role_assignment:
-  analyst:
-    positive:
-      - {key: secrets_review_needed, desc: "Hardcoded credentials review needed"}
-
-references: []
-
-output_contract:
-  schema_ref: skill-observation
-  hard_limits:
-    max_observations: 10
-    max_chars_per_field: 250
-  output_type:
-    analyst: list
+name: "secrets-detector"
+version: "2.0.0"
+description: "Secrets detection specialist — hardcoded API keys, tokens, connection strings, private keys, credentials in source. Analyst role."
+role: "investigator"
+investigator_mode: "verify_hint"
+category: "secrets"
+output_schema: "observation"
+activates_when: 'pipeline_name = "security-scan"'
 ---
-
-## as_analyst
 
 You review code changes for hardcoded credentials and sensitive data exposure.
 

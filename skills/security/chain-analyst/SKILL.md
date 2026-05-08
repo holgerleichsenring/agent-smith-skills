@@ -1,39 +1,11 @@
 ---
-name: chain-analyst
-version: 2.0.0
-description: >
-  Final-phase synthesizer for security scans — aggregates findings from
-  commodity tools and LLM skills, detects multi-step attack chains, adjusts
-  severity for combined impact, deduplicates, produces final report artifact.
-
-roles_supported: [filter]
-
-activation:
-  positive:
-    - {key: security_findings_present, desc: "Pipeline produced security observations to synthesize"}
-    - {key: scan_context, desc: "Active pipeline is a scan pipeline (security-scan, api-scan)"}
-    - {key: multiple_finding_sources, desc: "Findings come from multiple sources (commodity tools + LLM skills)"}
-  negative:
-    - {key: no_findings, desc: "No security findings to analyze"}
-    - {key: non_scan_pipeline, desc: "Pipeline is not a scan-style pipeline"}
-
-role_assignment:
-  filter:
-    positive:
-      - {key: chain_analysis_needed, desc: "Multi-source findings should be synthesized into chains and final report"}
-
-references: []
-
-output_contract:
-  schema_ref: skill-observation
-  hard_limits:
-    max_observations: 100
-    max_chars_per_field: 400
-  output_type:
-    filter: artifact
+name: "chain-analyst"
+version: "2.0.0"
+description: "Final-phase synthesizer for security scans — aggregates findings from commodity tools and LLM skills, detects multi-step attack chains, adjusts severity for combined impact, deduplicates, produces ..."
+role: "filter"
+output_schema: "observation"
+activates_when: 'pipeline_name = "security-scan"'
 ---
-
-## as_filter
 
 You are the final analyst for the security scan. You receive ALL findings
 from:

@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.0.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v1.9.0...v2.0.0) (2026-05-08)
+
+### BREAKING CHANGES
+
+* **all-skills:** SKILL.md format migrated to single-body, role-as-frontmatter shape (agent-smith p0127c). Legacy `roles_supported` / `role_assignment` / `activation` / `output_contract` fields removed; new fields `role` (producer/investigator/judge/filter), `investigator_mode` (verify_hint/survey/verify_diff), `category` (closed enum: auth, injection, secrets, iam, crypto, headers, inputs, outputs), `survey_scope`, `block_condition`, `loop`, `output_schema` (observation/plan/diff/bootstrap), and `activates_when` (boolean expression over the typed concept vocabulary). Multi-role skills split into one-skill-per-role files via the `<original>-<suffix>` naming convention: producer→`-planner`, investigator→`-investigator`, judge→`-judge`, filter→`-filter`. Splits: `architect` → architect-planner / architect-investigator / architect-judge; `dba` similarly; `security-reviewer` similarly; `backend-developer` / `frontend-developer` / `devops` / `tester` → -investigator + -judge; `api-vuln-analyst` → -planner + -investigator. Catalog grows from 44 → 55 SKILL.md files.
+* **vocabulary:** `pipeline_name` enum gains `legal-analysis` so legal/* skills can activate.
+* **agent-smith pin:** requires agent-smith ≥ 2.0.0; the legacy parser is deleted in the matching agent-smith PR.
+
 ## [1.7.1](https://github.com/holgerleichsenring/agent-smith-skills/compare/v1.7.0...v1.7.1) (2026-05-07)
 
 

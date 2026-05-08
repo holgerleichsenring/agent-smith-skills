@@ -1,24 +1,13 @@
 ---
-name: api-design-auditor
+name: "api-design-auditor"
+version: "2.0.0"
 description: "Deep schema analysis of swagger.json — structural security, data exposure, REST semantics, and Spectral findings interpretation"
-version: 2.0.0
-roles_supported: [analyst]
-
-activation:
-  positive:
-    - {key: swagger_spec, desc: "OpenAPI/Swagger spec available for schema analysis"}
-    - {key: spectral_findings, desc: "Spectral lint produced findings to contextualize"}
-  negative:
-    - {key: ui_only, desc: "Target is a static-content site without API surface"}
-
-role_assignment:
-  analyst:
-    positive:
-      - {key: schema_review_needed, desc: "Pipeline benefits from schema-design analysis"}
-      - {key: api_security_scan, desc: "api-security-scan pipeline always benefits from this perspective"}
+role: "investigator"
+investigator_mode: "verify_hint"
+category: "outputs"
+output_schema: "observation"
+activates_when: 'pipeline_name = "api-security-scan"'
 ---
-
-## as_analyst
 
 You are an API design security auditor performing deep schema analysis.
 You have access to the full swagger.json and Spectral lint findings.

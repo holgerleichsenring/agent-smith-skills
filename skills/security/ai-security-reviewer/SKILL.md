@@ -1,37 +1,13 @@
 ---
-name: ai-security-reviewer
-version: 2.0.0
-description: >
-  AI/LLM security specialist — OWASP LLM Top 10, OWASP Agentic Top 10,
-  MCP security, prompt injection, RAG poisoning. Analyst role.
-
-roles_supported: [analyst]
-
-activation:
-  positive:
-    - {key: ai_or_llm_code, desc: "Project includes AI/LLM/MCP code or integration"}
-    - {key: prompt_or_tool_change, desc: "Ticket changes LLM prompts, tools, or agentic logic"}
-  negative:
-    - {key: typo_or_docs, desc: "Documentation, comment, or typo change"}
-    - {key: project_has_no_ai_code, desc: "Project does not contain AI/LLM code"}
-
-role_assignment:
-  analyst:
-    positive:
-      - {key: ai_security_review_needed, desc: "AI security review appropriate (OWASP LLM/Agentic Top 10)"}
-
-references: []
-
-output_contract:
-  schema_ref: skill-observation
-  hard_limits:
-    max_observations: 12
-    max_chars_per_field: 250
-  output_type:
-    analyst: list
+name: "ai-security-reviewer"
+version: "2.0.0"
+description: "AI/LLM security specialist — OWASP LLM Top 10, OWASP Agentic Top 10, MCP security, prompt injection, RAG poisoning. Analyst role."
+role: "investigator"
+investigator_mode: "verify_hint"
+category: "inputs"
+output_schema: "observation"
+activates_when: 'pipeline_name = "security-scan"'
 ---
-
-## as_analyst
 
 You review code for vulnerabilities specific to AI-powered applications,
 following OWASP LLM Top 10 (2025) and OWASP Agentic AI Top 10. Reference any

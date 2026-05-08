@@ -1,23 +1,13 @@
 ---
-name: controller-implementation-reviewer
+name: "controller-implementation-reviewer"
+version: "2.0.0"
 description: "Source-code review of state-changing controller handlers: input validation gaps, exception leakage, DTO over-exposure, SQL/NoSQL concatenation, missing authorization, secret/PII in logs"
-version: 2.0.0
-roles_supported: [analyst]
-
-activation:
-  positive:
-    - {key: api_source_available, desc: "Source code is available for static review"}
-    - {key: controller_handlers_mapped, desc: "ApiCodeContext mapped controller handlers"}
-  negative:
-    - {key: source_unavailable, desc: "No source code available — passive schema-only mode"}
-
-role_assignment:
-  analyst:
-    positive:
-      - {key: controller_review_needed, desc: "Source available — code-aware controller review possible"}
+role: "investigator"
+investigator_mode: "verify_hint"
+category: "inputs"
+output_schema: "observation"
+activates_when: 'pipeline_name = "api-security-scan"'
 ---
-
-## as_analyst
 
 You review the state-changing controller handlers (POST / PUT / DELETE / PATCH)
 directly in source. The Project Brief in your context tells you which language

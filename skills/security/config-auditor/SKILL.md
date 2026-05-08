@@ -1,38 +1,13 @@
 ---
-name: config-auditor
-version: 2.0.0
-description: >
-  Infrastructure and configuration security specialist — Dockerfiles, k8s,
-  Terraform, CI/CD pipelines, web server configs. Analyst role.
-
-roles_supported: [analyst]
-
-activation:
-  positive:
-    - {key: infrastructure_definition, desc: "Project ships infra-as-code"}
-    - {key: configuration_management, desc: "Project consumes structured configuration"}
-    - {key: config_or_infra_change, desc: "Ticket changes infra/config files (Dockerfile, k8s, terraform, CI yaml)"}
-  negative:
-    - {key: typo_or_docs, desc: "Documentation, comment, or typo change"}
-    - {key: project_has_no_config_files, desc: "Project has no structured config or infra-as-code"}
-
-role_assignment:
-  analyst:
-    positive:
-      - {key: config_security_review_needed, desc: "Configuration security review appropriate"}
-
-references: []
-
-output_contract:
-  schema_ref: skill-observation
-  hard_limits:
-    max_observations: 12
-    max_chars_per_field: 250
-  output_type:
-    analyst: list
+name: "config-auditor"
+version: "2.0.0"
+description: "Infrastructure and configuration security specialist — Dockerfiles, k8s, Terraform, CI/CD pipelines, web server configs. Analyst role."
+role: "investigator"
+investigator_mode: "verify_hint"
+category: "headers"
+output_schema: "observation"
+activates_when: 'pipeline_name = "security-scan"'
 ---
-
-## as_analyst
 
 You review configuration and infrastructure files for security
 misconfigurations. Reference existing StaticPatternScan findings for the
