@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.4.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v2.3.0...v2.4.0) (2026-05-09)
+
+### Features
+
+* **csharp-bootstrap:** first language-specific producer skill for the init-project pipeline (`skills/coding/csharp-bootstrap/`). Activates on `project_language = "csharp"`. Writes `.agentsmith/context.yaml` + `.agentsmith/coding-principles.md` via the bootstrap-phase WriteFile tool (path-write-guard from agent-smith p0126c restricts writes to those two paths). Pairs with agent-smith p0130a's BootstrapGateHandler — code-touching pipelines now abort with "run init-project first" when either file is missing. Slices node / python / generic counterparts ride in 2.5.0 (p0130b).
+* **vocabulary:** new `project_language` enum concept (csharp, node, python, generic) added to `concept-vocabulary.yaml`. Published by agent-smith's `ProjectAnalyzer` once detection lands; consumed by language-specific bootstrap skill `activates_when` expressions.
+
 ## [2.3.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v2.2.0...v2.3.0) (2026-05-09)
 
 ### Features

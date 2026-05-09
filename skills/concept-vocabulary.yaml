@@ -323,3 +323,10 @@ concepts:
     type: bool
     description: ".agentsmith/coding-principles.md is present in the working repo"
     writers: [BootstrapCheckHandler]
+
+  # --- p0130a: bootstrap producer-skill activation by detected language ---
+  - name: project_language
+    type: enum
+    enum_values: [csharp, node, python, generic]
+    description: "Primary project language as detected by ProjectAnalyzer; activates language-specific bootstrap producer skills (csharp-bootstrap, node-bootstrap, python-bootstrap, generic-bootstrap)"
+    writers: [ProjectAnalyzer]
