@@ -1,5 +1,11 @@
 # Changelog
 
+## [2.1.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v2.0.0...v2.1.0) (2026-05-09)
+
+### Features
+
+* **scope-verifier:** new VerifyDiff investigator skill (`role: investigator`, `investigator_mode: verify_diff`) under `skills/coding/scope-verifier/`. Compares the implementer's Diff against the Plan's `scope.files`; flags any out-of-scope file change as a blocking observation with `concern: Scope` / `severity: high`. Test-file siblings are allowed via project-judgment heuristics — no hardcoded regex; the SKILL.md body lists worked examples for C# / TypeScript / Python / Java / Go / Go and falls back to "when in doubt, allow the test file." Activates on `pipeline_name = "fix-bug"` or `"feature-implementation"`. Catches the Bug-18693 class of regression where a single-file Plan grows to 22 changed files at implementation time. Pairs with agent-smith p0129a (Verify-phase wiring + InsertNext-based re-implementation loop).
+
 ## [2.0.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v1.9.0...v2.0.0) (2026-05-08)
 
 ### BREAKING CHANGES
