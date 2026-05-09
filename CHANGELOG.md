@@ -1,5 +1,14 @@
 # Changelog
 
+## [2.2.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v2.1.0...v2.2.0) (2026-05-09)
+
+### Features
+
+* **build-verifier:** new VerifyDiff investigator skill (`skills/coding/build-verifier/`). Static-analyzes the Diff for likely build breakage — missing imports / using statements, removed-but-still-referenced members, interface signatures changed without implementation updates, malformed patch hunks. Blocking only at severity=high + confidence≥70. Pairs with agent-smith p0129a's VerifyRoundHandler dispatch path; activates on `pipeline_name = "fix-bug" OR pipeline_name = "feature-implementation"`.
+* **test-verifier:** new VerifyDiff investigator skill (`skills/coding/test-verifier/`). Static-analyzes the Diff for test-coverage gaps — new public surface without tests, business-logic changes without test updates, weakened assertions. Blocking ONLY on test-removal-without-justification (rationale not stated in Plan); coverage-gap notes are non-blocking medium-severity. Activates on the same pipelines as build-verifier.
+
+Both skills exercise the existing VerifyRoundHandler infrastructure shipped in agent-smith p0129a — no new agent-smith code needed; the handler already filters by role + investigator_mode + activates_when.
+
 ## [2.1.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v2.0.0...v2.1.0) (2026-05-09)
 
 ### Features
