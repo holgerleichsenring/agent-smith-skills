@@ -1,5 +1,11 @@
 # Changelog
 
+## [2.3.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v2.2.0...v2.3.0) (2026-05-09)
+
+### Features
+
+* **architecture-verifier:** new VerifyDiff investigator skill (`skills/coding/architecture-verifier/`). Compares the Diff against the project's `coding-principles.md` (now threaded into the verifier prompt by agent-smith p0129c's VerifierPromptBuilder extension). Flags only checkable rules with direct diff evidence — hard numerical limits (class size, method length), naming conventions, forbidden patterns, required patterns. Conservative discipline: subjective principles ("readable code", "follow SOLID") are explicitly out of scope. Blocking only at severity=high + confidence≥70 + direct evidence. Activates on `pipeline_name = "fix-bug" OR pipeline_name = "feature-implementation"`.
+
 ## [2.2.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v2.1.0...v2.2.0) (2026-05-09)
 
 ### Features
