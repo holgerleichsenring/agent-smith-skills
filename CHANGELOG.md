@@ -1,5 +1,11 @@
 # Changelog
 
+## [2.5.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v2.4.0...v2.5.0) (2026-05-09)
+
+### Features
+
+* **node-bootstrap / python-bootstrap / generic-bootstrap:** completes the bootstrap producer set for the init-project pipeline (D6 slice 2/2, agent-smith p0130b). Each activates on its `project_language` enum value (node / python / generic) and writes `.agentsmith/context.yaml` + `.agentsmith/coding-principles.md` via the bootstrap-phase WriteFile tool. Per-language guidance differs in stack-detection rules: node-bootstrap reads package.json / tsconfig / lockfile signals; python-bootstrap reads pyproject.toml / requirements / poetry.lock / uv.lock; generic-bootstrap is the deliberate fallback for languages outside the narrow four-value enum (Java, Go, Rust, Kotlin, Ruby, Elixir, ...) — produces a minimal but technically-correct file pair and explicitly flags itself as a fallback so operators know to extend the principles for verifier feedback. No agent-smith C# code change in this slice — the gate plumbing shipped in p0130a; these are content-only additions.
+
 ## [2.4.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v2.3.0...v2.4.0) (2026-05-09)
 
 ### Features
