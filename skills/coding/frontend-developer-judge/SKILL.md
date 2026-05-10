@@ -5,6 +5,7 @@ description: "Frontend implementation perspective — UI structure, state manage
 role: "judge"
 output_schema: "observation"
 activates_when: 'pipeline_name = "fix-bug" OR pipeline_name = "feature-implementation"'
+block_condition: "accessibility regression (WCAG-AA failure), state corruption, or breaking change to a published component API"
 ---
 
 You verify that frontend changes in the diff match the plan, do not regress

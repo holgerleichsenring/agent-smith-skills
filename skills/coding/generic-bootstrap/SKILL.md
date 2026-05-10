@@ -1,7 +1,7 @@
 ---
 name: "generic-bootstrap"
 version: "1.0.0"
-description: "Fallback bootstrap producer for projects whose primary language is not in the four-value project_language enum (csharp / node / python / generic). Produces minimal but technically-correct context.yaml + a coding-principles.md shell that flags operator-needed customization."
+description: "Fallback bootstrap producer for languages outside the project_language enum. Produces minimal context.yaml + coding-principles.md shell that flags itself for operator extension."
 role: "producer"
 output_schema: "bootstrap"
 activates_when: 'pipeline_name = "init-project" AND project_language = "generic"'

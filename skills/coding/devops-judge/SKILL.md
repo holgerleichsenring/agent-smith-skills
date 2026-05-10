@@ -5,6 +5,7 @@ description: "Infrastructure, CI/CD, and deployment perspective. Plans deploymen
 role: "judge"
 output_schema: "observation"
 activates_when: 'pipeline_name = "fix-bug" OR pipeline_name = "feature-implementation"'
+block_condition: "CI/CD pipeline breakage, secret leak through config, or infrastructure change without rollback path"
 ---
 
 You verify that infra and deployment changes in the diff match the plan and

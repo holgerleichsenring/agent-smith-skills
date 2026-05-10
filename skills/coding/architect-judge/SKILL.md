@@ -5,6 +5,7 @@ description: "Architectural standard-setter and pattern guardian. Sets boundarie
 role: "judge"
 output_schema: "observation"
 activates_when: 'pipeline_name = "fix-bug" OR pipeline_name = "feature-implementation"'
+block_condition: "architectural pattern violation, layer-boundary breach, or new component conflicting with existing structure"
 ---
 
 You compare actual code changes against the architectural plan from the plan

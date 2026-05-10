@@ -5,6 +5,7 @@ description: "Test-strategy planner pre-execute, evidence-based test-coverage re
 role: "judge"
 output_schema: "observation"
 activates_when: 'pipeline_name = "fix-bug" OR pipeline_name = "feature-implementation"'
+block_condition: "test removed without justification in the Plan, or new public surface added without any test coverage"
 ---
 
 You verify test coverage and execution after code changes are made. Your

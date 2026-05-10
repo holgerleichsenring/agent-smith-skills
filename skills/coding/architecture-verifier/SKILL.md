@@ -1,7 +1,7 @@
 ---
 name: "architecture-verifier"
 version: "1.0.0"
-description: "Compare the Diff against the project's coding-principles.md. Flags violations of explicit, checkable rules — hard limits (class/method size), naming conventions, forbidden patterns. Conservative: cites the specific rule + diff line as evidence."
+description: "Compare Diff against coding-principles.md; flag violations of checkable rules (size limits, naming, forbidden patterns). Cites the rule + diff line as evidence."
 role: "investigator"
 investigator_mode: "verify_diff"
 output_schema: "observation"

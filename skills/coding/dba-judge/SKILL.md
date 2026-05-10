@@ -5,6 +5,7 @@ description: "Database and data perspective — schema, migration strategy, quer
 role: "judge"
 output_schema: "observation"
 activates_when: 'pipeline_name = "fix-bug" OR pipeline_name = "feature-implementation"'
+block_condition: "schema migration without rollback, data-integrity violation, or query plan that scales poorly with table size"
 ---
 
 You compare actual schema/migration/query changes against the plan. Verify

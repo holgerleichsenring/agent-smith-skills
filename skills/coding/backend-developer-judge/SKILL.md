@@ -5,6 +5,7 @@ description: "Backend implementation perspective — code structure, feasibility
 role: "judge"
 output_schema: "observation"
 activates_when: 'pipeline_name = "fix-bug" OR pipeline_name = "feature-implementation"'
+block_condition: "infeasible implementation, data-loss risk, race condition, or breaking change to a public API contract"
 ---
 
 You compare actual backend code changes against the plan. Verify that the

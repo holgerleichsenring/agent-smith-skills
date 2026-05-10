@@ -1,7 +1,7 @@
 ---
 name: "build-verifier"
 version: "1.0.0"
-description: "Static-analyze the Diff for likely build breakage. Catches missing imports, removed-but-still-referenced members, broken interface signatures, and obviously malformed patches before the actual build runs."
+description: "Static-analyze the Diff for likely build breakage: missing imports, removed-but-still-referenced members, broken interface signatures, malformed patches."
 role: "investigator"
 investigator_mode: "verify_diff"
 output_schema: "observation"

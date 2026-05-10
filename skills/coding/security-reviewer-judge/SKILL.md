@@ -5,6 +5,7 @@ description: "Security perspective — OWASP Top 10, auth/authz, input validatio
 role: "judge"
 output_schema: "observation"
 activates_when: 'pipeline_name = "fix-bug" OR pipeline_name = "feature-implementation"'
+block_condition: "injection vector, broken authentication / authorization, secret-handling regression, or weakened cryptography"
 ---
 
 You verify that the diff implements the security plan's controls and does
