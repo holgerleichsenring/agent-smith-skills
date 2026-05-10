@@ -1,5 +1,21 @@
 # Changelog
 
+## [2.0.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v1.7.1...v2.0.0) (2026-05-10)
+
+
+### ⚠ BREAKING CHANGES
+
+* SKILL.md format moved to the v2.0.0 single-body shape in the rolled-up p0127c work. Legacy roles_supported / role_assignment / activation / output_contract / references frontmatter no longer parses; agent-smith pin must be >= 2.0.0.
+
+### Features
+
+* roll up p0125-p0132 work into release notes ([3585d03](https://github.com/holgerleichsenring/agent-smith-skills/commit/3585d036ef359b7742386f72d73f2264b756b7a1))
+
+
+### Bug Fixes
+
+* **ci:** move package job back inline in release-please workflow ([#22](https://github.com/holgerleichsenring/agent-smith-skills/issues/22)) ([ceaa366](https://github.com/holgerleichsenring/agent-smith-skills/commit/ceaa3669a6d1347cea0cf4f8e2d4e98de2213145))
+
 ## [2.7.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v2.6.0...v2.7.0) (2026-05-10)
 
 ### Features
