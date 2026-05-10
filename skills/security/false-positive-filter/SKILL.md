@@ -1,38 +1,11 @@
 ---
-name: false-positive-filter
-version: 2.0.0
-description: >
-  Final-phase filter that reduces a list of security-scan findings to true
-  positives by removing context-driven false positives (test fixtures,
-  framework-handled cases, deprecated paths). List-reducer, no analysis veto.
-
-roles_supported: [filter]
-
-activation:
-  positive:
-    - {key: security_findings_present, desc: "Pipeline produced security observations to filter"}
-    - {key: scan_context, desc: "Active pipeline is a scan pipeline (security-scan, api-scan)"}
-  negative:
-    - {key: no_findings, desc: "No security findings to reduce"}
-    - {key: non_scan_pipeline, desc: "Pipeline is not a scan-style pipeline"}
-
-role_assignment:
-  filter:
-    positive:
-      - {key: false_positive_risk, desc: "Findings include patterns prone to false positives (test code, framework defaults)"}
-
-references: []
-
-output_contract:
-  schema_ref: skill-observation
-  hard_limits:
-    max_observations: 50
-    max_chars_per_field: 150
-  output_type:
-    filter: list
+name: "false-positive-filter"
+version: "2.0.0"
+description: "Final-phase filter that reduces a list of security-scan findings to true positives by removing context-driven false positives (test fixtures, framework-handled cases, deprecated paths). List-reduce..."
+role: "filter"
+output_schema: "observation"
+activates_when: 'pipeline_name = "security-scan"'
 ---
-
-## as_filter
 
 You reduce a list of security findings to true positives. You are a filter,
 not an analyst — you remove findings, you do not add severity assessment or

@@ -1,24 +1,11 @@
 ---
-name: chain-analyst
+name: "chain-analyst"
+version: "2.0.0"
 description: "Executor: receives all contributor findings, reasons about multi-step attack chains, adjusts severity for combined impact, deduplicates findings"
-version: 2.0.0
-roles_supported: [filter]
-
-activation:
-  positive:
-    - {key: multiple_findings, desc: "Multiple findings present that may form attack chains"}
-    - {key: api_security_scan, desc: "Pipeline is api-security-scan"}
-  negative:
-    - {key: empty_scan, desc: "No findings to chain"}
-
-role_assignment:
-  filter:
-    positive:
-      - {key: chain_synthesis_needed, desc: "Multi-step attack reasoning is required before final filter"}
-      - {key: api_security_scan, desc: "api-security-scan pipeline always synthesizes chains before delivery"}
+role: "filter"
+output_schema: "observation"
+activates_when: 'pipeline_name = "api-security-scan"'
 ---
-
-## as_filter
 
 You are the final analyst. You receive ALL findings from every contributor skill.
 Your job is NOT to find new vulnerabilities — it is to reason about CHAINS.

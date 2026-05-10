@@ -1,23 +1,14 @@
 ---
-name: dast-analyst
+name: "dast-analyst"
+version: "2.0.0"
 description: "Correlates OWASP ZAP dynamic findings with static analysis results, filters auth-protected false positives, maps to OWASP Top 10"
-version: 2.0.0
-roles_supported: [analyst]
-
-activation:
-  positive:
-    - {key: zap_findings, desc: "ZAP DAST scan produced findings"}
-    - {key: dast_enabled, desc: "DAST is enabled in project config"}
-  negative:
-    - {key: empty_dast, desc: "ZAP produced zero findings"}
-
-role_assignment:
-  analyst:
-    positive:
-      - {key: dast_correlation_needed, desc: "ZAP findings need OWASP categorization and correlation"}
+role: "investigator"
+investigator_mode: "survey"
+survey_scope:
+  - "**/*"
+output_schema: "observation"
+activates_when: 'pipeline_name = "api-security-scan"'
 ---
-
-## as_analyst
 
 You are a DAST (Dynamic Application Security Testing) analyst.
 You correlate ZAP scan findings with static analysis results.

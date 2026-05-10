@@ -1,39 +1,13 @@
 ---
-name: auth-reviewer
-version: 2.0.0
-description: >
-  Authentication and authorization specialist — OAuth, JWT, sessions,
-  IDOR/BOLA, password handling. Analyst role.
-
-roles_supported: [analyst]
-
-activation:
-  positive:
-    - {key: authentication, desc: "Project has authentication"}
-    - {key: authorization, desc: "Project has authorization"}
-    - {key: auth_code_change, desc: "Ticket changes authentication or authorization code"}
-  negative:
-    - {key: typo_or_docs, desc: "Documentation, comment, or typo change"}
-    - {key: project_has_no_auth, desc: "Project does not have authentication or authorization"}
-
-role_assignment:
-  analyst:
-    positive:
-      - {key: auth_review_needed, desc: "OAuth/JWT/session handling review needed"}
-      - {key: idor_or_bola_risk, desc: "IDOR/BOLA pattern risk in code change"}
-
-references: []
-
-output_contract:
-  schema_ref: skill-observation
-  hard_limits:
-    max_observations: 10
-    max_chars_per_field: 250
-  output_type:
-    analyst: list
+name: "auth-reviewer"
+version: "2.0.0"
+description: "Authentication and authorization specialist — OAuth, JWT, sessions, IDOR/BOLA, password handling. Analyst role."
+role: "investigator"
+investigator_mode: "verify_hint"
+category: "auth"
+output_schema: "observation"
+activates_when: 'pipeline_name = "security-scan"'
 ---
-
-## as_analyst
 
 You review code changes for authentication and authorization vulnerabilities.
 

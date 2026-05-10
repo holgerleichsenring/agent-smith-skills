@@ -1,92 +1,332 @@
-# Concept vocabulary referenced by SKILL activation.positive keys.
+# Typed concept vocabulary referenced by SKILL activation positive keys.
 #
-# activation.positive keys MUST reference an entry below — ConceptVocabularyValidator
-# (introduced in p0111a) warns on missing keys. activation.negative keys and
-# role_assignment.<role>.positive/negative keys are skill-local and free-form;
-# they do not need to appear here.
+# Schema (introduced in agent-smith p0125a):
+#   concepts:
+#     - name: <identifier>             # required, unique across the file
+#       type: bool | int | enum         # required
+#       description: "<one line>"       # required
+#       enum_values: [v1, v2, ...]      # required iff type=enum, must be non-empty
+#       int_range: [<min>, <max>]       # required iff type=int (inclusive)
+#       writers: [<HandlerClassName>]   # optional; informational in p0125a, validated in p0125d
 #
-# Three semantic sections, one flat namespace at lookup time:
-#   project_concepts: stack-agnostic project capabilities, populated by
-#                     ProjectAnalyzer (p0110b) into ProjectMapExcerpt
-#   change_signals:   ticket-content classifications inferred by triage from
-#                     the ticket text and diff hint
-#   run_context:      pipeline/run-level flags
+# Type defaults when a concept is unset (from p0125b's evaluator):
+#   bool  → false
+#   int   → 0
+#   enum  → first declared enum value
 #
-# Operators may extend any section. Duplicate keys across sections are an error
-# (validator rejects). Skills reference keys without section prefix because the
-# namespace is flat.
+# Prefix conventions (informational; the namespace is flat):
+#   source_*   — properties of the cloned source tree
+#   swagger_*  — properties of a loaded OpenAPI/Swagger spec
+#   findings_* — observations produced by the current pipeline run
+#   plan_*     — properties of a generated plan artifact
+#   review_*   — properties of a review pass
+#   api_*      — API-target properties (auth scheme, endpoints, headers)
+#
+# All entries below are bool today (presence flags). Int and enum entries
+# arrive when publishing handlers land (p0125c) and as new concepts are
+# introduced. Boot fails loudly on the legacy three-section shape.
 
 concepts:
-  project_concepts:
-    - {key: persistence, desc: "Project stores state durably (databases, KV stores, persisted files)"}
-    - {key: listeners, desc: "Project consumes external events (webhooks, queues, file watchers)"}
-    - {key: background_jobs, desc: "Project runs async or scheduled work decoupled from request handling"}
-    - {key: external_apis, desc: "Project calls third-party APIs or remote services"}
-    - {key: authentication, desc: "Project verifies identity (login, tokens, sessions, certificates)"}
-    - {key: authorization, desc: "Project enforces access rules (roles, permissions, policies)"}
-    - {key: ui_rendering, desc: "Project renders user interface (web, desktop, mobile, terminal)"}
-    - {key: cli_interface, desc: "Project exposes a command-line interface as a primary surface"}
-    - {key: configuration_management, desc: "Project consumes structured runtime configuration"}
-    - {key: infrastructure_definition, desc: "Project ships infrastructure-as-code (k8s, terraform, helm, dockerfile)"}
-    - {key: public_api, desc: "Project exposes a documented external API (REST, GraphQL, gRPC)"}
-    - {key: schedulers, desc: "Project triggers work on time-based schedules (cron, periodic timers)"}
-    - {key: file_io, desc: "Project reads or writes filesystem content as a primary domain operation"}
-    - {key: cryptography, desc: "Project performs encryption, signing, hashing, or key management"}
-    - {key: ai_or_llm_code, desc: "Project includes AI/LLM/MCP integration code (prompts, tools, agents, RAG)"}
-    - {key: pii_handling, desc: "Project processes personally identifiable information (PII) or personal data"}
-    - {key: auth_scheme_present, desc: "API target declares one or more security schemes in its OpenAPI spec (OAuth2, bearer, apiKey)"}
-    - {key: id_path_parameters, desc: "API target exposes routes with id-style path parameters ({id}, {userId}, {orderId})"}
-    - {key: request_body_endpoints, desc: "API target exposes endpoints accepting request bodies (POST/PUT/PATCH with content)"}
-    - {key: role_based_endpoints, desc: "API target implies role-based access (admin paths, scope-restricted operations, role enums in schema)"}
+  # --- project_concepts (stack-agnostic project capabilities) ---
+  - name: persistence
+    type: bool
+    description: "Project stores state durably (databases, KV stores, persisted files)"
+    writers: []
+  - name: listeners
+    type: bool
+    description: "Project consumes external events (webhooks, queues, file watchers)"
+    writers: []
+  - name: background_jobs
+    type: bool
+    description: "Project runs async or scheduled work decoupled from request handling"
+    writers: []
+  - name: external_apis
+    type: bool
+    description: "Project calls third-party APIs or remote services"
+    writers: []
+  - name: authentication
+    type: bool
+    description: "Project verifies identity (login, tokens, sessions, certificates)"
+    writers: []
+  - name: authorization
+    type: bool
+    description: "Project enforces access rules (roles, permissions, policies)"
+    writers: []
+  - name: ui_rendering
+    type: bool
+    description: "Project renders user interface (web, desktop, mobile, terminal)"
+    writers: []
+  - name: cli_interface
+    type: bool
+    description: "Project exposes a command-line interface as a primary surface"
+    writers: []
+  - name: configuration_management
+    type: bool
+    description: "Project consumes structured runtime configuration"
+    writers: []
+  - name: infrastructure_definition
+    type: bool
+    description: "Project ships infrastructure-as-code (k8s, terraform, helm, dockerfile)"
+    writers: []
+  - name: public_api
+    type: bool
+    description: "Project exposes a documented external API (REST, GraphQL, gRPC)"
+    writers: []
+  - name: schedulers
+    type: bool
+    description: "Project triggers work on time-based schedules (cron, periodic timers)"
+    writers: []
+  - name: file_io
+    type: bool
+    description: "Project reads or writes filesystem content as a primary domain operation"
+    writers: []
+  - name: cryptography
+    type: bool
+    description: "Project performs encryption, signing, hashing, or key management"
+    writers: []
+  - name: ai_or_llm_code
+    type: bool
+    description: "Project includes AI/LLM/MCP integration code (prompts, tools, agents, RAG)"
+    writers: []
+  - name: pii_handling
+    type: bool
+    description: "Project processes personally identifiable information (PII) or personal data"
+    writers: []
+  - name: auth_scheme_present
+    type: bool
+    description: "API target declares one or more security schemes in its OpenAPI spec (OAuth2, bearer, apiKey)"
+    writers: []
+  - name: id_path_parameters
+    type: bool
+    description: "API target exposes routes with id-style path parameters ({id}, {userId}, {orderId})"
+    writers: []
+  - name: request_body_endpoints
+    type: bool
+    description: "API target exposes endpoints accepting request bodies (POST/PUT/PATCH with content)"
+    writers: []
+  - name: role_based_endpoints
+    type: bool
+    description: "API target implies role-based access (admin paths, scope-restricted operations, role enums in schema)"
+    writers: []
 
-  change_signals:
-    - {key: pattern_decision, desc: "Pattern- or boundary-decision in ticket"}
-    - {key: new_component, desc: "New component, service, or module being added"}
-    - {key: migration, desc: "Migration between layers, databases, or frameworks"}
-    - {key: cross_cutting, desc: "Cross-cutting concern (logging, auth, caching) introduced or changed"}
-    - {key: layer_touch, desc: "Code change crosses architectural layer boundaries"}
-    - {key: code_change, desc: "Ticket changes executable code (not pure docs)"}
-    - {key: new_business_logic, desc: "New behavior added that should have tests"}
-    - {key: regression_risk, desc: "Bugfix or refactor where missing test could mask future regressions"}
-    - {key: refactor_in_tested_module, desc: "Refactor in module that has existing tests"}
-    - {key: backend_code_change, desc: "Ticket changes server-side code (handlers, services, business logic)"}
-    - {key: db_schema_change, desc: "Ticket changes database schema (DDL, migration, ORM model)"}
-    - {key: query_perf_concern, desc: "Ticket touches query patterns or performance-sensitive data access"}
-    - {key: data_integrity_change, desc: "Ticket affects data integrity (constraints, foreign keys, nullability)"}
-    - {key: ci_pipeline_change, desc: "Ticket touches CI/CD pipeline configuration"}
-    - {key: deployment_change, desc: "Ticket affects how the application is deployed"}
-    - {key: infra_resource_change, desc: "Ticket adds or changes infrastructure resources (containers, k8s, IaC)"}
-    - {key: ui_component_change, desc: "Ticket changes UI components or rendering"}
-    - {key: frontend_state_change, desc: "Ticket changes frontend state management or data flow"}
-    - {key: user_facing_change, desc: "Ticket changes user-visible behavior or workflow"}
-    - {key: scope_clarification_needed, desc: "Ticket has ambiguous or missing acceptance criteria"}
-    - {key: security_fix, desc: "Ticket fixes a security vulnerability"}
-    - {key: auth_code_change, desc: "Ticket changes authentication or authorization code"}
-    - {key: untrusted_input_handling, desc: "Ticket changes how external input is parsed, validated, or routed to sinks"}
-    - {key: prompt_or_tool_change, desc: "Ticket changes LLM prompts, agentic tools, MCP servers, or RAG pipelines"}
-    - {key: data_export_or_logging, desc: "Ticket changes how data is logged, exported, or sent to third parties"}
-    - {key: config_or_infra_change, desc: "Ticket changes infra/config files (Dockerfile, k8s manifest, terraform, CI yaml)"}
-    - {key: query_or_command_change, desc: "Ticket changes SQL/NoSQL/LDAP/XPath queries or shell command construction"}
-    - {key: secrets_risk_pattern, desc: "Diff includes patterns suggestive of hardcoded credentials, keys, or tokens"}
-    - {key: dependency_manifest_change, desc: "Ticket changes dependency manifest (package.json, *.csproj, requirements.txt, go.mod, Pipfile)"}
-    - {key: lockfile_change, desc: "Ticket changes a dependency lockfile"}
-    - {key: dependency_bump, desc: "Ticket bumps one or more dependency versions"}
+  # --- change_signals (ticket-content classifications) ---
+  - name: pattern_decision
+    type: bool
+    description: "Pattern- or boundary-decision in ticket"
+    writers: []
+  - name: new_component
+    type: bool
+    description: "New component, service, or module being added"
+    writers: []
+  - name: migration
+    type: bool
+    description: "Migration between layers, databases, or frameworks"
+    writers: []
+  - name: cross_cutting
+    type: bool
+    description: "Cross-cutting concern (logging, auth, caching) introduced or changed"
+    writers: []
+  - name: layer_touch
+    type: bool
+    description: "Code change crosses architectural layer boundaries"
+    writers: []
+  - name: code_change
+    type: bool
+    description: "Ticket changes executable code (not pure docs)"
+    writers: []
+  - name: new_business_logic
+    type: bool
+    description: "New behavior added that should have tests"
+    writers: []
+  - name: regression_risk
+    type: bool
+    description: "Bugfix or refactor where missing test could mask future regressions"
+    writers: []
+  - name: refactor_in_tested_module
+    type: bool
+    description: "Refactor in module that has existing tests"
+    writers: []
+  - name: backend_code_change
+    type: bool
+    description: "Ticket changes server-side code (handlers, services, business logic)"
+    writers: []
+  - name: db_schema_change
+    type: bool
+    description: "Ticket changes database schema (DDL, migration, ORM model)"
+    writers: []
+  - name: query_perf_concern
+    type: bool
+    description: "Ticket touches query patterns or performance-sensitive data access"
+    writers: []
+  - name: data_integrity_change
+    type: bool
+    description: "Ticket affects data integrity (constraints, foreign keys, nullability)"
+    writers: []
+  - name: ci_pipeline_change
+    type: bool
+    description: "Ticket touches CI/CD pipeline configuration"
+    writers: []
+  - name: deployment_change
+    type: bool
+    description: "Ticket affects how the application is deployed"
+    writers: []
+  - name: infra_resource_change
+    type: bool
+    description: "Ticket adds or changes infrastructure resources (containers, k8s, IaC)"
+    writers: []
+  - name: ui_component_change
+    type: bool
+    description: "Ticket changes UI components or rendering"
+    writers: []
+  - name: frontend_state_change
+    type: bool
+    description: "Ticket changes frontend state management or data flow"
+    writers: []
+  - name: user_facing_change
+    type: bool
+    description: "Ticket changes user-visible behavior or workflow"
+    writers: []
+  - name: scope_clarification_needed
+    type: bool
+    description: "Ticket has ambiguous or missing acceptance criteria"
+    writers: []
+  - name: security_fix
+    type: bool
+    description: "Ticket fixes a security vulnerability"
+    writers: []
+  - name: auth_code_change
+    type: bool
+    description: "Ticket changes authentication or authorization code"
+    writers: []
+  - name: untrusted_input_handling
+    type: bool
+    description: "Ticket changes how external input is parsed, validated, or routed to sinks"
+    writers: []
+  - name: prompt_or_tool_change
+    type: bool
+    description: "Ticket changes LLM prompts, agentic tools, MCP servers, or RAG pipelines"
+    writers: []
+  - name: data_export_or_logging
+    type: bool
+    description: "Ticket changes how data is logged, exported, or sent to third parties"
+    writers: []
+  - name: config_or_infra_change
+    type: bool
+    description: "Ticket changes infra/config files (Dockerfile, k8s manifest, terraform, CI yaml)"
+    writers: []
+  - name: query_or_command_change
+    type: bool
+    description: "Ticket changes SQL/NoSQL/LDAP/XPath queries or shell command construction"
+    writers: []
+  - name: secrets_risk_pattern
+    type: bool
+    description: "Diff includes patterns suggestive of hardcoded credentials, keys, or tokens"
+    writers: []
+  - name: dependency_manifest_change
+    type: bool
+    description: "Ticket changes dependency manifest (package.json, *.csproj, requirements.txt, go.mod, Pipfile)"
+    writers: []
+  - name: lockfile_change
+    type: bool
+    description: "Ticket changes a dependency lockfile"
+    writers: []
+  - name: dependency_bump
+    type: bool
+    description: "Ticket bumps one or more dependency versions"
+    writers: []
 
-  run_context:
-    - {key: security_findings_present, desc: "Current pipeline run has produced security observations"}
-    - {key: scan_context, desc: "Active pipeline is a scan pipeline (security-scan, api-scan)"}
-    - {key: multiple_finding_sources, desc: "Findings in current run come from multiple sources (commodity tools + LLM skills)"}
-    - {key: nuclei_findings, desc: "Current run has Nuclei scan findings ready for OWASP API categorisation"}
-    - {key: api_target, desc: "Pipeline target is a REST or GraphQL API surface"}
-    - {key: owasp_api_concern, desc: "Ticket or run context flags an OWASP API Security Top 10 concern"}
-    - {key: api_security_scan, desc: "Active pipeline is api-security-scan (vs generic security-scan or other pipeline types)"}
-    - {key: swagger_spec, desc: "OpenAPI/Swagger spec was loaded successfully and is available to skills"}
-    - {key: api_source_available, desc: "Repo source for the API target was cloned and is available for code-aware static review"}
-    - {key: auth_bootstrap_files, desc: "Auth-bootstrap source excerpts (Program.cs, Startup, security middleware) are extracted and ready for review"}
-    - {key: controller_handlers_mapped, desc: "ApiCodeContext mapped controller routes to source handlers — handler-bodies available for ownership / authorization review"}
-    - {key: upload_handlers_mapped, desc: "ApiCodeContext mapped file-upload handlers — handler-bodies available for upload-validator review"}
-    - {key: header_findings, desc: "Current run has header-related findings from Nuclei or ZAP ready for posture review"}
-    - {key: api_headers_baseline, desc: "api-headers baseline (baselines/api-headers.yaml) loaded and available for header-audit comparison"}
-    - {key: multiple_personas, desc: "Multiple authentication personas (user1+user2, user1+admin) are configured for active probing"}
-    - {key: findings_present, desc: "Current run has produced at least one observation (any concern, any source)"}
-    - {key: multiple_findings, desc: "Current run has produced multiple observations that may share root causes worth chaining"}
+  # --- run_context (pipeline/run-level flags) ---
+  - name: security_findings_present
+    type: bool
+    description: "Current pipeline run has produced security observations"
+    writers: []
+  - name: scan_context
+    type: bool
+    description: "Active pipeline is a scan pipeline (security-scan, api-scan)"
+    writers: []
+  - name: multiple_finding_sources
+    type: bool
+    description: "Findings in current run come from multiple sources (commodity tools + LLM skills)"
+    writers: []
+  - name: nuclei_findings
+    type: bool
+    description: "Current run has Nuclei scan findings ready for OWASP API categorisation"
+    writers: []
+  - name: api_target
+    type: bool
+    description: "Pipeline target is a REST or GraphQL API surface"
+    writers: []
+  - name: owasp_api_concern
+    type: bool
+    description: "Ticket or run context flags an OWASP API Security Top 10 concern"
+    writers: []
+  - name: api_security_scan
+    type: bool
+    description: "Active pipeline is api-security-scan (vs generic security-scan or other pipeline types)"
+    writers: []
+  - name: swagger_spec
+    type: bool
+    description: "OpenAPI/Swagger spec was loaded successfully and is available to skills"
+    writers: []
+  - name: api_source_available
+    type: bool
+    description: "Repo source for the API target was cloned and is available for code-aware static review"
+    writers: []
+  - name: auth_bootstrap_files
+    type: bool
+    description: "Auth-bootstrap source excerpts (Program.cs, Startup, security middleware) are extracted and ready for review"
+    writers: []
+  - name: controller_handlers_mapped
+    type: bool
+    description: "ApiCodeContext mapped controller routes to source handlers — handler-bodies available for ownership / authorization review"
+    writers: []
+  - name: upload_handlers_mapped
+    type: bool
+    description: "ApiCodeContext mapped file-upload handlers — handler-bodies available for upload-validator review"
+    writers: []
+  - name: header_findings
+    type: bool
+    description: "Current run has header-related findings from Nuclei or ZAP ready for posture review"
+    writers: []
+  - name: api_headers_baseline
+    type: bool
+    description: "api-headers baseline (baselines/api-headers.yaml) loaded and available for header-audit comparison"
+    writers: []
+  - name: multiple_personas
+    type: bool
+    description: "Multiple authentication personas (user1+user2, user1+admin) are configured for active probing"
+    writers: []
+  - name: findings_present
+    type: bool
+    description: "Current run has produced at least one observation (any concern, any source)"
+    writers: []
+  - name: multiple_findings
+    type: bool
+    description: "Current run has produced multiple observations that may share root causes worth chaining"
+    writers: []
+
+  # --- p0125c: typed publication by pre-skill handlers ---
+  - name: pipeline_name
+    type: enum
+    enum_values: [api-security-scan, security-scan, fix-bug, feature-implementation, mad-discussion, legal-analysis, init-project]
+    description: "Identity of the currently routing pipeline; published once at the head of every chain"
+    writers: [PipelineNameInitializerHandler]
+  - name: source_available
+    type: bool
+    description: "Source repository was successfully resolved (cloned or bind-mounted) for this run"
+    writers: [CheckoutSourceHandler, TryCheckoutSourceHandler]
+  - name: context_yaml_present
+    type: bool
+    description: ".agentsmith/context.yaml is present in the working repo"
+    writers: [BootstrapCheckHandler]
+  - name: coding_principles_present
+    type: bool
+    description: ".agentsmith/coding-principles.md is present in the working repo"
+    writers: [BootstrapCheckHandler]
+
+  # --- p0130a: bootstrap producer-skill activation by detected language ---
+  - name: project_language
+    type: enum
+    enum_values: [csharp, node, python, generic]
+    description: "Primary project language as detected by ProjectAnalyzer; activates language-specific bootstrap producer skills (csharp-bootstrap, node-bootstrap, python-bootstrap, generic-bootstrap). Mapping from ProjectMap.PrimaryLanguage to this enum is performed by ProjectLanguageMapper / PublishProjectLanguageHandler (added in agent-smith p0130c)."
+    writers: [PublishProjectLanguageHandler]

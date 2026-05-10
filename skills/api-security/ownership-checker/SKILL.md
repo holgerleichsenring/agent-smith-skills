@@ -1,23 +1,13 @@
 ---
-name: ownership-checker
+name: "ownership-checker"
+version: "2.0.0"
 description: "Source-code review: state-changing routes that load resources without an ownership/tenant predicate (IDOR/BOLA in code)"
-version: 2.0.0
-roles_supported: [analyst]
-
-activation:
-  positive:
-    - {key: api_source_available, desc: "Source code is available for static review"}
-    - {key: controller_handlers_mapped, desc: "ApiCodeContext mapped controller handlers"}
-  negative:
-    - {key: source_unavailable, desc: "No source code available — passive schema-only mode"}
-
-role_assignment:
-  analyst:
-    positive:
-      - {key: ownership_review_needed, desc: "Source available — code-aware ownership-predicate review possible"}
+role: "investigator"
+investigator_mode: "verify_hint"
+category: "iam"
+output_schema: "observation"
+activates_when: 'pipeline_name = "api-security-scan"'
 ---
-
-## as_analyst
 
 You inspect handler bodies of state-changing routes (POST/PUT/DELETE/PATCH and
 sensitive GETs) and confirm a user-or-tenant predicate gates the database query.

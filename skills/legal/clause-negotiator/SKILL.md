@@ -1,12 +1,14 @@
 ---
-name: clause-negotiator
+name: "clause-negotiator"
+version: "2.0.0"
 description: "Proposes concrete alternative formulations for problematic clauses"
-version: 2.0.0
-
-roles_supported: [analyst]
+role: "investigator"
+investigator_mode: "survey"
+survey_scope:
+  - "**/*"
+output_schema: "observation"
+activates_when: 'pipeline_name = "legal-analysis"'
 ---
-
-## as_analyst
 
 You are a German-speaking legal drafter. You review the risk assessor's findings
 and propose concrete alternative formulations for HIGH and MEDIUM risk clauses.

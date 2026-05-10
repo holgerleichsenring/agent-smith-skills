@@ -1,36 +1,13 @@
 ---
-name: injection-checker
-version: 2.0.0
-description: >
-  Injection vulnerability specialist — SQL, command, LDAP, XPath, NoSQL,
-  ORM, template injection. Analyst role.
-
-roles_supported: [analyst]
-
-activation:
-  positive:
-    - {key: untrusted_input_handling, desc: "Ticket changes handling of external input"}
-    - {key: query_or_command_change, desc: "Ticket changes SQL/NoSQL/LDAP/XPath queries or shell command construction"}
-  negative:
-    - {key: typo_or_docs, desc: "Documentation, comment, or typo change"}
-
-role_assignment:
-  analyst:
-    positive:
-      - {key: injection_risk_review, desc: "Injection vulnerability review needed"}
-
-references: []
-
-output_contract:
-  schema_ref: skill-observation
-  hard_limits:
-    max_observations: 10
-    max_chars_per_field: 250
-  output_type:
-    analyst: list
+name: "injection-checker"
+version: "2.0.0"
+description: "Injection vulnerability specialist — SQL, command, LDAP, XPath, NoSQL, ORM, template injection. Analyst role."
+role: "investigator"
+investigator_mode: "verify_hint"
+category: "injection"
+output_schema: "observation"
+activates_when: 'pipeline_name = "security-scan"'
 ---
-
-## as_analyst
 
 You review code changes for injection vulnerabilities.
 

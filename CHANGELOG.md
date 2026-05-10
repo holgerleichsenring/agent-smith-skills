@@ -1,5 +1,61 @@
 # Changelog
 
+## [2.7.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v2.6.0...v2.7.0) (2026-05-10)
+
+### Features
+
+* **build-verifier / test-verifier:** SKILL.md bodies updated to use the live `run_command` tool when available (agent-smith p0132c routes the Verify-phase tool set to the chat client). Verifiers now have two modes: static pre-check (default — scan Diff for breakage signals) and live build/test run (parse non-zero exit codes + failing assertions into high-confidence blocking observations). The existing Test command in the FixBug preset still runs after Verify as a fast-fail catch for live-mode false-negatives.
+
+## [2.6.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v2.5.0...v2.6.0) (2026-05-10)
+
+### Features
+
+* **vocabulary:** `pipeline_name` enum gains `init-project` so the InitProject pipeline can publish the concept without throwing the SetEnum fence. Pairs with agent-smith p0130c — InitProject preset is rewritten to use SkillRound dispatch via the new BootstrapDispatch step.
+* **bootstrap-skills:** `csharp-bootstrap`, `node-bootstrap`, `python-bootstrap`, `generic-bootstrap` `activates_when` tightens from `project_language = "X"` to `pipeline_name = "init-project" AND project_language = "X"`. Reason: the four skills ship under `skills/coding/` (the same directory fix-bug / add-feature load), and `project_language` is a stable per-project concept set wherever ProjectAnalyzer runs. Without the conjunction, a Node project running fix-bug would see `node-bootstrap` appear in the ActivationSkillFilter output. The pipeline_name gate keeps these skills scoped to init-project regardless of catalog location.
+* **vocabulary writer pointer:** `project_language` writer attribution updates from `[ProjectAnalyzer]` to `[PublishProjectLanguageHandler]` (the actual IConceptWriter agent-smith p0130c registers; ProjectAnalyzer produces ProjectMap, the handler does the enum mapping).
+
+## [2.5.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v2.4.0...v2.5.0) (2026-05-09)
+
+### Features
+
+* **node-bootstrap / python-bootstrap / generic-bootstrap:** completes the bootstrap producer set for the init-project pipeline (D6 slice 2/2, agent-smith p0130b). Each activates on its `project_language` enum value (node / python / generic) and writes `.agentsmith/context.yaml` + `.agentsmith/coding-principles.md` via the bootstrap-phase WriteFile tool. Per-language guidance differs in stack-detection rules: node-bootstrap reads package.json / tsconfig / lockfile signals; python-bootstrap reads pyproject.toml / requirements / poetry.lock / uv.lock; generic-bootstrap is the deliberate fallback for languages outside the narrow four-value enum (Java, Go, Rust, Kotlin, Ruby, Elixir, ...) — produces a minimal but technically-correct file pair and explicitly flags itself as a fallback so operators know to extend the principles for verifier feedback. No agent-smith C# code change in this slice — the gate plumbing shipped in p0130a; these are content-only additions.
+
+## [2.4.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v2.3.0...v2.4.0) (2026-05-09)
+
+### Features
+
+* **csharp-bootstrap:** first language-specific producer skill for the init-project pipeline (`skills/coding/csharp-bootstrap/`). Activates on `project_language = "csharp"`. Writes `.agentsmith/context.yaml` + `.agentsmith/coding-principles.md` via the bootstrap-phase WriteFile tool (path-write-guard from agent-smith p0126c restricts writes to those two paths). Pairs with agent-smith p0130a's BootstrapGateHandler — code-touching pipelines now abort with "run init-project first" when either file is missing. Slices node / python / generic counterparts ride in 2.5.0 (p0130b).
+* **vocabulary:** new `project_language` enum concept (csharp, node, python, generic) added to `concept-vocabulary.yaml`. Published by agent-smith's `ProjectAnalyzer` once detection lands; consumed by language-specific bootstrap skill `activates_when` expressions.
+
+## [2.3.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v2.2.0...v2.3.0) (2026-05-09)
+
+### Features
+
+* **architecture-verifier:** new VerifyDiff investigator skill (`skills/coding/architecture-verifier/`). Compares the Diff against the project's `coding-principles.md` (now threaded into the verifier prompt by agent-smith p0129c's VerifierPromptBuilder extension). Flags only checkable rules with direct diff evidence — hard numerical limits (class size, method length), naming conventions, forbidden patterns, required patterns. Conservative discipline: subjective principles ("readable code", "follow SOLID") are explicitly out of scope. Blocking only at severity=high + confidence≥70 + direct evidence. Activates on `pipeline_name = "fix-bug" OR pipeline_name = "feature-implementation"`.
+
+## [2.2.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v2.1.0...v2.2.0) (2026-05-09)
+
+### Features
+
+* **build-verifier:** new VerifyDiff investigator skill (`skills/coding/build-verifier/`). Static-analyzes the Diff for likely build breakage — missing imports / using statements, removed-but-still-referenced members, interface signatures changed without implementation updates, malformed patch hunks. Blocking only at severity=high + confidence≥70. Pairs with agent-smith p0129a's VerifyRoundHandler dispatch path; activates on `pipeline_name = "fix-bug" OR pipeline_name = "feature-implementation"`.
+* **test-verifier:** new VerifyDiff investigator skill (`skills/coding/test-verifier/`). Static-analyzes the Diff for test-coverage gaps — new public surface without tests, business-logic changes without test updates, weakened assertions. Blocking ONLY on test-removal-without-justification (rationale not stated in Plan); coverage-gap notes are non-blocking medium-severity. Activates on the same pipelines as build-verifier.
+
+Both skills exercise the existing VerifyRoundHandler infrastructure shipped in agent-smith p0129a — no new agent-smith code needed; the handler already filters by role + investigator_mode + activates_when.
+
+## [2.1.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v2.0.0...v2.1.0) (2026-05-09)
+
+### Features
+
+* **scope-verifier:** new VerifyDiff investigator skill (`role: investigator`, `investigator_mode: verify_diff`) under `skills/coding/scope-verifier/`. Compares the implementer's Diff against the Plan's `scope.files`; flags any out-of-scope file change as a blocking observation with `concern: Scope` / `severity: high`. Test-file siblings are allowed via project-judgment heuristics — no hardcoded regex; the SKILL.md body lists worked examples for C# / TypeScript / Python / Java / Go / Go and falls back to "when in doubt, allow the test file." Activates on `pipeline_name = "fix-bug"` or `"feature-implementation"`. Catches the Bug-18693 class of regression where a single-file Plan grows to 22 changed files at implementation time. Pairs with agent-smith p0129a (Verify-phase wiring + InsertNext-based re-implementation loop).
+
+## [2.0.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v1.9.0...v2.0.0) (2026-05-08)
+
+### BREAKING CHANGES
+
+* **all-skills:** SKILL.md format migrated to single-body, role-as-frontmatter shape (agent-smith p0127c). Legacy `roles_supported` / `role_assignment` / `activation` / `output_contract` fields removed; new fields `role` (producer/investigator/judge/filter), `investigator_mode` (verify_hint/survey/verify_diff), `category` (closed enum: auth, injection, secrets, iam, crypto, headers, inputs, outputs), `survey_scope`, `block_condition`, `loop`, `output_schema` (observation/plan/diff/bootstrap), and `activates_when` (boolean expression over the typed concept vocabulary). Multi-role skills split into one-skill-per-role files via the `<original>-<suffix>` naming convention: producer→`-planner`, investigator→`-investigator`, judge→`-judge`, filter→`-filter`. Splits: `architect` → architect-planner / architect-investigator / architect-judge; `dba` similarly; `security-reviewer` similarly; `backend-developer` / `frontend-developer` / `devops` / `tester` → -investigator + -judge; `api-vuln-analyst` → -planner + -investigator. Catalog grows from 44 → 55 SKILL.md files.
+* **vocabulary:** `pipeline_name` enum gains `legal-analysis` so legal/* skills can activate.
+* **agent-smith pin:** requires agent-smith ≥ 2.0.0; the legacy parser is deleted in the matching agent-smith PR.
+
 ## [1.7.1](https://github.com/holgerleichsenring/agent-smith-skills/compare/v1.7.0...v1.7.1) (2026-05-07)
 
 

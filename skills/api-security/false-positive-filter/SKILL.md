@@ -1,24 +1,11 @@
 ---
-name: false-positive-filter
-description: "Always required whenever other skills produce findings. Reviews all findings from api-vuln-analyst, api-design-auditor, and auth-tester regardless of source. Enforces confidence threshold ≥7, removes infrastructure findings, design recommendations without exploit paths, and invalid findings. Without this skill the output contains unfiltered noise. Must always be included in api-security-scan."
-version: 2.0.0
-roles_supported: [filter]
-
-activation:
-  positive:
-    - {key: findings_present, desc: "Other skills produced findings to filter"}
-    - {key: api_security_scan, desc: "Pipeline is api-security-scan"}
-  negative:
-    - {key: empty_scan, desc: "No findings produced — nothing to filter"}
-
-role_assignment:
-  filter:
-    positive:
-      - {key: always_required, desc: "Filter is mandatory whenever findings are produced"}
-      - {key: confidence_threshold_enforcement, desc: "Findings must be confidence-threshold filtered before delivery"}
+name: "false-positive-filter"
+version: "2.0.0"
+description: "Always required whenever other skills produce findings. Reviews all findings from api-vuln-analyst, api-design-auditor, and auth-tester regardless of source. Enforces confidence threshold ≥7, remov..."
+role: "filter"
+output_schema: "observation"
+activates_when: 'pipeline_name = "api-security-scan"'
 ---
-
-## as_filter
 
 You are a false positive filter for API security findings. You review findings
 from all other API security skills and remove those that are invalid, out of scope,

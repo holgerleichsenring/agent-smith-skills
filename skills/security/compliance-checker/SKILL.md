@@ -1,38 +1,13 @@
 ---
-name: compliance-checker
-version: 2.0.0
-description: >
-  Privacy and compliance specialist — PII handling, GDPR/DSGVO, data
-  protection. Analyst role.
-
-roles_supported: [analyst]
-
-activation:
-  positive:
-    - {key: pii_handling, desc: "Project handles PII or personal data"}
-    - {key: data_export_or_logging, desc: "Ticket changes how data is logged, exported, or sent to third parties"}
-  negative:
-    - {key: typo_or_docs, desc: "Documentation, comment, or typo change"}
-    - {key: project_has_no_pii, desc: "Project does not handle personal data"}
-
-role_assignment:
-  analyst:
-    positive:
-      - {key: gdpr_relevant_change, desc: "Change has GDPR/DSGVO/CCPA implications"}
-      - {key: pii_exposure_risk, desc: "Risk of PII exposure in logs, error responses, or third-party calls"}
-
-references: []
-
-output_contract:
-  schema_ref: skill-observation
-  hard_limits:
-    max_observations: 10
-    max_chars_per_field: 250
-  output_type:
-    analyst: list
+name: "compliance-checker"
+version: "2.0.0"
+description: "Privacy and compliance specialist — PII handling, GDPR/DSGVO, data protection. Analyst role."
+role: "investigator"
+investigator_mode: "verify_hint"
+category: "outputs"
+output_schema: "observation"
+activates_when: 'pipeline_name = "security-scan"'
 ---
-
-## as_analyst
 
 You review code for PII exposure, GDPR/DSGVO violations, and data protection
 practices. Reference existing StaticPatternScan findings for the "compliance"
