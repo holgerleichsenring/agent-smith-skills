@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.0.1](https://github.com/holgerleichsenring/agent-smith-skills/compare/v2.0.0...v2.0.1) (2026-05-10)
+
+
+### Bug Fixes
+
+* NewFormatSkillValidator violations in 10 SKILL.md files ([d7866fe](https://github.com/holgerleichsenring/agent-smith-skills/commit/d7866fe3d096ab5d2675929c2be68dbb09a66b0d))
+
 ## [2.0.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v1.7.1...v2.0.0) (2026-05-10)
 
 
