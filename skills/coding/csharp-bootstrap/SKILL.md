@@ -4,7 +4,7 @@ version: "1.0.0"
 description: "Generate .agentsmith/context.yaml + coding-principles.md for a C# / .NET project. Activates inside the init-project pipeline when project_language=csharp."
 role: "producer"
 output_schema: "bootstrap"
-activates_when: 'project_language = "csharp"'
+activates_when: 'pipeline_name = "init-project" AND project_language = "csharp"'
 ---
 
 You produce the two onboarding files agent-smith pipelines depend on for every

@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.6.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v2.5.0...v2.6.0) (2026-05-10)
+
+### Features
+
+* **vocabulary:** `pipeline_name` enum gains `init-project` so the InitProject pipeline can publish the concept without throwing the SetEnum fence. Pairs with agent-smith p0130c — InitProject preset is rewritten to use SkillRound dispatch via the new BootstrapDispatch step.
+* **bootstrap-skills:** `csharp-bootstrap`, `node-bootstrap`, `python-bootstrap`, `generic-bootstrap` `activates_when` tightens from `project_language = "X"` to `pipeline_name = "init-project" AND project_language = "X"`. Reason: the four skills ship under `skills/coding/` (the same directory fix-bug / add-feature load), and `project_language` is a stable per-project concept set wherever ProjectAnalyzer runs. Without the conjunction, a Node project running fix-bug would see `node-bootstrap` appear in the ActivationSkillFilter output. The pipeline_name gate keeps these skills scoped to init-project regardless of catalog location.
+* **vocabulary writer pointer:** `project_language` writer attribution updates from `[ProjectAnalyzer]` to `[PublishProjectLanguageHandler]` (the actual IConceptWriter agent-smith p0130c registers; ProjectAnalyzer produces ProjectMap, the handler does the enum mapping).
+
 ## [2.5.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v2.4.0...v2.5.0) (2026-05-09)
 
 ### Features

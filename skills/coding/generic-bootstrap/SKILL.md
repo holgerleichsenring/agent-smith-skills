@@ -4,7 +4,7 @@ version: "1.0.0"
 description: "Fallback bootstrap producer for projects whose primary language is not in the four-value project_language enum (csharp / node / python / generic). Produces minimal but technically-correct context.yaml + a coding-principles.md shell that flags operator-needed customization."
 role: "producer"
 output_schema: "bootstrap"
-activates_when: 'project_language = "generic"'
+activates_when: 'pipeline_name = "init-project" AND project_language = "generic"'
 ---
 
 You produce the two onboarding files agent-smith pipelines depend on for every

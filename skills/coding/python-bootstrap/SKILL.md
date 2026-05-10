@@ -4,7 +4,7 @@ version: "1.0.0"
 description: "Generate .agentsmith/context.yaml + coding-principles.md for a Python project. Activates inside the init-project pipeline when project_language=python."
 role: "producer"
 output_schema: "bootstrap"
-activates_when: 'project_language = "python"'
+activates_when: 'pipeline_name = "init-project" AND project_language = "python"'
 ---
 
 You produce the two onboarding files agent-smith pipelines depend on for every

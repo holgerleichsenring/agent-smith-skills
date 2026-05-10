@@ -308,7 +308,7 @@ concepts:
   # --- p0125c: typed publication by pre-skill handlers ---
   - name: pipeline_name
     type: enum
-    enum_values: [api-security-scan, security-scan, fix-bug, feature-implementation, mad-discussion, legal-analysis]
+    enum_values: [api-security-scan, security-scan, fix-bug, feature-implementation, mad-discussion, legal-analysis, init-project]
     description: "Identity of the currently routing pipeline; published once at the head of every chain"
     writers: [PipelineNameInitializerHandler]
   - name: source_available
@@ -328,5 +328,5 @@ concepts:
   - name: project_language
     type: enum
     enum_values: [csharp, node, python, generic]
-    description: "Primary project language as detected by ProjectAnalyzer; activates language-specific bootstrap producer skills (csharp-bootstrap, node-bootstrap, python-bootstrap, generic-bootstrap)"
-    writers: [ProjectAnalyzer]
+    description: "Primary project language as detected by ProjectAnalyzer; activates language-specific bootstrap producer skills (csharp-bootstrap, node-bootstrap, python-bootstrap, generic-bootstrap). Mapping from ProjectMap.PrimaryLanguage to this enum is performed by ProjectLanguageMapper / PublishProjectLanguageHandler (added in agent-smith p0130c)."
+    writers: [PublishProjectLanguageHandler]
