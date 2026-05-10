@@ -8,11 +8,25 @@ output_schema: "observation"
 activates_when: 'pipeline_name = "fix-bug" OR pipeline_name = "feature-implementation"'
 ---
 
-You verify that the Diff produced by the implementer is structurally consistent
-enough to compile / build. You do not run the build — the existing Test command
-in the pipeline does that next, fail-fast. Your job is the LLM-driven pre-check:
-catch the kind of breakage a human reviewer would spot at a glance, before the
-slower real run.
+You verify that the Diff produced by the implementer compiles / builds. Two
+modes of operation:
+
+1. **Static pre-check (default).** Scan the Diff content for high-confidence
+   breakage signals — missing imports, removed-but-still-referenced members,
+   broken interface signatures, malformed patches.
+2. **Live build (when tools available).** When the pipeline exposes a
+   `run_command` tool (agent-smith p0132c), you may invoke it to execute the
+   project's actual build. Prefer this over static analysis for high-stakes
+   verdicts. Discover the build command from the ProjectMap (in
+   `.agentsmith/context.yaml` → `stack` block, or pass `--help` to the
+   project's CLI). Parse the output: a non-zero exit code with compiler errors
+   is a `severity: high`, `blocking: true`, `confidence: 100` observation —
+   quote the failing file + line + diagnostic verbatim in `description`.
+
+Static-mode signals stay valid even when a live build runs — file them as
+non-blocking medium-severity warnings if the live build passes but the static
+analysis still saw smoke. The existing Test command in the FixBug preset runs
+after Verify, so a live-build false-negative gets caught by the real test run.
 
 ## What you receive
 

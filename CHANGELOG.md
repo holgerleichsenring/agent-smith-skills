@@ -1,5 +1,11 @@
 # Changelog
 
+## [2.7.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v2.6.0...v2.7.0) (2026-05-10)
+
+### Features
+
+* **build-verifier / test-verifier:** SKILL.md bodies updated to use the live `run_command` tool when available (agent-smith p0132c routes the Verify-phase tool set to the chat client). Verifiers now have two modes: static pre-check (default — scan Diff for breakage signals) and live build/test run (parse non-zero exit codes + failing assertions into high-confidence blocking observations). The existing Test command in the FixBug preset still runs after Verify as a fast-fail catch for live-mode false-negatives.
+
 ## [2.6.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v2.5.0...v2.6.0) (2026-05-10)
 
 ### Features
