@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.1.1](https://github.com/holgerleichsenring/agent-smith-skills/compare/v2.1.0...v2.1.1) (2026-05-15)
+
+
+### Bug Fixes
+
+* api-security reviewer skills are judges, not investigators ([#28](https://github.com/holgerleichsenring/agent-smith-skills/issues/28)) ([710612d](https://github.com/holgerleichsenring/agent-smith-skills/commit/710612df281ee305e963e52b1e6a56b4b8bfbf85))
+
 ## [2.1.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v2.0.1...v2.1.0) (2026-05-15)
 
 
