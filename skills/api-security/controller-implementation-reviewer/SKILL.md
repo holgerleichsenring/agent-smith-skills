@@ -2,8 +2,7 @@
 name: "controller-implementation-reviewer"
 version: "2.0.0"
 description: "Source-code review of state-changing controller handlers: input validation gaps, exception leakage, DTO over-exposure, SQL/NoSQL concatenation, missing authorization, secret/PII in logs"
-role: "investigator"
-investigator_mode: "verify_hint"
+role: "judge"
 category: "inputs"
 output_schema: "observation"
 activates_when: 'pipeline_name = "api-security-scan"'

@@ -2,8 +2,7 @@
 name: "auth-config-reviewer"
 version: "2.0.0"
 description: "Source-code review of authentication configuration: disabled JWT validation, dead authorization middleware, missing security headers, unsafe CORS"
-role: "investigator"
-investigator_mode: "verify_hint"
+role: "judge"
 category: "auth"
 output_schema: "observation"
 activates_when: 'pipeline_name = "api-security-scan"'

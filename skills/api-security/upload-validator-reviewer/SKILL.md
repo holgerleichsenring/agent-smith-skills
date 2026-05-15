@@ -2,8 +2,7 @@
 name: "upload-validator-reviewer"
 version: "2.0.0"
 description: "Source-code review of file-upload handlers: content sniffing vs header-only MIME, magic bytes, filename sanitization, server-side size limits"
-role: "investigator"
-investigator_mode: "verify_hint"
+role: "judge"
 category: "inputs"
 output_schema: "observation"
 activates_when: 'pipeline_name = "api-security-scan"'
