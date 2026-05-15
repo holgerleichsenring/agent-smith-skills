@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.1.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v2.0.1...v2.1.0) (2026-05-15)
+
+
+### Features
+
+* add 4 coding planner skills + coding false-positive-filter (p0138) ([#26](https://github.com/holgerleichsenring/agent-smith-skills/issues/26)) ([5d44638](https://github.com/holgerleichsenring/agent-smith-skills/commit/5d446382aefc6818deeb465b027e6e4c3f0bb1c6))
+
 ## [2.0.1](https://github.com/holgerleichsenring/agent-smith-skills/compare/v2.0.0...v2.0.1) (2026-05-10)
 
 
