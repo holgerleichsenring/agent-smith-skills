@@ -10,13 +10,21 @@ Each observation has this shape:
   "description": "What you observed — the problem or insight",
   "suggestion": "What should be done about it",
   "blocking": true/false,
-  "severity": "high" | "medium" | "low" | "info",
+  "severity": "critical" | "high" | "medium" | "low" | "info",
   "confidence": 0-100,
   "rationale": "Why you believe this (optional)",
   "location": "File:Line or API path (optional)",
   "effort": "small" | "medium" | "large" (optional)
 }
 ```
+
+**Severity Levels:**
+
+- `critical` — Immediate, unauthenticated exploitation path leading to full compromise, mass data exfiltration, RCE, or auth bypass. No prerequisite chain of bugs; one step from attacker to impact. Reserve for findings where shipping the code as-is would warrant a hotfix.
+- `high` — Exploitable vulnerability with concrete attack path, but requires some precondition (authenticated user, specific input shape, chained with another weakness). OWASP Top 10 categories typically land here when prerequisites exist.
+- `medium` — Real weakness with limited blast radius or requiring elevated context (e.g., admin role, internal network access).
+- `low` — Defense-in-depth gap; no direct exploit path but worth fixing.
+- `info` — Informational observation; no security impact but worth noting for the reviewer.
 
 **Confidence Calibration:**
 

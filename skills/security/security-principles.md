@@ -60,7 +60,7 @@ When in doubt, do not report. Prefer underreporting to overreporting.
 ## Output Format
 
 For each finding, include:
-- severity: HIGH | MEDIUM | LOW
+- severity: critical | high | medium | low | info
 - file: relative path from repo root
 - start_line: integer
 - end_line: integer (optional)

@@ -28,7 +28,7 @@ Check:
 - Hardcoded secrets, default credentials, or bypassed auth
 
 For each observation:
-- severity: HIGH | MEDIUM | LOW
+- severity: critical | high | medium | low | info
 - file: relative path
 - start_line / end_line
 - title (max 80 chars)

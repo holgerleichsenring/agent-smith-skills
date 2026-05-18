@@ -24,7 +24,7 @@ Check:
 For each observation:
 - Show the vulnerable code path from user input (source) to dangerous sink
 - Suggest the specific fix (parameterized query, input validation, etc.)
-- severity: HIGH | MEDIUM | LOW
+- severity: critical | high | medium | low | info
 - file, start_line / end_line
 - title (max 80 chars)
 - description: source → sink path + fix
