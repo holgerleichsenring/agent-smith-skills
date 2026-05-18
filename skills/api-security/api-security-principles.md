@@ -69,7 +69,7 @@ When in doubt, do not report. Prefer underreporting to overreporting.
 ## Output Format
 
 For each finding, include:
-- severity: HIGH | MEDIUM | LOW
+- severity: critical | high | medium | low | info
 - owasp_category: e.g. API1:2023 — Broken Object Level Authorization
 - endpoint: HTTP method + path (e.g. GET /api/v1/users/{id})
 - title: short description (max 80 chars)

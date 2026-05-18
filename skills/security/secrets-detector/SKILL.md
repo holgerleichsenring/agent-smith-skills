@@ -31,7 +31,7 @@ Do NOT flag:
 - Documentation examples
 
 For each observation:
-- severity: HIGH | MEDIUM | LOW
+- severity: critical | high | medium | low | info
 - file, start_line / end_line
 - title (max 80 chars)
 - description: what was found + remediation (env var, secrets manager,

@@ -42,7 +42,7 @@ Produce the final ordered list of findings:
 - Commodity findings not covered by LLM skills
 
 For each entry:
-- severity: CRITICAL | HIGH | MEDIUM | LOW
+- severity: critical | high | medium | low | info
 - file: path and line, or "chain" for multi-file chains
 - title (max 80 chars)
 - description: full attack narrative, including chain steps if applicable
