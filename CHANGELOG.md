@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.1.2](https://github.com/holgerleichsenring/agent-smith-skills/compare/v2.1.1...v2.1.2) (2026-05-18)
+
+
+### Bug Fixes
+
+* api security judge roles ([#30](https://github.com/holgerleichsenring/agent-smith-skills/issues/30)) ([4a74ee8](https://github.com/holgerleichsenring/agent-smith-skills/commit/4a74ee81062f8ed67777229c062f84c32ecaba96))
+
 ## [2.1.1](https://github.com/holgerleichsenring/agent-smith-skills/compare/v2.1.0...v2.1.1) (2026-05-15)
 
 
