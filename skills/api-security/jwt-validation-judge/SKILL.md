@@ -49,12 +49,27 @@ file:line citations:
 - Custom `IssuerSigningKey` derived from a static string or env var with
   no key rotation — `severity: medium`.
 
+## Tools
+
+You have `read_file`, `grep`, `glob`. To emit `analyzed_from_source` with a
+specific file + line, you must actually call `read_file` on that file in this
+skill round — the framework's source-anchor validator downgrades unverified
+claims to `potential` automatically.
+
+Typical flow:
+1. The `inventory-auth-stack` observations on the bus give you file:line
+   pointers to JWT configuration. Use those as the seed.
+2. `read_file` the file(s) cited.
+3. Confirm the override (`ValidateLifetime = false` etc.) is literally there at
+   the cited line, not paraphrased.
+4. Emit one observation per genuine override.
+
 ## Output
 
 - `concern: "security"`, `category: "auth"`.
-- `evidence_mode: "analyzed_from_source"`, `file` + `start_line` set to
-  the validator-override line (read it yourself via `read_file` to
-  confirm — the runtime validator drops observations whose file is not
-  in your ReadSet).
+- `evidence_mode: "analyzed_from_source"`, `file` + `start_line` set to the
+  validator-override line **only if you actually read that file in this round**.
+  Otherwise emit `evidence_mode: "potential"` with `file: null` — the finding
+  still surfaces to the operator, just without the strong source claim.
 
 **Length contract:** `description` ≤500 chars. JSON only, no preamble.

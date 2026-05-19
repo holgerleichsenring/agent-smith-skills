@@ -21,19 +21,23 @@ job is to:
    skills emit observations against the same anchor, raise the
    merged observation's severity one notch (info → low, low →
    medium, medium → high, high → critical).
-3. **Drop orphan observations.** Any observation without a verifiable
-   anchor:
-   - `analyzed_from_source` with no `file` → drop.
+3. **Anchor enforcement, with grace.** The framework's source-anchor
+   validator already downgrades unverified `analyzed_from_source` claims to
+   `potential` before observations reach you. Apply this softer rule on top
+   of that:
+   - `analyzed_from_source` with no `file` → should not exist (validator
+     handles it). If you see one anyway, downgrade it yourself.
    - `confirmed` with no `api_path` AND no scanner template_id in the
-     description → drop.
-   - `potential` with no `api_path` AND no `schema_name` AND no
-     concrete cited example → drop.
-   The umbrella's bar is "every finding has at least one
-   verifiable anchor"; this skill enforces it at the synthesis layer.
+     description → drop (a confirmed claim without a target is meaningless).
+   - `potential` observations without anchor are KEPT when the description
+     names a concrete weakness ("`AddJwtBearer` configures
+     `ValidateLifetime = false`", "no `UseHsts` registration in the
+     pipeline"). Drop only pure boilerplate.
 4. **Drop generic boilerplate.** An observation that restates an OWASP
-   category without any anchor (e.g. "missing rate limiting across
-   endpoints" with no api_path) is dropped — the operator already
-   knows the OWASP top 10.
+   category without any specific claim (e.g. "API security misconfiguration
+   risks") is dropped — the operator already knows the OWASP top 10. Keep
+   anything that names a concrete file, route, schema, scanner template,
+   or configuration symbol — even without anchor.
 
 ## What you do not do
 
