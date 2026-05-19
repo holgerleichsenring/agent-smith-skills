@@ -330,3 +330,10 @@ concepts:
     enum_values: [csharp, node, python, generic]
     description: "Primary project language as detected by ProjectAnalyzer; activates language-specific bootstrap producer skills (csharp-bootstrap, node-bootstrap, python-bootstrap, generic-bootstrap). Mapping from ProjectMap.PrimaryLanguage to this enum is performed by ProjectLanguageMapper / PublishProjectLanguageHandler (added in agent-smith p0130c)."
     writers: [PublishProjectLanguageHandler]
+
+  # --- p0148: per-skill-call tool-set visibility ---
+  - name: tool_set_size
+    type: int
+    int_range: [0, 64]
+    description: "Number of AITools bound to the current skill-call's ToolSet, emitted by SkillRoundDispatcher at dispatch time. Lets operators see which rounds had real tool access vs which ran single-shot — 0 indicates a prose-only round; positive counts indicate read/grep/sandbox/probe surfaces resolved through ISkillRoundToolPolicy."
+    writers: [SkillRoundDispatcher]
