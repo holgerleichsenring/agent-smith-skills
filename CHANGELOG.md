@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.5.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v2.4.0...v2.5.0) (2026-05-19)
+
+
+### Features
+
+* **security:** per-skill recon hints + evidence_mode disambiguation for 7 investigators ([#44](https://github.com/holgerleichsenring/agent-smith-skills/issues/44)) ([5eb9072](https://github.com/holgerleichsenring/agent-smith-skills/commit/5eb9072c3a9dea3a54c94a829c82fec80c2551c2))
+
 ## [2.4.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v2.3.0...v2.4.0) (2026-05-19)
 
 
