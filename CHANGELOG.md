@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.2.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v2.1.4...v2.2.0) (2026-05-19)
+
+
+### Features
+
+* **p0146d:** skills emit structured location fields ([#36](https://github.com/holgerleichsenring/agent-smith-skills/issues/36)) ([2357cda](https://github.com/holgerleichsenring/agent-smith-skills/commit/2357cdad16546e21b851bec55c26a98923b55f3e))
+* **p0148:** add tool_set_size concept ([#38](https://github.com/holgerleichsenring/agent-smith-skills/issues/38)) ([1b1d03d](https://github.com/holgerleichsenring/agent-smith-skills/commit/1b1d03d5cd28a92900169e592b25b1eb8a8a1fa0))
+
 ## [2.1.4](https://github.com/holgerleichsenring/agent-smith-skills/compare/v2.1.3...v2.1.4) (2026-05-19)
 
 
