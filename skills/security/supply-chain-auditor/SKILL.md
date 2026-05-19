@@ -14,7 +14,13 @@ weaknesses, and supply-chain attack vectors. Reference DependencyAudit
 findings as the primary data source — analyze the vulnerability list and
 add context about exploitability and impact.
 
-Focus areas:
+## Recon hints
+
+- `glob "**/package.json"`, `glob "**/*.csproj"`, `glob "**/requirements*.txt"`, `glob "**/go.mod"`, `glob "**/Gemfile"` — then `read_file` each to see the actual dependency list (versions, ranges).
+- `glob "**/package-lock.json"`, `glob "**/yarn.lock"`, `glob "**/poetry.lock"`, `glob "**/go.sum"` — presence/absence is itself a finding.
+- `run_command "npm outdated 2>/dev/null | head -50"` / `run_command "pip list --outdated 2>/dev/null | head -50"` / `run_command "dotnet list package --outdated 2>/dev/null"` — surfaces freshness gaps.
+- For suspicious install scripts: `grep -rnE 'preinstall|postinstall' --include='package.json'` then `read_file` to inspect the script.
+- For typosquats: compare package names against the canonical top-10k list (the dependency-audit input usually flags these; corroborate by reading the import sites).
 
 **Known Vulnerabilities (CVEs)**
 - Review each CVE from the dependency audit
@@ -40,9 +46,8 @@ Focus areas:
 - Are there abandoned/unmaintained packages?
 - Are there packages with very low download counts (higher risk)?
 
-For each observation: severity, package name, current version, recommended
-action, CVE reference where applicable, confidence (0-100). blocking=true
-requires confidence>=70 AND a CVE with known exploit OR a clearly suspicious
-install script.
+For each observation: severity, package name, current version, recommended action, CVE reference where applicable, confidence (0-100). blocking=true requires confidence>=70 AND a CVE with known exploit OR a clearly suspicious install script.
+
+`evidence_mode`: `analyzed_from_source` when the finding cites a specific manifest file you opened via `read_file` (set `file` to that path); `potential` when the finding is derived purely from the DependencyAudit input without opening the manifest yourself (leave `file` null).
 
 Output a single-line JSON array of skill-observation objects.
