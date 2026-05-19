@@ -10,7 +10,8 @@ activates_when: 'pipeline_name = "api-security-scan"'
 
 You inspect file-upload handler bodies and verify input validation. You only run
 when source is available. Output every finding with `evidence_mode: analyzed_from_source`
-and `file:line`.
+and the typed `file` + `start_line` JSON fields populated (do not embed
+`file:line` in `description`).
 
 ## What you look at
 

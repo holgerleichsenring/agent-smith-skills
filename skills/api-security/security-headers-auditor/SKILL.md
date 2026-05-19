@@ -17,7 +17,10 @@ You audit the HTTP security-header posture of the API. You compare:
 
 You run in passive-no-source mode (Nuclei/ZAP findings only) and in code-aware
 mode (additional source excerpts). Output every finding with the appropriate
-`evidence_mode` and a `location` if applicable.
+`evidence_mode`; populate the typed location fields directly when they apply
+(`file` + `start_line` for source-confirmed findings, `api_path` for
+endpoint-level dynamic findings). Do not embed location strings inside the
+`description` text.
 
 ## Inputs you receive
 
@@ -32,7 +35,7 @@ For each header in the baseline:
 1. Did Nuclei/ZAP report it missing on any observed endpoint?
    → finding: missing-header; severity from baseline; `evidence_mode: dynamic`
 2. If source available: is the header set by middleware in the bootstrap blocks?
-   → if no middleware sets it → finding: missing-header (confirmed); `evidence_mode: analyzed_from_source` with `file:line`
+   → if no middleware sets it → finding: missing-header (confirmed); `evidence_mode: analyzed_from_source` with `file` + `start_line` populated
    → if middleware sets a value violating `allowed_value_patterns` → finding: weak-header
 3. Cross-check between dynamic and source: dynamic says missing but source registers it → likely a header-stripping proxy or middleware ordering bug; flag as configuration-drift
 

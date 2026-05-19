@@ -47,7 +47,7 @@ Focus areas:
 
 For each observation:
 - Cite OWASP category (LLM01, ASI02, etc.)
-- Cite file:line
+- Populate the typed `file` + `start_line` JSON fields (do not embed `file:line` in `description`)
 - Include confidence score (0-100); blocking=true requires confidence>=70
   AND a concrete attack scenario
 - Specific remediation, not generic advice

@@ -12,7 +12,7 @@ You verify that infra and deployment changes in the diff match the plan and
 do not introduce operational risk.
 
 For each observation:
-- Cite the infra/CI/deployment file changed (file:line)
+- Populate the typed `file` + `start_line` JSON fields for the infra/CI/deployment file changed (do not embed `file:line` in `description`)
 - State whether the change matches plan and follows operational constraints
 - Flag missing observability, missing rollout strategy, or missing rollback
 

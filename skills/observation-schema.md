@@ -7,16 +7,30 @@ Each observation has this shape:
 ```
 {
   "concern": "correctness" | "architecture" | "performance" | "security" | "legal" | "compliance" | "risk",
-  "description": "What you observed — the problem or insight",
+  "description": "What you observed — the problem or insight (terse headline)",
   "suggestion": "What should be done about it",
   "blocking": true/false,
   "severity": "critical" | "high" | "medium" | "low" | "info",
   "confidence": 0-100,
   "rationale": "Why you believe this (optional)",
-  "location": "File:Line or API path (optional)",
-  "effort": "small" | "medium" | "large" (optional)
+  "details": "Long-form prose body — only rendered in Markdown / SARIF properties (optional)",
+  "effort": "small" | "medium" | "large" (optional),
+  "file": "src/path/Foo.cs (optional, for source-evident findings)",
+  "start_line": 42 (optional),
+  "end_line": 48 (optional),
+  "api_path": "GET /api/users (optional, for endpoint-level findings)",
+  "schema_name": "OktaProcessInfoResponse (optional, for schema-level findings)",
+  "evidence_mode": "potential" | "confirmed" | "analyzed_from_source" (optional, defaults to potential),
+  "category": "secrets" | "injection" | "auth" | "headers" | ... (optional, fine-grained domain tag),
+  "review_status": "not_reviewed" | "confirmed" | "false_positive" (optional, defaults to not_reviewed)
 }
 ```
+
+**Location fields:** populate the typed fields directly — `file` + `start_line`
+(+ `end_line`) for source code, `api_path` for HTTP endpoints, `schema_name` for
+OpenAPI schemas. Do NOT embed `file:line` or method+path inside `description`:
+the framework no longer parses location out of prose. If a finding has no clean
+location, leave the typed fields null.
 
 **Severity Levels:**
 
@@ -54,7 +68,7 @@ When in doubt, round down. A false positive costs more reviewer time than a miss
     "severity": "high",
     "confidence": 95,
     "rationale": "OWASP A2:2021 — passwords in URLs are a well-documented vulnerability.",
-    "location": "POST /api/auth/login",
+    "api_path": "POST /api/auth/login",
     "effort": "small"
   },
   {
@@ -64,7 +78,8 @@ When in doubt, round down. A false positive costs more reviewer time than a miss
     "blocking": false,
     "severity": "medium",
     "confidence": 80,
-    "location": "src/Infrastructure/HttpClientWrapper.cs:45"
+    "file": "src/Infrastructure/HttpClientWrapper.cs",
+    "start_line": 45
   }
 ]
 ```

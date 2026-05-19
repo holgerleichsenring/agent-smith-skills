@@ -25,16 +25,16 @@ category name in the removal reason):
 - **already-addressed** — `git log -- <file>` shows the same change landed
   earlier in the work-branch, OR the cited line already implements the
   proposed fix.
-- **insufficient-evidence** — observation lacks `file:line` reference OR
-  cites only a generic claim ("input validation needed") without a concrete
-  code reference.
+- **insufficient-evidence** — observation lacks populated `file` + `start_line`
+  (or `api_path` for endpoint findings) OR cites only a generic claim ("input
+  validation needed") without a concrete code reference.
 - **duplicate** — another observation in the same Final round already
-  flagged the same `file:line` + category pair.
+  flagged the same `file` + `start_line` + category triple.
 
 Retain an observation when:
-- It cites a concrete `file:line` AND describes a specific failure mode AND
-  is within the ticket's scope AND is not handled by the framework or
-  already-merged code.
+- It has populated `file` + `start_line` (or `api_path`) AND describes a
+  specific failure mode AND is within the ticket's scope AND is not handled by
+  the framework or already-merged code.
 
 For each removed observation: state the removal reason in one short sentence
 prefixed with the category name (e.g. `out-of-scope: ticket targets login,
