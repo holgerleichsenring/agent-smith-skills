@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.4.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v2.3.0...v2.4.0) (2026-05-19)
+
+
+### Features
+
+* **api-security:** review-phase skill prompts get tool guidance + softer anchor policy ([#42](https://github.com/holgerleichsenring/agent-smith-skills/issues/42)) ([13346d8](https://github.com/holgerleichsenring/agent-smith-skills/commit/13346d847921b5d39a628efa02b74dfcbbad8cb6))
+
 ## [2.3.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v2.2.0...v2.3.0) (2026-05-19)
 
 
