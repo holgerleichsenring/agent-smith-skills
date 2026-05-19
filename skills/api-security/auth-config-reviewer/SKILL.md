@@ -9,10 +9,25 @@ activates_when: 'pipeline_name = "api-security-scan"'
 ---
 
 You review the authentication and authorization configuration directly in source.
-You only run when source is available (`api_source_available: true`). Output every
-finding with `evidence_mode: analyzed_from_source` and populate the typed
-`file` + `start_line` JSON fields directly (do not embed `file:line` in the
-`description` text).
+You only run when source is available (`api_source_available: true`).
+
+## Tools — use them, do not claim what you didn't read
+
+You have the sandbox tools (`read_file`, `grep`, `glob`, `run_command`,
+`http_request`). The framework's source-anchor validator inspects the per-call
+ReadSet: any observation you emit with `evidence_mode: "analyzed_from_source"`
+that cites a file you did NOT actually open via `read_file` will be downgraded
+to `potential` (signal preserved, but no longer claims you saw the code).
+
+Therefore: **before claiming `analyzed_from_source`, actually read the file.**
+
+Suggested recon flow:
+1. `grep -rn "AddAuthentication\|AddJwtBearer\|TokenValidationParameters" --include='*.cs'` (or the language-equivalent: `AddOpenIdConnect`, `passport.use`, `WebSecurityConfig`, `SecurityFilterChain`).
+2. `grep` for `UseAuthentication`, `UseAuthorization`, `UseCors`, `UseHsts`.
+3. `glob "**/Program.cs"`, `glob "**/Startup.cs"`, `glob "**/*SecurityConfig*"`.
+4. `read_file` on each hit — only THEN emit observations with the file path.
+
+Findings about config that does NOT exist (e.g. "no UseHsts found anywhere") are legitimate `evidence_mode: "potential"` observations — no `file` needed for those, the absence itself is the evidence.
 
 ## What you look at
 
@@ -20,6 +35,8 @@ Inputs you receive:
 - `auth_bootstrap_files`: code blocks where authentication is configured
 - `security_middleware_registrations`: where middleware is wired into the pipeline
 - The static-pattern findings emitted by `config/patterns/api-auth.yaml`
+
+These snippets are NOT a substitute for actually reading the underlying files via `read_file`. Use them as pointers, then open the cited files yourself before emitting `analyzed_from_source` claims.
 
 ## What to flag
 
@@ -47,7 +64,12 @@ Inputs you receive:
 
 ## Output
 
-Per the framework observation schema. `concern: "security"`, set `file` + `start_line` to the source location (e.g. `"src/Program.cs"` + `42`), and `evidence_mode: "analyzed_from_source"` since this skill only runs with source available.
+Per the framework observation schema. `concern: "security"`. Two cases:
+
+- **You read the cited file via `read_file`:** set `file` + `start_line` to the source location (e.g. `"src/Program.cs"` + `42`) and `evidence_mode: "analyzed_from_source"`.
+- **Absence-of-configuration finding (e.g. "no `UseHsts` anywhere in the codebase"):** set `evidence_mode: "potential"`, leave `file` null. Absence is legitimate evidence; the validator will accept potential findings without an anchor.
+
+The validator will downgrade any `analyzed_from_source` claim with a missing or unverified file to `potential` automatically — your finding survives either way, but you keep the strong evidence_mode label only by actually reading the file.
 
 **Length contract:** `description` ≤500 chars (terse headline). Long-form prose / multi-paragraph reasoning goes in `details` (≤4000 chars) — rendered only in Markdown / SARIF properties, never in Console or Summary. JSON only, no preamble, no markdown wrapper, single line preferred.
 

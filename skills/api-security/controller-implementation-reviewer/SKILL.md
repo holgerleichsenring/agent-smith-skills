@@ -15,15 +15,27 @@ do not rely on syntax-spotting.
 
 You only run when source is available (`api_source_available: true`) and at
 least one state-changing route was mapped to a handler with confidence ≥ 0.5.
-Every finding carries `evidence_mode: analyzed_from_source` with the typed
-`file` + `start_line` JSON fields populated (do not embed `file:line` in
-`description`).
+
+## Tools
+
+You have the sandbox tools (`read_file`, `grep`, `glob`, `run_command`). The
+framework's source-anchor validator downgrades any `analyzed_from_source`
+observation whose `file` you did NOT actually open via `read_file` — so
+read before you claim.
+
+Suggested recon flow:
+1. `glob "**/Controllers/**/*.cs"` (or language equivalent: `**/controllers/**/*.py`, `**/*Controller.java`).
+2. For each handler the input snippets implicate: `read_file` the full controller. Snippets are pointers, not substitutes — they don't populate your ReadSet.
+3. `grep "FromSqlRaw\|ExecuteSqlRaw\|createNativeQuery"` for raw-SQL hits, then `read_file` the matches.
+4. `grep "[Authorize]\|@PreAuthorize\|hasRole\|Depends(get_current_user)"` to confirm authorization coverage.
 
 ## What you receive
 
 - Handler snippets for state-changing routes from `RoutesToHandlers`
 - Correlated Nuclei / ZAP findings for those handlers, when present (`file:line` already attached)
 - The Project Brief (stack, arch, naming, coding-principles) at the top of the prompt
+
+The snippets are pointers. To emit `analyzed_from_source` with a file claim, actually open the file via `read_file` first.
 
 ## What to flag
 
@@ -80,7 +92,12 @@ Every finding carries `evidence_mode: analyzed_from_source` with the typed
 
 ## Output
 
-Per the framework observation schema. `concern: "security"`, set `file` + `start_line` to the source location (e.g. `"src/Controllers/UserController.cs"` + `84`), and `evidence_mode: "analyzed_from_source"` since this skill only runs with source available.
+Per the framework observation schema. `concern: "security"`. For each finding:
+
+- **You opened the cited file via `read_file`:** set `file` + `start_line` to the actual handler location (e.g. `"src/Controllers/UserController.cs"` + `84`) and `evidence_mode: "analyzed_from_source"`.
+- **Pattern-strong inference from the input snippet alone:** `evidence_mode: "potential"`, leave `file` null. Valid — the snippet itself is your evidence.
+
+The validator will downgrade unverified `analyzed_from_source` claims automatically (signal kept, label corrected). You keep the strong claim only by actually reading the file.
 
 **Length contract:** `description` ≤500 chars (terse headline). Long-form prose / multi-paragraph reasoning goes in `details` (≤4000 chars) — rendered only in Markdown / SARIF properties, never in Console or Summary. JSON only, no preamble, no markdown wrapper, single line preferred.
 
