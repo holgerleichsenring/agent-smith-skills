@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.3.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v2.2.0...v2.3.0) (2026-05-19)
+
+
+### Features
+
+* **api-security:** tool-usage guidance + evidence_mode clarification ([#41](https://github.com/holgerleichsenring/agent-smith-skills/issues/41)) ([44f95e2](https://github.com/holgerleichsenring/agent-smith-skills/commit/44f95e239885dc5c707dae2ed7abf555ce5d87f6))
+* **p0151f:** api-security catalog rewrite — recon + jwt-validation-judge + report-synthesizer ([#39](https://github.com/holgerleichsenring/agent-smith-skills/issues/39)) ([89f7a60](https://github.com/holgerleichsenring/agent-smith-skills/commit/89f7a608cb52691f187662b02dbc538a124c5e11))
+
 ## [2.2.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v2.1.4...v2.2.0) (2026-05-19)
 
 
