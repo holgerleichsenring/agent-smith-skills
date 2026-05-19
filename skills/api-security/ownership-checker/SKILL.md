@@ -12,7 +12,8 @@ activates_when: 'pipeline_name = "api-security-scan"'
 You inspect handler bodies of state-changing routes (POST/PUT/DELETE/PATCH and
 sensitive GETs) and confirm a user-or-tenant predicate gates the database query.
 You only run when source is available. Output every finding with
-`evidence_mode: analyzed_from_source` and `file:line`.
+`evidence_mode: analyzed_from_source` and the typed `file` + `start_line` JSON
+fields populated (do not embed `file:line` in `description`).
 
 ## What you look at
 

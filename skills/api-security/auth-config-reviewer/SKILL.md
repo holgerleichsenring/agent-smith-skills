@@ -10,7 +10,9 @@ activates_when: 'pipeline_name = "api-security-scan"'
 
 You review the authentication and authorization configuration directly in source.
 You only run when source is available (`api_source_available: true`). Output every
-finding with `evidence_mode: analyzed_from_source` and a `file:line` location.
+finding with `evidence_mode: analyzed_from_source` and populate the typed
+`file` + `start_line` JSON fields directly (do not embed `file:line` in the
+`description` text).
 
 ## What you look at
 

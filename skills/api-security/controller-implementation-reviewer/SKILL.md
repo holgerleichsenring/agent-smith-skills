@@ -15,7 +15,9 @@ do not rely on syntax-spotting.
 
 You only run when source is available (`api_source_available: true`) and at
 least one state-changing route was mapped to a handler with confidence ≥ 0.5.
-Every finding carries `evidence_mode: analyzed_from_source` and a `file:line`.
+Every finding carries `evidence_mode: analyzed_from_source` with the typed
+`file` + `start_line` JSON fields populated (do not embed `file:line` in
+`description`).
 
 ## What you receive
 

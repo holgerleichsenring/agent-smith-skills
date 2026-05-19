@@ -24,7 +24,7 @@ Remove a finding when:
 
 Retain a finding when:
 - Confidence is 70+ (High band) and no exclusion applies
-- Evidence is concrete (file:line, payload shape, exploit path)
+- Evidence is concrete (typed `file` + `start_line` populated or `api_path` set, plus payload shape / exploit path)
 
 For each removed finding: state the removal reason in one short sentence.
 For each retained finding: confirm severity and confidence are appropriate.

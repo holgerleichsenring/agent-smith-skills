@@ -13,7 +13,7 @@ phase. The plan is your input alongside the diff.
 
 For each architectural concern:
 - Cite the specific plan element (e.g., "plan step 3 required X")
-- Cite the specific code location (file:line)
+- Populate the typed `file` + `start_line` JSON fields for the source location (do not embed `file:line` in `description`)
 - State whether the code adheres or deviates
 - If deviation: blocking=true requires confidence>=70 AND based_on contains
   both plan_ref and file_ref
