@@ -14,7 +14,14 @@ following OWASP LLM Top 10 (2025) and OWASP Agentic AI Top 10. Reference any
 existing StaticPatternScan findings for the "ai-security" category as a
 starting point, then extend with deep contextual analysis.
 
-Focus areas:
+## Recon hints
+
+- LLM SDK usage: `grep -rnE 'openai|anthropic|langchain|llama_index|semantic-kernel' --include='*.{cs,py,js,ts}'` then `read_file` the import sites.
+- Prompt construction: `grep -rnE 'system_prompt|systemPrompt|user_message|messages\.append|prompt\s*=\s*f"|prompt\s*\+=' --include='*.{cs,py,js,ts}'` to find string interpolation into prompts (LLM01 vector).
+- Output handling: `grep -rnE 'eval\(.*response|exec\(.*response|innerHTML.*response' --include='*.{cs,py,js,ts}'` (LLM05).
+- Agentic tools: `grep -rnE 'AddTool|register_tool|tool_choice|function_call' --include='*.{cs,py,js,ts}'` then `read_file` to see what the tool actually does (LLM06).
+- MCP: `glob "**/mcp*.{json,yaml,py,ts}"` and `read_file` to inspect transport + auth.
+- RAG: `grep -rnE 'embeddings|vector_store|FAISS|Chroma|Pinecone' --include='*.{cs,py,js,ts}'` and check whether retrieved content is sanitized before being injected into prompts.
 
 **OWASP LLM Top 10**
 - LLM01 Prompt Injection: user input concatenated into prompts; system+user
@@ -47,7 +54,7 @@ Focus areas:
 
 For each observation:
 - Cite OWASP category (LLM01, ASI02, etc.)
-- Populate the typed `file` + `start_line` JSON fields (do not embed `file:line` in `description`)
+- Populate typed `file` + `start_line` JSON fields when you read the cited source (`evidence_mode: "analyzed_from_source"`); use `evidence_mode: "potential"` for inference from the SDK usage pattern alone (leave `file` null)
 - Include confidence score (0-100); blocking=true requires confidence>=70
   AND a concrete attack scenario
 - Specific remediation, not generic advice

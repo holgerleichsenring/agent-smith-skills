@@ -14,7 +14,13 @@ misconfigurations. Reference existing StaticPatternScan findings for the
 "config" category as a starting point. Confirm, add context, or adjust
 severity based on your analysis.
 
-Focus areas:
+## Recon hints
+
+- `glob "**/Dockerfile*"`, `glob "**/docker-compose*.{yml,yaml}"`, `glob "**/.github/workflows/*.{yml,yaml}"`, `glob "**/k8s/**/*.{yml,yaml}"`, `glob "**/*.tf"` — then `read_file` each. Configurations are short; reading them in full is cheap and high-signal.
+- `grep -rnE '0\.0\.0\.0/0|AllowAnyOrigin|allow-credentials.*true|privileged.*true|hostNetwork.*true' --include='*.{yml,yaml,tf,json}'`
+- `grep -rnE 'image:\s*[^@]+:(latest|main|master)\s*$' --include='*.{yml,yaml,Dockerfile}'` — mutable image tags.
+- `grep -rnE 'pull_request_target' --include='.github/workflows/*.{yml,yaml}'` — high-risk workflow trigger.
+- For each finding, cite the specific file + line; the open file justifies `evidence_mode: "analyzed_from_source"`.
 
 **Dockerfile / Docker Compose**
 - Mutable image tags (:latest) — pin specific digests or versions
@@ -52,8 +58,6 @@ Focus areas:
 - Verbose error messages exposing internals
 - TLS verification disabled
 
-For each observation: severity, file, line, CWE where applicable,
-specific remediation, confidence (0-100). blocking=true requires
-confidence>=70 AND a concrete misconfiguration in deployable code.
+For each observation: severity, file, line, CWE where applicable, specific remediation, confidence (0-100). `evidence_mode: "analyzed_from_source"` when you opened the cited config file; `evidence_mode: "potential"` for absence findings ("no NetworkPolicy anywhere") with `file: null`. blocking=true requires confidence>=70 AND a concrete misconfiguration in deployable code.
 
 Output a single-line JSON array of skill-observation objects.
