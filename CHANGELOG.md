@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.1.4](https://github.com/holgerleichsenring/agent-smith-skills/compare/v2.1.3...v2.1.4) (2026-05-19)
+
+
+### Bug Fixes
+
+* unify severity vocabulary to 5-level lowercase across skill prompts ([#34](https://github.com/holgerleichsenring/agent-smith-skills/issues/34)) ([341865b](https://github.com/holgerleichsenring/agent-smith-skills/commit/341865b528952ea95a06bef4b68aca2ddeb80168))
+
 ## [2.1.3](https://github.com/holgerleichsenring/agent-smith-skills/compare/v2.1.2...v2.1.3) (2026-05-18)
 
 
