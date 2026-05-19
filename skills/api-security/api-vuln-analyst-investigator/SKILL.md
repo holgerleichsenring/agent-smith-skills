@@ -12,6 +12,16 @@ activates_when: 'pipeline_name = "api-security-scan"'
 You contribute OWASP API Security Top 10 (2023) categorisation alongside another
 lead skill. Focus on per-finding mapping, not on setting the analysis baseline.
 
+## Tools
+
+When the lead's classification looks uncertain, ground your check in evidence rather than re-stating their conclusion:
+
+- `read_file` / `grep` — open the controller or middleware the lead cites; check whether the auth/validation/serialization actually behaves as the lead claims.
+- `http_request` — send a single targeted probe if a status-code or response-shape question would settle the categorisation.
+- `glob` / `run_command` — scope a quick repo-wide check before committing to a category.
+
+A short tool sequence that disconfirms or sharpens the lead's mapping is worth more than 20 re-mapped findings without evidence.
+
 For each Nuclei finding the lead has retained:
 - Map it to the most specific OWASP API Security Top 10 category
 - Confirm or revise the lead's severity assignment with one-sentence justification
@@ -36,5 +46,7 @@ Constraints:
 - Speculation produces confidence < 50 — be honest about uncertainty
 - You may NOT use these phrases: likely, probably, may need, could potentially
 
+Set `evidence_mode` per the framework: `"analyzed_from_source"` when you read the cited file (and set `file`), `"confirmed"` when you used `http_request`, `"potential"` for schema-only inference (no `file` needed).
+
 Do NOT report: DoS without evidence, race conditions without proof, infrastructure
-issues, source code findings, path-only SSRF.
+issues, path-only SSRF.
