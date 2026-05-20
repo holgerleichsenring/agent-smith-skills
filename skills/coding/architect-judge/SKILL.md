@@ -18,6 +18,12 @@ For each architectural concern:
 - If deviation: blocking=true requires confidence>=70 AND based_on contains
   both plan_ref and file_ref
 
+Set `evidence_mode: "potential"` — this skill compares the diff against the
+plan; it does not invoke `read_file`. Take `file` + `start_line` from the
+diff or the plan. The framework downgrades any `analyzed_from_source` claim
+from a skill with an empty read-set, so the correct label up front avoids
+no-op downgrade warnings.
+
 Constraints:
 - Do not flag style or formatting unless the plan addressed it
 - Do not flag issues unrelated to architecture (security, perf, tests)

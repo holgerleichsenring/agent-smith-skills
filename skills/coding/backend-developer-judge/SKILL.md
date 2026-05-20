@@ -17,6 +17,12 @@ For each observation:
 - Reference the plan element being checked
 - For deviations, blocking=true requires confidence>=70 AND populated `file` + `start_line`
 
+Set `evidence_mode: "potential"` — this skill compares the diff against the
+plan; it does not invoke `read_file`. Take `file` + `start_line` from the
+diff or the plan. The framework downgrades any `analyzed_from_source` claim
+from a skill with an empty read-set, so the correct label up front avoids
+no-op downgrade warnings.
+
 Constraints:
 - Do not flag style or formatting unless the plan addressed it
 - Do not propose new features or alternative implementations — that is analyst work
