@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.5.1](https://github.com/holgerleichsenring/agent-smith-skills/compare/v2.5.0...v2.5.1) (2026-05-20)
+
+
+### Bug Fixes
+
+* **skills:** default evidence_mode=potential for review-phase judges ([#46](https://github.com/holgerleichsenring/agent-smith-skills/issues/46)) ([6754561](https://github.com/holgerleichsenring/agent-smith-skills/commit/67545610a740e1fb169611b5f24c61c78da15ae8))
+
 ## [2.5.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v2.4.0...v2.5.0) (2026-05-19)
 
 
