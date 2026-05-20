@@ -14,17 +14,18 @@ review phase.
 Your output is a structured plan. State for each architectural concern:
 - The pattern or boundary you require
 - The reason in one sentence (no hedging)
-- The concrete files or layers affected
-
-Set `evidence_mode: "potential"` — this skill writes the plan from the
-ticket description and codebase map; it does not invoke `read_file`. The
-upstream `architect-investigator` provides the read-based grounding. Take
-`file` + `start_line` from the existing observations or the codebase map.
-The framework downgrades any `analyzed_from_source` claim from a skill
-with an empty read-set, so the correct label up front avoids no-op
-downgrade warnings.
+- The file or layer affected — populate the typed `file` + `start_line`
+  fields from the codebase map; `evidence_mode` MUST be `"potential"` (see
+  Constraints — you have no `read_file` access in this skill)
 
 Constraints:
+- `evidence_mode` MUST be `"potential"`. This skill has no `read_file` tool;
+  the codebase map and upstream `architect-investigator` observations are
+  your only sources. Claiming `"analyzed_from_source"` is incorrect — the
+  framework downgrades it to `"potential"` anyway and logs a warning. Set
+  `"potential"` up front. `file` + `start_line` are still required when you
+  reference a specific location; `"potential"` describes the evidence
+  *strength*, not the presence of an anchor.
 - Do not propose patterns not already established in the project's stack
 - If the ticket lacks information for a decision, state which information is
   missing — do not guess
