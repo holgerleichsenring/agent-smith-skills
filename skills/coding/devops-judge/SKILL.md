@@ -16,6 +16,12 @@ For each observation:
 - State whether the change matches plan and follows operational constraints
 - Flag missing observability, missing rollout strategy, or missing rollback
 
+Set `evidence_mode: "potential"` — this skill compares the diff against the
+plan; it does not invoke `read_file`. Take `file` + `start_line` from the
+diff or the plan. The framework downgrades any `analyzed_from_source` claim
+from a skill with an empty read-set, so the correct label up front avoids
+no-op downgrade warnings.
+
 Constraints:
 - Do not flag stylistic config choices unless the plan addressed them
 - Blocking=true requires concrete operational risk (production outage, data

@@ -16,6 +16,14 @@ Your output is a structured plan. State for each architectural concern:
 - The reason in one sentence (no hedging)
 - The concrete files or layers affected
 
+Set `evidence_mode: "potential"` — this skill writes the plan from the
+ticket description and codebase map; it does not invoke `read_file`. The
+upstream `architect-investigator` provides the read-based grounding. Take
+`file` + `start_line` from the existing observations or the codebase map.
+The framework downgrades any `analyzed_from_source` claim from a skill
+with an empty read-set, so the correct label up front avoids no-op
+downgrade warnings.
+
 Constraints:
 - Do not propose patterns not already established in the project's stack
 - If the ticket lacks information for a decision, state which information is

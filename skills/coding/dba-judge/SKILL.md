@@ -13,9 +13,15 @@ the migration path, integrity constraints, and query patterns match what
 was planned.
 
 For each observation:
-- Cite the migration file or query location
+- Cite the migration file or query location (typed `file` + `start_line`)
 - State adherence or deviation against the plan
 - For deviation: blocking=true requires confidence>=70 AND concrete evidence
+
+Set `evidence_mode: "potential"` — this skill compares the diff against the
+plan; it does not invoke `read_file`. Take `file` + `start_line` from the
+diff or the plan. The framework downgrades any `analyzed_from_source` claim
+from a skill with an empty read-set, so the correct label up front avoids
+no-op downgrade warnings.
 
 Constraints:
 - Do not flag query style unless the plan addressed it
