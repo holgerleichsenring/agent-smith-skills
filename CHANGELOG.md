@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.5.2](https://github.com/holgerleichsenring/agent-smith-skills/compare/v2.5.1...v2.5.2) (2026-05-20)
+
+
+### Bug Fixes
+
+* **skills:** make evidence_mode=potential mandatory in architect-planner ([#48](https://github.com/holgerleichsenring/agent-smith-skills/issues/48)) ([156e953](https://github.com/holgerleichsenring/agent-smith-skills/commit/156e9534da0defcefe240e6474848f663369467f))
+
 ## [2.5.1](https://github.com/holgerleichsenring/agent-smith-skills/compare/v2.5.0...v2.5.1) (2026-05-20)
 
 
