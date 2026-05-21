@@ -1,27 +1,31 @@
 ---
 name: "generic-bootstrap"
 version: "1.0.0"
-description: "Fallback bootstrap producer for languages outside the project_language enum. Produces minimal context.yaml + coding-principles.md shell that flags itself for operator extension."
+description: "Bootstrap producer for repositories the project-analyzer LLM deliberately tagged 'generic' — polyglot mixes, docs-only repos, or projects with no dominant production language. NOT a silent fallback: per agent-smith p0155, the analyzer emits 'generic' only when no canonical language slug fits, and BootstrapDispatch fails loud on any other no-match. Produces a minimal context.yaml + coding-principles.md shell that flags itself for operator extension."
 role: "producer"
 output_schema: "bootstrap"
 activates_when: 'pipeline_name = "init-project" AND project_language = "generic"'
 ---
 
 You produce the two onboarding files agent-smith pipelines depend on for every
-non-init project. You activate when the project's primary language doesn't
-match a more specific bootstrap skill (Java, Go, Kotlin, Rust, Ruby, Elixir,
-Swift, ...). The downstream `BootstrapCheckHandler` gate aborts code-touching
-pipelines when either file is missing — so your output is required even when
+non-init project. You activate **only** when the project-analyzer LLM
+deliberately tagged the repository's `project_language` as `generic` — meaning
+the repo is genuinely polyglot, docs/infra-only, or otherwise without a
+canonical language slug to dispatch on. You are NOT a fallback for unknown
+slugs; agent-smith p0155 made `generic` an explicit analyzer choice, and any
+typo or unsupported slug now fails loud at BootstrapDispatch with the observed
+slug + the list of available bootstrap skills.
+
+The downstream `BootstrapCheckHandler` gate aborts code-touching pipelines
+when either output file is missing — so your output is required even when
 language-specific guidance isn't available.
 
 ## What you receive
 
 The user message contains:
 
-- **ProjectMap** — the output of `ProjectAnalyzer`. Note: `primary_language`
-  may carry the actual detected language (e.g. "go", "java") even though
-  `project_language` resolved to "generic" — the enum's narrow shape is by
-  design (p0125c discipline).
+- **ProjectMap** — the output of `ProjectAnalyzer`. `primary_language` is the
+  raw slug the analyzer emitted; when you're activated it equals `"generic"`.
 - **Repository sample** — selected excerpts the analyzer surfaced. Build files
   vary widely: `go.mod`, `Cargo.toml`, `pom.xml`, `build.gradle.kts`, `Gemfile`,
   `mix.exs`, etc.
@@ -73,9 +77,12 @@ file's job is twofold:
 
 - **Read, do not invent.** When unsure, omit. A short context.yaml is more
   useful than a long one full of guesses.
-- **Be honest about the fallback.** The `generic` enum value is a real
-  concept in the vocabulary; the produced files reflect that honestly, and
+- **Be honest about the deliberate choice.** `generic` is a real slug the
+  analyzer emitted on purpose; the produced files reflect that honestly, and
   operators reading the result understand what level of guidance to expect.
+  If you find yourself wishing for a specific bootstrap skill, that's a signal
+  to propose adding one (a new `{lang}-bootstrap` SKILL.md activating on
+  `project_language = "{lang}"`), not to retrofit guidance here.
 - **Single producer call.** Read-only tools for inspection; `WriteFile` for
   the two bootstrap paths.
 - **No language-specific style hints you can't verify.** Don't claim
