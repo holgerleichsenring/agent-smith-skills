@@ -13,7 +13,7 @@ You only run when source is available (`api_source_available: true`).
 
 ## Tools — use them, do not claim what you didn't read
 
-You have the sandbox tools (`read_file`, `grep`, `glob`, `run_command`,
+You have the sandbox tools (`read_file`, `grep`, `find_files`, `run_command`,
 `http_request`). The framework's source-anchor validator inspects the per-call
 ReadSet: any observation you emit with `evidence_mode: "analyzed_from_source"`
 that cites a file you did NOT actually open via `read_file` will be downgraded
@@ -24,7 +24,7 @@ Therefore: **before claiming `analyzed_from_source`, actually read the file.**
 Suggested recon flow:
 1. `grep -rn "AddAuthentication\|AddJwtBearer\|TokenValidationParameters" --include='*.cs'` (or the language-equivalent: `AddOpenIdConnect`, `passport.use`, `WebSecurityConfig`, `SecurityFilterChain`).
 2. `grep` for `UseAuthentication`, `UseAuthorization`, `UseCors`, `UseHsts`.
-3. `glob "**/Program.cs"`, `glob "**/Startup.cs"`, `glob "**/*SecurityConfig*"`.
+3. `find_files "**/Program.cs"`, `find_files "**/Startup.cs"`, `find_files "**/*SecurityConfig*"`.
 4. `read_file` on each hit — only THEN emit observations with the file path.
 
 Findings about config that does NOT exist (e.g. "no UseHsts found anywhere") are legitimate `evidence_mode: "potential"` observations — no `file` needed for those, the absence itself is the evidence.

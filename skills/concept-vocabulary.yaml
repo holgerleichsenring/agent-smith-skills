@@ -324,11 +324,16 @@ concepts:
     description: ".agentsmith/coding-principles.md is present in the working repo"
     writers: [BootstrapCheckHandler]
 
-  # --- p0130a: bootstrap producer-skill activation by detected language ---
+  # --- p0155: project_language is a free-form lowercase canonical slug owned
+  # by the project-analyzer LLM (csharp / typescript / python / go / rust /
+  # java / lua / generic / ...). The closed enum + ProjectLanguageMapper were
+  # retired in agent-smith p0155; adding a 5th language is now a skill PR
+  # (drop a `{lang}-bootstrap` SKILL.md activating on `project_language = "{lang}"`),
+  # not a C# PR. BootstrapDispatch fails loud with the observed slug + available
+  # skill names on no-match.
   - name: project_language
-    type: enum
-    enum_values: [csharp, node, python, generic]
-    description: "Primary project language as detected by ProjectAnalyzer; activates language-specific bootstrap producer skills (csharp-bootstrap, node-bootstrap, python-bootstrap, generic-bootstrap). Mapping from ProjectMap.PrimaryLanguage to this enum is performed by ProjectLanguageMapper / PublishProjectLanguageHandler (added in agent-smith p0130c)."
+    type: string
+    description: "Primary project language as a lowercase canonical slug (csharp, typescript, python, go, rust, java, lua, generic, ...). Set verbatim by PublishProjectLanguageHandler from ProjectMap.PrimaryLanguage; the project-analyzer LLM owns the slug rule. Activates language-specific bootstrap producer skills via `project_language = \"X\"` activation expressions."
     writers: [PublishProjectLanguageHandler]
 
   # --- p0148: per-skill-call tool-set visibility ---

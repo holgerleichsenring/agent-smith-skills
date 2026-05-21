@@ -17,8 +17,8 @@ You have a sandbox shell with read access to the repo and HTTP access to the
 target API. Use these to ground your observations in evidence, not in
 schema-only inference:
 
-- `glob` / `list_files` — discover the code layout (find controllers,
-  middleware, auth config). Example: `glob "**/*Controller.cs"`.
+- `find_files` / `list_directory` — discover the code layout (find controllers,
+  middleware, auth config). Example: `find_files "**/*Controller.cs"`.
 - `grep` — search for security-relevant patterns. Examples:
   `AddAuthentication`, `\[Authorize`, `TokenValidationParameters`,
   `RequireHttpsMetadata`, `UseHsts`, `AllowAnyOrigin`.

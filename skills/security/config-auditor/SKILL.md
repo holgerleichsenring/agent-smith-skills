@@ -16,7 +16,7 @@ severity based on your analysis.
 
 ## Recon hints
 
-- `glob "**/Dockerfile*"`, `glob "**/docker-compose*.{yml,yaml}"`, `glob "**/.github/workflows/*.{yml,yaml}"`, `glob "**/k8s/**/*.{yml,yaml}"`, `glob "**/*.tf"` — then `read_file` each. Configurations are short; reading them in full is cheap and high-signal.
+- `find_files "**/Dockerfile*"`, `find_files "**/docker-compose*.{yml,yaml}"`, `find_files "**/.github/workflows/*.{yml,yaml}"`, `find_files "**/k8s/**/*.{yml,yaml}"`, `find_files "**/*.tf"` — then `read_file` each. Configurations are short; reading them in full is cheap and high-signal.
 - `grep -rnE '0\.0\.0\.0/0|AllowAnyOrigin|allow-credentials.*true|privileged.*true|hostNetwork.*true' --include='*.{yml,yaml,tf,json}'`
 - `grep -rnE 'image:\s*[^@]+:(latest|main|master)\s*$' --include='*.{yml,yaml,Dockerfile}'` — mutable image tags.
 - `grep -rnE 'pull_request_target' --include='.github/workflows/*.{yml,yaml}'` — high-risk workflow trigger.

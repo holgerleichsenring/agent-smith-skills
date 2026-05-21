@@ -18,13 +18,13 @@ least one state-changing route was mapped to a handler with confidence ≥ 0.5.
 
 ## Tools
 
-You have the sandbox tools (`read_file`, `grep`, `glob`, `run_command`). The
+You have the sandbox tools (`read_file`, `grep`, `find_files`, `run_command`). The
 framework's source-anchor validator downgrades any `analyzed_from_source`
 observation whose `file` you did NOT actually open via `read_file` — so
 read before you claim.
 
 Suggested recon flow:
-1. `glob "**/Controllers/**/*.cs"` (or language equivalent: `**/controllers/**/*.py`, `**/*Controller.java`).
+1. `find_files "**/Controllers/**/*.cs"` (or language equivalent: `**/controllers/**/*.py`, `**/*Controller.java`).
 2. For each handler the input snippets implicate: `read_file` the full controller. Snippets are pointers, not substitutes — they don't populate your ReadSet.
 3. `grep "FromSqlRaw\|ExecuteSqlRaw\|createNativeQuery"` for raw-SQL hits, then `read_file` the matches.
 4. `grep "[Authorize]\|@PreAuthorize\|hasRole\|Depends(get_current_user)"` to confirm authorization coverage.

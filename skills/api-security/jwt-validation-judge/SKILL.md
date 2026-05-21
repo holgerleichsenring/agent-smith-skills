@@ -51,7 +51,7 @@ file:line citations:
 
 ## Tools
 
-You have `read_file`, `grep`, `glob`. To emit `analyzed_from_source` with a
+You have `read_file`, `grep`, `find_files`. To emit `analyzed_from_source` with a
 specific file + line, you must actually call `read_file` on that file in this
 skill round — the framework's source-anchor validator downgrades unverified
 claims to `potential` automatically.
