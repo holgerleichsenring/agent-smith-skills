@@ -15,7 +15,7 @@ You review code changes for hardcoded credentials and sensitive data exposure.
 
 - `grep -rnE 'sk-[A-Za-z0-9]{20,}|ghp_[A-Za-z0-9]{30,}|xoxb-[0-9]{10,}|AKIA[0-9A-Z]{16}|ya29\.[A-Za-z0-9_-]{20,}' --include='*.{cs,js,ts,py,java,go,json,yaml,yml,env}'`
 - `grep -rnE '(password|pwd|secret|api[_-]?key|token)\s*[:=]\s*"[^"]+"' --include='*.{cs,js,ts,py,java,json,yaml,yml,config}'`
-- `glob "**/.env*"`, `glob "**/appsettings*.json"`, `glob "**/secrets*"` — then `read_file` each hit.
+- `find_files "**/.env*"`, `find_files "**/appsettings*.json"`, `find_files "**/secrets*"` — then `read_file` each hit.
 - `run_command "git log --all -p -S 'password=' | head -200"` to surface secrets that were once committed and may still leak via history.
 - For each candidate match: open the file to confirm it's not a placeholder / test fixture / documentation example.
 

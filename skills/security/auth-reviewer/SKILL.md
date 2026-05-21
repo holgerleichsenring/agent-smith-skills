@@ -15,7 +15,7 @@ You review code changes for authentication and authorization vulnerabilities.
 
 - `grep -rnE 'AddAuthentication|AddJwtBearer|TokenValidationParameters|passport\.use|WebSecurityConfig|SecurityFilterChain' --include='*.{cs,js,ts,py,java,kt}'`
 - `grep -rnE '\[Authorize|@PreAuthorize|requires_auth|Depends\(get_current_user\)|isAuthenticated' --include='*.{cs,py,java,ts}'`
-- `glob "**/*Controller.cs"` / `glob "**/routes/**/*.{js,ts}"` — then `read_file` representative samples.
+- `find_files "**/*Controller.cs"` / `find_files "**/routes/**/*.{js,ts}"` — then `read_file` representative samples.
 - For IDOR/BOLA: read controller actions that take an `{id}` path param and check whether ownership is enforced before data is loaded.
 
 - OAuth flows for CSRF protection (state parameter)

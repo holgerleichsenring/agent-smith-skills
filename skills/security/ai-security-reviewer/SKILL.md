@@ -20,7 +20,7 @@ starting point, then extend with deep contextual analysis.
 - Prompt construction: `grep -rnE 'system_prompt|systemPrompt|user_message|messages\.append|prompt\s*=\s*f"|prompt\s*\+=' --include='*.{cs,py,js,ts}'` to find string interpolation into prompts (LLM01 vector).
 - Output handling: `grep -rnE 'eval\(.*response|exec\(.*response|innerHTML.*response' --include='*.{cs,py,js,ts}'` (LLM05).
 - Agentic tools: `grep -rnE 'AddTool|register_tool|tool_choice|function_call' --include='*.{cs,py,js,ts}'` then `read_file` to see what the tool actually does (LLM06).
-- MCP: `glob "**/mcp*.{json,yaml,py,ts}"` and `read_file` to inspect transport + auth.
+- MCP: `find_files "**/mcp*.{json,yaml,py,ts}"` and `read_file` to inspect transport + auth.
 - RAG: `grep -rnE 'embeddings|vector_store|FAISS|Chroma|Pinecone' --include='*.{cs,py,js,ts}'` and check whether retrieved content is sanitized before being injected into prompts.
 
 **OWASP LLM Top 10**

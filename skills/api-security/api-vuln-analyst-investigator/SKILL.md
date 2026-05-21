@@ -18,7 +18,7 @@ When the lead's classification looks uncertain, ground your check in evidence ra
 
 - `read_file` / `grep` — open the controller or middleware the lead cites; check whether the auth/validation/serialization actually behaves as the lead claims.
 - `http_request` — send a single targeted probe if a status-code or response-shape question would settle the categorisation.
-- `glob` / `run_command` — scope a quick repo-wide check before committing to a category.
+- `find_files` / `run_command` — scope a quick repo-wide check before committing to a category.
 
 A short tool sequence that disconfirms or sharpens the lead's mapping is worth more than 20 re-mapped findings without evidence.
 

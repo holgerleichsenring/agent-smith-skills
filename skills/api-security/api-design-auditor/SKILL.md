@@ -16,7 +16,7 @@ You have access to the full swagger.json and Spectral lint findings.
 
 You also have read access to the source code and HTTP access to the running target. Use them to corroborate schema findings:
 
-- `glob` / `grep` / `read_file` — find the controller / DTO behind a suspect endpoint to see whether the schema's omission (no `maxLength`, no `[Required]`, ambiguous nullable) reflects the implementation or is just schema-doc noise. Examples: `glob "**/*Controller.cs"`, `grep "MaxLength" path=Models`.
+- `find_files` / `grep` / `read_file` — find the controller / DTO behind a suspect endpoint to see whether the schema's omission (no `maxLength`, no `[Required]`, ambiguous nullable) reflects the implementation or is just schema-doc noise. Examples: `find_files "**/*Controller.cs"`, `grep "MaxLength" path=Models`.
 - `http_request` — probe a specific endpoint to confirm whether the runtime behavior matches the schema (e.g. send oversize input and observe whether it's actually rejected).
 - `run_command` — bash for ad-hoc inspection.
 

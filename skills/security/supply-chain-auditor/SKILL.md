@@ -16,8 +16,8 @@ add context about exploitability and impact.
 
 ## Recon hints
 
-- `glob "**/package.json"`, `glob "**/*.csproj"`, `glob "**/requirements*.txt"`, `glob "**/go.mod"`, `glob "**/Gemfile"` — then `read_file` each to see the actual dependency list (versions, ranges).
-- `glob "**/package-lock.json"`, `glob "**/yarn.lock"`, `glob "**/poetry.lock"`, `glob "**/go.sum"` — presence/absence is itself a finding.
+- `find_files "**/package.json"`, `find_files "**/*.csproj"`, `find_files "**/requirements*.txt"`, `find_files "**/go.mod"`, `find_files "**/Gemfile"` — then `read_file` each to see the actual dependency list (versions, ranges).
+- `find_files "**/package-lock.json"`, `find_files "**/yarn.lock"`, `find_files "**/poetry.lock"`, `find_files "**/go.sum"` — presence/absence is itself a finding.
 - `run_command "npm outdated 2>/dev/null | head -50"` / `run_command "pip list --outdated 2>/dev/null | head -50"` / `run_command "dotnet list package --outdated 2>/dev/null"` — surfaces freshness gaps.
 - For suspicious install scripts: `grep -rnE 'preinstall|postinstall' --include='package.json'` then `read_file` to inspect the script.
 - For typosquats: compare package names against the canonical top-10k list (the dependency-audit input usually flags these; corroborate by reading the import sites).
