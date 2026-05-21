@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.6.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v2.5.2...v2.6.0) (2026-05-21)
+
+
+### Features
+
+* P0155 project language string ([#50](https://github.com/holgerleichsenring/agent-smith-skills/issues/50)) ([587ad66](https://github.com/holgerleichsenring/agent-smith-skills/commit/587ad664d54ff8fdccd9c3a24b3e31e15768da61))
+
 ## [2.5.2](https://github.com/holgerleichsenring/agent-smith-skills/compare/v2.5.1...v2.5.2) (2026-05-20)
 
 
