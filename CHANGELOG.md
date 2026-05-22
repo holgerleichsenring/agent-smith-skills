@@ -1,5 +1,16 @@
 # Changelog
 
+## [3.0.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v2.6.0...v3.0.0) (2026-05-22)
+
+
+### ⚠ BREAKING CHANGES
+
+* **bootstrap:** collapse 4 language-specific bootstrap skills into one ([#52](https://github.com/holgerleichsenring/agent-smith-skills/issues/52))
+
+### Features
+
+* **bootstrap:** collapse 4 language-specific bootstrap skills into one ([#52](https://github.com/holgerleichsenring/agent-smith-skills/issues/52)) ([4a081cd](https://github.com/holgerleichsenring/agent-smith-skills/commit/4a081cdcc55a400bed16536ba75b265b56609b57))
+
 ## [2.6.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v2.5.2...v2.6.0) (2026-05-21)
 
 
