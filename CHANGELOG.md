@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.0.1](https://github.com/holgerleichsenring/agent-smith-skills/compare/v3.0.0...v3.0.1) (2026-05-23)
+
+
+### Bug Fixes
+
+* **bootstrap:** sharpen project-bootstrap to write-first ([#54](https://github.com/holgerleichsenring/agent-smith-skills/issues/54)) ([2b04d2f](https://github.com/holgerleichsenring/agent-smith-skills/commit/2b04d2fe5dea4138e70614b82ab28bbc817acfc0))
+
 ## [3.0.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v2.6.0...v3.0.0) (2026-05-22)
 
 
