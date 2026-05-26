@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.1.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v3.0.1...v3.1.0) (2026-05-25)
+
+
+### Features
+
+* **bootstrap:** add project-discovery skill + rewrite project-bootstrap for per-context writes ([#56](https://github.com/holgerleichsenring/agent-smith-skills/issues/56)) ([92e1b40](https://github.com/holgerleichsenring/agent-smith-skills/commit/92e1b408d0638fd03fe10613df44e38944792603))
+
 ## [3.0.1](https://github.com/holgerleichsenring/agent-smith-skills/compare/v3.0.0...v3.0.1) (2026-05-23)
 
 
