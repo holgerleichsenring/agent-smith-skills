@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.1.1](https://github.com/holgerleichsenring/agent-smith-skills/compare/v3.1.0...v3.1.1) (2026-05-27)
+
+
+### Bug Fixes
+
+* shorten project-discovery + project-bootstrap descriptions to &lt;=200 chars ([#58](https://github.com/holgerleichsenring/agent-smith-skills/issues/58)) ([52f02c3](https://github.com/holgerleichsenring/agent-smith-skills/commit/52f02c3231ac1cb474c716c3b51b6f171610e53d))
+
 ## [3.1.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v3.0.1...v3.1.0) (2026-05-25)
 
 
