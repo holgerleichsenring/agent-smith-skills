@@ -1,7 +1,7 @@
 ---
 name: "project-bootstrap"
 version: "1.2.0"
-description: "Produce one context.yaml + coding-principles.md for the component the user prompt names. Paths come from the user prompt — never hardcoded. The repo-level ProjectMap + the component's workdir + evidence drive language-aware output."
+description: "Write context.yaml + coding-principles.md for the component named in the user prompt. Paths come from the prompt, never hardcoded. ProjectMap + workdir + evidence drive language-aware output."
 role: "producer"
 output_schema: "bootstrap"
 activates_when: 'pipeline_name = "init-project"'
