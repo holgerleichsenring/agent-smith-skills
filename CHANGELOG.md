@@ -1,5 +1,14 @@
 # Changelog
 
+## [3.2.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v3.1.1...v3.2.0) (2026-05-29)
+
+
+### Features
+
+* **coding-agent-master:** Plan / Execute / Verify phases (p0179b) ([#65](https://github.com/holgerleichsenring/agent-smith-skills/issues/65)) ([c12fa17](https://github.com/holgerleichsenring/agent-smith-skills/commit/c12fa176d03cd7351ebb73dbe62305edabf58dab))
+* **masters:** add 5 master skills under skills/_masters/ (p0179a) ([#60](https://github.com/holgerleichsenring/agent-smith-skills/issues/60)) ([71f94fc](https://github.com/holgerleichsenring/agent-smith-skills/commit/71f94fc47db12cdf618827cb809bf26d4adf04c2))
+* **masters:** security/api-security/legal-analyst masters (p0179d) ([#66](https://github.com/holgerleichsenring/agent-smith-skills/issues/66)) ([7f6ab64](https://github.com/holgerleichsenring/agent-smith-skills/commit/7f6ab643d23b6c4669d5a753a36cde13aff1612d))
+
 ## [3.1.1](https://github.com/holgerleichsenring/agent-smith-skills/compare/v3.1.0...v3.1.1) (2026-05-27)
 
 
