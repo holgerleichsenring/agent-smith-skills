@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.3.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v3.2.0...v3.3.0) (2026-05-31)
+
+
+### Features
+
+* **masters:** teach coding-agent-master about repo-prefixed paths (p0179h) ([#69](https://github.com/holgerleichsenring/agent-smith-skills/issues/69)) ([a42b7f3](https://github.com/holgerleichsenring/agent-smith-skills/commit/a42b7f318cb06aca23f4ad948bc1a5a3956aa7d1))
+
 ## [3.2.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v3.1.1...v3.2.0) (2026-05-29)
 
 
