@@ -1,6 +1,6 @@
 ---
 name: "project-bootstrap"
-version: "1.2.0"
+version: "1.3.0"
 description: "Write context.yaml + coding-principles.md for the component named in the user prompt. Paths come from the prompt, never hardcoded. ProjectMap + workdir + evidence drive language-aware output."
 role: "producer"
 output_schema: "bootstrap"
@@ -35,39 +35,63 @@ The user prompt supplies:
    non-obvious claims (csproj/package.json, top-level Program.cs /
    index.ts, sample test). Use as many read calls as you actually need —
    there is no cap.
-3. Call `write_file` for the **first** path the user prompt named
-   (context.yaml).
+3. Call `write_context_yaml` for the context.yaml file. Pass `repo` =
+   the repository name from the user prompt (empty string for
+   single-repo runs), `context_name` = the component slug, and
+   `document` = a JSON object matching the schema below. The framework
+   serialises to YAML — do NOT use `write_file` for context.yaml; the
+   framework rejects it with a hint pointing here.
 4. Call `write_file` for the **second** path the user prompt named
-   (coding-principles.md).
+   (coding-principles.md). That file IS prose, so write_file is right.
 5. Return a short Markdown summary of the choices you made.
 
-A response with zero `write_file` tool calls is a failure of this skill,
-no matter how thorough the prose is. The summary is what you return
-**after** both `write_file` calls succeed.
+A response with zero tool calls is a failure of this skill, no matter
+how thorough the prose is. The summary is what you return **after**
+both write calls succeed.
 
-## `context.yaml`
+## `context.yaml` — call `write_context_yaml` with this JSON shape
 
-A flat YAML document agent-smith loads verbatim into the system prompt
-prefix on every subsequent skill call for this component. Keep it under
-250 lines. Populate slots you can defend; omit slots you can't.
+```json
+{
+  "meta": {
+    "workdir": "<the path from the user prompt>",
+    "project": "<project name>",
+    "version": "<version, optional>",
+    "type": "<one-line classification, e.g. 'Angular SPA', 'csharp service'>",
+    "purpose": "<one-line>"
+  },
+  "stack": {
+    "lang": "<idiomatic slug: C#, TypeScript, Python, Go, ...>",
+    "runtime": "<.NET 8, Node 20, Python 3.12, ...>",
+    "infra": ["Docker", "K8s", "..."],
+    "testing": ["NUnit", "Jest", "..."],
+    "frameworks": ["Angular 21", "..."],
+    "sdks": ["@azure/msal-angular", "MediatR@12.2.0", "..."]
+  },
+  "arch": {
+    "style": "Layered",
+    "patterns": ["Dependency Injection", "..."],
+    "layers": ["Components", "Services", "..."]
+  },
+  "quality": {
+    "lang": "english-only",
+    "principles": ["..."],
+    "naming": "...",
+    "testing": { "style": "AAA" }
+  },
+  "behavior": { ... only if explicit pipeline/orchestration code present ... }
+}
+```
 
-- `meta` — project / version / type / one-line `purpose`, plus
-  `workdir:` set to the value the user prompt named (so later runs
-  resolve sandbox cd correctly).
-- `stack` — `runtime`, `lang` (free-form slug from the ProjectMap /
-  observed sources, in idiomatic capitalisation: `C#`, `TypeScript`,
-  `Python`, `Go`), `infra` (Docker / K8s / Redis / queue / cloud bits
-  actually present under this workdir), `testing` (the test framework
-  you can see), `frameworks` (only what's in the build manifest),
-  `sdks` (explicit dependencies).
-- `arch` — `style` (Layered / CleanArch / Vertical-Slice / Hexagonal /
-  Module-Federation / Monolith / Microservices / ...), `patterns`
-  observed, `layers` (subdivision visible in the tree).
-- `quality` — `lang: english-only` (default), `principles` (only ones
-  you can defend), `naming` (language-idiomatic conventions you see
-  enforced), `testing` (`style: AAA`).
-- `behavior` — only when explicit pipeline / orchestration / state-
-  machine code is present under this workdir. Otherwise skip.
+Populate slots you can defend; omit slots you can't (the framework
+omits null fields from the emitted YAML). `meta.workdir` is REQUIRED —
+the framework rejects the call without it. Keep the document under
+~250 lines of content.
+
+The framework handles all quoting. You can pass `@azure/msal-angular`,
+`Angular style: PascalCase for components/services`, `key: value`
+strings, anything — none of it needs to be YAML-escaped because you
+are writing JSON, not YAML.
 
 ## `coding-principles.md`
 
@@ -90,7 +114,10 @@ operator note saying so.
 - Default conservatively (`Layered` over `CleanArch` if unsure).
 - One pass per file: read what you need, then write each file. Don't
   loop.
-- No `run_command`, no `http_request`. Read tools and `write_file` only.
+- No `run_command`, no `http_request`. Read tools + `write_context_yaml`
+  (for context.yaml) + `write_file` (for coding-principles.md) only.
 - Paths come from the user prompt. Do not write to `.agentsmith/context.yaml`
   (the flat root path) — that path is rejected by the write-guard in
-  p0161d and later.
+  p0161d and later. `write_file` to any
+  `.agentsmith/contexts/*/context.yaml` is also rejected since p0193 —
+  use `write_context_yaml` for those.
