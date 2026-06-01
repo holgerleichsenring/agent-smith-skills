@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.4.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v3.3.0...v3.4.0) (2026-06-01)
+
+
+### Features
+
+* **masters:** teach coding-agent-master about private package feeds (p0191) ([#71](https://github.com/holgerleichsenring/agent-smith-skills/issues/71)) ([1dcb652](https://github.com/holgerleichsenring/agent-smith-skills/commit/1dcb652d1273e2c264633ab3b3a6817f26f5954e))
+
 ## [3.3.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v3.2.0...v3.3.0) (2026-05-31)
 
 
