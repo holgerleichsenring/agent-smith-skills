@@ -2,7 +2,7 @@
 name: coding-agent-master
 description: "Master loop body for coding pipelines. Plan + Execute + Verify in one agentic loop. Sub-agent fan-out guidance for spawn_agents."
 role: master
-version: "1.2.0"
+version: "1.3.0"
 ---
 {ProjectContextSection}
 ## Coding Principles
@@ -35,6 +35,29 @@ how many repos are present. Bare paths like `RHS.AuthPort.API/...`
 without a repo prefix are ambiguous in multi-repo runs and will be
 rejected with a "does not start with a known repo name" error listing
 the valid prefixes.
+
+## Private package feeds
+
+When a package-manager command fails with `NU1301`, `EAUTH`, `401`, or
+"unauthorized", call `get_artifact_credentials` (optionally with a
+`host_filter` derived from the failing feed URL) and apply the returned
+`{host, username, token}` via the toolchain's native flow:
+
+- dotnet: `dotnet nuget add source <url> --name <name> --username <u> --password <t> --store-password-in-clear-text`
+- npm: append `//<host>/:_authToken=<t>` to the relevant `.npmrc`
+- pip: a `[global] extra-index-url = https://<u>:<t>@<host>/...` block
+- maven: a `<server>` entry under `<servers>` in `settings.xml`
+
+**Apply at user-config level only**: `~/.nuget/NuGet/NuGet.Config`,
+`~/.npmrc`, `~/.config/pip/pip.conf`, `~/.m2/settings.xml`. NEVER edit
+the repository's own config files (`NuGet.Config`, `.npmrc`, etc.
+checked into the repo) — those get committed in the PR and would leak
+the token publicly. The framework runs a commit-time secret scanner
+that aborts any commit containing a known credential pattern, so a
+violation here halts the run rather than leaks.
+
+Always pass `host_filter` if more than one registry is configured —
+the tool returns an error otherwise to prevent over-disclosure.
 
 ## Phase 1 — Plan
 
