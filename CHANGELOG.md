@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.6.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v3.5.0...v3.6.0) (2026-06-02)
+
+
+### Features
+
+* **skills:** project-bootstrap calls write_context_yaml for context.… ([#75](https://github.com/holgerleichsenring/agent-smith-skills/issues/75)) ([a2d5941](https://github.com/holgerleichsenring/agent-smith-skills/commit/a2d59411c1fa1c26878eab911d9a81c71a903104))
+
 ## [3.5.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v3.4.0...v3.5.0) (2026-06-01)
 
 
