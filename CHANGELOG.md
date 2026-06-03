@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.8.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v3.7.0...v3.8.0) (2026-06-03)
+
+
+### Features
+
+* **project-analyzer:** purpose-drive the prerequisites instruction (→ v3.8.0) ([#79](https://github.com/holgerleichsenring/agent-smith-skills/issues/79)) ([4f29252](https://github.com/holgerleichsenring/agent-smith-skills/commit/4f292520ea2172ab04e7b3ef5649ab11ad0af0df))
+
 ## [3.7.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v3.6.0...v3.7.0) (2026-06-03)
 
 
