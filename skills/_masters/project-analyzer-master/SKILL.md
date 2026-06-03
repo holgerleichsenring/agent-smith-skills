@@ -47,7 +47,7 @@ When you have enough evidence, respond with a single JSON object (no surrounding
     "test_command": "dotnet test tests/MyApp.Tests.Integration",
     "ci_system": "GitHub Actions"
   },
-  "prerequisites": "npm install"
+  "prerequisites": null
 }
 ```
 
@@ -59,4 +59,4 @@ When you have enough evidence, respond with a single JSON object (no surrounding
 - **Module roles**: `production` (shipping code), `test` (test-only), `tool` (internal scripts/helpers), `generated` (auto-generated, e.g. ApiClient bindings), `other` (configs, docs).
 - **Final response is the JSON object only.** Do not include explanatory prose around it. Do not wrap it in code fences.
 - **If a field is non-applicable** (e.g. no CI), use the type's empty value: `false` for `has_ci`, empty arrays for lists, empty strings or null for optional strings.
-- **`prerequisites` (top-level) is the command that prepares the environment so tests can run — derive it from what is ACTUALLY committed, not from habit.** Node: `npm ci` ONLY if a `package-lock.json` is committed; if there is no committed lockfile, emit `npm install` (npm ci hard-fails without a lockfile). Same idea elsewhere: `pip install -r requirements.txt` vs `poetry install` by which manifest exists; `go mod download`; `cargo fetch`; `mvn install -DskipTests`. Omit it (null) for .NET (`dotnet test` restores implicitly) and for repos with no dependencies. Check the manifest/lockfile with a tool call before choosing.
+- **`prerequisites` (top-level): the command that prepares the environment so `build_command` and `test_command` can actually run from a fresh checkout.** Ask yourself: if someone cloned this repo and immediately ran the build or the tests, what one command must they run first so it doesn't fail on missing dependencies? Put that command here, picked for the ecosystem you actually observed — `npm install` (or `npm ci` when a `package-lock.json` is committed) for Node, `pip install -r requirements.txt` or `poetry install` for Python, `go mod download`, `cargo fetch`, `mvn install -DskipTests`. A Node/Angular project with a `package.json` almost always needs `npm install` here. Use `null` only when build and test genuinely need no preparation — e.g. .NET, which restores implicitly. Whenever the project has a dependency manifest, prefer setting this over leaving it null.
