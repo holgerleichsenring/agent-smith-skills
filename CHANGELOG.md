@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.7.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v3.6.0...v3.7.0) (2026-06-03)
+
+
+### Features
+
+* **masters:** analyzer derives prerequisites + path-aware test_command (→ v3.7.0) ([#77](https://github.com/holgerleichsenring/agent-smith-skills/issues/77)) ([ada0848](https://github.com/holgerleichsenring/agent-smith-skills/commit/ada08487c777f780ca3799b91d15e7e3a1440fbd))
+
 ## [3.6.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v3.5.0...v3.6.0) (2026-06-02)
 
 
