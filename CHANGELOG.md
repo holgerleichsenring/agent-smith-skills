@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.9.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v3.8.0...v3.9.0) (2026-06-04)
+
+
+### Features
+
+* **coding-master:** run auto-tests from the repo, drop framework hardcoding ([#81](https://github.com/holgerleichsenring/agent-smith-skills/issues/81)) ([e82947d](https://github.com/holgerleichsenring/agent-smith-skills/commit/e82947dea634fd1b865abcb62ce67c58553ef14e))
+
 ## [3.8.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v3.7.0...v3.8.0) (2026-06-03)
 
 
