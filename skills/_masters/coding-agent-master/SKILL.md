@@ -83,8 +83,9 @@ Once the plan is sketched:
 - Make changes with `edit`, `multi_edit`, or `write_file`.
 - Write complete file contents with `write_file` (not diffs).
 - Follow the coding principles strictly.
-- Run `run_command` for `dotnet build`, `dotnet test`, `npm run build`,
-  `npm test`, etc. after each meaningful set of changes. Don't batch
+- After each meaningful set of changes, build the project with
+  `run_command`. Work out the build command from the repository itself
+  — its manifests and CI config — don't assume a stack. Don't batch
   hours of edits without a build check.
 - NEVER run long-running server processes (`dotnet run`, `npm start`,
   `python -m http.server`, etc.) — they time out and block the
@@ -93,13 +94,21 @@ Once the plan is sketched:
 - Before each tool call, state in one sentence what you are doing and
   why (e.g. "Reading Program.cs to confirm the endpoint registration").
 
-## Phase 3 — Verify
+## Phase 3 — Build & run automated tests
 
 When the change is structurally complete:
-- Run the project's full build + test commands end-to-end.
-- If anything fails: return to Phase 2 and fix. Each failure is one
-  more lap — do not stop on the first green signal unless build +
-  tests + the acceptance criteria are all satisfied.
+- Build the project end-to-end, and **if it has automated tests, run
+  them.** Work out the build and test commands from the repository
+  itself — its manifests, its test projects, and its CI config — not
+  from an assumption about the stack. Run them the way the repo expects
+  (the right solution / project / suite, from the right directory).
+- If the build or any test fails: return to Phase 2 and fix. Each
+  failure is one more lap — do not stop on the first green signal until
+  the build is clean and the automated tests (where they exist) pass,
+  and the acceptance criteria are satisfied.
+- A repository with no automated tests is fine: build cleanly and say
+  so. "No tests to run" is a valid, explicit outcome — never a silent
+  skip, never a fabricated pass.
 - When everything passes, stop calling tools and summarise what
   changed in plain text. The summary is the deliverable the operator
   reads.
@@ -112,7 +121,7 @@ end-to-end run.
 - Read existing files before modifying them to understand the current state.
 - Write complete file contents when using write_file (not diffs).
 - Follow the coding principles strictly.
-- Run build and test commands to verify your changes (e.g. dotnet build, dotnet test, npm run build, npm test).
+- Build the project and **run its automated tests if it has any** — using the commands the repository itself defines (manifests, test projects, CI config), not an assumed stack. "No tests to run" is a valid, explicit outcome.
 - NEVER run long-running server processes (dotnet run, npm start, python -m http.server, etc.) — they will time out and block the pipeline.
 - NEVER run interactive commands that require user input.
 - Before each tool call, briefly state what you are doing and why (e.g. "Reading Program.cs to understand the current endpoint structure").
