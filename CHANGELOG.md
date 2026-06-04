@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.10.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v3.9.0...v3.10.0) (2026-06-04)
+
+
+### Features
+
+* **masters:** honor context.yaml in analyzer; coding-agent installs deps (p0224) ([#83](https://github.com/holgerleichsenring/agent-smith-skills/issues/83)) ([8ff8fbb](https://github.com/holgerleichsenring/agent-smith-skills/commit/8ff8fbb820d19e2f02b0d2e333ab3fd243954e75))
+
 ## [3.9.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v3.8.0...v3.9.0) (2026-06-04)
 
 
