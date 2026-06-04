@@ -97,6 +97,13 @@ Once the plan is sketched:
 ## Phase 3 — Build & run automated tests
 
 When the change is structurally complete:
+- **Install dependencies first if the project needs it.** Nothing installs
+  them for you — derive the command from the repository's own manifests and
+  run it via `run_command` in the directory where the manifest lives (e.g.
+  `npm install` / `npm ci` where a `package.json` is — which may be a
+  subdirectory, not the repo root; `dotnet restore`; `pip install -r
+  requirements.txt`; `go mod download`). A missing install is the usual
+  cause of a "cannot find module" / restore-failure build error.
 - Build the project end-to-end, and **if it has automated tests, run
   them.** Work out the build and test commands from the repository
   itself — its manifests, its test projects, and its CI config — not
