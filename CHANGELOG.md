@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.11.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v3.10.0...v3.11.0) (2026-06-05)
+
+
+### Features
+
+* **coding-master:** require a written plan + decisions, make editing the deliverable ([#85](https://github.com/holgerleichsenring/agent-smith-skills/issues/85)) ([29f528d](https://github.com/holgerleichsenring/agent-smith-skills/commit/29f528d15adb46de5bba30fb024dbfe08cb49ffe))
+
 ## [3.10.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v3.9.0...v3.10.0) (2026-06-04)
 
 
