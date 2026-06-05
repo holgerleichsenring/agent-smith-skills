@@ -2,7 +2,7 @@
 name: coding-agent-master
 description: "Master loop body for coding pipelines. Plan + Execute + Verify in one agentic loop. Sub-agent fan-out guidance for spawn_agents."
 role: master
-version: "1.4.0"
+version: "1.5.0"
 ---
 {ProjectContextSection}
 ## Coding Principles
@@ -124,6 +124,15 @@ When the change is structurally complete:
   itself — its manifests, its test projects, and its CI config — not
   from an assumption about the stack. Run them the way the repo expects
   (the right solution / project / suite, from the right directory).
+- **Keep the tests in sync with your change — this is part of the work,
+  not optional.** When you change behavior that existing tests assert (a
+  method signature, a return type or status code, a response contract, a
+  validation rule, an error message), you MUST update those tests to match
+  the new intended behavior in this same run. A change that leaves its
+  tests asserting the old behavior is incomplete. Where the repo has a test
+  suite and you added behavior, add a test for it. Do NOT reason your way to
+  "no test change needed" without first opening the relevant test files and
+  checking what they actually assert against the code you touched.
 - If the build or any test fails: return to Phase 2 and fix. Each
   failure is one more lap — do not stop on the first green signal until
   the build is clean and the automated tests (where they exist) pass,
@@ -137,6 +146,20 @@ When the change is structurally complete:
   ticket with zero edited source files: if the code already satisfied
   the ticket and no edit was needed, say that explicitly and why —
   otherwise you are not done.
+
+### Definition of done — do not stop until ALL are true
+
+Before you stop calling tools, confirm each of these out loud:
+
+1. The ticket asked for a change and at least one **source file is edited**
+   (not just plan.md / decisions.md). If truly no edit was needed, you have
+   stated explicitly why.
+2. Existing tests touching the code you changed have been **opened, updated
+   if your change altered what they assert, and run**.
+3. The build is **clean** and the automated tests (where they exist) **pass**.
+4. plan.md and decisions.md are written.
+
+If any item is not true, you are not done — go back, don't summarise.
 
 The framework does NOT enforce phase transitions. You judge when to
 move between them; the discipline above is what produces a clean
