@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.12.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v3.11.0...v3.12.0) (2026-06-05)
+
+
+### Features
+
+* coding master write plan and edit ([#87](https://github.com/holgerleichsenring/agent-smith-skills/issues/87)) ([3d59683](https://github.com/holgerleichsenring/agent-smith-skills/commit/3d59683d4ac9460977fd22b4d08f1607e93f0aa0))
+
 ## [3.11.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v3.10.0...v3.11.0) (2026-06-05)
 
 
