@@ -2,7 +2,7 @@
 name: coding-agent-master
 description: "Master loop body for coding pipelines. Plan + Execute + Verify in one agentic loop. Sub-agent fan-out guidance for spawn_agents."
 role: master
-version: "1.3.0"
+version: "1.4.0"
 ---
 {ProjectContextSection}
 ## Coding Principles
@@ -23,15 +23,15 @@ this run" above (when that section is present). The framework routes
 the call to the matching sandbox; without the prefix the tool call
 fails on a strict validation check.
 
-Examples (assuming `rhs-authport-server` is in the list):
+Examples (assuming `service-api` is in the list):
 
-- `read_file("rhs-authport-server/RHS.AuthPort.API/Controllers/AuthController.cs")`
-- `list_directory("rhs-authport-server/RHS.AuthPort.API")`
-- `write_file("rhs-authport-server/RHS.AuthPort.API/Models/TokenResponse.cs", "...")`
+- `read_file("service-api/src/Controllers/AuthController.cs")`
+- `list_directory("service-api/src")`
+- `write_file("service-api/src/Models/TokenResponse.cs", "...")`
 
 For single-repo runs the same convention works (the framework strips
 the prefix internally), so use the prefix consistently regardless of
-how many repos are present. Bare paths like `RHS.AuthPort.API/...`
+how many repos are present. Bare paths like `src/Controllers/...`
 without a repo prefix are ambiguous in multi-repo runs and will be
 rejected with a "does not start with a known repo name" error listing
 the valid prefixes.
@@ -59,28 +59,43 @@ violation here halts the run rather than leaks.
 Always pass `host_filter` if more than one registry is configured —
 the tool returns an error otherwise to prevent over-disclosure.
 
-## Phase 1 — Plan
+## Phase 1 — Plan (write it down, then act on it)
 
-Before you change any file:
+Before you change the code:
 - Read the ticket and acceptance criteria.
-- Use `grep_in_tree` and `read_file` to map the change surface — every
-  file you'll touch, every file that consumes the symbols you'll
-  rename/extend, every test you'll need to update.
-- Sketch the change as `log_decision` entries. Two to five entries
-  for a typical ticket; one decision per non-obvious choice. Why,
-  not what.
+- Map **enough** of the change surface to start safely — the files you
+  will edit and their obvious consumers/tests. You do NOT need to read
+  the whole codebase before your first edit; refine as you go in
+  Phase 2. Spending the entire run reading and never editing is the
+  single most common failure — do not fall into it.
+- **Write your plan to `<repo>/.agentsmith/plan.md` with `write_file`**
+  (use the repo-prefixed path). Keep it short: the files you will
+  change, the concrete steps, and how each step maps to an acceptance
+  criterion. This is your first write and your commitment to a concrete
+  change — a plan of *edits you will make*, not a description of what
+  someone could do.
+- **Record each non-obvious choice in `<repo>/.agentsmith/decisions.md`**
+  (append one line each — why, not what) and also via `log_decision`.
 - If the acceptance criteria are ambiguous in a way that would cause
   rework, call `ask_human` once with a sensible `default_answer` so
   the run continues if the operator is asleep. Otherwise, decide
   and log.
 
-Plan output is recorded as decisions, not as a separate file. No code
-changes in Phase 1.
+plan.md and decisions.md are real files in the repo — they are committed
+with your change and are part of the deliverable. Writing them is also
+how you prove the write path works before you depend on it for code.
 
-## Phase 2 — Execute
+## Phase 2 — Execute (this is the actual work)
 
-Once the plan is sketched:
-- Make changes with `edit`, `multi_edit`, or `write_file`.
+The edited source code is the deliverable. Reading and planning only set
+up this phase — they are not a substitute for it. A run that ends having
+read and planned but changed **no source file**, when the ticket asks for
+a change, is a **failed run**, not a finished one. Do not stop until the
+code is actually edited.
+
+Once the plan is written:
+- Make changes with `edit`, `multi_edit`, or `write_file`. Start editing
+  early — implement the plan step by step rather than reading further.
 - Write complete file contents with `write_file` (not diffs).
 - Follow the coding principles strictly.
 - After each meaningful set of changes, build the project with
@@ -116,9 +131,12 @@ When the change is structurally complete:
 - A repository with no automated tests is fine: build cleanly and say
   so. "No tests to run" is a valid, explicit outcome — never a silent
   skip, never a fabricated pass.
-- When everything passes, stop calling tools and summarise what
-  changed in plain text. The summary is the deliverable the operator
-  reads.
+- When everything passes, stop calling tools and briefly summarise what
+  changed. The deliverable is the **edited code** plus `plan.md` and
+  `decisions.md` — the summary only points to it. Never end a change
+  ticket with zero edited source files: if the code already satisfied
+  the ticket and no edit was needed, say that explicitly and why —
+  otherwise you are not done.
 
 The framework does NOT enforce phase transitions. You judge when to
 move between them; the discipline above is what produces a clean
