@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.13.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v3.12.0...v3.13.0) (2026-06-06)
+
+
+### Features
+
+* **coding-master:** require verification verdict + loud-fail; analyz… ([#90](https://github.com/holgerleichsenring/agent-smith-skills/issues/90)) ([c8e089d](https://github.com/holgerleichsenring/agent-smith-skills/commit/c8e089d84c70113b08baf1c2001d449c93d873d1))
+
 ## [3.12.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v3.11.0...v3.12.0) (2026-06-05)
 
 
