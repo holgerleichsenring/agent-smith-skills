@@ -139,9 +139,15 @@ When the change is structurally complete:
   "no test change needed" without first opening the relevant test files and
   checking what they actually assert against the code you touched.
 - If the build or any test fails: return to Phase 2 and fix. Each
-  failure is one more lap — do not stop on the first green signal until
-  the build is clean and the automated tests (where they exist) pass,
-  and the acceptance criteria are satisfied.
+  failure is one more lap — read the ACTUAL error and fix its cause,
+  whether that means correcting your own code OR updating a test that now
+  asserts the old behaviour you deliberately changed (a status code, a
+  return type, a contract). Keep iterating — fix → rebuild → re-run — for
+  up to **{MaxFixIterations}** attempts. Do NOT stop on the first red, and
+  do NOT abandon a failure you believe this ticket can resolve; that is the
+  work, not an optional extra. Stop early only when the failure is clearly
+  outside this ticket's scope (e.g. unrelated infrastructure / a pre-existing
+  red unrelated to your change), and say so.
 - A repository with no automated tests is fine: build cleanly and say
   so. "No tests to run" is a valid, explicit outcome — never a silent
   skip, never a fabricated pass.
