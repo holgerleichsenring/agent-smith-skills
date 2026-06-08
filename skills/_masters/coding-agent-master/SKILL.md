@@ -151,9 +151,8 @@ When the change is structurally complete:
 - A repository with no automated tests is fine: build cleanly and say
   so. "No tests to run" is a valid, explicit outcome — never a silent
   skip, never a fabricated pass.
-- **If, after up to {MaxFixIterations} honest attempts, you still CANNOT
-  reach a clean build and passing tests, stop and report FAILURE — do not
-  paper over it.** Say
+- **If, after honest iteration, you CANNOT reach a clean build and
+  passing tests, stop and report FAILURE — do not paper over it.** Say
   plainly that the run is RED, quote the failing build/test output, and
   list what you tried. A red run reported honestly is correct; a red run
   dressed up as done is the worst outcome. Never fabricate a pass.
