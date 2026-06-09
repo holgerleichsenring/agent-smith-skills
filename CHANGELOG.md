@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.14.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v3.13.2...v3.14.0) (2026-06-09)
+
+
+### Features
+
+* LLM names the toolchain image (context.yaml stack.image) ([#96](https://github.com/holgerleichsenring/agent-smith-skills/issues/96)) ([9016268](https://github.com/holgerleichsenring/agent-smith-skills/commit/9016268fc18359abeb2d842e6481f54e13ca7ca9))
+
 ## [3.13.2](https://github.com/holgerleichsenring/agent-smith-skills/compare/v3.13.1...v3.13.2) (2026-06-08)
 
 
