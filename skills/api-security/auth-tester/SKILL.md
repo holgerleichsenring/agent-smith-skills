@@ -62,7 +62,7 @@ Bearer vs Cookie:
 Per the framework observation schema. Set `category` to the OWASP API ID (e.g. `"API2:2023"`). Set `api_path` to the HTTP method + path; for JWT/OAuth issues that aren't endpoint-specific, set `category: "auth"` and leave `api_path` null.
 
 Set `evidence_mode`:
-- `"analyzed_from_source"` when you read the specific config file (set `file` to the repo path, e.g. `RHS.AuthPort.API/Program.cs`).
+- `"analyzed_from_source"` when you read the specific config file (set `file` to the repo path, e.g. `src/Api/Program.cs`).
 - `"confirmed"` when you used `http_request` to demonstrate the auth weakness against the running API.
 - `"potential"` when the issue is schema-/header-inferred only — valid, no `file` needed.
 
