@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.15.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v3.14.0...v3.15.0) (2026-06-19)
+
+
+### Features
+
+* llm named toolchain image ([#98](https://github.com/holgerleichsenring/agent-smith-skills/issues/98)) ([a37c937](https://github.com/holgerleichsenring/agent-smith-skills/commit/a37c93787c3b00abbfb4d437221da574dc471e7e))
+
 ## [3.14.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v3.13.2...v3.14.0) (2026-06-09)
 
 
