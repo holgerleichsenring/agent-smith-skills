@@ -1,8 +1,8 @@
 ---
 name: security-master
-description: "Master loop body for the security-scan pipeline. Runs a rigorous code-security review methodology over the repository source and the static-pattern / git-history / dependency-audit / trend scanner outputs, and emits substantiated, prioritized findings."
+description: "Master loop for the security-scan pipeline. Runs a code-security methodology over the repo source and the static-pattern/git-history/dependency/trend scanners to emit prioritized findings."
 role: master
-version: "1.1.0"
+version: "1.1.1"
 output_schema: "observation"
 ---
 {ProjectContextSection}
