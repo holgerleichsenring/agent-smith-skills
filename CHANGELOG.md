@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.16.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v3.15.0...v3.16.0) (2026-06-21)
+
+
+### Features
+
+* api-security-master emits observation-array output (p0267) ([#100](https://github.com/holgerleichsenring/agent-smith-skills/issues/100)) ([5bc4046](https://github.com/holgerleichsenring/agent-smith-skills/commit/5bc4046a1f79d2156136df51d8021e76ad6590e2))
+* security-master runs a pentest methodology, emits observations (p0277) ([#101](https://github.com/holgerleichsenring/agent-smith-skills/issues/101)) ([160a3e2](https://github.com/holgerleichsenring/agent-smith-skills/commit/160a3e2b1894b4ac5429b6c4f372d779e80bbde2))
+
 ## [3.15.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v3.14.0...v3.15.0) (2026-06-19)
 
 
