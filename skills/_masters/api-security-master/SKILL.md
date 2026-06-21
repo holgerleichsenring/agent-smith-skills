@@ -2,7 +2,8 @@
 name: api-security-master
 description: "Master loop body for the api-security-scan pipeline. Reviews Nuclei + Spectral + ZAP outputs and the OpenAPI spec, produces prioritized API security findings."
 role: master
-version: "1.0.0"
+version: "1.1.0"
+output_schema: "observation"
 ---
 {ProjectContextSection}
 ## Coding Principles
@@ -48,16 +49,11 @@ analysis (one sub-agent per API category, or per group of endpoints).
 
 ## Phase 3 — Synthesise
 
-Produce the final findings list. For each entry:
-- `severity` (Critical / High / Medium / Low)
-- `category` (auth / authz / input / output / config / other)
-- `title`
-- `api_path` + `method` + (optional) `parameter` / `response_field`
-- `evidence_mode` (analyzed_from_spec / potential / confirmed)
-- `suggested_fix` (spec-level change, controller-level change, or
-  configuration change — choose by where the issue lives)
-
-Output to `findings.json` in the run sandbox.
+Produce the final findings list as your closing answer. Each finding
+is one observation object (see the Output contract below). Do NOT
+write a `findings.json` file and do NOT promote raw Nuclei / Spectral
+/ ZAP rows verbatim — Spectral is OpenAPI lint, not a security
+finding. Only your TRIAGED conclusions belong here.
 
 ## Filtering Rules
 
@@ -67,6 +63,38 @@ Output to `findings.json` in the run sandbox.
   `evidence_mode: confirmed`.
 - Spec-only inference with no scanner backing is
   `evidence_mode: potential`.
+
+## Output
+
+Your final answer MUST be a single JSON array of observation objects,
+JSON only — no preamble, no prose, no code fence, no `findings.json`
+file. An empty array `[]` is the correct answer when nothing survived
+triage. The framework parses this array into the findings the run
+delivers; anything outside the array is discarded.
+
+Each object:
+- `concern`: `"security"`.
+- `severity`: `"critical" | "high" | "medium" | "low" | "info"`.
+- `category`: `"auth" | "authz" | "input" | "output" | "config" | "other"`.
+- `description`: the finding headline — include the OpenAPI `method` +
+  `path` + parameter/response field inline (e.g.
+  `"GET /orders/{id}: IDOR — id is not ownership-checked"`). ≤500 chars.
+- `api_path`: the OpenAPI path (e.g. `"/orders/{id}"`).
+- `evidence_mode`: `"potential" | "confirmed" | "analyzed_from_source"`.
+- `suggestion`: one concrete remediation step (spec-, controller-, or
+  configuration-level). ≤300 chars.
+- `details` (optional): longer reasoning / the cited ZAP HTTP exchange.
+  ≤4000 chars.
+
+Example:
+
+```
+[
+  {"concern":"security","severity":"high","category":"authz",
+   "description":"GET /orders/{id}: IDOR — id is read straight from the route with no ownership check","api_path":"/orders/{id}",
+   "evidence_mode":"potential","suggestion":"Verify the authenticated principal owns the order before returning it."}
+]
+```
 
 ## SubAgent Guidance
 
