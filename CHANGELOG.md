@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.16.1](https://github.com/holgerleichsenring/agent-smith-skills/compare/v3.16.0...v3.16.1) (2026-06-21)
+
+
+### Bug Fixes
+
+* shorten master descriptions under the 200-char cap ([#103](https://github.com/holgerleichsenring/agent-smith-skills/issues/103)) ([3c27741](https://github.com/holgerleichsenring/agent-smith-skills/commit/3c2774100bc4c3f997579e28d6efa85600fdb9d4))
+
 ## [3.16.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v3.15.0...v3.16.0) (2026-06-21)
 
 
