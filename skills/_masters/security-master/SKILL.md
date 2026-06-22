@@ -2,7 +2,7 @@
 name: security-master
 description: "Master loop for the security-scan pipeline. Runs a code-security methodology over the repo source and the static-pattern/git-history/dependency/trend scanners to emit prioritized findings."
 role: master
-version: "1.1.1"
+version: "1.1.2"
 output_schema: "observation"
 ---
 {ProjectContextSection}
@@ -43,8 +43,8 @@ vanish by omission. Your array therefore carries:
 ## Phase 1 — Inventory
 
 Map the attack surface before judging any of it. From the source,
-enumerate the entry points (controllers / handlers / CLI / jobs /
-message consumers), the trust boundaries, where secrets and
+enumerate the entry points (the code that handles each request /
+command / job / message), the trust boundaries, where secrets and
 credentials are handled, the data-access and deserialization sites,
 and the outbound calls. This is your coverage obligation — by the end
 you owe a verdict on every area, and "nothing found here" is a valid,
@@ -124,7 +124,7 @@ Each object:
 - `category`: `"auth" | "injection" | "secrets" | "crypto" | "dependency" | "config" | "other"`.
 - `description`: the finding headline — include the `file:line` and the
   offending construct inline (e.g.
-  `"OrdersController.cs:42: SQL built by string concatenation from the id route value"`). ≤500 chars.
+  `"src/orders/store:88: SQL built by concatenating the id parameter"`). ≤500 chars.
 - `file` + `start_line`: the offending location, set when you read the
   source this run (drives `analyzed_from_source`).
 - `evidence_mode`: `"potential" | "confirmed" | "analyzed_from_source"`.
@@ -138,7 +138,7 @@ Example:
 ```
 [
   {"concern":"security","severity":"high","category":"injection",
-   "description":"OrdersController.cs:42: SQL built by string concatenation from the id route value","file":"src/OrdersController.cs","start_line":42,
-   "evidence_mode":"analyzed_from_source","suggestion":"Use a parameterized query / the ORM binding instead of string concatenation."}
+   "description":"src/orders/store:88: SQL built by concatenating the id parameter","file":"src/orders/store","start_line":88,
+   "evidence_mode":"analyzed_from_source","suggestion":"Use a parameterized query / a bound query parameter instead of string concatenation."}
 ]
 ```
