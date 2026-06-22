@@ -2,7 +2,7 @@
 name: api-security-master
 description: "Master loop for the api-security-scan pipeline. Runs an API-pentest methodology over the OpenAPI spec, source, and Nuclei/Spectral/ZAP outputs to emit substantiated, prioritized findings."
 role: master
-version: "1.2.1"
+version: "1.2.2"
 output_schema: "observation"
 ---
 {ProjectContextSection}
@@ -48,7 +48,7 @@ Seed from the scanner outputs where they point somewhere real.
 
 Substantiate each hypothesis with evidence, then set `evidence_mode`
 honestly:
-- Read the implementing controller / handler source and confirm the
+- Read the source that implements the endpoint and confirm the
   flaw is literally there → `analyzed_from_source` with `file:line`.
   You may ONLY claim this if you actually `read_file` it this run.
 - A live HTTP exchange ZAP demonstrated → `confirmed`.
@@ -109,8 +109,11 @@ Each object:
   `path` + parameter/response field inline (e.g.
   `"GET /orders/{id}: IDOR — id is not ownership-checked"`). ≤500 chars.
 - `api_path`: the OpenAPI path (e.g. `"/orders/{id}"`).
+- `file` + `start_line`: the source location, set when you read the code this
+  run. REQUIRED for `evidence_mode: "analyzed_from_source"` — a source claim
+  without a file you actually read is downgraded to `potential` by the framework.
 - `evidence_mode`: `"potential" | "confirmed" | "analyzed_from_source"`.
-- `suggestion`: one concrete remediation step (spec-, controller-, or
+- `suggestion`: one concrete remediation step (spec-, code-, or
   configuration-level). ≤300 chars.
 - `details` (optional): longer reasoning / the cited ZAP HTTP exchange.
   ≤4000 chars.
@@ -120,7 +123,7 @@ Example:
 ```
 [
   {"concern":"security","severity":"high","category":"authz",
-   "description":"GET /orders/{id}: IDOR — id is read straight from the route with no ownership check","api_path":"/orders/{id}",
+   "description":"GET /orders/{id}: id is read straight from the route with no ownership check","api_path":"/orders/{id}","file":"src/orders/get-by-id","start_line":34,
    "evidence_mode":"analyzed_from_source","suggestion":"Verify the authenticated principal owns the order before returning it."}
 ]
 ```
