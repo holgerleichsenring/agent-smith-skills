@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.17.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v3.16.1...v3.17.0) (2026-06-22)
+
+
+### Features
+
+* scan masters carry source file:line + responsibility-only language (p0279) ([#105](https://github.com/holgerleichsenring/agent-smith-skills/issues/105)) ([283ce97](https://github.com/holgerleichsenring/agent-smith-skills/commit/283ce97fd3ccff2292176b44b6a6dfb711b22a07))
+
 ## [3.16.1](https://github.com/holgerleichsenring/agent-smith-skills/compare/v3.16.0...v3.16.1) (2026-06-21)
 
 
