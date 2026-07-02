@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.18.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v3.17.0...v3.18.0) (2026-07-02)
+
+
+### Features
+
+* symptom-driven, multi-repo planning + honest abstain ([#107](https://github.com/holgerleichsenring/agent-smith-skills/issues/107)) ([157ff50](https://github.com/holgerleichsenring/agent-smith-skills/commit/157ff503241be18e00753c362251a9f80aee4c83))
+
 ## [3.17.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v3.16.1...v3.17.0) (2026-06-22)
 
 
