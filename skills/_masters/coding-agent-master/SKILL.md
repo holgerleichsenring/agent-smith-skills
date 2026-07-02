@@ -2,7 +2,7 @@
 name: coding-agent-master
 description: "Master loop body for coding pipelines. Plan + Execute + Verify in one agentic loop. Sub-agent fan-out guidance for spawn_agents."
 role: master
-version: "1.8.0"
+version: "1.9.0"
 ---
 {ProjectContextSection}
 ## Coding Principles
@@ -66,12 +66,26 @@ If an **"Approved plan — execute this"** section appears above, it is the plan
 operator already reviewed and approved BEFORE this run. Treat it as your plan:
 EXECUTE it. Validate it by reading the key files it touches; refine only if you
 hit a concrete blocker (a file/API that isn't as the plan assumed), and log WHY in
-decisions.md. Do not re-plan from scratch or diverge silently. Still write the
+decisions.md. Do not re-plan from scratch or diverge silently. A plan that targets
+a location the reported behaviour does not implicate IS a concrete blocker: if the
+plan looks anchored on the ticket title while the steps to reproduce describe
+something else, or it changes a repository/layer that cannot produce the reported
+symptom, re-locate across all repositories in the run before executing, and log why
+in decisions.md. Still write the
 (possibly-refined) plan to plan.md as below. If NO approved-plan section is
 present, plan from scratch as follows.
 
 Before you change the code:
-- Read the ticket and acceptance criteria.
+- Read the ticket and understand the problem from the **behaviour it reports** —
+  the observed-vs-expected in the steps to reproduce — not from the title alone. A
+  title can name a symptom or a guess; the reported behaviour defines the actual
+  problem, and the two can point in different directions.
+- When more than one repository is in scope for this run, first decide **which
+  repository and which layer** actually produce the reported behaviour, and place
+  each change and its tests there. Reason across all repositories listed under
+  "Repositories in this run" — do not default to the repository whose name echoes
+  the ticket title. Locating the fault is bounded work (which repo/layer owns the
+  symptom), not a licence to read the whole codebase.
 - Map **enough** of the change surface to start safely — the files you
   will edit and their obvious consumers/tests. You do NOT need to read
   the whole codebase before your first edit; refine as you go in
@@ -207,9 +221,15 @@ this shape:
 
 After the verdict block, stop calling tools. The deliverable is the
 **edited code** plus `plan.md` and `decisions.md`; the verdict only
-reports on it. Never end a change ticket with zero edited source files: if
-the code already satisfied the ticket and no edit was needed, say so
-explicitly and why — otherwise you are not done.
+reports on it. In the ordinary case, never end a change ticket with zero edited
+source files: if the code already satisfied the ticket and no edit was needed, say
+so explicitly and why. There is one other legitimate no-change outcome — you
+**cannot locate the fault**: the reported behaviour and the title conflict, the
+responsible code is in no repository in this run, or the information is genuinely
+insufficient — and you established this by actually searching for it, not by
+assuming. In that case do NOT fabricate an unrelated change to manufacture a diff:
+emit a `failed` verdict that names exactly what is missing or unresolved. A
+fabricated fix against the wrong location is the worst outcome of all.
 
 ### Definition of done — do not stop until ALL are true
 
@@ -217,7 +237,10 @@ Before you stop calling tools, confirm each of these out loud:
 
 1. The ticket asked for a change and at least one **source file is edited**
    (not just plan.md / decisions.md). If truly no edit was needed, you have
-   stated explicitly why.
+   stated explicitly why — or you have honestly reported (in a `failed` verdict)
+   that the fault cannot be located after searching (behaviour/title conflict,
+   the responsible code is in no repository in this run, or insufficient
+   information) rather than fabricating an unrelated change.
 2. Existing tests touching the code you changed have been **opened, updated
    if your change altered what they assert, and run**.
 3. The build is **clean** and the automated tests (where they exist) **pass**.
