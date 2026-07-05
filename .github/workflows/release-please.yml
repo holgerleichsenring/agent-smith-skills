@@ -40,6 +40,9 @@ jobs:
         with:
           ref: ${{ needs.release-please.outputs.tag_name }}
 
+      - name: Validate master skills (fail before shipping a broken catalog)
+        run: bash scripts/validate-skills.sh
+
       - name: Build deterministic tarball
         run: |
           chmod +x scripts/package.sh
