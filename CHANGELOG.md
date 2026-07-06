@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.19.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v3.18.1...v3.19.0) (2026-07-06)
+
+
+### Features
+
+* ticket-instruction untrusted-content contract for masters (p0316) ([#112](https://github.com/holgerleichsenring/agent-smith-skills/issues/112)) ([bb0007b](https://github.com/holgerleichsenring/agent-smith-skills/commit/bb0007b9832feffa3065a2b59a2d75f2659eb11b))
+
 ## [3.18.1](https://github.com/holgerleichsenring/agent-smith-skills/compare/v3.18.0...v3.18.1) (2026-07-06)
 
 
