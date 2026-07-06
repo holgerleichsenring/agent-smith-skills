@@ -49,6 +49,20 @@ for skill_md in "${MASTERS_DIR}"/*/SKILL.md; do
       fail "${dir_name}: description is ${len} chars (cap ${DESC_CAP}; loader hard-drops over 200)"
     fi
   fi
+
+  # p0316: masters that consume ticket / goal / document text must treat it as
+  # untrusted input. coding-agent-master owns the never-comply contract; the
+  # scan/legal/mad masters carry at least the untrusted-content note.
+  case "${dir_name}" in
+    coding-agent-master)
+      grep -q "## Ticket instructions" "${skill_md}" \
+        || fail "${dir_name}: missing '## Ticket instructions' section (p0316 untrusted-content contract)"
+      ;;
+    legal-analyst-master|security-master|api-security-master|mad-discussion-master)
+      grep -qi "untrusted" "${skill_md}" \
+        || fail "${dir_name}: missing untrusted-input note (p0316); it consumes ticket/goal/document text"
+      ;;
+  esac
 done
 
 if (( errors > 0 )); then
