@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.18.1](https://github.com/holgerleichsenring/agent-smith-skills/compare/v3.18.0...v3.18.1) (2026-07-06)
+
+
+### Bug Fixes
+
+* trim scan-master descriptions under the cap (p0313) ([#110](https://github.com/holgerleichsenring/agent-smith-skills/issues/110)) ([2f76a95](https://github.com/holgerleichsenring/agent-smith-skills/commit/2f76a95072debddc7cec55c4369bf81cb47193b5))
+
 ## [3.18.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v3.17.0...v3.18.0) (2026-07-02)
 
 
