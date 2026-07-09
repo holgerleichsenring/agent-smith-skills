@@ -4,7 +4,7 @@ version: "2.0.0"
 description: "Frontend implementation perspective — UI structure, state management, accessibility, performance. Plans in plan phase, reviews diff in review phase."
 role: "judge"
 output_schema: "observation"
-activates_when: 'pipeline_name = "fix-bug" OR pipeline_name = "feature-implementation"'
+activates_when: 'pipeline_name = "fix-bug" OR pipeline_name = "add-feature"'
 block_condition: "accessibility regression (WCAG-AA failure), state corruption, or breaking change to a published component API"
 ---
 

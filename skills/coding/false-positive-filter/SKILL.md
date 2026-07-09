@@ -4,7 +4,7 @@ version: "2.0.0"
 description: "Use in Final phase to reduce coding-pipeline observations to actionable items. Removes out-of-scope concerns, framework-handled cases, test-fixture flags, already-addressed-in-code items."
 role: "filter"
 output_schema: "observation"
-activates_when: 'pipeline_name = "fix-bug" OR pipeline_name = "fix-no-test" OR pipeline_name = "feature-implementation" OR pipeline_name = "mad-discussion"'
+activates_when: 'pipeline_name = "fix-bug" OR pipeline_name = "fix-no-test" OR pipeline_name = "add-feature" OR pipeline_name = "mad-discussion"'
 ---
 
 You reduce a list of coding-pipeline observations to actionable items. You

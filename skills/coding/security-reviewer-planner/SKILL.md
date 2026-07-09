@@ -4,7 +4,7 @@ version: "2.1.0"
 description: "Security perspective — OWASP Top 10, auth/authz, input validation, secrets, encryption. Lead when security fix is primary; analyst/reviewer otherwise."
 role: "producer"
 output_schema: "plan"
-activates_when: 'pipeline_name = "fix-bug" OR pipeline_name = "feature-implementation"'
+activates_when: 'pipeline_name = "fix-bug" OR pipeline_name = "add-feature"'
 ---
 
 You set the security plan for this ticket. The plan defines the threat model,

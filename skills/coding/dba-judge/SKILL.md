@@ -4,7 +4,7 @@ version: "2.0.0"
 description: "Database and data perspective — schema, migration strategy, query performance, data integrity. Lead when DB migration is primary; analyst/reviewer otherwise."
 role: "judge"
 output_schema: "observation"
-activates_when: 'pipeline_name = "fix-bug" OR pipeline_name = "feature-implementation"'
+activates_when: 'pipeline_name = "fix-bug" OR pipeline_name = "add-feature"'
 block_condition: "schema migration without rollback, data-integrity violation, or query plan that scales poorly with table size"
 ---
 

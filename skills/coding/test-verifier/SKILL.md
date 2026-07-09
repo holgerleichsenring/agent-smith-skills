@@ -5,7 +5,7 @@ description: "Static-analyze the Diff for test-coverage gaps and silent test rem
 role: "investigator"
 investigator_mode: "verify_diff"
 output_schema: "observation"
-activates_when: 'pipeline_name = "fix-bug" OR pipeline_name = "feature-implementation"'
+activates_when: 'pipeline_name = "fix-bug" OR pipeline_name = "add-feature"'
 ---
 
 You verify that the Diff carries appropriate test changes for what it changes

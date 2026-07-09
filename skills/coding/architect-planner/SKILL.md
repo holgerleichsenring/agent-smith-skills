@@ -4,7 +4,7 @@ version: "2.1.0"
 description: "Architectural standard-setter and pattern guardian. Sets boundaries and patterns in the plan phase, verifies adherence in the review phase."
 role: "producer"
 output_schema: "plan"
-activates_when: 'pipeline_name = "fix-bug" OR pipeline_name = "feature-implementation"'
+activates_when: 'pipeline_name = "fix-bug" OR pipeline_name = "add-feature"'
 ---
 
 You set the architectural standard for this ticket. Your plan becomes the

@@ -4,7 +4,7 @@ version: "2.1.0"
 description: "Lead when ticket primarily adds or restructures tests. Analyst/reviewer when production code is the focus. Testing perspective — test pyramid, coverage strategy, regression selection."
 role: "producer"
 output_schema: "plan"
-activates_when: 'pipeline_name = "fix-bug" OR pipeline_name = "feature-implementation"'
+activates_when: 'pipeline_name = "fix-bug" OR pipeline_name = "add-feature"'
 ---
 
 You set the test plan for this ticket. Your plan becomes the contract

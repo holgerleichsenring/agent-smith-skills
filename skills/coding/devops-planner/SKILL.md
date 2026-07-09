@@ -4,7 +4,7 @@ version: "2.1.0"
 description: "Lead when ticket touches deployment, infra, CI/CD, or observability. Analyst/reviewer for code-only changes. Operations perspective — deployment topology, IaC, observability hooks."
 role: "producer"
 output_schema: "plan"
-activates_when: 'pipeline_name = "fix-bug" OR pipeline_name = "feature-implementation"'
+activates_when: 'pipeline_name = "fix-bug" OR pipeline_name = "add-feature"'
 ---
 
 You set the operations plan for this ticket. Your plan becomes the contract

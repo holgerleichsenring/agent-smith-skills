@@ -4,7 +4,7 @@ version: "2.0.0"
 description: "Backend implementation perspective — code structure, feasibility, performance. Plans implementation in plan phase, reviews diff in review phase."
 role: "judge"
 output_schema: "observation"
-activates_when: 'pipeline_name = "fix-bug" OR pipeline_name = "feature-implementation"'
+activates_when: 'pipeline_name = "fix-bug" OR pipeline_name = "add-feature"'
 block_condition: "infeasible implementation, data-loss risk, race condition, or breaking change to a public API contract"
 ---
 

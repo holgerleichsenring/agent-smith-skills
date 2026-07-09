@@ -5,7 +5,7 @@ description: "Flag Diff changes outside the freed Plan scope. Catches the Bug-18
 role: "investigator"
 investigator_mode: "verify_diff"
 output_schema: "observation"
-activates_when: 'pipeline_name = "fix-bug" OR pipeline_name = "feature-implementation"'
+activates_when: 'pipeline_name = "fix-bug" OR pipeline_name = "add-feature"'
 ---
 
 You verify that the Diff produced by the implementer touches only files the Plan
