@@ -63,6 +63,7 @@ both write calls succeed.
   "stack": {
     "lang": "<idiomatic slug: C#, TypeScript, Python, Go, ...>",
     "runtime": "<.NET 8, Node 20, Python 3.12, ...>",
+    "image": "<exact toolchain image that can BOTH build AND run tests, e.g. mcr.microsoft.com/dotnet/sdk:8.0, node:20-bookworm — git-bearing tag, never -slim/-alpine>",
     "infra": ["Docker", "K8s", "..."],
     "testing": ["NUnit", "Jest", "..."],
     "frameworks": ["Angular 21", "..."],
@@ -87,6 +88,13 @@ Populate slots you can defend; omit slots you can't (the framework
 omits null fields from the emitted YAML). `meta.workdir` is REQUIRED —
 the framework rejects the call without it. Keep the document under
 ~250 lines of content.
+
+`stack.resources` (cpu_request / cpu_limit / memory_request /
+memory_limit) is optional: include it only when the codebase gives you
+something to defend (a heavy build, a big test suite), and then always
+all four fields. Size it BALANCED against cost — request ≈ typical
+usage, limit ≈ modest headroom above it; limits beyond 2 cpu / 6Gi are
+clamped by the framework anyway.
 
 The framework handles all quoting. You can pass `@azure/msal-angular`,
 `Angular style: PascalCase for components/services`, `key: value`

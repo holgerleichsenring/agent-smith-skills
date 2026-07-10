@@ -4,9 +4,9 @@ description: "Master loop body for coding pipelines. Plan + Execute + Verify in 
 role: master
 version: "1.11.0"
 ---
-{ProjectContextSection}
 ## Coding Principles
 {CodingPrinciples}
+{ProjectContextSection}
 {CodeMapSection}
 {RepoNames}
 {PlanSection}
