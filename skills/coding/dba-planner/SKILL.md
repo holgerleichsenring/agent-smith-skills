@@ -4,7 +4,7 @@ version: "2.1.0"
 description: "Database and data perspective — schema, migration strategy, query performance, data integrity. Lead when DB migration is primary; analyst/reviewer otherwise."
 role: "producer"
 output_schema: "plan"
-activates_when: 'pipeline_name = "fix-bug" OR pipeline_name = "feature-implementation"'
+activates_when: 'pipeline_name = "fix-bug" OR pipeline_name = "add-feature"'
 ---
 
 You set the data-layer plan for this ticket. Your plan becomes the contract

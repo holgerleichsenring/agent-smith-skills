@@ -5,7 +5,7 @@ description: "Static-analyze the Diff for likely build breakage: missing imports
 role: "investigator"
 investigator_mode: "verify_diff"
 output_schema: "observation"
-activates_when: 'pipeline_name = "fix-bug" OR pipeline_name = "feature-implementation"'
+activates_when: 'pipeline_name = "fix-bug" OR pipeline_name = "add-feature"'
 ---
 
 You verify that the Diff produced by the implementer compiles / builds. Two

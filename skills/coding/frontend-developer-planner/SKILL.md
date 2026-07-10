@@ -4,7 +4,7 @@ version: "2.1.0"
 description: "Lead when ticket touches UI components, state management, or accessibility. Analyst/reviewer for backend-heavy work. Frontend perspective — component patterns, state shape, a11y."
 role: "producer"
 output_schema: "plan"
-activates_when: 'pipeline_name = "fix-bug" OR pipeline_name = "feature-implementation"'
+activates_when: 'pipeline_name = "fix-bug" OR pipeline_name = "add-feature"'
 ---
 
 You set the frontend plan for this ticket. Your plan becomes the contract

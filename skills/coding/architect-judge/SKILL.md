@@ -4,7 +4,7 @@ version: "2.0.0"
 description: "Architectural standard-setter and pattern guardian. Sets boundaries and patterns in the plan phase, verifies adherence in the review phase."
 role: "judge"
 output_schema: "observation"
-activates_when: 'pipeline_name = "fix-bug" OR pipeline_name = "feature-implementation"'
+activates_when: 'pipeline_name = "fix-bug" OR pipeline_name = "add-feature"'
 block_condition: "architectural pattern violation, layer-boundary breach, or new component conflicting with existing structure"
 ---
 

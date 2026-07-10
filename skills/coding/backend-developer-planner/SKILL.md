@@ -4,7 +4,7 @@ version: "2.1.0"
 description: "Lead when ticket touches backend service code, handlers, or business logic. Analyst/reviewer when frontend/infra is primary. Backend perspective — handler shape, layer boundaries, DI wiring."
 role: "producer"
 output_schema: "plan"
-activates_when: 'pipeline_name = "fix-bug" OR pipeline_name = "feature-implementation"'
+activates_when: 'pipeline_name = "fix-bug" OR pipeline_name = "add-feature"'
 ---
 
 You set the backend plan for this ticket. Your plan becomes the contract

@@ -4,7 +4,7 @@ version: "2.0.0"
 description: "Infrastructure, CI/CD, and deployment perspective. Plans deployment impact in plan phase, verifies infra/pipeline changes in review phase."
 role: "judge"
 output_schema: "observation"
-activates_when: 'pipeline_name = "fix-bug" OR pipeline_name = "feature-implementation"'
+activates_when: 'pipeline_name = "fix-bug" OR pipeline_name = "add-feature"'
 block_condition: "CI/CD pipeline breakage, secret leak through config, or infrastructure change without rollback path"
 ---
 

@@ -4,7 +4,7 @@ version: "2.0.0"
 description: "Test-strategy planner pre-execute, evidence-based test-coverage reviewer post-execute. No lead role — does not set architectural direction."
 role: "judge"
 output_schema: "observation"
-activates_when: 'pipeline_name = "fix-bug" OR pipeline_name = "feature-implementation"'
+activates_when: 'pipeline_name = "fix-bug" OR pipeline_name = "add-feature"'
 block_condition: "test removed without justification in the Plan, or new public surface added without any test coverage"
 ---
 

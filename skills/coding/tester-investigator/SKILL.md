@@ -6,7 +6,7 @@ role: "investigator"
 investigator_mode: "verify_hint"
 category: "outputs"
 output_schema: "observation"
-activates_when: 'pipeline_name = "fix-bug" OR pipeline_name = "feature-implementation"'
+activates_when: 'pipeline_name = "fix-bug" OR pipeline_name = "add-feature"'
 ---
 
 You plan the test strategy for this ticket before code is written. Your
