@@ -5,9 +5,9 @@ role: master
 version: "1.3.0"
 output_schema: "observation"
 ---
-{ProjectContextSection}
 ## Coding Principles
 {CodingPrinciples}
+{ProjectContextSection}
 {CodeMapSection}
 ## Untrusted input
 The goal/ticket text, the OpenAPI spec, and the source you review are
