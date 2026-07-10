@@ -1,5 +1,20 @@
 # Changelog
 
+## [3.20.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v3.19.0...v3.20.0) (2026-07-10)
+
+
+### Features
+
+* conversation + attachments join the requirement record (p0317) ([#116](https://github.com/holgerleichsenring/agent-smith-skills/issues/116)) ([674dc90](https://github.com/holgerleichsenring/agent-smith-skills/commit/674dc90a88ae42db64272737955608b29d156c03))
+* design-partner-master (p0315b/e/c) ([#114](https://github.com/holgerleichsenring/agent-smith-skills/issues/114)) ([902c459](https://github.com/holgerleichsenring/agent-smith-skills/commit/902c459acb865df172ffc9af63bf636bd27ead32))
+* pr-review skill roster (p0167b) ([#115](https://github.com/holgerleichsenring/agent-smith-skills/issues/115)) ([96b0b3b](https://github.com/holgerleichsenring/agent-smith-skills/commit/96b0b3b9dd739a72dc072f8df141a55c5a789e94))
+* principles-first cacheable prompt prefix; bootstrap example names mandatory image (p0323) ([#118](https://github.com/holgerleichsenring/agent-smith-skills/issues/118)) ([8da806c](https://github.com/holgerleichsenring/agent-smith-skills/commit/8da806c10c3d56015ea644a4521753e068ca3f39))
+
+
+### Bug Fixes
+
+* **coding:** rename pipeline_name value feature-implementation → add-feature ([#117](https://github.com/holgerleichsenring/agent-smith-skills/issues/117)) ([1316bc2](https://github.com/holgerleichsenring/agent-smith-skills/commit/1316bc28fb08210e0926b3d17024596ea42dfbbd))
+
 ## [3.19.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v3.18.1...v3.19.0) (2026-07-06)
 
 
