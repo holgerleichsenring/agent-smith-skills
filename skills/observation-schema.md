@@ -18,6 +18,7 @@ Each observation has this shape:
   "file": "src/path/Foo.cs (optional, for source-evident findings)",
   "start_line": 42 (optional),
   "end_line": 48 (optional),
+  "line_range": "42..48" (optional, string — canonical line span for diff/PR-scoped findings),
   "api_path": "GET /api/users (optional, for endpoint-level findings)",
   "schema_name": "OktaProcessInfoResponse (optional, for schema-level findings)",
   "evidence_mode": "potential" | "confirmed" | "analyzed_from_source" (optional, defaults to potential),
@@ -25,6 +26,8 @@ Each observation has this shape:
   "review_status": "not_reviewed" | "confirmed" | "false_positive" (optional, defaults to not_reviewed)
 }
 ```
+
+**`line_range`:** when you review a diff (e.g. a pull request), anchor each finding with `file` + `line_range` as an inclusive `"start..end"` string using NEW-file line numbers from the hunk (single line: `"42"`). It supersedes `start_line`/`end_line` for diff-scoped findings — the framework backfills those from the range. Never cite line numbers that are not visible in the material you were given.
 
 **Location fields:** populate the typed fields directly — `file` + `start_line`
 (+ `end_line`) for source code, `api_path` for HTTP endpoints, `schema_name` for
