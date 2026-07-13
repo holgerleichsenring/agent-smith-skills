@@ -42,11 +42,27 @@ for skill_md in "${MASTERS_DIR}"/*/SKILL.md; do
     fail "${dir_name}: name '${name}' does not match directory name"
   fi
 
-  desc="$(sed -nE 's/^description:[[:space:]]*"(.*)"[[:space:]]*$/\1/p' <<<"${frontmatter}" | head -1)"
-  if [[ -n "${desc}" ]]; then
-    len=${#desc}
-    if (( len > DESC_CAP )); then
-      fail "${dir_name}: description is ${len} chars (cap ${DESC_CAP}; loader hard-drops over 200)"
+  # Description must be a non-empty single-line value, and its length must be
+  # measured no matter how it is quoted — an unquoted or block-scalar value
+  # slipping past the length check re-opens the v3.16.0 silent-drop hole.
+  desc_line="$(grep -E '^description:' <<<"${frontmatter}" | head -1 || true)"
+  if [[ -n "${desc_line}" ]]; then
+    desc="$(sed -E 's/^description:[[:space:]]*//; s/[[:space:]]+$//' <<<"${desc_line}")"
+    if [[ "${desc}" == ">"* || "${desc}" == "|"* ]]; then
+      fail "${dir_name}: description uses a YAML block scalar; use a single-line quoted string so the cap can be checked"
+    else
+      # Strip one pair of matching surrounding quotes (double or single).
+      if [[ "${desc}" == \"*\" && ${#desc} -ge 2 ]]; then
+        desc="${desc:1:${#desc}-2}"
+      elif [[ "${desc}" == \'*\' && ${#desc} -ge 2 ]]; then
+        desc="${desc:1:${#desc}-2}"
+      fi
+      len=${#desc}
+      if (( len == 0 )); then
+        fail "${dir_name}: description is empty"
+      elif (( len > DESC_CAP )); then
+        fail "${dir_name}: description is ${len} chars (cap ${DESC_CAP}; loader hard-drops over 200)"
+      fi
     fi
   fi
 
