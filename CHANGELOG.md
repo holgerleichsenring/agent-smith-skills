@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.20.1](https://github.com/holgerleichsenring/agent-smith-skills/compare/v3.20.0...v3.20.1) (2026-07-13)
+
+
+### Bug Fixes
+
+* **patterns:** tighten llm-output-in-sql to kill false positives (p0334) ([#121](https://github.com/holgerleichsenring/agent-smith-skills/issues/121)) ([e445315](https://github.com/holgerleichsenring/agent-smith-skills/commit/e445315ad52df7e14c083ff1296fdc7e18e9c7d1))
+
 ## [3.20.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v3.19.0...v3.20.0) (2026-07-10)
 
 
