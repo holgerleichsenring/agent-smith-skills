@@ -25,12 +25,12 @@ patterns:
     description: "LLM output passed to eval(), enabling arbitrary code execution"
 
   - id: llm-output-in-sql
-    regex: "(?i)(?:SELECT|INSERT|UPDATE|DELETE).*(?:response|completion|output|generated)"
+    regex: "(?i)\\b(?:SELECT\\b.+\\bFROM|INSERT\\s+INTO|UPDATE\\b.+\\bSET|DELETE\\s+FROM)\\b.*(?:llm|gpt|openai|claude|anthropic|completion|ai[_-]?response|chat[_-]?completion|generated[_-]?(?:text|sql|content)|model[_-]?output)"
     severity: critical
-    confidence: 6
+    confidence: 7
     cwe: CWE-89
     title: "LLM Output in SQL Query"
-    description: "LLM-generated content used in SQL query, vulnerable to SQL injection"
+    description: "LLM-generated content used in a SQL statement, vulnerable to SQL injection. Requires a real SQL structure (SELECT...FROM / INSERT INTO / UPDATE...SET / DELETE FROM) co-occurring with an LLM-output identifier, so PascalCase names like UpdateXxxResponse no longer false-match."
 
   - id: no-max-tokens
     regex: "(?i)(openai|anthropic|claude|gpt|llm|chat).*(?:create|complete|generate)(?!.*max[_-]?tokens)"
