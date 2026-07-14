@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.21.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v3.20.1...v3.21.0) (2026-07-14)
+
+
+### Features
+
+* release guard for master descriptions; coding master consumes the ratified expectation (p0325/p0328) ([#123](https://github.com/holgerleichsenring/agent-smith-skills/issues/123)) ([d076425](https://github.com/holgerleichsenring/agent-smith-skills/commit/d076425c62153c2f704c61a9ea1922b7c76fea8e))
+
 ## [3.20.1](https://github.com/holgerleichsenring/agent-smith-skills/compare/v3.20.0...v3.20.1) (2026-07-13)
 
 
