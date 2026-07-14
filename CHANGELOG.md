@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.22.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v3.21.0...v3.22.0) (2026-07-14)
+
+
+### Features
+
+* coding-master gates its Definition of done on the ratified acceptance contract (p0340) ([#125](https://github.com/holgerleichsenring/agent-smith-skills/issues/125)) ([a1b8368](https://github.com/holgerleichsenring/agent-smith-skills/commit/a1b836893644b6a26593bb93042aae5025435528))
+
 ## [3.21.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v3.20.1...v3.21.0) (2026-07-14)
 
 
