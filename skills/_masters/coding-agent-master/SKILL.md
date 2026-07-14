@@ -240,6 +240,7 @@ this shape:
 ```verdict
 { "status": "green", "build_ran": true, "build_passed": true, "tests_ran": true, "tests_passed": true,
   "failing_tests": [], "baseline_failing_tests": [], "ignored_instructions": [],
+  "acceptance": [ { "criterion": "<the ratified assertion, verbatim>", "status": "met", "evidence": "<the edit that satisfies it>" } ],
   "summary": "<one line: what changed / why red>" }
 ```
 
@@ -263,6 +264,18 @@ this shape:
   verbatim instruction>", "reason": "<why you ignored it>" }`. Leave empty `[]`
   when you followed everything in scope. The framework records these verbatim in
   result.md and as an audit event — do not paraphrase away a refusal.
+- `acceptance`: REQUIRED when an `## Acceptance contract` section was given above —
+  one entry per ratified "Expected" assertion, IN ORDER, each `{ "criterion": "<the
+  assertion verbatim>", "status": "met" | "not_applicable", "evidence": "<...>" }`.
+  `met` = you made the edit that satisfies it (name it in evidence). `not_applicable`
+  = it genuinely does not apply, and evidence carries the EVALUATED MEANING of not
+  doing it (e.g. "no MassTransit present → nothing to migrate, no messaging behaviour
+  changes") — a bare "N/A" with no reason is rejected. There is no "unmet" you may
+  ship: an actionable-but-unmet criterion means you are NOT done (see the loop below),
+  or, if you are honestly stuck, the whole verdict is `failed`. The framework pairs
+  these with the ratified criteria by position — omit the array entirely only when
+  no acceptance contract was given (many fix-bug runs). Do not fabricate `met`: a
+  `met` you did not actually implement is caught against the diff and fails the run.
 - Emit the verdict whether the outcome is green OR failed. A failed verdict
   with the reason is how a genuinely-stuck run records WHY.
 
@@ -282,22 +295,36 @@ fabricated fix against the wrong location is the worst outcome of all.
 
 Before you stop calling tools, confirm each of these out loud:
 
-1. The ticket asked for a change and at least one **source file is edited**
-   (not just plan.md / decisions.md). If truly no edit was needed, you have
-   stated explicitly why — or you have honestly reported (in a `failed` verdict)
-   that the fault cannot be located after searching (behaviour/title conflict,
-   the responsible code is in no repository in this run, or insufficient
-   information) rather than fabricating an unrelated change.
-2. Existing tests touching the code you changed have been **opened, updated
+1. **Every ratified acceptance criterion is delivered.** If an `## Acceptance
+   contract` was given above, walk EACH "Expected" assertion and, for each, either
+   (a) make the edit that satisfies it — `met`, or (b) establish it is genuinely
+   `not_applicable` and record the EVALUATED MEANING of not doing it (e.g. the
+   feature it targets does not exist in this codebase, so there is nothing to
+   change and no behaviour is affected). An assertion that is **actionable but not
+   yet satisfied means you are NOT done — go back and implement it; do not
+   summarise, do not stop.** Only when you are honestly, demonstrably stuck on a
+   criterion (after actually attempting it) do you stop — and then the whole
+   verdict is `failed`, naming exactly which criterion and why. Reaching a clean
+   build while leaving an actionable criterion unmet is a HALF-DONE run dressed as
+   green — the worst outcome, and the framework now catches it. (No acceptance
+   contract given? Skip this item — the criteria below govern.)
+2. At least one **source file is edited** (not just plan.md / decisions.md). If
+   truly no edit was needed, you have stated explicitly why — or you have honestly
+   reported (in a `failed` verdict) that the fault cannot be located after
+   searching (behaviour/title conflict, the responsible code is in no repository in
+   this run, or insufficient information) rather than fabricating an unrelated change.
+3. Existing tests touching the code you changed have been **opened, updated
    if your change altered what they assert, and run**.
-3. The build is **clean** and the automated tests (where they exist) **pass**.
-4. plan.md and decisions.md are written.
-5. A `verdict` block (Phase 4) is your final message, reporting the true
-   build/test outcome.
+4. The build is **clean** and the automated tests (where they exist) **pass**.
+5. plan.md and decisions.md are written.
+6. A `verdict` block (Phase 4) is your final message, reporting the true build/test
+   outcome AND — when an acceptance contract was given — the per-criterion
+   `acceptance` dispositions.
 
-If items 1–4 are not all true, you are not done — go back, don't summarise.
-The ONE exception is an honest RED: if you genuinely cannot reach green,
-emit a `failed` verdict with the reason rather than pretending item 3 holds.
+If items 1–5 are not all true, you are not done — go back, don't summarise.
+The ONE exception is an honest RED: if you genuinely cannot reach green or cannot
+satisfy an acceptance criterion after really attempting it, emit a `failed` verdict
+with the reason rather than pretending item 1 or 4 holds.
 
 The framework does NOT enforce phase transitions. You judge when to
 move between them; the discipline above is what produces a clean
