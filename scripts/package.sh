@@ -17,6 +17,11 @@ SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 REPO_ROOT="$( cd "${SCRIPT_DIR}/.." && pwd )"
 cd "${REPO_ROOT}"
 
+# Never package a catalog that would break the loader (p0325): every path that
+# builds a tarball — release-please, manual recovery, edge, local — goes
+# through here, so the guard cannot be bypassed.
+bash "${SCRIPT_DIR}/validate-skills.sh"
+
 VERSION="${1:-${GITHUB_REF_NAME:-edge}}"
 OUTPUT_DIR="${OUTPUT_DIR:-${REPO_ROOT}/dist}"
 mkdir -p "${OUTPUT_DIR}"
