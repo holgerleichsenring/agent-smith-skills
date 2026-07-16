@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.23.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v3.22.0...v3.23.0) (2026-07-16)
+
+
+### Features
+
+* coding-master maintains a durable progress ledger (p0341) ([#127](https://github.com/holgerleichsenring/agent-smith-skills/issues/127)) ([7094e67](https://github.com/holgerleichsenring/agent-smith-skills/commit/7094e67286ff55cde3697121efa38c757ee09b19))
+
 ## [3.22.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v3.21.0...v3.22.0) (2026-07-14)
 
 
