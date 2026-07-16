@@ -11,6 +11,7 @@ version: "1.12.0"
 {RepoNames}
 {PlanSection}
 {ExpectationSection}
+{ProgressLedgerSection}
 When a ratified expectation section appears above, it is the **binding acceptance
 contract** for this run: verify each of its assertions out loud before emitting your
 final verdict, and if an assertion cannot be met, say so explicitly rather than
@@ -140,6 +141,17 @@ Before you change the code:
   files you will change, the concrete steps, and how each maps to an acceptance
   criterion. This is your first write and your commitment to a concrete change —
   a plan of *edits you will make*, not a description of what someone could do.
+- **Keep the progress ledger current with `update_progress`.** A progress ledger
+  section above is your checklist, seeded 1:1 from your plan (or empty — then seed
+  it yourself from your plan as your first `update_progress` call). It is your
+  DURABLE working memory: it survives a long run so you never re-grep what you
+  already did or lose your place. Discipline, same reflex as `log_decision`: flip a
+  step to `in_progress` BEFORE you work it and to `done` IMMEDIATELY after. Always
+  pass the COMPLETE list (full-state replacement, not a patch); exactly one item
+  `in_progress` at a time; do not drop a seeded or already-done step; keep it tight.
+  Set each step's `target` to the file it touches. The ledger is MEMORY, not a
+  verdict — it never decides whether the run passed (your Phase-4 verdict + the
+  acceptance contract do that).
 - **Record each non-obvious choice in `<repo>/{RunRecordDir}/decisions.md`**
   (append one line each — why, not what) and also via `log_decision`.
 - If the acceptance criteria are ambiguous in a way that would cause
