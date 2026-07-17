@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.24.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v3.23.0...v3.24.0) (2026-07-17)
+
+
+### Features
+
+* coding-master executes the approved plan; carries the p0341 ledger skills change (p0341c) ([#129](https://github.com/holgerleichsenring/agent-smith-skills/issues/129)) ([6ec8ddd](https://github.com/holgerleichsenring/agent-smith-skills/commit/6ec8dddcfb17595d98bd6e96b449e334501a0588))
+
 ## [3.23.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v3.22.0...v3.23.0) (2026-07-16)
 
 
