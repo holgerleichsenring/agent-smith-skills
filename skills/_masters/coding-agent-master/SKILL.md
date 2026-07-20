@@ -206,6 +206,8 @@ Once the plan is written:
   `python -m http.server`, etc.) — they time out and block the
   pipeline.
 - NEVER run interactive commands.
+- To read anything from the internet — a dependency's public docs,
+  changelog, or source, or a URL the ticket points at — use `web_fetch`.
 - Before each tool call, state in one sentence what you are doing and
   why (e.g. "Reading Program.cs to confirm the endpoint registration").
 
