@@ -1,7 +1,7 @@
 ---
 name: "project-bootstrap"
-version: "1.3.0"
-description: "Write context.yaml + coding-principles.md for the component named in the user prompt. Paths come from the prompt, never hardcoded. ProjectMap + workdir + evidence drive language-aware output."
+version: "1.4.0"
+description: "Write context.yaml + prescriptive coding-principles.md for the component named in the user prompt. Paths come from the prompt, never hardcoded. ProjectMap + workdir + evidence ground rules for how new code must be written — architecture first, build facts last."
 role: "producer"
 output_schema: "bootstrap"
 activates_when: 'pipeline_name = "init-project"'
@@ -103,22 +103,52 @@ are writing JSON, not YAML.
 
 ## `coding-principles.md`
 
-Free-form Markdown the verifiers read for checkable rules:
+**This file is prescriptive: it tells the next agent HOW to write new
+code in this component — not what the project currently contains.** The
+verifiers (e.g. `architecture-verifier`) read it for checkable rules, so
+every section must yield a rule a diff can be checked against. Write
+rules in the imperative ("Controllers are thin — inject the mediator and
+only dispatch"), grounded in what you observed.
 
-- Quote real numerical limits from formatter / linter config or visible
-  patterns (max class lines, max method lines, max line length).
-- State language-style invariants the codebase enforces. Shape examples:
-  "C# uses file-scoped namespaces"; "TypeScript runs in strict mode";
-  "Go uses gofmt"; "Python uses type hints". Only what you observed.
-- Skip platitudes. "Write readable code" is noise.
+**Failure mode to avoid:** a file that inventories target framework,
+package versions, csproj/build flags, and middleware order and calls that
+"principles". Those are observations, not principles — no one can write
+new code from them and the verifier has nothing to check. Correct facts
+in that shape are still a failed file. Facts a change must not break go
+**last**, under a "Build facts to preserve" heading, never at the top.
 
-If the component genuinely lacks language-specific guidance (polyglot
-mix at this workdir, docs-only, infra-only), open with a one-paragraph
-operator note saying so.
+Write these sections, each as imperative rules grounded in the code you read:
+
+- **Architecture — the "red thread"** (most important): the single path a
+  feature follows in this component (e.g. request → handler → persistence
+  → response), the layers, and where each kind of type lives, named for
+  THIS codebase. A facts-dump omits this entirely; a good file leads with
+  it. A short flow sketch + a "where things live" table beats prose.
+- **Hard limits**: real numerical limits from formatter/linter config or
+  visible patterns (max class lines, max method lines, line length, types
+  per file).
+- **Naming**: the actual casing/suffix rules the code uses (e.g.
+  `I`-prefixed interfaces, `Async` suffix, `*Handler` / `*Adapter` role
+  suffixes).
+- **Language-style invariants**: file-scoped namespaces, strict mode,
+  gofmt, type hints — only what you observed.
+- **Design + error handling**: SRP / DI, how errors are thrown, caught,
+  and logged.
+- **What NOT to do**: the concrete anti-patterns for this stack.
+- **Build facts to preserve** (last): framework version, build flags,
+  middleware order — only what a change must not break.
+
+Skip platitudes ("write readable code" is noise). If the component
+genuinely lacks language-specific guidance (polyglot mix at this workdir,
+docs-only, infra-only), open with a one-paragraph operator note saying so
+instead.
 
 ## Discipline
 
-- Read, don't invent. Drop claims you can't support.
+- Ground every rule in evidence you read; drop rules you can't support.
+  But the output is prescriptive rules for new code, not a transcript of
+  observations — derive the rule from the pattern (MediatR handlers seen →
+  "handlers orchestrate, controllers stay thin").
 - Default conservatively (`Layered` over `CleanArch` if unsure).
 - One pass per file: read what you need, then write each file. Don't
   loop.
