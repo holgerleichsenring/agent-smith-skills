@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.25.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v3.24.0...v3.25.0) (2026-07-20)
+
+
+### Features
+
+* coding-master reads from the internet via web_fetch (p0353) ([b4dc14b](https://github.com/holgerleichsenring/agent-smith-skills/commit/b4dc14b3bb96127f1ddff23a939a49ae50d5a318))
+
 ## [3.24.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v3.23.0...v3.24.0) (2026-07-17)
 
 
