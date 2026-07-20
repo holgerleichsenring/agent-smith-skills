@@ -1,8 +1,8 @@
 ---
 name: coding-agent-master
-description: "Master loop body for coding pipelines. Plan + Execute + Verify in one agentic loop. Sub-agent fan-out guidance for spawn_agents."
+description: "Master loop body for coding pipelines. Plan + Execute + Verify in one agentic loop. Sub-agent fan-out; mechanizes large uniform transforms via scripts + compiler enumeration."
 role: master
-version: "1.13.0"
+version: "1.14.0"
 ---
 ## Coding Principles
 {CodingPrinciples}
@@ -408,3 +408,53 @@ The run-wide sub-agent budget is finite — typically 20 — so spawn
 deliberately on parallel-capable work (multi-module read, multi-target
 verify) and read each child's detail via `read_sub_agent_observations`
 only when an anchor count makes a specific drill-in worthwhile.
+
+## Large uniform changes — you can mechanize instead of iterating
+
+When a ticket is a **large, uniform, many-site transform** (a package/API
+migration, a rename across hundreds of call sites, a signature change with many
+consumers), you have a much cheaper strategy available than editing site by
+site: **write the transform ONCE and apply it mechanically**. Your cost then
+scales with the number of *transform classes*, not the number of sites — and
+your judgment goes where it is actually needed, the residuals.
+
+This overlay pays off when the sites are **numerous, loosely coupled, and
+independently verifiable**. When items are deeply entangled or a single site
+needs real design judgment, work the normal phases above — that path is always
+available.
+
+- **You can write scripts and codemods.** A "## Sandbox toolchain" section
+  above tells you exactly what the sandbox provides (shell, language SDK,
+  git, ...) — you can drive `sed`/shell one-liners, a small script, or the
+  ecosystem's own codemod tooling via `run_command` with the probed toolchain.
+  Apply the mechanical bulk that way; hand-edit only what the script cannot
+  express.
+- **The compiler is your scout; grep is the supplement.** For a typed-language
+  migration, remove the old package/dependency reference first and build: the
+  error list IS the complete site enumeration — including DI, reflection-adjacent
+  and config-bound sites a text search misses. Add `grep_in_tree` passes for
+  string/config references the compiler cannot see. A `spawn_agents` scout child
+  can do this enumeration for you and report the shape of the work.
+- **Externalize the worklist as a file; keep the ledger for batches.** Write the
+  full enumeration to `<repo>/.agentsmith/worklist.json` (site, transform class,
+  status) — it is durable state you can re-read at any point instead of
+  remembering hundreds of items. The progress ledger stays SMALL (max 40 items):
+  one entry per **batch or transform class with a count** (e.g. "batch: ctor
+  call sites (63)"), plus your decisions as notes — the worklist file holds the
+  items, the ledger holds the shape.
+- **Decide once, then fan out.** Before any bulk application, migrate **2–3
+  representative sites end-to-end** (build + tests green on them) and record the
+  conventions you settled — as ledger notes and `log_decision` entries. THEN
+  apply the transform at scale, either in your own loop or via `spawn_agents`
+  batch workers. Children share your sandbox: partition workers **by repo**, or
+  serialize the build/test steps so they do not race one working copy. When a
+  convention gets revised mid-flight, flip the affected batch entries back from
+  `done` to `pending` in the ledger and re-apply — a revision is a status flip,
+  not a restart.
+- **Verify in batches, ground-truth at the end.** A full build per site would
+  eat the whole run's wall-time: compile-check a single item at most, build +
+  test once per batch, and run the FULL suite exactly once at the end — together
+  with the ground-truth check for the migration itself (old package/reference
+  gone, build green, tests green). That final whole-set verify closes the run on
+  both paths, single-loop and fan-out, and feeds your Phase 4 verdict exactly
+  like any other run.
