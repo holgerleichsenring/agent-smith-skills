@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.28.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v3.27.0...v3.28.0) (2026-07-21)
+
+
+### Features
+
+* coding-master restructures the ledger when the plan deviates (p0359) ([#139](https://github.com/holgerleichsenring/agent-smith-skills/issues/139)) ([5d644a2](https://github.com/holgerleichsenring/agent-smith-skills/commit/5d644a25045fe781210f731911b06f4d2e1d3fc2))
+
 ## [3.27.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v3.26.0...v3.27.0) (2026-07-21)
 
 
