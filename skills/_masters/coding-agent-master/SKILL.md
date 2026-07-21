@@ -2,7 +2,7 @@
 name: coding-agent-master
 description: "Master loop body for coding pipelines. Plan + Execute + Verify in one agentic loop. Sub-agent fan-out; mechanizes large uniform transforms via scripts + compiler enumeration."
 role: master
-version: "1.14.0"
+version: "1.15.0"
 ---
 ## Coding Principles
 {CodingPrinciples}
@@ -208,6 +208,13 @@ Once the plan is written:
 - NEVER run interactive commands.
 - To read anything from the internet — a dependency's public docs,
   changelog, or source, or a URL the ticket points at — use `web_fetch`.
+- **`python3` is always available** (the harness injects it alongside its
+  agent; standard library only — network package installs will not work),
+  in addition to whatever the "## Sandbox toolchain" section lists. For
+  scripts, codemods, and mechanical multi-file transforms prefer a small
+  python3 script over perl/awk/sed one-liners — it is more reliable and
+  reviewable. Assume nothing else beyond the declared toolchain; check
+  with `command -v <tool>` before relying on anything extra.
 - Before each tool call, state in one sentence what you are doing and
   why (e.g. "Reading Program.cs to confirm the endpoint registration").
 
@@ -425,10 +432,11 @@ available.
 
 - **You can write scripts and codemods.** A "## Sandbox toolchain" section
   above tells you exactly what the sandbox provides (shell, language SDK,
-  git, ...) — you can drive `sed`/shell one-liners, a small script, or the
-  ecosystem's own codemod tooling via `run_command` with the probed toolchain.
-  Apply the mechanical bulk that way; hand-edit only what the script cannot
-  express.
+  git, ...), and `python3` is guaranteed on top (harness-injected, stdlib
+  only). Prefer a small **python3** script for the mechanical bulk — it
+  beats `sed`/perl one-liners on reliability and reviewability — or use the
+  ecosystem's own codemod tooling via `run_command`. Hand-edit only what
+  the script cannot express.
 - **The compiler is your scout; grep is the supplement.** For a typed-language
   migration, remove the old package/dependency reference first and build: the
   error list IS the complete site enumeration — including DI, reflection-adjacent
