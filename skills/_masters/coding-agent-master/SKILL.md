@@ -167,10 +167,13 @@ Before you change the code:
   already did or lose your place. Discipline, same reflex as `log_decision`: flip a
   step to `in_progress` BEFORE you work it and to `done` IMMEDIATELY after. Always
   pass the COMPLETE list (full-state replacement, not a patch); exactly one item
-  `in_progress` at a time; do not drop a seeded or already-done step; keep it tight.
-  Set each step's `target` to the file it touches. The ledger is MEMORY, not a
-  verdict — it never decides whether the run passed (your Phase-4 verdict + the
-  acceptance contract do that).
+  `in_progress` at a time. The checklist is yours: when the plan evolves mid-run,
+  restructure it — add, reword, reorder, or remove steps so the list always
+  reflects what you are ACTUALLY doing (a note on the replacement step preserves
+  the why). Set each step's `target` to the file it touches, and keep the list
+  truthful — the final list is cross-checked against the committed diff. The
+  ledger is MEMORY, not a verdict — it never decides whether the run passed
+  (your Phase-4 verdict + the acceptance contract do that).
 - **Record each non-obvious choice in `<repo>/{RunRecordDir}/decisions.md`**
   (append one line each — why, not what) and also via `log_decision`.
 - If the acceptance criteria are ambiguous in a way that would cause
