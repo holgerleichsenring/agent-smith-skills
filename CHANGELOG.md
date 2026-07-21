@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.26.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v3.25.0...v3.26.0) (2026-07-20)
+
+
+### Features
+
+* coding-master mechanizes large uniform transforms (p0356) ([#135](https://github.com/holgerleichsenring/agent-smith-skills/issues/135)) ([f6efcf1](https://github.com/holgerleichsenring/agent-smith-skills/commit/f6efcf1039edecd67c22598f18e5b39ad3284e5e))
+* project-bootstrap writes prescriptive coding-principles, not build archaeology ([#134](https://github.com/holgerleichsenring/agent-smith-skills/issues/134)) ([cda1d10](https://github.com/holgerleichsenring/agent-smith-skills/commit/cda1d10b472a864dace9d9d0d81bc326c22c7cf6))
+
 ## [3.25.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v3.24.0...v3.25.0) (2026-07-20)
 
 
