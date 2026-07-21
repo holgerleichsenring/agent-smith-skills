@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.27.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v3.26.0...v3.27.0) (2026-07-21)
+
+
+### Features
+
+* coding-master declares guaranteed python3 for scripts and codemods (p0357) ([#137](https://github.com/holgerleichsenring/agent-smith-skills/issues/137)) ([923713f](https://github.com/holgerleichsenring/agent-smith-skills/commit/923713f28774ca583bdcca9788a36ca8c7bc0e3a))
+
 ## [3.26.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v3.25.0...v3.26.0) (2026-07-20)
 
 
