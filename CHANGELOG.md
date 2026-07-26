@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.29.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v3.28.0...v3.29.0) (2026-07-26)
+
+
+### Features
+
+* memory-curation discipline + recall/remember consumption in masters (p0380) ([#142](https://github.com/holgerleichsenring/agent-smith-skills/issues/142)) ([1def13f](https://github.com/holgerleichsenring/agent-smith-skills/commit/1def13fdbb4a6dd94e8530d0d0dc18e6ea687eeb))
+* universal principles core + language deltas, project-bootstrap transfers+ratifies (p0379) ([#141](https://github.com/holgerleichsenring/agent-smith-skills/issues/141)) ([f0e7947](https://github.com/holgerleichsenring/agent-smith-skills/commit/f0e794779d2d3c02b2219b115cc5cc527497d91c))
+
 ## [3.28.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v3.27.0...v3.28.0) (2026-07-21)
 
 
