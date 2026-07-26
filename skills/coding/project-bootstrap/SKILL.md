@@ -1,29 +1,50 @@
 ---
 name: "project-bootstrap"
-version: "1.4.0"
-description: "Write context.yaml + prescriptive coding-principles.md for the component named in the user prompt. Paths come from the prompt, never hardcoded. ProjectMap + workdir + evidence ground rules for how new code must be written — architecture first, build facts last."
+version: "2.0.0"
+description: "Write context.yaml (facts from archaeology) for the component named in the prompt; principles transfer from the authored core + language delta for operator ratification."
 role: "producer"
 output_schema: "bootstrap"
 activates_when: 'pipeline_name = "init-project"'
 ---
 
-You write the two onboarding files that every later agent-smith pipeline
-depends on, for the **one component** the user prompt names. Without
-both files the next code-touching run (`fix-bug`, `add-feature`,
-`security-scan`, ...) aborts at the BootstrapCheck gate.
+You write the onboarding files that every later agent-smith pipeline depends
+on, for the **one component** the user prompt names. Without them the next
+code-touching run (`fix-bug`, `add-feature`, `security-scan`, ...) aborts at
+the BootstrapCheck gate.
+
+## The split: facts vs principles
+
+Two different kinds of content leave this round, produced two different ways:
+
+- **`context.yaml` = FACTS.** Your code archaeology (ProjectMap + targeted
+  reads) grounds every claim: stack, runtime, image, frameworks, architecture.
+  You author this file every round.
+- **`coding-principles.md` = AUTHORED GOLD.** Principles are authoritative —
+  code moves toward them. They come from the catalog's universal core
+  (`skills/coding/principles/core.md`) plus the component's language delta
+  (`deltas/<slug>.md`), composed by the framework, and the OPERATOR ratifies
+  them by reviewing the init pull request. Archaeology feeds the facts file,
+  never the principles: inferring taste from a possibly-mediocre repo would
+  codify its median.
+
+The user prompt tells you which files to write this round — follow it. When
+the framework has already transferred the composed principles (it says so in
+the prompt), your job for principles is to request ratification: your summary
+points the operator at `coding-principles.md` in the init PR and invites
+project-specific additions under its "Project Specifics" section. When the
+prompt asks you to write `coding-principles.md` yourself (older framework
+versions), follow the "Writing coding-principles.md yourself" section below.
 
 ## Inputs (from the user prompt)
 
-The user prompt supplies:
-
 - **Component**: a `name` (context slug), `workdir` (repo-relative path
   for this component), and an `evidence` path that proved it.
-- **WriteFile target paths**: two repo-relative paths the user prompt
-  spells out explicitly. Use those paths verbatim — **do not** hardcode
-  any other path in your own logic. The paths look like
-  `.agentsmith/contexts/<name>/context.yaml` and
-  `.agentsmith/contexts/<name>/coding-principles.md`, but the user
-  prompt is canonical.
+- **WriteFile target paths**: the repo-relative paths the user prompt spells
+  out explicitly. Use those paths verbatim — **do not** hardcode any other
+  path in your own logic. They look like
+  `.agentsmith/contexts/<name>/context.yaml` (and, on older frameworks,
+  `.agentsmith/contexts/<name>/coding-principles.md`), but the user prompt
+  is canonical.
 - **ProjectMap**: language slug, frameworks, modules, test projects,
   entry points, conventions, CI config. Repo-level — interpret it
   through the lens of `workdir`.
@@ -41,13 +62,18 @@ The user prompt supplies:
    `document` = a JSON object matching the schema below. The framework
    serialises to YAML — do NOT use `write_file` for context.yaml; the
    framework rejects it with a hint pointing here.
-4. Call `write_file` for the **second** path the user prompt named
-   (coding-principles.md). That file IS prose, so write_file is right.
-5. Return a short Markdown summary of the choices you made.
+4. If — and only if — the user prompt names `coding-principles.md` as a file
+   for YOU to write, call `write_file` for it following the guidance below.
+   That file is prose, so write_file is right for it.
+5. Return a short Markdown summary of the choices you made. When the
+   principles were transferred by the framework, the summary explicitly asks
+   the operator to RATIFY them: review `coding-principles.md` in the init
+   pull request, merge to accept, and append project-specific rules under
+   "Project Specifics" — re-runs preserve that file as ratified.
 
 A response with zero tool calls is a failure of this skill, no matter
 how thorough the prose is. The summary is what you return **after**
-both write calls succeed.
+the write calls succeed.
 
 ## `context.yaml` — call `write_context_yaml` with this JSON shape
 
@@ -101,14 +127,22 @@ The framework handles all quoting. You can pass `@azure/msal-angular`,
 strings, anything — none of it needs to be YAML-escaped because you
 are writing JSON, not YAML.
 
-## `coding-principles.md`
+## Writing coding-principles.md yourself (older frameworks only)
+
+When the user prompt names `coding-principles.md` as a write target, transfer
+rather than invent: reproduce the intent of the catalog's universal core
+(one responsibility per unit named for what it does, SOLID, DRY, YAGNI, KISS,
+Tell-Don't-Ask, composition over inheritance, never silently swallow errors,
+depend on abstractions, enforceable limits with tests, English-only) and add
+the mechanism conventions documented for this component's language — naming
+style, layout and size limits, error mechanics, test placement, tooling.
 
 **This file is prescriptive: it tells the next agent HOW to write new
 code in this component — not what the project currently contains.** The
 verifiers (e.g. `architecture-verifier`) read it for checkable rules, so
 every section must yield a rule a diff can be checked against. Write
 rules in the imperative ("Controllers are thin — inject the mediator and
-only dispatch"), grounded in what you observed.
+only dispatch").
 
 **Failure mode to avoid:** a file that inventories target framework,
 package versions, csproj/build flags, and middleware order and calls that
@@ -117,43 +151,21 @@ new code from them and the verifier has nothing to check. Correct facts
 in that shape are still a failed file. Facts a change must not break go
 **last**, under a "Build facts to preserve" heading, never at the top.
 
-Write these sections, each as imperative rules grounded in the code you read:
-
-- **Architecture — the "red thread"** (most important): the single path a
-  feature follows in this component (e.g. request → handler → persistence
-  → response), the layers, and where each kind of type lives, named for
-  THIS codebase. A facts-dump omits this entirely; a good file leads with
-  it. A short flow sketch + a "where things live" table beats prose.
-- **Hard limits**: real numerical limits from formatter/linter config or
-  visible patterns (max class lines, max method lines, line length, types
-  per file).
-- **Naming**: the actual casing/suffix rules the code uses (e.g.
-  `I`-prefixed interfaces, `Async` suffix, `*Handler` / `*Adapter` role
-  suffixes).
-- **Language-style invariants**: file-scoped namespaces, strict mode,
-  gofmt, type hints — only what you observed.
-- **Design + error handling**: SRP / DI, how errors are thrown, caught,
-  and logged.
-- **What NOT to do**: the concrete anti-patterns for this stack.
-- **Build facts to preserve** (last): framework version, build flags,
-  middleware order — only what a change must not break.
-
-Skip platitudes ("write readable code" is noise). If the component
-genuinely lacks language-specific guidance (polyglot mix at this workdir,
-docs-only, infra-only), open with a one-paragraph operator note saying so
-instead.
+Use archaeology here only to select the right mechanisms (which language,
+which formatter/linter/test runner actually run in CI) and to record real
+"Build facts to preserve" — the principles themselves are the authored
+standard above, not a transcript of the median code you observed.
 
 ## Discipline
 
-- Ground every rule in evidence you read; drop rules you can't support.
-  But the output is prescriptive rules for new code, not a transcript of
-  observations — derive the rule from the pattern (MediatR handlers seen →
-  "handlers orchestrate, controllers stay thin").
+- Ground every context.yaml claim in evidence you read; drop claims you
+  can't support.
 - Default conservatively (`Layered` over `CleanArch` if unsure).
 - One pass per file: read what you need, then write each file. Don't
   loop.
 - No `run_command`, no `http_request`. Read tools + `write_context_yaml`
-  (for context.yaml) + `write_file` (for coding-principles.md) only.
+  (for context.yaml) + `write_file` (for coding-principles.md, when the
+  prompt asks for it) only.
 - Paths come from the user prompt. Do not write to `.agentsmith/context.yaml`
   (the flat root path) — that path is rejected by the write-guard in
   p0161d and later. `write_file` to any

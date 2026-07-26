@@ -81,8 +81,57 @@ for skill_md in "${MASTERS_DIR}"/*/SKILL.md; do
   esac
 done
 
+# p0379: universal principles core + language deltas shipped by project-bootstrap.
+# The core is intent-only — the moment a rule names a mechanism (class, catch,
+# Contracts/, IOptions, MediatR, PascalCase, separate test project, one type per
+# file) it belongs in a delta. Deltas carry Additions + Overrides per
+# skills/coding/principles/DELTA-FORMAT.md.
+PRINCIPLES_DIR="skills/coding/principles"
+CORE_MD="${PRINCIPLES_DIR}/core.md"
+
+echo "checking ${PRINCIPLES_DIR}"
+
+for required in "${CORE_MD}" "${PRINCIPLES_DIR}/DELTA-FORMAT.md" \
+  "${PRINCIPLES_DIR}/deltas/csharp.md" "${PRINCIPLES_DIR}/deltas/rust.md" \
+  "${PRINCIPLES_DIR}/deltas/typescript.md"; do
+  [[ -s "${required}" ]] || fail "principles: missing or empty ${required}"
+done
+
+if [[ -s "${CORE_MD}" ]]; then
+  # Mechanism words that must never appear in the intent-only core.
+  MECHANISM_PATTERN='\bclass(es)?\b|\bcatch\b|Contracts/|IOptions|MediatR|PascalCase|camelCase|snake_case|\bcsproj\b|test project|one type per file|\brecord\b|\bnamespace\b'
+  if leaks="$(grep -inE "${MECHANISM_PATTERN}" "${CORE_MD}")"; then
+    fail "principles: core.md contains mechanism words (belongs in a delta):"$'\n'"${leaks}"
+  fi
+
+  for hook in "Naming style" "Code layout" "Error mechanics" "Test placement"; do
+    grep -q "${hook}" "${CORE_MD}" \
+      || fail "principles: core.md Delta hooks section is missing '${hook}'"
+  done
+fi
+
+for delta in "${PRINCIPLES_DIR}"/deltas/*.md; do
+  [[ -f "${delta}" ]] || continue
+  delta_name="$(basename "${delta}")"
+  grep -q '^## Additions' "${delta}" \
+    || fail "principles: ${delta_name} missing '## Additions' section (DELTA-FORMAT.md)"
+  grep -q '^## Overrides' "${delta}" \
+    || fail "principles: ${delta_name} missing '## Overrides' section (DELTA-FORMAT.md)"
+done
+
+RUST_DELTA="${PRINCIPLES_DIR}/deltas/rust.md"
+if [[ -s "${RUST_DELTA}" ]]; then
+  # The overrides that make the Rust delta correct (p0379 spec): one-type-per-file
+  # suspended, per-class line cap replaced, tests in-file, snake_case, no unwrap in libs.
+  grep -qi "one type per file" "${RUST_DELTA}" || fail "principles: rust.md must override one-type-per-file"
+  grep -q  "cfg(test)" "${RUST_DELTA}"         || fail "principles: rust.md must place unit tests in-file via #[cfg(test)]"
+  grep -q  "snake_case" "${RUST_DELTA}"        || fail "principles: rust.md must state snake_case naming"
+  grep -q  "unwrap"     "${RUST_DELTA}"        || fail "principles: rust.md must forbid .unwrap() in library code"
+  grep -qi "Result"     "${RUST_DELTA}"        || fail "principles: rust.md must route errors via Result/?"
+fi
+
 if (( errors > 0 )); then
   echo "validate-skills: ${errors} error(s)" >&2
   exit 1
 fi
-echo "validate-skills: all masters OK"
+echo "validate-skills: all masters OK, principles templates OK"
