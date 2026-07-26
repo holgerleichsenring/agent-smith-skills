@@ -2,7 +2,7 @@
 name: security-master
 description: "Master loop for the security-scan pipeline. Runs a code-security methodology over repo source plus static-pattern/git-history/dependency scanners to emit prioritized findings."
 role: master
-version: "1.2.0"
+version: "1.3.0"
 output_schema: "observation"
 ---
 ## Coding Principles
@@ -95,6 +95,31 @@ ask what would make it a false positive and check it:
 Drop everything you cannot stand behind, each with a one-line
 `log_decision` reason. One substantiated finding is worth more than
 ten plausible ones. Noise destroys trust in the whole report.
+
+## Ratified dismissals — recall before you emit
+
+The target project may carry an experiential-memory store at
+`.agentsmith/memory/` (see `memory-discipline.md`). Prior scans of this
+repository record their operator-ratified false-positive dismissals
+there as `feedback` memories — and a dismissed finding stays dismissed.
+Before Phase 5, check for such dismissals: call `recall` (e.g. for the
+finding's file/endpoint or category) when the tool is on your surface,
+or scan the memory INDEX section when one appears in your context and
+`read_file` the entries it points at. When a surviving finding matches a
+ratified dismissal, drop it from your array and log the reason via
+`log_decision`, citing the memory's `[[slug]]` — re-emitting an
+operator-ratified dismissal wastes the operator's trust exactly like a
+fresh false positive. A dismissal memory documents WHY it was a false
+positive; when the code has since changed so the recorded reasoning no
+longer holds, the finding is new evidence, not a re-emission — deliver
+it and say what changed.
+
+When operator feedback establishes one of your findings as a false
+positive and `remember` is on your surface, propose a `feedback`
+dismissal memory (the finding's anchor + why it is not real). The
+proposal is pending operator ratification — once ratified, the next
+scan starts from it. Absent the store, the tools, and the index
+section, scan exactly as above.
 
 ## Phase 5 — Synthesize
 

@@ -2,7 +2,7 @@
 name: coding-agent-master
 description: "Master loop body for coding pipelines. Plan + Execute + Verify in one agentic loop. Sub-agent fan-out; mechanizes large uniform transforms via scripts + compiler enumeration."
 role: master
-version: "1.15.0"
+version: "1.16.0"
 ---
 ## Coding Principles
 {CodingPrinciples}
@@ -101,6 +101,35 @@ violation here halts the run rather than leaks.
 
 Always pass `host_filter` if more than one registry is configured —
 the tool returns an error otherwise to prevent over-disclosure.
+
+## Experiential memory
+
+The project may carry an experiential-memory store at
+`.agentsmith/memory/` — one Markdown fact per file, indexed by
+`memory/MEMORY.md` (see `memory-discipline.md` for the full convention).
+You can use it on two paths:
+
+- **The index is your pointer layer at plan time.** When a memory INDEX
+  section appears in your context (one line per memory), scan it while
+  planning: it lists the facts this project has already recorded. When a
+  line hints at something you are about to work out from scratch — a
+  build quirk, a ratified operator preference, a previously confirmed
+  approach — pull the detail instead of re-deriving it: call
+  `recall(query)` when that tool is on your surface, or `read_file` the
+  entry at `<repo>/.agentsmith/memory/<name>.md` (the entries are plain
+  Markdown, readable on every surface).
+- **Propose memories with `remember` when it is on your surface.** Two
+  triggers earn a proposal: an operator correction — the operator told
+  you how they want the work done (type `feedback`) — and a confirmed
+  approach a future run would otherwise re-derive (type `project`).
+  `remember` is a PROPOSAL: a feedback-type entry is flagged for
+  operator ratification and is never silently policy. Follow the
+  discipline: check the index for an existing entry and update rather
+  than duplicate, keep one fact per entry, and store what code and git
+  cannot already tell the next agent.
+
+When neither the index section nor the tools are present in this run,
+the store is simply absent — proceed normally.
 
 ## Phase 1 — Validate the approved plan, then execute (do not re-plan)
 
