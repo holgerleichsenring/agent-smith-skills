@@ -1,6 +1,6 @@
 ---
 name: "project-bootstrap"
-version: "2.0.0"
+version: "2.1.0"
 description: "Write context.yaml (facts from archaeology) for the component named in the prompt; principles transfer from the authored core + language delta for operator ratification."
 role: "producer"
 output_schema: "bootstrap"
@@ -127,6 +127,31 @@ The framework handles all quoting. You can pass `@azure/msal-angular`,
 strings, anything — none of it needs to be YAML-escaped because you
 are writing JSON, not YAML.
 
+## Opening the memory store
+
+Bootstrap also opens the project's experiential-memory store (see
+`memory-discipline.md` for the full convention): unless the user prompt says
+the framework already created it, call `write_file` for
+`.agentsmith/memory/MEMORY.md` (repo-prefixed like every other path) with
+exactly this content:
+
+```markdown
+# Memory Index
+
+One line per memory: `- [name](name.md) — description`. Content lives in the
+entry files, never here. Each entry file carries frontmatter `name`
+(kebab-slug = filename), `description` (one line), and `metadata.type`
+(`feedback` | `project` | `reference`). `feedback` entries are policy only
+after operator ratification. See the memory-curation discipline shipped with
+the skills catalog.
+```
+
+The store opens EMPTY of entries — memories arrive from later runs and from
+the operator, and a `feedback` entry becomes policy only through operator
+ratification. Archaeology feeds `context.yaml`, never the memory store:
+seeding "memories" from the median code would codify exactly what the
+principles split above avoids.
+
 ## Writing coding-principles.md yourself (older frameworks only)
 
 When the user prompt names `coding-principles.md` as a write target, transfer
@@ -164,8 +189,8 @@ standard above, not a transcript of the median code you observed.
 - One pass per file: read what you need, then write each file. Don't
   loop.
 - No `run_command`, no `http_request`. Read tools + `write_context_yaml`
-  (for context.yaml) + `write_file` (for coding-principles.md, when the
-  prompt asks for it) only.
+  (for context.yaml) + `write_file` (for coding-principles.md when the
+  prompt asks for it, and for `memory/MEMORY.md`) only.
 - Paths come from the user prompt. Do not write to `.agentsmith/context.yaml`
   (the flat root path) — that path is rejected by the write-guard in
   p0161d and later. `write_file` to any
