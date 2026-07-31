@@ -1,7 +1,7 @@
 ---
 name: "project-discovery"
 version: "1.0.0"
-description: "Enumerate independently-deployable components in a repo with per-component evidence. Drives BootstrapDispatch fan-out so init-project writes one .agentsmith/contexts/<name>/ per component."
+description: "Enumerate a repo's independently-deployable components with evidence. Drives BootstrapDispatch fan-out: init-project writes one .agentsmith/contexts/ entry per component."
 role: "producer"
 output_schema: "discovery"
 activates_when: 'pipeline_name = "init-project"'

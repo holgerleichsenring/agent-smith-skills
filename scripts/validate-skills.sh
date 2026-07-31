@@ -85,8 +85,8 @@ done
 # The core is intent-only — the moment a rule names a mechanism (class, catch,
 # Contracts/, IOptions, MediatR, PascalCase, separate test project, one type per
 # file) it belongs in a delta. Deltas carry Additions + Overrides per
-# skills/coding/principles/DELTA-FORMAT.md.
-PRINCIPLES_DIR="skills/coding/principles"
+# principles/DELTA-FORMAT.md (4.0.0 moved it out of the deleted skills/coding).
+PRINCIPLES_DIR="principles"
 CORE_MD="${PRINCIPLES_DIR}/core.md"
 
 echo "checking ${PRINCIPLES_DIR}"

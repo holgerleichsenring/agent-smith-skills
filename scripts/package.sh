@@ -30,9 +30,11 @@ ARCHIVE_NAME="agentsmith-skills-${VERSION}.tar.gz"
 ARCHIVE_PATH="${OUTPUT_DIR}/${ARCHIVE_NAME}"
 
 # Source directories included in the release. Sorted so the manifest is stable.
-# baselines/ is consumed by skills like security-headers-auditor (api-headers.yaml)
-# and must ship with the tarball or BaselineLoader can't find it on the consumer.
-SOURCES=(baselines patterns skills)
+# baselines/ went with 4.0.0: its only consumer reached it through the retired
+# SkillRound machinery. principles/ moved out of skills/coding to the root in the
+# same release — it is shared content, not a skill, and the masters-only catalog
+# has no category directories left to hold it.
+SOURCES=(patterns principles skills)
 
 # Filter the manifest deterministically (newline-separated, sorted).
 MANIFEST_FILE="$(mktemp)"
