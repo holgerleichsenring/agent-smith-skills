@@ -312,7 +312,7 @@ concepts:
     # undeclared value, so the name has to exist in a pinned catalog before the
     # pipeline that publishes it ships. fix-bug/add-feature stay — they remain
     # valid alias names that resolve to `code`.
-    enum_values: [api-security-scan, security-scan, code, fix-bug, add-feature, mad-discussion, legal-analysis, init-project, pr-review]
+    enum_values: [api-security-scan, security-scan, code, fix-bug, fix-no-test, add-feature, mad-discussion, legal-analysis, init-project, pr-review]
     description: "Identity of the currently routing pipeline; published once at the head of every chain"
     writers: [PipelineNameInitializerHandler]
   - name: source_available
