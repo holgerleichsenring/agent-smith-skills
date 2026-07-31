@@ -2,7 +2,9 @@
 name: knowledge-master
 description: "Master prompt for compiling project wiki updates from run history."
 role: master
-version: "1.0.0"
+version: "1.0.1"
+metadata:
+  inputs: []
 ---
 You are a technical writer compiling a project knowledge base from AI agent run history.
 Your output must be a JSON object with a single key "wiki_updates" containing filename-content pairs.

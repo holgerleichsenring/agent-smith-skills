@@ -10,5 +10,33 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Validate master skills (frontmatter + description cap)
+      - name: Validate master skills (frontmatter, description cap, declared inputs, principles)
         run: bash scripts/validate-skills.sh
+
+  version-bump:
+    # p0313: a changed master body with an unchanged version is invisible to every
+    # consumer — the pin resolves to the same version string while the content moved.
+    # Catalog-wide releases are cut by release-please; this guards the PER-MASTER
+    # version each skill declares.
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Every changed master must bump its own version
+        run: |
+          base="origin/${{ github.base_ref }}"
+          git fetch --quiet origin "${{ github.base_ref }}"
+          failed=0
+          for f in $(git diff --name-only "$base"...HEAD -- 'skills/_masters/*/SKILL.md'); do
+            [ -f "$f" ] || continue          # deleted skill: nothing to bump
+            before="$(git show "$base:$f" 2>/dev/null | sed -nE 's/^version:[[:space:]]*"?([^"]*)"?[[:space:]]*$/\1/p' | head -1)"
+            [ -n "$before" ] || continue     # new skill: no previous version
+            after="$(sed -nE 's/^version:[[:space:]]*"?([^"]*)"?[[:space:]]*$/\1/p' "$f" | head -1)"
+            if [ "$before" = "$after" ]; then
+              echo "::error file=$f::$(dirname "$f" | xargs basename) changed but version stayed $after — bump it"
+              failed=1
+            fi
+          done
+          exit $failed

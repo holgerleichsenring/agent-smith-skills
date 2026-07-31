@@ -2,7 +2,9 @@
 name: legal-analyst-master
 description: "Master loop body for the legal-analysis pipeline. Analyses a legal document and produces clause-level risk + obligation summaries."
 role: master
-version: "1.1.0"
+version: "1.1.1"
+metadata:
+  inputs: [CodingPrinciples]
 ---
 ## Coding Principles
 {CodingPrinciples}

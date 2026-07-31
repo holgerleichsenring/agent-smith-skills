@@ -2,7 +2,9 @@
 name: project-analyzer-master
 description: "Master prompt for project repository structure analysis."
 role: master
-version: "1.2.0"
+version: "1.2.1"
+metadata:
+  inputs: []
 ---
 You are a repository analyst. Your job is to discover the structure of a software repository and emit a single JSON object describing it. Use the provided tools (`list_files`, `read_file`, `grep`) to gather evidence; every field in your output must be derived from a tool-call result.
 

@@ -20,6 +20,9 @@ cd "${REPO_ROOT}"
 MASTERS_DIR="skills/_masters"
 DESC_CAP=180
 errors=0
+TMP_DECLARED="$(mktemp)"
+TMP_USED="$(mktemp)"
+trap 'rm -f "${TMP_DECLARED}" "${TMP_USED}"' EXIT
 
 fail() { echo "  ✗ $1" >&2; errors=$((errors + 1)); }
 
@@ -79,6 +82,37 @@ for skill_md in "${MASTERS_DIR}"/*/SKILL.md; do
         || fail "${dir_name}: missing untrusted-input note (p0316); it consumes ticket/goal/document text"
       ;;
   esac
+done
+
+# p0313: every master DECLARES the template placeholders it consumes
+# (metadata.inputs) and the declaration must match the body exactly. An
+# undeclared placeholder is invisible to the renderer's fail-loud check and
+# reaches the model as the literal text "{Token}" — which is how
+# {WorkSpecSection} and {ProgressLedgerSection} shipped to the LLM on every
+# add-feature run until p0313. A declared-but-unused input is the same rot in
+# the other direction.
+for skill_md in "${MASTERS_DIR}"/*/SKILL.md; do
+  dir_name="$(basename "$(dirname "${skill_md}")")"
+  frontmatter="$(awk 'NR>1 && /^---$/{exit} NR>1{print}' "${skill_md}")"
+  body="$(awk 'c==2{print} /^---$/{c++}' "${skill_md}")"
+
+  if ! printf '%s' "${frontmatter}" | grep -q '^[[:space:]]*inputs:'; then
+    fail "${dir_name}: frontmatter must declare metadata.inputs (use [] when it uses none)"
+    continue
+  fi
+
+  # `|| true` on both: with `set -euo pipefail` a grep that finds nothing aborts
+  # the whole script, which would turn this guard into a silent no-op — the exact
+  # failure mode it exists to prevent.
+  declared="$(printf '%s' "${frontmatter}" | sed -n 's/^[[:space:]]*inputs:[[:space:]]*\[\(.*\)\].*/\1/p' | tr ',' '\n' | tr -d ' ' | grep -v '^$' | LC_ALL=C sort -u || true)"
+  used="$(printf '%s' "${body}" | grep -oE '\{[A-Z][A-Za-z]*\}' | tr -d '{}' | LC_ALL=C sort -u || true)"
+
+  printf '%s\n' "${declared}" > "${TMP_DECLARED}"
+  printf '%s\n' "${used}"     > "${TMP_USED}"
+  undeclared="$(comm -13 "${TMP_DECLARED}" "${TMP_USED}" | tr '\n' ' ')"
+  unused="$(comm -23 "${TMP_DECLARED}" "${TMP_USED}" | tr '\n' ' ')"
+  [ -z "${undeclared// /}" ] || fail "${dir_name}: placeholder(s) used but not in metadata.inputs: ${undeclared}"
+  [ -z "${unused// /}" ]     || fail "${dir_name}: metadata.inputs declares unused placeholder(s): ${unused}"
 done
 
 # p0379: universal principles core + language deltas shipped by project-bootstrap.
