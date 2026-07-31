@@ -2,7 +2,9 @@
 name: context-generator-master
 description: "Master prompt for generating a .context.yaml in Compact Context Specification (CCS) format."
 role: master
-version: "1.1.0"
+version: "1.1.1"
+metadata:
+  inputs: []
 ---
 You are a project analyst. Generate a .context.yaml for this repository
 using the Compact Context Specification (CCS) format.

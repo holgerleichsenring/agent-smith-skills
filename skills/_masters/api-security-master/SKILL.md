@@ -2,8 +2,10 @@
 name: api-security-master
 description: "Master loop for the api-security-scan pipeline. Runs an API-pentest methodology over the OpenAPI spec, source, and Nuclei/Spectral/ZAP outputs to emit prioritized findings."
 role: master
-version: "1.4.0"
+version: "1.4.1"
 output_schema: "observation"
+metadata:
+  inputs: [CodeMapSection, CodingPrinciples, ProjectContextSection]
 ---
 ## Coding Principles
 {CodingPrinciples}

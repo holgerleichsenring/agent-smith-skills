@@ -5,6 +5,8 @@ role: master
 version: "1.0.0"
 output_schema: "observation"
 activates_when: 'pipeline_name = "pr-review"'
+metadata:
+  inputs: [CodeMapSection, CodingPrinciples, PrDiffSection, ProjectContextSection]
 ---
 ## Coding Principles
 {CodingPrinciples}

@@ -2,7 +2,9 @@
 name: mad-discussion-master
 description: "Master for the mad-discussion pipeline. Runs five perspectives (dreamer / realist / philosopher / devils-advocate / silencer) via spawn_agents and synthesises a verdict."
 role: master
-version: "1.2.0"
+version: "1.2.1"
+metadata:
+  inputs: [CodingPrinciples]
 ---
 ## Coding Principles
 {CodingPrinciples}

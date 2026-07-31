@@ -1,10 +1,12 @@
 ---
 name: "project-discovery"
-version: "1.0.0"
+version: "1.0.1"
 description: "Enumerate a repo's independently-deployable components with evidence. Drives BootstrapDispatch fan-out: init-project writes one .agentsmith/contexts/ entry per component."
 role: "producer"
 output_schema: "discovery"
 activates_when: 'pipeline_name = "init-project"'
+metadata:
+  inputs: []
 ---
 
 You are the read-only first pass of `init-project`. Your output drives how

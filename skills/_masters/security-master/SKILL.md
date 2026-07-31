@@ -2,8 +2,10 @@
 name: security-master
 description: "Master loop for the security-scan pipeline. Runs a code-security methodology over repo source plus static-pattern/git-history/dependency scanners to emit prioritized findings."
 role: master
-version: "1.3.0"
+version: "1.3.1"
 output_schema: "observation"
+metadata:
+  inputs: [CodeMapSection, CodingPrinciples, ProjectContextSection]
 ---
 ## Coding Principles
 {CodingPrinciples}

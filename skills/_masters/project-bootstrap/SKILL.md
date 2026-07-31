@@ -1,10 +1,12 @@
 ---
 name: "project-bootstrap"
-version: "2.1.0"
+version: "2.1.1"
 description: "Write context.yaml (facts from archaeology) for the component named in the prompt; principles transfer from the authored core + language delta for operator ratification."
 role: "producer"
 output_schema: "bootstrap"
 activates_when: 'pipeline_name = "init-project"'
+metadata:
+  inputs: []
 ---
 
 You write the onboarding files that every later agent-smith pipeline depends
