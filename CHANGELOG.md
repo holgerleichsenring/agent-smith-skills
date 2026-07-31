@@ -1,5 +1,28 @@
 # Changelog
 
+## [4.0.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v3.30.0...v4.0.0) (2026-07-31)
+
+
+### ⚠ BREAKING CHANGES
+
+* consumers pinned below 4.0.0 keep the old layout; a 4.0.0 pin requires the backend that resolves skills from the catalog root (p0312a).
+
+### Features
+
+* every master declares the placeholders it consumes (p0313) ([519f1e7](https://github.com/holgerleichsenring/agent-smith-skills/commit/519f1e7633a5d0785d4671105a4e7c06e3ee4c99))
+* masters-only catalog ([4787215](https://github.com/holgerleichsenring/agent-smith-skills/commit/478721540bf0eb8784120fc2c53caa060631d456))
+* pr-review-master replaces the four reviewer skills (p0312c) ([53993cb](https://github.com/holgerleichsenring/agent-smith-skills/commit/53993cb764f2dda180a48907ac47464883b91bee))
+
+
+### Bug Fixes
+
+* declare fix-no-test in the pipeline_name enum ([899daae](https://github.com/holgerleichsenring/agent-smith-skills/commit/899daaee2e161609cad4422329f56e6eb2da449b))
+
+
+### Reverts
+
+* keep skills/pr-review — it is a live pipeline, not legacy ([ab81099](https://github.com/holgerleichsenring/agent-smith-skills/commit/ab810999669973367174a5aeec0c048f3a41f751))
+
 ## [3.30.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v3.29.0...v3.30.0) (2026-07-31)
 
 
