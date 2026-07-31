@@ -1,5 +1,13 @@
 # Changelog
 
+## [3.30.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v3.29.0...v3.30.0) (2026-07-31)
+
+
+### Features
+
+* coding master renders the work spec and can revise it ([8fbe1c1](https://github.com/holgerleichsenring/agent-smith-skills/commit/8fbe1c1191bff31e91f67bc0e3278a7a0370a85e))
+* name the blocked exit and the stopping condition in coding-agent-master ([2147f3b](https://github.com/holgerleichsenring/agent-smith-skills/commit/2147f3bc699be2ff9fc23a21af599fc2b35ae7f5))
+
 ## [3.29.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v3.28.0...v3.29.0) (2026-07-26)
 
 
