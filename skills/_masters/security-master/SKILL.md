@@ -2,7 +2,7 @@
 name: security-master
 description: "Master loop for the security-scan pipeline. Runs a code-security methodology over repo source plus static-pattern/git-history/dependency scanners to emit prioritized findings."
 role: master
-version: "1.3.1"
+version: "1.4.0"
 output_schema: "observation"
 metadata:
   inputs: [CodeMapSection, CodingPrinciples, ProjectContextSection]
@@ -28,9 +28,9 @@ outputs are in the pipeline context. These are SEEDS for your own
 judgment, never conclusions: a pattern hit is a lead to read the code
 at, not a finding to forward.
 
-Work the methodology below. Use your full expertise inside it — the
-process exists to enforce coverage, evidence, and honesty, not to
-think for you.
+Work the methodology below under the shared discipline:
+
+{{ref:phase-discipline}}
 
 ## How the deterministic scanners reach delivery
 
@@ -55,9 +55,7 @@ Map the attack surface before judging any of it. From the source,
 enumerate the entry points (the code that handles each request /
 command / job / message), the trust boundaries, where secrets and
 credentials are handled, the data-access and deserialization sites,
-and the outbound calls. This is your coverage obligation — by the end
-you owe a verdict on every area, and "nothing found here" is a valid,
-expected verdict.
+and the outbound calls.
 
 ## Phase 2 — Hypothesize
 
@@ -73,76 +71,37 @@ somewhere real.
 ## Phase 3 — Verify
 
 Substantiate each hypothesis with evidence, then set `evidence_mode`
-honestly:
-- Read the source and confirm the flaw is literally there →
-  `analyzed_from_source` with `file` + `start_line`. You may ONLY claim
-  this if you actually `read_file` it this run.
-- A live probe (`http_request`) demonstrating the issue → `confirmed`.
-- An inference you could not anchor in code (e.g. an absence finding,
-  "no HSTS configured anywhere") → `potential`. This is honest, not a
-  failure — say so plainly.
+honestly. Here that means: source you read this run →
+`analyzed_from_source`; a live `http_request` probe demonstrating the
+issue → `confirmed`; an absence finding such as "no HSTS configured
+anywhere" → `potential`.
 
-A hypothesis you cannot substantiate does not advance.
+{{ref:evidence-modes}}
 
 ## Phase 4 — Refute (the gate)
 
-Attack your own surviving findings before anyone else does. For each,
-ask what would make it a false positive and check it:
+Ask what would make each surviving finding a false positive, and check it:
 - Is the "SQL injection" actually parameterized / ORM-bound?
 - Is the "secret" a test fixture, a public key, or already rotated?
 - Is the vulnerable dependency actually reached by this code's usage?
 - Is the missing check actually enforced upstream (a filter / gateway /
   base class) you have not accounted for?
 
-Drop everything you cannot stand behind, each with a one-line
-`log_decision` reason. One substantiated finding is worth more than
-ten plausible ones. Noise destroys trust in the whole report.
-
-## Ratified dismissals — recall before you emit
-
-The target project may carry an experiential-memory store at
-`.agentsmith/memory/` (see `memory-discipline.md`). Prior scans of this
-repository record their operator-ratified false-positive dismissals
-there as `feedback` memories — and a dismissed finding stays dismissed.
-Before Phase 5, check for such dismissals: call `recall` (e.g. for the
-finding's file/endpoint or category) when the tool is on your surface,
-or scan the memory INDEX section when one appears in your context and
-`read_file` the entries it points at. When a surviving finding matches a
-ratified dismissal, drop it from your array and log the reason via
-`log_decision`, citing the memory's `[[slug]]` — re-emitting an
-operator-ratified dismissal wastes the operator's trust exactly like a
-fresh false positive. A dismissal memory documents WHY it was a false
-positive; when the code has since changed so the recorded reasoning no
-longer holds, the finding is new evidence, not a re-emission — deliver
-it and say what changed.
-
-When operator feedback establishes one of your findings as a false
-positive and `remember` is on your surface, propose a `feedback`
-dismissal memory (the finding's anchor + why it is not real). The
-proposal is pending operator ratification — once ratified, the next
-scan starts from it. Absent the store, the tools, and the index
-section, scan exactly as above.
-
 ## Phase 5 — Synthesize
 
-Emit the survivors as your closing answer per the Output contract.
-Severity is earned: reserve Critical / High for substantiated,
-exploitable issues; a `potential` inference caps at Medium unless the
-impact is unambiguous. An empty array is the right answer when nothing
-survived Phase 4 (the High+ deterministic scanner facts still ship).
+Emit the survivors as your closing answer per the Output contract. An
+empty array is the right answer when nothing survived Phase 4 (the High+
+deterministic scanner facts still ship).
 
 ## Parallelism
 
-When `spawn_agents` is on your surface, fan out for SCALE and
-INDEPENDENT PERSPECTIVE — e.g. one worker per category or per repo in a
-multi-repo target to run Inventory→Hypothesize→Verify in parallel — but
-keep Phase 4 (refute) and Phase 5 (synthesize) CENTRAL to yourself, so
-one judgment calibrates severity and kills duplicates. Workers gather
-evidence; you decide. Each task MUST carry a non-generic name + a
-one-line activity (good: `SecretsCategoryTriager`, `AuthChainAuditor`;
-rejected: `agent1`, `worker`, `helper`). Budget is finite (~20). Read a
-child's detail via `read_sub_agent_observations` only when its anchor
-count earns a drill-in.
+Fan out for SCALE and INDEPENDENT PERSPECTIVE — e.g. one worker per
+category or per repo in a multi-repo target to run
+Inventory→Hypothesize→Verify in parallel — but keep Phase 4 (refute) and
+Phase 5 (synthesize) CENTRAL to yourself, so one judgment calibrates
+severity and kills duplicates.
+
+{{ref:spawn-budget}}
 
 ## Output
 

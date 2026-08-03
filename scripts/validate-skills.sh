@@ -115,6 +115,46 @@ for skill_md in "${MASTERS_DIR}"/*/SKILL.md; do
   [ -z "${unused// /}" ]     || fail "${dir_name}: metadata.inputs declares unused placeholder(s): ${unused}"
 done
 
+# p0313b: shared methodology lives in references/ and masters cite it as
+# {{ref:<slug>}}. The loader inlines a citation ONE level deep and fails loud on
+# a dangling or nested one — at RENDER time, i.e. mid-run. These checks move both
+# failures to package time, where they cost nothing.
+REFERENCES_DIR="references"
+
+echo "checking ${REFERENCES_DIR}"
+
+# `|| true` throughout: with `set -euo pipefail` a grep that matches nothing
+# aborts the script, which would silently turn every check below into a no-op.
+cited="$(grep -ohE '\{\{ref:[^}]*\}\}' "${MASTERS_DIR}"/*/SKILL.md 2>/dev/null \
+  | sed -E 's/\{\{ref:(.*)\}\}/\1/' | LC_ALL=C sort -u || true)"
+
+for slug in ${cited}; do
+  if [[ ! "${slug}" =~ ^[a-z0-9]+(-[a-z0-9]+)*$ ]]; then
+    fail "references: '${slug}' is not a valid reference slug (lower-case, digits and single hyphens)"
+    continue
+  fi
+  [[ -s "${REFERENCES_DIR}/${slug}.md" ]] \
+    || fail "references: master cites {{ref:${slug}}} but ${REFERENCES_DIR}/${slug}.md is missing or empty"
+done
+
+for reference in "${REFERENCES_DIR}"/*.md; do
+  [[ -f "${reference}" ]] || continue
+  reference_name="$(basename "${reference}")"
+
+  # One level deep, not a graph: a reference that cites another turns prompt
+  # assembly into something nobody can read at the point of use.
+  nested="$(grep -oE '\{\{ref:[^}]*\}\}' "${reference}" | tr '\n' ' ' || true)"
+  [ -z "${nested// /}" ] \
+    || fail "references: ${reference_name} cites another reference (${nested}) — references are one level deep"
+
+  # A reference is inlined into a master body AFTER the metadata.inputs check
+  # above has run, so a placeholder smuggled in through a reference would reach
+  # the model undeclared — the exact leak p0313 closed.
+  smuggled="$(grep -oE '\{[A-Z][A-Za-z]*\}' "${reference}" | tr '\n' ' ' || true)"
+  [ -z "${smuggled// /}" ] \
+    || fail "references: ${reference_name} contains template placeholder(s) ${smuggled}; placeholders belong in a master body where metadata.inputs declares them"
+done
+
 # p0379: universal principles core + language deltas shipped by project-bootstrap.
 # The core is intent-only — the moment a rule names a mechanism (class, catch,
 # Contracts/, IOptions, MediatR, PascalCase, separate test project, one type per

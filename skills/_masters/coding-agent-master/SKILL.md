@@ -2,7 +2,7 @@
 name: coding-agent-master
 description: "Master loop body for coding pipelines. Plan + Execute + Verify in one agentic loop. Sub-agent fan-out; mechanizes large uniform transforms via scripts + compiler enumeration."
 role: master
-version: "1.18.1"
+version: "1.19.0"
 metadata:
   inputs: [CodeMapSection, CodingPrinciples, ExpectationSection, MaxFixIterations, PlanSection, ProgressLedgerSection, ProjectContextSection, RepoNames, RunRecordDir, WorkSpecSection]
 ---
@@ -480,20 +480,11 @@ Bad reasons to ask:
 
 ## SubAgent Guidance
 
-When `spawn_agents` is on your surface (master agentic loop, sub-agents
-enabled in the pipeline config): each task you emit MUST carry a non-generic
-name and a one-line activity.
+Sub-agents are available when `spawn_agents` is on your surface (master
+agentic loop, sub-agents enabled in the pipeline config). Parallel-capable
+work here means a multi-module read or a multi-target verify.
 
-Good examples: ContextMapInvestigator, UploadHandlerAuditor,
-SecuritySurfaceScanner.
-
-Bad examples (the framework rejects them without an LLM call): agent1,
-worker, helper, sub1.
-
-The run-wide sub-agent budget is finite — typically 20 — so spawn
-deliberately on parallel-capable work (multi-module read, multi-target
-verify) and read each child's detail via `read_sub_agent_observations`
-only when an anchor count makes a specific drill-in worthwhile.
+{{ref:spawn-budget}}
 
 ## Large uniform changes — you can mechanize instead of iterating
 
