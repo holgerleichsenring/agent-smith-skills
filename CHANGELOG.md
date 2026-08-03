@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.3.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v4.2.0...v4.3.0) (2026-08-03)
+
+
+### Features
+
+* coding-agent-master names the one way to reopen a finished step ([a34f162](https://github.com/holgerleichsenring/agent-smith-skills/commit/a34f162f575cd93f2ee3319b43730883c0d87beb))
+
 ## [4.2.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v4.1.0...v4.2.0) (2026-08-03)
 
 
