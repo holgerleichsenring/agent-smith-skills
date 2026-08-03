@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.2.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v4.1.0...v4.2.0) (2026-08-03)
+
+
+### Features
+
+* spec-derivation-master cuts a ticket into phase specs (p0393a) ([79fe7e7](https://github.com/holgerleichsenring/agent-smith-skills/commit/79fe7e71d720a443938e20d15f20e2c8cdf2dd26))
+
 ## [4.1.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v4.0.0...v4.1.0) (2026-08-03)
 
 
