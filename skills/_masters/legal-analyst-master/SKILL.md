@@ -2,7 +2,7 @@
 name: legal-analyst-master
 description: "Master loop body for the legal-analysis pipeline. Analyses a legal document and produces clause-level risk + obligation summaries."
 role: master
-version: "1.1.1"
+version: "1.2.0"
 metadata:
   inputs: [CodingPrinciples]
 ---
@@ -82,5 +82,6 @@ for human consumption.
 This pipeline rarely needs sub-agents — a single document is one
 working set. If the document is hundreds of pages, you may spawn
 one sub-agent per major section (e.g. LiabilityClauseAnalyst,
-TerminationClauseAnalyst); otherwise work alone. Budget is finite
-(~20); spawn deliberately.
+TerminationClauseAnalyst); otherwise work alone.
+
+{{ref:spawn-budget}}

@@ -2,7 +2,7 @@
 name: mad-discussion-master
 description: "Master for the mad-discussion pipeline. Runs five perspectives (dreamer / realist / philosopher / devils-advocate / silencer) via spawn_agents and synthesises a verdict."
 role: master
-version: "1.2.1"
+version: "1.3.0"
 metadata:
   inputs: [CodingPrinciples]
 ---
@@ -115,10 +115,13 @@ Output via `write_file` to `discussion.md` in the run sandbox so
 
 ## SubAgent Guidance
 
-When using `spawn_agents`: the five perspective sub-agent names
-above (DreamerVoice / RealistVoice / PhilosopherVoice /
-DevilsAdvocateVoice / SilencerVoice) are non-generic by design.
-Budget is finite (~20); MAD uses 5 of it. Read each child's detail
-via `read_sub_agent_observations` only during synthesis — DO NOT
-read children mid-fan-out (the synthesis phase is where
-cross-perspective reading happens).
+The five perspective sub-agent names above (DreamerVoice /
+RealistVoice / PhilosopherVoice / DevilsAdvocateVoice /
+SilencerVoice) are non-generic by design, and MAD spends 5 of the
+budget on them.
+
+One deviation from the shared contract below: you read EVERY child's
+detail, but only during synthesis — never mid-fan-out, because
+cross-perspective reading is what Phase 2 is for.
+
+{{ref:spawn-budget}}

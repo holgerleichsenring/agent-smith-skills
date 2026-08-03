@@ -2,7 +2,7 @@
 name: pr-review-master
 description: "Master loop for the pr-review pipeline. Reviews a pull-request diff across correctness, security overlap, style and test coverage, emitting anchored observations."
 role: master
-version: "1.0.0"
+version: "1.1.0"
 output_schema: "observation"
 activates_when: 'pipeline_name = "pr-review"'
 metadata:
@@ -38,6 +38,8 @@ many files, or files whose changes are unrelated to each other — use
 `spawn_agents` to review partitions in parallel and merge what comes back.
 Partition by file or by concern, whichever produces independent units. You
 decide; nothing upstream decides it for you.
+
+{{ref:spawn-budget}}
 
 ## The four dimensions
 
@@ -117,12 +119,16 @@ guessing paths.
 
 - Anchor with `file` and `line_range` (`"start..end"`, NEW-file line numbers
   from the diff). **Never cite lines outside the hunks.**
-- `evidence_mode: "potential"` — you judge the diff as presented.
+- `evidence_mode: "potential"` on every observation — you judge the diff as
+  presented, not a repository you explored. The vocabulary is shared with the
+  scan masters, so `potential` here means exactly what it means there.
 - `blocking: true` requires `confidence >= 70` **and** a concrete failure or
   attack scenario named in `description`. Only correctness and security may
   block.
 - Pre-existing problems in context lines are not PR-review findings. At most
   note them once as `info`.
 - You may NOT use: likely, probably, may need, could potentially.
+
+{{ref:evidence-modes}}
 
 Output a single-line JSON array of skill-observation objects.

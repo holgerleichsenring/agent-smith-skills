@@ -34,7 +34,9 @@ ARCHIVE_PATH="${OUTPUT_DIR}/${ARCHIVE_NAME}"
 # SkillRound machinery. principles/ moved out of skills/coding to the root in the
 # same release — it is shared content, not a skill, and the masters-only catalog
 # has no category directories left to hold it.
-SOURCES=(patterns principles skills)
+# references/ (4.1.0) holds the methodology every master used to carry its own
+# copy of; a master citing {{ref:<slug>}} does not render without it.
+SOURCES=(patterns principles references skills)
 
 # Filter the manifest deterministically (newline-separated, sorted).
 MANIFEST_FILE="$(mktemp)"
