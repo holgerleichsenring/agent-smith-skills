@@ -2,7 +2,7 @@
 name: coding-agent-master
 description: "Master loop body for coding pipelines. Plan + Execute + Verify in one agentic loop. Sub-agent fan-out; mechanizes large uniform transforms via scripts + compiler enumeration."
 role: master
-version: "1.20.0"
+version: "1.21.0"
 metadata:
   inputs: [CodeMapSection, CodingPrinciples, ExpectationSection, MaxFixIterations, PlanSection, ProgressLedgerSection, ProjectContextSection, RepoNames, RunRecordDir, SpecSection]
 ---
@@ -217,13 +217,21 @@ Before you change the code:
   already did or lose your place. Discipline, same reflex as `log_decision`: flip a
   step to `in_progress` BEFORE you work it and to `done` IMMEDIATELY after. Always
   pass the COMPLETE list (full-state replacement, not a patch); exactly one item
-  `in_progress` at a time. The checklist is yours: when the plan evolves mid-run,
-  restructure it — add, reword, reorder, or remove steps so the list always
-  reflects what you are ACTUALLY doing (a note on the replacement step preserves
-  the why). Set each step's `target` to the file it touches, and keep the list
-  truthful — the final list is cross-checked against the committed diff. The
-  ledger is MEMORY, not a verdict — it never decides whether the run passed
+  `in_progress` at a time. Set each step's `target` to the file it touches, and keep
+  the list truthful — the final list is cross-checked against the committed diff.
+  The ledger is MEMORY, not a verdict — it never decides whether the run passed
   (your Phase-4 verdict + the acceptance contract do that).
+- **Pending work is yours; completed work is a record.** When the plan evolves
+  mid-run, restructure the unfinished part freely — add, reword, reorder, or
+  remove steps so the list always reflects what you are ACTUALLY doing (a note on
+  the replacement step preserves the why). A step already marked `done` is
+  different: it stays `done` if you omit it or send it back as `pending`, and the
+  tool's reply tells you it did. **The one way to reopen a finished step is to
+  send it with the status `reopen`** — use it whenever the work genuinely has to
+  be redone: a revised convention must be re-applied, a change was reverted, or
+  the step was marked done early. Reopening deliberately is expected and costs you
+  nothing; only the SILENT kind is refused, so what the ledger says happened stays
+  what happened.
 - **Record each non-obvious choice in `<repo>/{RunRecordDir}/decisions.md`**
   (append one line each — why, not what) and also via `log_decision`.
 - If the acceptance criteria are ambiguous in a way that would cause
@@ -528,9 +536,9 @@ available.
   apply the transform at scale, either in your own loop or via `spawn_agents`
   batch workers. Children share your sandbox: partition workers **by repo**, or
   serialize the build/test steps so they do not race one working copy. When a
-  convention gets revised mid-flight, flip the affected batch entries back from
-  `done` to `pending` in the ledger and re-apply — a revision is a status flip,
-  not a restart.
+  convention gets revised mid-flight, send the affected batch entries with the
+  status `reopen` and re-apply — a revision is a deliberate reopen, not a restart
+  (a plain `done` → `pending` on a finished entry is refused and kept done).
 - **Verify in batches, ground-truth at the end.** A full build per site would
   eat the whole run's wall-time: compile-check a single item at most, build +
   test once per batch, and run the FULL suite exactly once at the end — together
