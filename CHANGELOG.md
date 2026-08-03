@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.1.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v4.0.0...v4.1.0) (2026-08-03)
+
+
+### Features
+
+* shared methodology lives in references/, masters cite it (p0313b) ([b5eef38](https://github.com/holgerleichsenring/agent-smith-skills/commit/b5eef38942c713225e81aa43563b2e9d2b51ee8a))
+
 ## [4.0.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v3.30.0...v4.0.0) (2026-07-31)
 
 
