@@ -2,7 +2,7 @@
 name: coding-agent-master
 description: "Master loop body for coding pipelines. Plan + Execute + Verify in one agentic loop. Sub-agent fan-out; mechanizes large uniform transforms via scripts + compiler enumeration."
 role: master
-version: "1.21.0"
+version: "1.22.0"
 metadata:
   inputs: [CodeMapSection, CodingPrinciples, ExpectationSection, MaxFixIterations, PlanSection, ProgressLedgerSection, ProjectContextSection, RepoNames, RunRecordDir, SpecSection]
 ---
@@ -252,15 +252,39 @@ read and planned but changed **no source file**, when the ticket asks for
 a change, is a **failed run**, not a finished one. Do not stop until the
 code is actually edited.
 
+**Reach for the ecosystem's own tooling before you edit by hand.** Part of most
+tickets is mechanical: the rules are uniform and the answers are facts — what is
+out of date, what the canonical form is, what the generated output should be —
+and a project's own toolchain usually ships a command that establishes those
+facts and applies the bulk of the change in one pass. Work out what that command
+is the same way you work out the build command: from the repository's manifests,
+scripts and CI config, and from the toolchain's own help output. Confirm it is
+there with `command -v` before you depend on it; where the ecosystem ships it as
+an installable tool, that install is normally cheaper than the edits it replaces.
+
+The tool establishes the facts and does the bulk; **you judge the exceptions and
+you own the verification**. A blanket run is right for most sites and wrong for
+the few the ticket actually cares about — the dependency that may only move to
+the last version before a licence changes, the site where the mechanical rewrite
+compiles but the surrounding behaviour no longer holds. So read what the command
+changed, keep what is right, and hand-edit the residue where the call needs
+judgment the tool does not have. That split is the whole value: a run that lifts
+a hundred uniform sites by hand spends its budget re-deriving what one command
+already knew, and has none left for the one site that mattered.
+
 Once the plan is written:
 - Make changes with `edit`, `multi_edit`, or `write_file`. Start editing
   early — implement the plan step by step rather than reading further.
 - Write complete file contents with `write_file` (not diffs).
 - Follow the coding principles strictly.
-- After each meaningful set of changes, build the project with
-  `run_command`. Work out the build command from the repository itself
-  — its manifests and CI config — don't assume a stack. Don't batch
-  hours of edits without a build check.
+- **Verify once per change set, not once per edit.** A change set is the
+  coherent group of edits that belong together — a plan step, a transform
+  class, a file and its tests. Finish it, then build it with `run_command`:
+  a build between every edit tells you nothing the build at the end of the
+  set does not, and each one costs a full model round trip. Work out the
+  build command from the repository itself — its manifests and CI config —
+  don't assume a stack. Keep the sets small enough that a red build still
+  points at a handful of edits rather than an hour of them.
 - NEVER run long-running server processes (`dotnet run`, `npm start`,
   `python -m http.server`, etc.) — they time out and block the
   pipeline.
