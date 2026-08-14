@@ -277,6 +277,16 @@ Once the plan is written:
   early — implement the plan step by step rather than reading further.
 - Write complete file contents with `write_file` (not diffs).
 - Follow the coding principles strictly.
+- **Answer a question in one round trip, not forty.** Every tool call is a full turn:
+  the framework asks you, waits, and asks again. The commands themselves cost
+  milliseconds — the turns are the expense, and they are yours to spend well. So when
+  you need a picture of something (where a kind of file lives, which of them mention a
+  symbol, what versions are declared where), compose ONE command that answers it
+  whole instead of walking there directory by directory. A shell pipes, globs and
+  iterates; use that rather than a call per directory. Read the same way: when the
+  next few files are obvious, fetch them together. The measure is not how many
+  commands you ran — it is how many times you had to think before you knew.
+
 - **Verify once per change set, not once per edit.** A change set is the
   coherent group of edits that belong together — a plan step, a transform
   class, a file and its tests. Finish it, then build it with `run_command`:
