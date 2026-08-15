@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.5.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v4.4.0...v4.5.0) (2026-08-15)
+
+
+### Features
+
+* criteria that can be checked, and a phase that can be delivered ([#159](https://github.com/holgerleichsenring/agent-smith-skills/issues/159)) ([dbff901](https://github.com/holgerleichsenring/agent-smith-skills/commit/dbff901d55727836ff66203626a80b346db1c5d7))
+
 ## [4.4.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v4.3.0...v4.4.0) (2026-08-15)
 
 
