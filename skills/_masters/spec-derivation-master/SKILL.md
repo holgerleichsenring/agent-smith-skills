@@ -2,7 +2,7 @@
 name: spec-derivation-master
 description: "Cuts a ticket into an ordered set of phase specs. Returns segment anchors, never content — the code extracts the spans byte-exact."
 role: master
-version: "1.1.0"
+version: "1.2.0"
 metadata:
   inputs: [MaxPhases]
 ---
@@ -27,7 +27,6 @@ paid for in full.
       "steps": [{ "id": "short-noun", "action": "one imperative line" }],
       "done": ["a criterion someone else could check without asking you"],
       "carries": [3, 4, 7],
-      "ships_code": true
     }
   ],
   "discarded": [{ "segment": 9, "reason": "why this segment is not part of the work" }],
@@ -53,25 +52,36 @@ paid for in full.
   phase is not a phase, it is half of one. At most {MaxPhases} phases — beyond that the
   ticket is a programme and belongs in a design conversation.
 
-- DONE-CRITERIA ARE CHECKABLE. "The migration is complete" is not a criterion. "Every
-  call site of the old client uses the new one, and the build is green" is. At least one
-  per phase; a phase without one cannot end.
+- DONE CRITERIA ARE CHECKED AGAINST THE REPOSITORY, so write them so they CAN be. After
+  the phase runs, a reader who did not do the work is given your criteria and the branch
+  diff, and has to decide for each one whether the diff satisfies it — and to name the
+  file it is satisfied by. Write every criterion so that reader can succeed: state what
+  is TRUE when the phase is finished, in terms visible in the repository.
+  "the messaging packages are on their pinned versions in both services" can be checked;
+  "the dependency situation is improved" cannot. A criterion nobody can tie to a file is
+  reported as unsatisfied, and the phase fails despite doing exactly what it promised.
+  At least one per phase; a phase without one cannot end.
+  A phase whose deliverable is KNOWLEDGE — an inventory, a classification, an analysis
+  feeding a later phase — states criteria about that artefact ("the inventory lists every
+  service and its current version, with exclusions recorded"), not about source it was
+  never meant to change.
 
-- "ships_code" DECLARES THE DELIVERABLE. Default true — the phase changes source and is
-  verified by build, tests and diff. Set false ONLY for a phase whose deliverable is
-  knowledge, by design without a source change: a branch or dependency inventory, a
-  classification, an analysis whose result feeds a later phase. Such a phase is judged
-  purely by its done criteria. Never set false to dodge verification of a phase that
-  edits code.
-  EVERY phase carries the field — a phase object without "ships_code" is REJECTED and
-  handed back to you to answer. There is no default: silence is not "true".
-  THIS IS AN OBLIGATION, NOT AN OPTION: when NONE of a phase's done criteria require a
-  source-code change, you MUST set "ships_code": false — omitting it makes the run
-  verifier demand a diff the phase was never meant to produce, and the phase fails
-  despite doing exactly what it promised. Example: a phase whose done criteria are
-  "the branch exists, the inventory is captured, exclusions are recorded" declares
-  "ships_code": false; a phase with "the build is green after the package swap"
-  keeps the default.
+- A PHASE'S CRITERIA MUST BE SIMULTANEOUSLY SATISFIABLE. Read the list you just wrote as
+  a whole and ask whether ONE branch state can satisfy every line at once. "No production
+  source file is modified" and "the old library appears nowhere in the sources" cannot
+  both hold — they belong to two phases, and merging them creates a phase that CANNOT be
+  delivered however well it is done. Cutting into few phases is right; cutting two
+  incompatible deliverables into one phase is not, and the criteria are where you notice.
+  A ticket that states its own "inventory first, before touching any code" step is
+  telling you where one of those boundaries is.
+
+- TWO KINDS OF CRITERION CAN BE CHECKED, AND NO OTHERS. Something visible in the
+  repository ("WolverineExtension.cs exists in each host project's Installers folder"),
+  or the RESULT OF A COMMAND that the framework runs ("the build exits 0", "the tests
+  pass"). Never state a criterion about the PROCESS — "no push has been performed", "the
+  branch remains local", "the work was done in the agreed order". Nobody can check those
+  against a repository, and a criterion nobody can check fails the phase that honoured
+  it perfectly.
 
 - THE CUT IS SIZED TO THE SHAPE OF THE WORK. When the prompt states a shape, it decides
   how many phases the ticket is worth — never whether the work is done carefully.
