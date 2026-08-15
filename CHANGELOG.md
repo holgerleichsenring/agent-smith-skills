@@ -1,5 +1,13 @@
 # Changelog
 
+## [4.4.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v4.3.0...v4.4.0) (2026-08-15)
+
+
+### Features
+
+* coding master reaches for the ecosystem's tool before editing by hand ([#156](https://github.com/holgerleichsenring/agent-smith-skills/issues/156)) ([e60b7f8](https://github.com/holgerleichsenring/agent-smith-skills/commit/e60b7f8660124cf9065e6571141ffd617eefdf3e))
+* the derivation master carries the contracts the code enforces ([#157](https://github.com/holgerleichsenring/agent-smith-skills/issues/157)) ([dc2e53f](https://github.com/holgerleichsenring/agent-smith-skills/commit/dc2e53fdabd6e0c87d6d6b76ce050e5e3a5c0f20))
+
 ## [4.3.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v4.2.0...v4.3.0) (2026-08-03)
 
 
