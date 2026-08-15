@@ -2,7 +2,7 @@
 name: spec-derivation-master
 description: "Cuts a ticket into an ordered set of phase specs. Returns segment anchors, never content — the code extracts the spans byte-exact."
 role: master
-version: "1.1.0"
+version: "1.2.0"
 metadata:
   inputs: [MaxPhases]
 ---
