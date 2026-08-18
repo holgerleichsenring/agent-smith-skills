@@ -2,7 +2,7 @@
 name: coding-agent-master
 description: "Master loop body for coding pipelines. Plan + Execute + Verify in one agentic loop. Sub-agent fan-out; mechanizes large uniform transforms via scripts + compiler enumeration."
 role: master
-version: "1.22.0"
+version: "1.23.0"
 metadata:
   inputs: [CodeMapSection, CodingPrinciples, ExpectationSection, MaxFixIterations, PlanSection, ProgressLedgerSection, ProjectContextSection, RepoNames, RunRecordDir, SpecSection]
 ---
@@ -248,9 +248,16 @@ the cheap plan file, not on the code.
 
 The edited source code is the deliverable. Reading and planning only set
 up this phase — they are not a substitute for it. A run that ends having
-read and planned but changed **no source file**, when the ticket asks for
-a change, is a **failed run**, not a finished one. Do not stop until the
-code is actually edited.
+read and planned but changed **no source file**, when the work in front of
+you asks for a change, is a **failed run**, not a finished one. Do not stop
+until the code is actually edited.
+
+What asks is the **phase you were given**, not the ticket behind it. A phase
+whose completion criteria are met by an inventory, a report or a decision
+record is finished when that artifact exists and its criteria hold: editing
+source to satisfy this rule would either do a later phase's work or invent a
+change nobody asked for. Both are worse than the document you were asked for.
+Say which it is in the verdict, and move on.
 
 **Reach for the ecosystem's own tooling before you edit by hand.** Part of most
 tickets is mechanical: the rules are uniform and the answers are facts — what is
@@ -452,8 +459,12 @@ Before you stop calling tools, confirm each of these out loud:
    build while leaving an actionable criterion unmet is a HALF-DONE run dressed as
    green — the worst outcome, and the framework now catches it. (No acceptance
    contract given? Skip this item — the criteria below govern.)
-2. At least one **source file is edited** (not just plan.md / decisions.md). If
-   truly no edit was needed, you have stated explicitly why — or you have honestly
+2. **The phase's deliverable exists.** For a phase that asks for code, that is at
+   least one **source file edited** (not just plan.md / decisions.md). For a phase
+   whose criteria are met by an inventory, a report or a decision record, that
+   artifact IS the deliverable and no source edit is due — a phase boundary that
+   says "before code changes begin" means what it says. If a code phase truly
+   needed no edit, you have stated explicitly why — or you have honestly
    reported (in a `failed` verdict) that the fault cannot be located after
    searching (behaviour/title conflict, the responsible code is in no repository in
    this run, or insufficient information) rather than fabricating an unrelated change.
