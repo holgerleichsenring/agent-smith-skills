@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.5.1](https://github.com/holgerleichsenring/agent-smith-skills/compare/v4.5.0...v4.5.1) (2026-08-18)
+
+
+### Bug Fixes
+
+* the source-edit gate is about the phase, not the ticket ([#161](https://github.com/holgerleichsenring/agent-smith-skills/issues/161)) ([5f48a4b](https://github.com/holgerleichsenring/agent-smith-skills/commit/5f48a4b1ecf68825ba58e4ce0e37be23e27e5046))
+
 ## [4.5.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v4.4.0...v4.5.0) (2026-08-15)
 
 
