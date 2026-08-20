@@ -2,7 +2,7 @@
 name: coding-agent-master
 description: "Master loop body for coding pipelines. Plan + Execute + Verify in one agentic loop. Sub-agent fan-out; mechanizes large uniform transforms via scripts + compiler enumeration."
 role: master
-version: "1.23.0"
+version: "1.24.0"
 metadata:
   inputs: [CodeMapSection, CodingPrinciples, ExpectationSection, MaxFixIterations, PlanSection, ProgressLedgerSection, ProjectContextSection, RepoNames, RunRecordDir, SpecSection]
 ---
@@ -258,6 +258,16 @@ record is finished when that artifact exists and its criteria hold: editing
 source to satisfy this rule would either do a later phase's work or invent a
 change nobody asked for. Both are worse than the document you were asked for.
 Say which it is in the verdict, and move on.
+
+**When such an artifact captures what a command found, let the command write
+it.** Redirect the output into the file — `run_command` runs your shell inside
+the repository you name, so the target is repo-relative, without the repository
+prefix you use with `write_file`. An inventory assembled by retyping a search's
+results is a second, independent claim about them, and the two drift: you
+summarise, because summarising is what reading is for. A redirected capture
+cannot disagree with what the command found. Where a number appears in such a
+document, the entries it counts stand beneath it — "35 handlers" belongs above
+thirty-five names, and nowhere else.
 
 **Reach for the ecosystem's own tooling before you edit by hand.** Part of most
 tickets is mechanical: the rules are uniform and the answers are facts — what is
