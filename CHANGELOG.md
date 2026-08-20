@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.6.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v4.5.1...v4.6.0) (2026-08-20)
+
+
+### Features
+
+* the command writes the artifact it captures ([#163](https://github.com/holgerleichsenring/agent-smith-skills/issues/163)) ([b06c05f](https://github.com/holgerleichsenring/agent-smith-skills/commit/b06c05f0a5c000e31f613ca090be27d2ed9a775a))
+
 ## [4.5.1](https://github.com/holgerleichsenring/agent-smith-skills/compare/v4.5.0...v4.5.1) (2026-08-18)
 
 
