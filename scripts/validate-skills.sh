@@ -261,6 +261,22 @@ if [[ -d "${PROFILES_DIR}" ]]; then
     (( stages > 0 )) || fail "profiles: ${profile_dir}: verify list has no 'stage:' entry"
     (( stages == commands )) \
       || fail "profiles: ${profile_dir}: ${stages} stage(s) but ${commands} command(s) — every stage needs one"
+
+    # p0513: when_present states the path a command NEEDS to be there, checked in
+    # the checkout under the context's workdir. It must therefore be a relative
+    # path inside that tree — an absolute path leaves the checkout and '..'
+    # escapes it, and both would make the condition true or false for reasons
+    # that have nothing to do with the repository's shape.
+    while IFS= read -r raw; do
+      condition="$(sed -E 's/^[[:space:]]*when_present:[[:space:]]*"?([^"#]*[^"# ])"?[[:space:]]*$/\1/' <<<"${raw}")"
+      if [[ -z "${condition}" || "${condition}" == "${raw}" ]]; then
+        fail "profiles: ${profile_dir}: 'when_present' must be a non-empty single-line path"
+      elif [[ "${condition}" == /* ]]; then
+        fail "profiles: ${profile_dir}: when_present '${condition}' is absolute; it is a path inside the checkout"
+      elif [[ "${condition}" == *..* ]]; then
+        fail "profiles: ${profile_dir}: when_present '${condition}' escapes the checkout with '..'"
+      fi
+    done < <(grep -E '^[[:space:]]+when_present:' "${profile_yaml}" || true)
   done
 fi
 
