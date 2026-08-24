@@ -24,6 +24,7 @@ compatible_images:            # optional
 verify:                       # ordered; run top to bottom, stopping at the first failure
   - stage: <label>
     command: <shell command>
+    when_present: <path>      # optional; see below
 ```
 
 ## Rules the packaging gate enforces
@@ -35,6 +36,22 @@ verify:                       # ordered; run top to bottom, stopping at the firs
   `buildpack-deps:<suite>-scm`). A sandbox runs `git clone` inside the image, so a
   `-slim` or `-alpine` tag breaks checkout before anything is built.
 - Every `verify` entry names a `stage` and a `command`.
+- A `when_present` is a relative path inside the checkout — not absolute, and not
+  reaching outside with `..`.
+
+## A command says what it needs to be present
+
+`when_present` is the path a command needs to exist for it to run at all, resolved
+under the context's workdir. A command with no `when_present` always runs.
+
+One domain word covers repositories of different shapes, and a command is only ever
+evidence about the shape it was measured on. Declaring it unconditionally reds a
+clean repository that simply carries none of its files — and because the verify list
+stops at the first failure, that false red HIDES every real gate behind it. So an
+absent path SKIPS the command; it never fails it.
+
+A path rather than a shape name: the taxonomy stays in the profile, where a new one
+costs a file, instead of in the orchestrator, where it would cost a release.
 
 ## Rules the orchestrator applies
 
