@@ -204,8 +204,57 @@ if [[ -s "${RUST_DELTA}" ]]; then
   grep -qi "Result"     "${RUST_DELTA}"        || fail "principles: rust.md must route errors via Result/?"
 fi
 
+# p0504: domain profiles. A repository declares meta.domain and the profile of that
+# name supplies its toolchain image and its verification commands, so a malformed
+# profile is a run that refuses (or worse, runs commands in an image that never
+# carried them). There is no YAML parser here, so the shape is checked line-wise —
+# which is also why the field values must stay single-line scalars.
+PROFILES_DIR="profiles"
+if [[ -d "${PROFILES_DIR}" ]]; then
+  # A profile that never ships is a domain no run can resolve.
+  grep -q "^SOURCES=(.*[( ]profiles[ )]" "${SCRIPT_DIR}/package.sh" \
+    || fail "profiles: package.sh SOURCES does not include 'profiles' — the profiles would not ship"
+
+  for profile_yaml in "${PROFILES_DIR}"/*/profile.yaml; do
+    [[ -f "${profile_yaml}" ]] || continue
+    profile_dir="$(basename "$(dirname "${profile_yaml}")")"
+    echo "checking profile ${profile_dir}"
+
+    profile_name="$(sed -nE 's/^name:[[:space:]]*"?([^"#]*[^"# ])"?[[:space:]]*$/\1/p' "${profile_yaml}" | head -1)"
+    [[ "${profile_name}" == "${profile_dir}" ]] \
+      || fail "profiles: ${profile_dir}: name '${profile_name}' does not match directory name"
+
+    image="$(sed -nE 's/^image:[[:space:]]*"?([^"#]*[^"# ])"?[[:space:]]*$/\1/p' "${profile_yaml}" | head -1)"
+    if [[ -z "${image}" ]]; then
+      fail "profiles: ${profile_dir}: no 'image:' declared"
+    else
+      # Trusted registry: official Microsoft, GHCR, or a Docker Hub library image
+      # (the repository part carries no '/').
+      repo_part="${image%%:*}"
+      if [[ "${image}" != mcr.microsoft.com/* && "${image}" != ghcr.io/* && "${repo_part}" == */* ]]; then
+        fail "profiles: ${profile_dir}: image '${image}' is not from a trusted registry"
+      fi
+      # Git-bearing tag: a sandbox runs `git clone` INSIDE the image.
+      if ! [[ "${image}" =~ ^mcr\.microsoft\.com/dotnet/sdk: \
+           || "${image}" =~ :[^-]*-bookworm$ \
+           || "${image}" =~ :[^-]*-bullseye$ \
+           || "${image}" =~ ^buildpack-deps:[^-]+-scm$ ]]; then
+        fail "profiles: ${profile_dir}: image '${image}' has no git-bearing tag (-slim/-alpine/bare lack git)"
+      fi
+    fi
+
+    grep -q '^verify:' "${profile_yaml}" \
+      || fail "profiles: ${profile_dir}: no 'verify:' list declared"
+    stages=$(grep -cE '^[[:space:]]*-[[:space:]]+stage:' "${profile_yaml}" || true)
+    commands=$(grep -cE '^[[:space:]]+command:' "${profile_yaml}" || true)
+    (( stages > 0 )) || fail "profiles: ${profile_dir}: verify list has no 'stage:' entry"
+    (( stages == commands )) \
+      || fail "profiles: ${profile_dir}: ${stages} stage(s) but ${commands} command(s) — every stage needs one"
+  done
+fi
+
 if (( errors > 0 )); then
   echo "validate-skills: ${errors} error(s)" >&2
   exit 1
 fi
-echo "validate-skills: all masters OK, principles templates OK"
+echo "validate-skills: all masters OK, principles templates OK, profiles OK"
