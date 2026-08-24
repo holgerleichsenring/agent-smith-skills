@@ -8,8 +8,10 @@
 #  - a master missing required frontmatter (name/description/role/version)
 #    or whose name != directory name fails to load.
 #
-# Cap is 180 (safe margin under the loader's hard 200) so a small later edit
-# can't tip a master over without CI catching it first.
+# p0518: the cap is ONE number, declared in skills/description-cap.txt and read
+# here. That file ships inside the tarball, so the agent-smith build reads it back
+# and fails when it disagrees with the cap the loader enforces — neither gate can
+# drift without the other noticing.
 
 set -euo pipefail
 
@@ -18,7 +20,16 @@ REPO_ROOT="$( cd "${SCRIPT_DIR}/.." && pwd )"
 cd "${REPO_ROOT}"
 
 MASTERS_DIR="skills/_masters"
-DESC_CAP=180
+DESC_CAP_FILE="skills/description-cap.txt"
+if [[ ! -s "${DESC_CAP_FILE}" ]]; then
+  echo "validate-skills: ${DESC_CAP_FILE} is missing — it is the only declaration of the cap" >&2
+  exit 1
+fi
+DESC_CAP="$(grep -vE '^[[:space:]]*(#|$)' "${DESC_CAP_FILE}" | head -1 | tr -d '[:space:]' || true)"
+if [[ ! "${DESC_CAP}" =~ ^[0-9]+$ ]]; then
+  echo "validate-skills: ${DESC_CAP_FILE} must hold the cap as a bare number" >&2
+  exit 1
+fi
 errors=0
 TMP_DECLARED="$(mktemp)"
 TMP_USED="$(mktemp)"
@@ -64,7 +75,7 @@ for skill_md in "${MASTERS_DIR}"/*/SKILL.md; do
       if (( len == 0 )); then
         fail "${dir_name}: description is empty"
       elif (( len > DESC_CAP )); then
-        fail "${dir_name}: description is ${len} chars (cap ${DESC_CAP}; loader hard-drops over 200)"
+        fail "${dir_name}: description is ${len} chars (cap ${DESC_CAP}; over it the loader hard-drops the master)"
       fi
     fi
   fi
