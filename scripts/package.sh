@@ -36,7 +36,9 @@ ARCHIVE_PATH="${OUTPUT_DIR}/${ARCHIVE_NAME}"
 # has no category directories left to hold it.
 # references/ (4.1.0) holds the methodology every master used to carry its own
 # copy of; a master citing {{ref:<slug>}} does not render without it.
-SOURCES=(patterns principles references skills)
+# profiles/ (p0504) carries the domain profiles a repository's meta.domain resolves
+# to; a profile that does not ship is a domain no run can resolve.
+SOURCES=(patterns principles profiles references skills)
 
 # Filter the manifest deterministically (newline-separated, sorted).
 MANIFEST_FILE="$(mktemp)"
