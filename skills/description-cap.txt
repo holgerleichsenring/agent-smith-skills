@@ -1,0 +1,11 @@
+# The master-description character cap.
+#
+# Over this many characters the skill loader silently DROPS the master and the
+# run dies later with "Prompt resource not found" — the v3.16.0 incident. The
+# number therefore marks a live failure, not a style preference.
+#
+# This file is the only declaration in this repository: scripts/validate-skills.sh
+# reads it, and it ships inside the release tarball so the agent-smith build reads
+# it back and fails when it disagrees with the cap that build enforces. Neither
+# gate can move without the other noticing.
+200

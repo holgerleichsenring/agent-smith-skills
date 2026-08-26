@@ -8,8 +8,10 @@
 #  - a master missing required frontmatter (name/description/role/version)
 #    or whose name != directory name fails to load.
 #
-# Cap is 180 (safe margin under the loader's hard 200) so a small later edit
-# can't tip a master over without CI catching it first.
+# p0518: the cap is ONE number, declared in skills/description-cap.txt and read
+# here. That file ships inside the tarball, so the agent-smith build reads it back
+# and fails when it disagrees with the cap the loader enforces — neither gate can
+# drift without the other noticing.
 
 set -euo pipefail
 
@@ -18,7 +20,16 @@ REPO_ROOT="$( cd "${SCRIPT_DIR}/.." && pwd )"
 cd "${REPO_ROOT}"
 
 MASTERS_DIR="skills/_masters"
-DESC_CAP=180
+DESC_CAP_FILE="skills/description-cap.txt"
+if [[ ! -s "${DESC_CAP_FILE}" ]]; then
+  echo "validate-skills: ${DESC_CAP_FILE} is missing — it is the only declaration of the cap" >&2
+  exit 1
+fi
+DESC_CAP="$(grep -vE '^[[:space:]]*(#|$)' "${DESC_CAP_FILE}" | head -1 | tr -d '[:space:]' || true)"
+if [[ ! "${DESC_CAP}" =~ ^[0-9]+$ ]]; then
+  echo "validate-skills: ${DESC_CAP_FILE} must hold the cap as a bare number" >&2
+  exit 1
+fi
 errors=0
 TMP_DECLARED="$(mktemp)"
 TMP_USED="$(mktemp)"
@@ -64,7 +75,7 @@ for skill_md in "${MASTERS_DIR}"/*/SKILL.md; do
       if (( len == 0 )); then
         fail "${dir_name}: description is empty"
       elif (( len > DESC_CAP )); then
-        fail "${dir_name}: description is ${len} chars (cap ${DESC_CAP}; loader hard-drops over 200)"
+        fail "${dir_name}: description is ${len} chars (cap ${DESC_CAP}; over it the loader hard-drops the master)"
       fi
     fi
   fi
@@ -204,8 +215,73 @@ if [[ -s "${RUST_DELTA}" ]]; then
   grep -qi "Result"     "${RUST_DELTA}"        || fail "principles: rust.md must route errors via Result/?"
 fi
 
+# p0504: domain profiles. A repository declares meta.domain and the profile of that
+# name supplies its toolchain image and its verification commands, so a malformed
+# profile is a run that refuses (or worse, runs commands in an image that never
+# carried them). There is no YAML parser here, so the shape is checked line-wise —
+# which is also why the field values must stay single-line scalars.
+PROFILES_DIR="profiles"
+if [[ -d "${PROFILES_DIR}" ]]; then
+  # A profile that never ships is a domain no run can resolve.
+  grep -q "^SOURCES=(.*[( ]profiles[ )]" "${SCRIPT_DIR}/package.sh" \
+    || fail "profiles: package.sh SOURCES does not include 'profiles' — the profiles would not ship"
+
+  for profile_yaml in "${PROFILES_DIR}"/*/profile.yaml; do
+    [[ -f "${profile_yaml}" ]] || continue
+    profile_dir="$(basename "$(dirname "${profile_yaml}")")"
+    echo "checking profile ${profile_dir}"
+
+    profile_name="$(sed -nE 's/^name:[[:space:]]*"?([^"#]*[^"# ])"?[[:space:]]*$/\1/p' "${profile_yaml}" | head -1)"
+    [[ "${profile_name}" == "${profile_dir}" ]] \
+      || fail "profiles: ${profile_dir}: name '${profile_name}' does not match directory name"
+
+    image="$(sed -nE 's/^image:[[:space:]]*"?([^"#]*[^"# ])"?[[:space:]]*$/\1/p' "${profile_yaml}" | head -1)"
+    if [[ -z "${image}" ]]; then
+      fail "profiles: ${profile_dir}: no 'image:' declared"
+    else
+      # Trusted registry: official Microsoft, GHCR, or a Docker Hub library image
+      # (the repository part carries no '/').
+      repo_part="${image%%:*}"
+      if [[ "${image}" != mcr.microsoft.com/* && "${image}" != ghcr.io/* && "${repo_part}" == */* ]]; then
+        fail "profiles: ${profile_dir}: image '${image}' is not from a trusted registry"
+      fi
+      # Git-bearing tag: a sandbox runs `git clone` INSIDE the image.
+      if ! [[ "${image}" =~ ^mcr\.microsoft\.com/dotnet/sdk: \
+           || "${image}" =~ :[^-]*-bookworm$ \
+           || "${image}" =~ :[^-]*-bullseye$ \
+           || "${image}" =~ ^buildpack-deps:[^-]+-scm$ ]]; then
+        fail "profiles: ${profile_dir}: image '${image}' has no git-bearing tag (-slim/-alpine/bare lack git)"
+      fi
+    fi
+
+    grep -q '^verify:' "${profile_yaml}" \
+      || fail "profiles: ${profile_dir}: no 'verify:' list declared"
+    stages=$(grep -cE '^[[:space:]]*-[[:space:]]+stage:' "${profile_yaml}" || true)
+    commands=$(grep -cE '^[[:space:]]+command:' "${profile_yaml}" || true)
+    (( stages > 0 )) || fail "profiles: ${profile_dir}: verify list has no 'stage:' entry"
+    (( stages == commands )) \
+      || fail "profiles: ${profile_dir}: ${stages} stage(s) but ${commands} command(s) — every stage needs one"
+
+    # p0513: when_present states the path a command NEEDS to be there, checked in
+    # the checkout under the context's workdir. It must therefore be a relative
+    # path inside that tree — an absolute path leaves the checkout and '..'
+    # escapes it, and both would make the condition true or false for reasons
+    # that have nothing to do with the repository's shape.
+    while IFS= read -r raw; do
+      condition="$(sed -E 's/^[[:space:]]*when_present:[[:space:]]*"?([^"#]*[^"# ])"?[[:space:]]*$/\1/' <<<"${raw}")"
+      if [[ -z "${condition}" || "${condition}" == "${raw}" ]]; then
+        fail "profiles: ${profile_dir}: 'when_present' must be a non-empty single-line path"
+      elif [[ "${condition}" == /* ]]; then
+        fail "profiles: ${profile_dir}: when_present '${condition}' is absolute; it is a path inside the checkout"
+      elif [[ "${condition}" == *..* ]]; then
+        fail "profiles: ${profile_dir}: when_present '${condition}' escapes the checkout with '..'"
+      fi
+    done < <(grep -E '^[[:space:]]+when_present:' "${profile_yaml}" || true)
+  done
+fi
+
 if (( errors > 0 )); then
   echo "validate-skills: ${errors} error(s)" >&2
   exit 1
 fi
-echo "validate-skills: all masters OK, principles templates OK"
+echo "validate-skills: all masters OK, principles templates OK, profiles OK"

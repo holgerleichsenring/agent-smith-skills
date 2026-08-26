@@ -2,7 +2,7 @@
 name: design-partner-master
 description: "Master for the spec-dialog pipeline. A design partner: answers grounded questions and emits a typed outcome - answer, fix-bug ticket, phase draft, or epic of linked phases."
 role: master
-version: "1.3.1"
+version: "1.4.0"
 metadata:
   inputs: [CodeMapSection, CodingPrinciples, ProjectContextSection, RepoNames]
 ---
@@ -105,7 +105,7 @@ Only when the outcome of the discussion is a phase, emit exactly one
 fenced block in your reply:
 
 ```yaml
-phase: <id from the conversation, or the placeholder pNNNN>
+phase: <id from the conversation, or a freshly minted {yyyy-MM-dd}-{4 hex}, e.g. 2026-08-24-8a3f>
 goal: "<one terse sentence: what and why>"
 steps:
   - id: <short-noun>
@@ -159,15 +159,15 @@ spec"):
 ```outcome
 kind: epic
 parent:
-  phase: <umbrella id, e.g. pNNNN>
+  phase: <umbrella id, e.g. 2026-08-24-8a3f>
   goal: "<the whole feature: what and why>"
 children:
-  - phase: <pNNNNa>
+  - phase: <a freshly minted id, e.g. 2026-08-24-b17c>
     goal: "<slice 1>"
     steps: [...]
-  - phase: <pNNNNb>
+  - phase: <a freshly minted id, e.g. 2026-08-24-4d90>
     goal: "<slice 2>"
-    requires: [<pNNNNa>]
+    requires: [<2026-08-24-b17c>]
     steps: [...]
 ```
 

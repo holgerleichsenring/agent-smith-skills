@@ -40,7 +40,7 @@ Frontmatter each master declares:
 | Field           | Meaning                                                                   |
 |-----------------|---------------------------------------------------------------------------|
 | `name`          | Must equal the directory name                                             |
-| `description`   | Under 180 characters — the loader hard-drops a master over 200            |
+| `description`   | A single-line scalar, at or under the cap in `skills/description-cap.txt` |
 | `role`          | `master` for loop bodies, `producer` for framework-dispatched producers   |
 | `version`       | Semver, bumped when the body changes                                      |
 | `output_schema` | Declared when the framework parses structured output (e.g. `observation`) |
