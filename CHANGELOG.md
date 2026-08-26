@@ -1,5 +1,12 @@
 # Changelog
 
+## [4.7.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v4.6.0...v4.7.0) (2026-08-26)
+
+
+### Features
+
+* domain profiles, the data profile, one description cap ([#165](https://github.com/holgerleichsenring/agent-smith-skills/issues/165)) ([f454748](https://github.com/holgerleichsenring/agent-smith-skills/commit/f45474815cbe29b4a24aabad55fca970f45b579a))
+
 ## [4.6.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v4.5.1...v4.6.0) (2026-08-20)
 
 
