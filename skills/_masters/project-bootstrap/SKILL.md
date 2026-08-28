@@ -23,7 +23,7 @@ Two different kinds of content leave this round, produced two different ways:
   You author this file every round.
 - **`coding-principles.md` = AUTHORED GOLD.** Principles are authoritative —
   code moves toward them. They come from the catalog's universal core
-  (`skills/coding/principles/core.md`) plus the component's language delta
+  (`principles/core.md`) plus the component's language delta
   (`deltas/<slug>.md`), composed by the framework, and the OPERATOR ratifies
   them by reviewing the init pull request. Archaeology feeds the facts file,
   never the principles: inferring taste from a possibly-mediocre repo would
