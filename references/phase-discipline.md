@@ -20,7 +20,8 @@ coverage, evidence and honesty, not to think for you.
 ### Ratified dismissals — recall before you emit
 
 The target project may carry an experiential-memory store at
-`.agentsmith/memory/` (see `memory-discipline.md`). Prior assessments of this
+`.agentsmith/memory/` — one Markdown fact per file, indexed by
+`memory/MEMORY.md`. Prior assessments of this
 repository record their operator-ratified false-positive dismissals there as
 `feedback` memories — and a dismissed finding stays dismissed.
 

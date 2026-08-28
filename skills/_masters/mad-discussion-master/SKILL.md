@@ -2,7 +2,7 @@
 name: mad-discussion-master
 description: "Master for the mad-discussion pipeline. Runs five perspectives (dreamer / realist / philosopher / devils-advocate / silencer) via spawn_agents and synthesises a verdict."
 role: master
-version: "1.3.0"
+version: "1.4.0"
 metadata:
   inputs: [CodingPrinciples]
 ---
@@ -46,7 +46,7 @@ through a single sharp lens:
 ## Grounding in recorded facts
 
 The project may carry an experiential-memory store at
-`.agentsmith/memory/` (see `memory-discipline.md`): recorded operator
+`.agentsmith/memory/`: recorded operator
 preferences, project constraints, and reference pointers. Ground the
 discussion in it: when a memory INDEX section appears in your context,
 scan it before fan-out and fold relevant recorded facts into the
@@ -56,6 +56,8 @@ the project has already recorded — a Realist constraint or Silencer
 "this was already settled" carries far more weight when it cites a
 `[[slug]]`. Without the index or the tool, discuss from the pipeline
 context as before.
+
+{{ref:memory-discipline}}
 
 ## Phase 1 — Fan-out
 

@@ -9,10 +9,10 @@ agentsmith-skills/
 ├── skills/
 │   ├── _masters/                   # Every skill agent-smith dispatches
 │   │   └── <master>/
-│   │       ├── SKILL.md            # Required — frontmatter + body
-│   │       └── references/         # Optional files cited via {{ref:<id>}}
+│   │       └── SKILL.md            # Required — frontmatter + body
 │   ├── concept-vocabulary.yaml     # Shared vocabulary for activation keys
-│   └── memory-discipline.md        # Memory convention the masters cite
+│   └── description-cap.txt         # The description cap both gates enforce
+├── references/                     # Documents masters inline via {{ref:<slug>}}
 ├── principles/                     # Universal coding principles (not a skill)
 │   ├── core.md                     # Intent only — no mechanism words
 │   ├── DELTA-FORMAT.md
