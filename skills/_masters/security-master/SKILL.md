@@ -2,7 +2,7 @@
 name: security-master
 description: "Master loop for the security-scan pipeline. Runs a code-security methodology over repo source plus static-pattern/git-history/dependency scanners to emit prioritized findings."
 role: master
-version: "1.5.0"
+version: "1.6.0"
 output_schema: "observation"
 metadata:
   inputs: [CodeMapSection, CodingPrinciples, ProjectContextSection]
@@ -136,6 +136,39 @@ Phase 5 (synthesize) CENTRAL to yourself, so one judgment calibrates
 severity and kills duplicates.
 
 {{ref:spawn-budget}}
+
+## Citing the standard a finding breaks
+
+When you have found something, name the clause it breaks.
+`look_up_requirements` answers with the entries of the published
+verification standard that apply at one station — admission, evidence,
+resolution, authority, scope or effect. It is a REFERENCE, not an
+agenda: nothing it returns is a list to work through, and looking it up
+before you have found anything only replaces investigation with
+form-filling.
+
+Record the finding with `record_cited_finding`: the entry group, the
+station, the requirement id the lookup printed, what is wrong in a
+sentence or two, and the place it rests on. That place must be a file
+you READ this run — a path you inferred resolves against nothing and the
+citation is reported as one the scan could not carry.
+
+A finding about the WHOLE group — "none of these entry points checks who
+is asking" — has no line of its own. Give `scope: group` and cite in
+`covers_members` the members you generalise over, each a file you read.
+Such a claim is settled against every one of them, so the strongest
+claim in a report pays the strictest price rather than the cheapest.
+
+**A finding no entry of the standard covers still belongs in your
+answer.** A logic flaw inside an identity helper, a configured id that
+grants administrative rights, a security-shaped setting nothing reads:
+no published checklist carries a clause for these, and they are among
+the most valuable things a scan can report. Put them in your observation
+array like any other finding — the citation path is an addition to your
+report, never a filter on it.
+
+These citations travel in their tool calls, never in your final answer —
+that answer stays exactly the JSON array the Output contract describes.
 
 ## Output
 
