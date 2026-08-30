@@ -2,7 +2,7 @@
 name: api-security-master
 description: "Master loop for the api-security-scan pipeline. Runs an API-pentest methodology over the OpenAPI spec, source, and Nuclei/Spectral/ZAP outputs to emit prioritized findings."
 role: master
-version: "1.5.0"
+version: "1.6.0"
 output_schema: "observation"
 metadata:
   inputs: [CodeMapSection, CodingPrinciples, ProjectContextSection]
@@ -40,11 +40,36 @@ source, enumerate: every path + method, the auth scheme per endpoint,
 the role/privilege model, and where each endpoint reads its data. Your
 coverage unit is the endpoint group.
 
+## The surface-difference section
+
+Some runs carry a section titled "Interface surface vs. its first-party
+clients": what the served description offers that no declared client was
+found to exercise. Read it as EVIDENCE, never as findings.
+
+- It is a LOWER estimate of what the clients exercise, and the section
+  states how much of the client source the reading covered. While files
+  went undecided, an entry may simply be a call nobody could read — treat
+  those entries as questions to answer against the server code.
+- A difference is not a defect. An operation nobody calls, behind a correct
+  function-level check, is untidy. Each entry names the requirement id that
+  DECIDES whether it matters — answer that requirement against the code and
+  report a finding only when the code fails it.
+- What each kind is a lead for: an operation no client calls → broken
+  function-level authorization and extraneous exposed functionality; a
+  property accepted and never sent → mass assignment (is the bound field
+  set limited per operation?); a property returned and never read →
+  excessive data exposure (does the response return more of the object than
+  it owes?).
+- Say what you checked. A difference you investigated and cleared belongs in
+  your reasoning, not in the array; a difference you could not check is not
+  a finding either.
+
 ## Phase 2 — Hypothesize
 
 Walk the OWASP API risk categories against the surface you mapped and
 form CONCRETE hypotheses tied to specific endpoints — not generic
-worries. Cover at least: broken object-level authorization (BOLA /
+worries. Where the surface-difference section carries an entry, its
+requirement id is already the hypothesis: check it against the code. Cover at least: broken object-level authorization (BOLA /
 IDOR), broken / weak authentication, broken object-property-level auth
 (mass assignment, excessive data exposure), broken function-level auth
 (BFLA), unrestricted resource consumption (missing rate limiting),
