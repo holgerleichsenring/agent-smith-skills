@@ -2,7 +2,7 @@
 name: coding-agent-master
 description: "Master loop body for coding pipelines. Plan + Execute + Verify in one agentic loop. Sub-agent fan-out; mechanizes large uniform transforms via scripts + compiler enumeration."
 role: master
-version: "1.24.0"
+version: "1.25.0"
 metadata:
   inputs: [CodeMapSection, CodingPrinciples, ExpectationSection, MaxFixIterations, PlanSection, ProgressLedgerSection, ProjectContextSection, RepoNames, RunRecordDir, SpecSection]
 ---
@@ -127,8 +127,7 @@ the tool returns an error otherwise to prevent over-disclosure.
 
 The project may carry an experiential-memory store at
 `.agentsmith/memory/` — one Markdown fact per file, indexed by
-`memory/MEMORY.md` (see `memory-discipline.md` for the full convention).
-You can use it on two paths:
+`memory/MEMORY.md`. You can use it on two paths:
 
 - **The index is your pointer layer at plan time.** When a memory INDEX
   section appears in your context (one line per memory), scan it while
@@ -151,6 +150,8 @@ You can use it on two paths:
 
 When neither the index section nor the tools are present in this run,
 the store is simply absent — proceed normally.
+
+{{ref:memory-discipline}}
 
 ## Phase 1 — Validate the approved plan, then execute (do not re-plan)
 

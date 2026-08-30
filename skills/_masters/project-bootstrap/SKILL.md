@@ -1,6 +1,6 @@
 ---
 name: "project-bootstrap"
-version: "2.1.1"
+version: "2.2.0"
 description: "Write context.yaml (facts from archaeology) for the component named in the prompt; principles transfer from the authored core + language delta for operator ratification."
 role: "producer"
 output_schema: "bootstrap"
@@ -23,7 +23,7 @@ Two different kinds of content leave this round, produced two different ways:
   You author this file every round.
 - **`coding-principles.md` = AUTHORED GOLD.** Principles are authoritative —
   code moves toward them. They come from the catalog's universal core
-  (`skills/coding/principles/core.md`) plus the component's language delta
+  (`principles/core.md`) plus the component's language delta
   (`deltas/<slug>.md`), composed by the framework, and the OPERATOR ratifies
   them by reviewing the init pull request. Archaeology feeds the facts file,
   never the principles: inferring taste from a possibly-mediocre repo would
@@ -131,8 +131,7 @@ are writing JSON, not YAML.
 
 ## Opening the memory store
 
-Bootstrap also opens the project's experiential-memory store (see
-`memory-discipline.md` for the full convention): unless the user prompt says
+Bootstrap also opens the project's experiential-memory store: unless the user prompt says
 the framework already created it, call `write_file` for
 `.agentsmith/memory/MEMORY.md` (repo-prefixed like every other path) with
 exactly this content:
@@ -153,6 +152,8 @@ the operator, and a `feedback` entry becomes policy only through operator
 ratification. Archaeology feeds `context.yaml`, never the memory store:
 seeding "memories" from the median code would codify exactly what the
 principles split above avoids.
+
+{{ref:memory-discipline}}
 
 ## Writing coding-principles.md yourself (older frameworks only)
 

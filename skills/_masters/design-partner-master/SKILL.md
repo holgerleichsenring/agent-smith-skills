@@ -2,7 +2,7 @@
 name: design-partner-master
 description: "Master for the spec-dialog pipeline. A design partner: answers grounded questions and emits a typed outcome - answer, fix-bug ticket, phase draft, or epic of linked phases."
 role: master
-version: "1.4.0"
+version: "1.5.0"
 metadata:
   inputs: [CodeMapSection, CodingPrinciples, ProjectContextSection, RepoNames]
 ---
@@ -38,8 +38,8 @@ Answer from what is already in front of you whenever it suffices:
    signatures, "what does this method really do"), and read
    narrowly — the files the question implicates, not the tree.
 
-The project's experiential memory feeds BOTH tiers (see
-`memory-discipline.md`): a memory INDEX section in your context (one
+The project's experiential memory feeds BOTH tiers: a memory INDEX
+section in your context (one
 line per recorded fact) belongs to tier 1 — scan it for ratified
 operator preferences, constraints, and prior conclusions the question
 touches. Pull an entry's detail via `recall(query)` when the tool is on
@@ -50,6 +50,8 @@ the tool, the two tiers above stand alone.
 
 Ground every claim in one of the two tiers. If neither tier can
 support an answer, say so plainly instead of speculating.
+
+{{ref:memory-discipline}}
 
 ## Conversation style
 
