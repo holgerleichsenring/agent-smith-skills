@@ -1,5 +1,14 @@
 # Changelog
 
+## [4.8.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v4.7.0...v4.8.0) (2026-08-30)
+
+
+### Features
+
+* the api master reads the surface difference as evidence ([#169](https://github.com/holgerleichsenring/agent-smith-skills/issues/169)) ([8ef7e88](https://github.com/holgerleichsenring/agent-smith-skills/commit/8ef7e883840bb1ada8d9a2cc1a6ff6541b548e4d))
+* the scan master states the stations of a request ([#168](https://github.com/holgerleichsenring/agent-smith-skills/issues/168)) ([4277387](https://github.com/holgerleichsenring/agent-smith-skills/commit/42773874edccdc431036eb46196b3585d606e1cb))
+* the security master cites the standard rather than enumerating it ([#171](https://github.com/holgerleichsenring/agent-smith-skills/issues/171)) ([3263648](https://github.com/holgerleichsenring/agent-smith-skills/commit/3263648a479c7a1d5606baca50db46f555bc9491))
+
 ## [4.7.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v4.6.0...v4.7.0) (2026-08-26)
 
 
