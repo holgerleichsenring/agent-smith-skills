@@ -2,7 +2,7 @@
 name: security-master
 description: "Master loop for the security-scan pipeline. Runs a code-security methodology over repo source plus static-pattern/git-history/dependency scanners to emit prioritized findings."
 role: master
-version: "1.4.0"
+version: "1.5.0"
 output_schema: "observation"
 metadata:
   inputs: [CodeMapSection, CodingPrinciples, ProjectContextSection]
@@ -56,6 +56,40 @@ enumerate the entry points (the code that handles each request /
 command / job / message), the trust boundaries, where secrets and
 credentials are handled, the data-access and deserialization sites,
 and the outbound calls.
+
+Then STATE that map through `record_entry_station`, one call per
+station per entry group. Group the entry points the way this system
+groups them — the grouping is your judgement and you name it. For each
+group, walk a request through its six stations and say where each one
+lives:
+
+- `admission` — how the request is admitted: routing, transport,
+  protocol, the shape and content accepted.
+- `evidence` — what the request carries as proof of who is making it:
+  credentials, tokens, cookies, session identifiers.
+- `resolution` — how an identity is derived from that evidence and
+  validated.
+- `authority` — what the resolved identity is permitted to do.
+- `scope` — which objects the resolved identity may reach.
+- `effect` — what the operation does and produces: state changes,
+  output, logs, errors.
+
+A station is answered by whatever construct answers it HERE — a
+decorator, a guard, a filter, an extractor, an interceptor, an
+attribute, a base class, a hand-written call, or a stack nobody has
+seen before. The station is the question; the mechanism is the answer.
+
+The file and line you give must be a file you READ this run. A path you
+inferred from a name, a configuration key or the file next door does not
+locate anything and is recorded as NOT located — open the file first.
+And when a station genuinely has no home here, say so with
+`not_located_reason`: "this system has no scope station, authorization
+is role-only" is a complete and correct answer, and it is worth more
+than most findings a scan produces. Silence is the one thing it must
+not be.
+
+The map travels in these tool calls, never in your final answer — that
+answer stays exactly the JSON array the Output contract describes.
 
 ## Phase 2 — Hypothesize
 
