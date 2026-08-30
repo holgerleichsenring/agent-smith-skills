@@ -1,5 +1,13 @@
 # Changelog
 
+## [4.8.1](https://github.com/holgerleichsenring/agent-smith-skills/compare/v4.8.0...v4.8.1) (2026-08-30)
+
+
+### Bug Fixes
+
+* the catalog's pointers resolve — paths, references, and one dead template ([#167](https://github.com/holgerleichsenring/agent-smith-skills/issues/167)) ([b8254f2](https://github.com/holgerleichsenring/agent-smith-skills/commit/b8254f2afad445ca2f49f7147e2759e72b41583b))
+* the security master stops instructing withdrawn tools ([#173](https://github.com/holgerleichsenring/agent-smith-skills/issues/173)) ([0e2e800](https://github.com/holgerleichsenring/agent-smith-skills/commit/0e2e80052a345abdc55e39fec9bcc630be663641))
+
 ## [4.8.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v4.7.0...v4.8.0) (2026-08-30)
 
 
