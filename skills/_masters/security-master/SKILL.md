@@ -2,7 +2,7 @@
 name: security-master
 description: "Master loop for the security-scan pipeline. Runs a code-security methodology over repo source plus static-pattern/git-history/dependency scanners to emit prioritized findings."
 role: master
-version: "1.4.0"
+version: "1.6.0"
 output_schema: "observation"
 metadata:
   inputs: [CodeMapSection, CodingPrinciples, ProjectContextSection]
@@ -102,6 +102,48 @@ Phase 5 (synthesize) CENTRAL to yourself, so one judgment calibrates
 severity and kills duplicates.
 
 {{ref:spawn-budget}}
+
+## The requirements each station answers
+
+Once you have stated the entry map, every station of every entry group has
+a published standard's requirements to answer. You do not recall them:
+`list_station_requirements` hands you the entries that apply to one
+station, and that list is the run's denominator — it is not yours to
+shorten, and an entry it does not list is not asked.
+
+This is where the fan-out earns its keep. Spawn ONE worker per entry
+group, up to the cap `list_station_requirements` states, and give it the
+group's name and its stations. A worker reads the code of its own group
+and, for each of the six stations:
+
+1. calls `list_station_requirements` for that station;
+2. answers EVERY entry it lists with `record_requirement_answer`.
+
+Each answer carries a verdict and its evidence:
+
+- `met` / `unmet` — cite the file and line the verdict rests on, a file you
+  READ this run. A path you inferred resolves against nothing and the
+  answer is recorded as unanswered.
+- `cannot_answer` — name the input you would have needed. "The deployment's
+  reverse proxy is not in this repository" is a complete answer and a
+  useful one; a silent skip is neither.
+
+A claim about the WHOLE group — "no entry point here is anonymous" — has no
+line of its own. Answer it with `scope: group` and cite in
+`covers_members` the members you generalise over, each a file you read.
+Cited members are what such a claim is settled against, so a claim that
+cites none of them counts as unanswered rather than as the strongest
+finding in the report.
+
+Answer the group's READS and its WRITES separately. A reviewer who follows
+only the read path never sees the state-changing action on another actor's
+object, and the sharpest thing a scan can report is the asymmetry: the same
+resource scoped on read and unscoped on write. Enumerate the group's
+state-changing operations deliberately and answer the stations again for
+them with `operation: write`.
+
+These answers travel in their tool calls, never in your final answer —
+that answer stays exactly the JSON array the Output contract describes.
 
 ## Output
 
