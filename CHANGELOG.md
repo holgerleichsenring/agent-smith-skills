@@ -1,5 +1,16 @@
 # Changelog
 
+## [5.0.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v4.8.1...v5.0.0) (2026-09-01)
+
+
+### ⚠ BREAKING CHANGES
+
+* the domain profiles retire, and the principles file is named for what it holds ([#175](https://github.com/holgerleichsenring/agent-smith-skills/issues/175))
+
+### Code Refactoring
+
+* the domain profiles retire, and the principles file is named for what it holds ([#175](https://github.com/holgerleichsenring/agent-smith-skills/issues/175)) ([13de328](https://github.com/holgerleichsenring/agent-smith-skills/commit/13de328f3f5484e9489c1509d1eb8eb97d1d00cd))
+
 ## [4.8.1](https://github.com/holgerleichsenring/agent-smith-skills/compare/v4.8.0...v4.8.1) (2026-08-30)
 
 
