@@ -56,4 +56,7 @@ mechanisms map 1:1") rather than being omitted.
   core.
 - Project-specific rules do NOT go into a delta. They are appended to the
   composed file per project under "Project Specifics" and ratified by the
-  operator there.
+  operator there. That section also holds a project's rules about its
+  ENVIRONMENT — how a schema change is made, which tool owns a deployment,
+  what a generated artefact may never be edited by hand. A delta describes a
+  language; only the project knows its estate.
