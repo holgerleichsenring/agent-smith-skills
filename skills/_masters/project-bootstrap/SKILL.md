@@ -21,7 +21,7 @@ Two different kinds of content leave this round, produced two different ways:
 - **`context.yaml` = FACTS.** Your code archaeology (ProjectMap + targeted
   reads) grounds every claim: stack, runtime, image, frameworks, architecture.
   You author this file every round.
-- **`coding-principles.md` = AUTHORED GOLD.** Principles are authoritative —
+- **`principles.md` = AUTHORED GOLD.** Principles are authoritative —
   code moves toward them. They come from the catalog's universal core
   (`principles/core.md`) plus the component's language delta
   (`deltas/<slug>.md`), composed by the framework, and the OPERATOR ratifies
@@ -32,10 +32,15 @@ Two different kinds of content leave this round, produced two different ways:
 The user prompt tells you which files to write this round — follow it. When
 the framework has already transferred the composed principles (it says so in
 the prompt), your job for principles is to request ratification: your summary
-points the operator at `coding-principles.md` in the init PR and invites
-project-specific additions under its "Project Specifics" section. When the
-prompt asks you to write `coding-principles.md` yourself (older framework
-versions), follow the "Writing coding-principles.md yourself" section below.
+points the operator at `principles.md` in the init PR and invites
+project-specific additions under its "Project Specifics" section. That
+section is where a project's rules about its ENVIRONMENT belong as much as
+its rules about code — how a schema change is made, which tool owns a
+deployment, what a generated artefact may never be edited by hand. Those are
+the rules an established estate already knows and an agent cannot infer, and
+they are why the file is named for principles rather than for code. When the
+prompt asks you to write `principles.md` yourself (older framework
+versions), follow the "Writing principles.md yourself" section below.
 
 ## Inputs (from the user prompt)
 
@@ -45,7 +50,7 @@ versions), follow the "Writing coding-principles.md yourself" section below.
   out explicitly. Use those paths verbatim — **do not** hardcode any other
   path in your own logic. They look like
   `.agentsmith/contexts/<name>/context.yaml` (and, on older frameworks,
-  `.agentsmith/contexts/<name>/coding-principles.md`), but the user prompt
+  `.agentsmith/contexts/<name>/principles.md`), but the user prompt
   is canonical.
 - **ProjectMap**: language slug, frameworks, modules, test projects,
   entry points, conventions, CI config. Repo-level — interpret it
@@ -64,14 +69,15 @@ versions), follow the "Writing coding-principles.md yourself" section below.
    `document` = a JSON object matching the schema below. The framework
    serialises to YAML — do NOT use `write_file` for context.yaml; the
    framework rejects it with a hint pointing here.
-4. If — and only if — the user prompt names `coding-principles.md` as a file
+4. If — and only if — the user prompt names `principles.md` as a file
    for YOU to write, call `write_file` for it following the guidance below.
    That file is prose, so write_file is right for it.
 5. Return a short Markdown summary of the choices you made. When the
    principles were transferred by the framework, the summary explicitly asks
-   the operator to RATIFY them: review `coding-principles.md` in the init
-   pull request, merge to accept, and append project-specific rules under
-   "Project Specifics" — re-runs preserve that file as ratified.
+   the operator to RATIFY them: review `principles.md` in the init
+   pull request, merge to accept, and append project-specific rules —
+   about the environment as much as about code — under "Project
+   Specifics". Re-runs preserve that file as ratified.
 
 A response with zero tool calls is a failure of this skill, no matter
 how thorough the prose is. The summary is what you return **after**
@@ -196,9 +202,9 @@ principles split above avoids.
 
 {{ref:memory-discipline}}
 
-## Writing coding-principles.md yourself (older frameworks only)
+## Writing principles.md yourself (older frameworks only)
 
-When the user prompt names `coding-principles.md` as a write target, transfer
+When the user prompt names `principles.md` as a write target, transfer
 rather than invent: reproduce the intent of the catalog's universal core
 (one responsibility per unit named for what it does, SOLID, DRY, YAGNI, KISS,
 Tell-Don't-Ask, composition over inheritance, never silently swallow errors,
@@ -233,7 +239,7 @@ standard above, not a transcript of the median code you observed.
 - One pass per file: read what you need, then write each file. Don't
   loop.
 - No `run_command`, no `http_request`. Read tools + `write_context_yaml`
-  (for context.yaml) + `write_file` (for coding-principles.md when the
+  (for context.yaml) + `write_file` (for principles.md when the
   prompt asks for it, and for `memory/MEMORY.md`) only.
 - Paths come from the user prompt. Do not write to `.agentsmith/context.yaml`
   (the flat root path) — that path is rejected by the write-guard in

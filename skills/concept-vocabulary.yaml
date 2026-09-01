@@ -325,7 +325,7 @@ concepts:
     writers: [BootstrapCheckHandler]
   - name: coding_principles_present
     type: bool
-    description: ".agentsmith/coding-principles.md is present in the working repo"
+    description: ".agentsmith/principles.md is present in the working repo"
     writers: [BootstrapCheckHandler]
 
   # --- p0155: project_language is a free-form lowercase canonical slug owned
