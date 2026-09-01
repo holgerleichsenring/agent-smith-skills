@@ -1,6 +1,6 @@
 ---
 name: "project-bootstrap"
-version: "2.2.0"
+version: "2.3.0"
 description: "Write context.yaml (facts from archaeology) for the component named in the prompt; principles transfer from the authored core + language delta for operator ratification."
 role: "producer"
 output_schema: "bootstrap"
@@ -108,6 +108,11 @@ the write calls succeed.
     "naming": "...",
     "testing": { "style": "AAA" }
   },
+  "verify": [
+    { "label": "install", "command": "<the command the pipeline runs>" },
+    { "label": "test", "command": "<...>", "when_present": "<optional path it needs>" }
+  ],
+  "verify_derived_from": { "files": ["<the file you read those commands out of>", "..."] },
   "behavior": { ... only if explicit pipeline/orchestration code present ... }
 }
 ```
@@ -128,6 +133,42 @@ The framework handles all quoting. You can pass `@azure/msal-angular`,
 `Angular style: PascalCase for components/services`, `key: value`
 strings, anything — none of it needs to be YAML-escaped because you
 are writing JSON, not YAML.
+
+## `verify` — adopt the gate the repository already has
+
+Every later run proves its change by running the `verify` stages this file declares, in
+order, stopping at the first non-zero exit. So they have to be the commands this
+repository is actually verified by — and in an established estate those are already
+written down. The pipeline definition (`azure-pipelines.yml`, `.github/workflows/*`,
+`.gitlab-ci.yml`, `Jenkinsfile`), the `Makefile`, the scripts, the manifests and the task
+runner's own help output between them state the commands, the versions and the order.
+
+**Work them out the way you work out the build command** — from the repository's
+manifests, scripts and CI config, never from an assumption about the stack. Read those
+files. A real estate pinned Python 3.10, installed a JRE so PySpark would start and ran
+its unit tests against a live cluster; none of that is guessable, and all of it was in
+their repository. Adopting what is there is the whole point: a gate invented here can
+only disagree with the one that estate actually runs.
+
+Then say where you got them: `verify_derived_from.files` names the files you read the
+commands out of, as paths relative to `meta.workdir`. **Send no hash** — the framework
+hashes those files itself and stamps it, and every later run re-reads them to say when
+the declaration may have gone out of date. That is what makes "derived once" checkable
+rather than merely cheap.
+
+Rules that decide the block:
+
+- **Every command must be able to FAIL.** A declared `echo ...` or `true` stops the run
+  at resolution — a gate that cannot go red is not a gate.
+- **`when_present`** for a stage that only means something when a path exists; an absent
+  path skips that stage instead of reddening it.
+- **A .NET tree needs no block** — its entry point is discovered from files that exist.
+- **No pipeline, no block.** If you could not find what verifies this repository, write
+  no `verify` and no `verify_derived_from` and say so in your summary. Nothing is a
+  correct answer here; a guess is not.
+
+The operator ratifies the block by reviewing the init pull request, where the principles
+are already ratified. Point at it in your summary the same way.
 
 ## Opening the memory store
 
