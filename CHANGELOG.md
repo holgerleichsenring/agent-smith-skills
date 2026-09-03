@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.0.1](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.0.0...v5.0.1) (2026-09-03)
+
+
+### Bug Fixes
+
+* a command states the directory it runs in ([#177](https://github.com/holgerleichsenring/agent-smith-skills/issues/177)) ([c005909](https://github.com/holgerleichsenring/agent-smith-skills/commit/c005909567ad2cb86bc100383a86d31841062384))
+
 ## [5.0.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v4.8.1...v5.0.0) (2026-09-01)
 
 
