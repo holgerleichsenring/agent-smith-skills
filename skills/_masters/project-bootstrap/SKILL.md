@@ -157,7 +157,7 @@ their repository. Adopting what is there is the whole point: a gate invented her
 only disagree with the one that estate actually runs.
 
 Then say where you got them: `verify_derived_from.files` names the files you read the
-commands out of, as paths relative to `meta.workdir`. **Send no hash** — the framework
+commands out of, as paths relative to the REPOSITORY ROOT. **Send no hash** — the framework
 hashes those files itself and stamps it, and every later run re-reads them to say when
 the declaration may have gone out of date. That is what makes "derived once" checkable
 rather than merely cheap.
@@ -166,9 +166,13 @@ Rules that decide the block:
 
 - **Every command must be able to FAIL.** A declared `echo ...` or `true` stops the run
   at resolution — a gate that cannot go red is not a gate.
+- **Every command runs from the REPOSITORY ROOT**, whatever `meta.workdir` this context
+  declares — that field says where the component's SOURCE lives, not where anything is
+  built or tested. Write each command so it works from the root, and give one that needs
+  another directory its own `cd`: `cd frontend && npm test`. Two stages in one block may
+  need two different directories; that is ordinary.
 - **`when_present`** for a stage that only means something when a path exists; an absent
-  path skips that stage instead of reddening it.
-- **A .NET tree needs no block** — its entry point is discovered from files that exist.
+  path skips that stage instead of reddening it. Its path is read from the root too.
 - **No pipeline, no block.** If you could not find what verifies this repository, write
   no `verify` and no `verify_derived_from` and say so in your summary. Nothing is a
   correct answer here; a guess is not.
