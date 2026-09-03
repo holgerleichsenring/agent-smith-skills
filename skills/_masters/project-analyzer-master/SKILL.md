@@ -2,7 +2,7 @@
 name: project-analyzer-master
 description: "Master prompt for project repository structure analysis."
 role: master
-version: "1.2.1"
+version: "1.3.0"
 metadata:
   inputs: []
 ---

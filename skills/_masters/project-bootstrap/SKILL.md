@@ -1,6 +1,6 @@
 ---
 name: "project-bootstrap"
-version: "2.3.0"
+version: "2.4.0"
 description: "Write context.yaml (facts from archaeology) for the component named in the prompt; principles transfer from the authored core + language delta for operator ratification."
 role: "producer"
 output_schema: "bootstrap"
