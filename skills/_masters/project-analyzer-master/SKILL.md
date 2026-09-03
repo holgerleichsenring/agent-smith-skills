@@ -2,7 +2,7 @@
 name: project-analyzer-master
 description: "Master prompt for project repository structure analysis."
 role: master
-version: "1.2.1"
+version: "1.3.0"
 metadata:
   inputs: []
 ---
@@ -28,8 +28,16 @@ are handed is current for this commit — confirm, don't rebuild.)
    - `**/*_test.go` (Go)
    For each test project, read the manifest to identify the test framework (xUnit, NUnit, Jest, pytest, Go test, etc.) and count the test files.
 4. Identify entry points: programs with `Main`, web app `Program.cs`/`Startup.cs`, `index.{ts,js}`, `__main__.py`, command-line entry scripts.
-5. Look for CI configuration: `.github/workflows/`, `.gitlab-ci.yml`, `azure-pipelines.yml`, `Jenkinsfile`. Read them to extract typical build + test commands. The `ci.test_command` MUST run the `test_projects` you discovered by their path (e.g. `dotnet test tests/MyApp.Tests`, `pytest tests/`, `go test ./...`), relative to the analysis root — never a bare `dotnet test` that assumes the current directory is the test project.
+5. Look for CI configuration: `.github/workflows/`, `.gitlab-ci.yml`, `azure-pipelines.yml`, `Jenkinsfile`. Read them to extract typical build + test commands. The `ci.test_command` MUST run the `test_projects` you discovered BY THEIR PATH (e.g. `dotnet test tests/MyApp.Tests`, `pytest tests/`, `go test ./...`) — never a bare `dotnet test` that assumes the current directory is the test project.
 6. Optionally inspect a few production source files to infer naming and error-handling conventions — but only if the patterns are clear and consistent. Do not guess.
+
+## Where Your Commands Run
+
+**`ci.build_command`, `ci.test_command` and `prerequisites` are run from the REPOSITORY ROOT — the same directory your own tools call `.`.** Write every one of them so it works from there.
+
+When a tool has to run somewhere else, say so in the command itself: `cd frontend && npm run build`, `cd services/api && go test ./...`. Nothing else reads a directory for you, and nothing infers one from where a component's source happens to live — a repository can put its tests beside the code it tests, in a sibling directory, or in a top-level `tests/`, and only the tree you just read says which.
+
+Two commands in one repository can need two different directories. That is normal: give each the `cd` it needs, or none.
 
 ## Output Format
 
@@ -59,6 +67,7 @@ When you have enough evidence, respond with a single JSON object (no surrounding
     "test_command": "dotnet test tests/MyApp.Tests.Integration",
     "ci_system": "GitHub Actions"
   },
+  "//": "both commands above work from the repository root; one that did not would read 'cd <dir> && …'",
   "prerequisites": null
 }
 ```
@@ -74,4 +83,4 @@ When you have enough evidence, respond with a single JSON object (no surrounding
 - **Module roles**: `production` (shipping code), `test` (test-only), `tool` (internal scripts/helpers), `generated` (auto-generated, e.g. ApiClient bindings), `other` (configs, docs).
 - **Final response is the JSON object only.** Do not include explanatory prose around it. Do not wrap it in code fences.
 - **If a field is non-applicable** (e.g. no CI), use the type's empty value: `false` for `has_ci`, empty arrays for lists, empty strings or null for optional strings.
-- **`prerequisites` (top-level): the command that prepares the environment so `build_command` and `test_command` can actually run from a fresh checkout.** Ask yourself: if someone cloned this repo and immediately ran the build or the tests, what one command must they run first so it doesn't fail on missing dependencies? Put that command here, picked for the ecosystem you actually observed — `npm install` (or `npm ci` when a `package-lock.json` is committed) for Node, `pip install -r requirements.txt` or `poetry install` for Python, `go mod download`, `cargo fetch`, `mvn install -DskipTests`. A Node/Angular project with a `package.json` almost always needs `npm install` here. Use `null` only when build and test genuinely need no preparation — e.g. .NET, which restores implicitly. Whenever the project has a dependency manifest, prefer setting this over leaving it null.
+- **`prerequisites` (top-level): the command that prepares the environment so `build_command` and `test_command` can actually run from a fresh checkout.** Ask yourself: if someone cloned this repo and immediately ran the build or the tests, what one command must they run first so it doesn't fail on missing dependencies? Put that command here, picked for the ecosystem you actually observed — `npm install` (or `npm ci` when a `package-lock.json` is committed) for Node, `pip install -r requirements.txt` or `poetry install` for Python, `go mod download`, `cargo fetch`, `mvn install -DskipTests`. A Node/Angular project with a `package.json` almost always needs `npm install` here. Use `null` only when build and test genuinely need no preparation — e.g. .NET, which restores implicitly. Whenever the project has a dependency manifest, prefer setting this over leaving it null. It runs from the repository root like the ci commands, so a manifest in a sub-directory gets `cd <dir> && npm install`.
