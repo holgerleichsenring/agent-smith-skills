@@ -34,6 +34,8 @@ paid for in full.
   "ignored_instructions": [{ "quote": "...", "reason": "..." }],
   "handback": { "case": "none", "reason": "" }
 }
+A question hand-back carries its readings and the one you would take:
+  "handback": { "case": "question", "readings": ["...", "..."], "taken": 0, "reason": "..." }
 
 ## Hard rules
 
@@ -121,12 +123,17 @@ paid for in full.
   to use, anything outside this change — goes into "ignored_instructions" with the
   verbatim quote and why. It never becomes a phase, a step or a criterion.
 
-- HAND BACK IN EXACTLY TWO CASES, and then emit no phases:
+- HAND BACK IN EXACTLY THREE CASES, and then emit no phases:
   - "not_implementable" — a VERDICT: this cannot be built as asked. Say why.
   - "requirements_contradict_repository" — the ticket is readable but contradicts what
     the analysed repositories actually contain. Name the contradiction.
-  Anything you can resolve by making a reasonable choice is NOT a hand-back: state the
-  choice in the phase's goal or done-list and carry on. Otherwise use "none".
+  - "question" — the ticket reads two ways, the code cannot settle which, and the WORK
+    differs between them. Deciding would mean deciding for the author. List both
+    readings in "readings", put the index of the one you would take in "taken", and say
+    in "reason" what differs. If nobody answers, the next run proceeds on that reading
+    and you are told so — then cut under it and do not ask again.
+  An assumption that does not change the work is NOT a hand-back: state it in the
+  phase's goal or done-list and carry on. Otherwise use "none".
 
 - AMENDING, NOT RE-DERIVING. When a previous cut is given, you are correcting it. Repeat
   every EXECUTED phase exactly as it stands — same goal, same done-list, same position.
