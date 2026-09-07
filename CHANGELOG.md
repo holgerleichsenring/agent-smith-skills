@@ -1,5 +1,13 @@
 # Changelog
 
+## [5.1.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.0.1...v5.1.0) (2026-09-07)
+
+
+### Features
+
+* the derivation master asks instead of choosing silently (2026-09-07-c9d4) ([#180](https://github.com/holgerleichsenring/agent-smith-skills/issues/180)) ([e3e7b66](https://github.com/holgerleichsenring/agent-smith-skills/commit/e3e7b6666ddb0822b02c3a0b877f792ef98f4b22))
+* the derivation master may look before it writes ([#179](https://github.com/holgerleichsenring/agent-smith-skills/issues/179)) ([918dbba](https://github.com/holgerleichsenring/agent-smith-skills/commit/918dbbac206362df5033a505d4eac6b15a2502d9))
+
 ## [5.0.1](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.0.0...v5.0.1) (2026-09-03)
 
 
