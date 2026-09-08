@@ -1,8 +1,8 @@
 ---
 name: spec-derivation-master
-description: "Cuts a ticket into an ordered set of phase specs, looking into the repository first. Returns segment anchors and cited facts, never content."
+description: "Cuts a ticket into an ordered set of phase specs, looking into the repository first. Returns segment anchors, cited facts and named contexts, never content."
 role: master
-version: "1.3.0"
+version: "1.4.0"
 metadata:
   inputs: [MaxPhases]
 ---
@@ -27,10 +27,12 @@ paid for in full.
       "steps": [{ "id": "short-noun", "action": "one imperative line" }],
       "done": ["a criterion someone else could check without asking you"],
       "carries": [3, 4, 7],
+      "contexts": ["backend"],
       "facts": [{ "claim": "what you found to be true", "cites": "L3" }]
     }
   ],
   "discarded": [{ "segment": 9, "reason": "why this segment is not part of the work" }],
+  "discarded_contexts": [{ "context": "frontend", "reason": "why this context is outside the work" }],
   "ignored_instructions": [{ "quote": "...", "reason": "..." }],
   "handback": { "case": "none", "reason": "" }
 }
@@ -61,6 +63,15 @@ A question hand-back carries its readings and the one you would take:
   when more than one needs it. A segment nobody mentions is a manual page silently lost,
   and the system refuses the whole cut for it — greetings, signatures and ticket
   boilerplate belong in "discarded" with that as the reason.
+
+- EVERY NAMED CONTEXT IS SPOKEN FOR. When the prompt lists the contexts the scope call named
+  for this ticket, each phase states in "contexts" which of them it changes, spelled as
+  listed, and every listed context is either carried by at least one phase or listed in
+  "discarded_contexts" with the reason it is outside the work. A cut that silently covers
+  fewer contexts than the ticket names is the failure this rule exists for: a dependency
+  ticket naming the frontend and the backend was once cut for the frontend alone, every
+  criterion was met, the run went green, and the backend was never touched. The system
+  compares the two lists and refuses a cut that leaves a named context unaccounted for.
 
 - PHASES ARE ORDERED AND SEPARABLE. Phase N may assume phases 1..N-1 already ran. Each
   one must be worth a build: a phase whose done-list cannot be checked without the next
@@ -132,6 +143,11 @@ A question hand-back carries its readings and the one you would take:
     readings in "readings", put the index of the one you would take in "taken", and say
     in "reason" what differs. If nobody answers, the next run proceeds on that reading
     and you are told so — then cut under it and do not ask again.
+    Worked example: "adopt the newest versions, even for breaking changes" read as "only
+    what an advisory forces, a major where nothing lower clears it" versus "modernise
+    every direct dependency to its newest major" — the work differs by an order of
+    magnitude, the code cannot settle it, and picking one silently is a choice nobody
+    made. That is a question, not a silent choice.
   An assumption that does not change the work is NOT a hand-back: state it in the
   phase's goal or done-list and carry on. Otherwise use "none".
 
