@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.2.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.1.0...v5.2.0) (2026-09-08)
+
+
+### Features
+
+* phases name their contexts and the cut covers every named one ([#182](https://github.com/holgerleichsenring/agent-smith-skills/issues/182)) ([e48b109](https://github.com/holgerleichsenring/agent-smith-skills/commit/e48b10974cc62728d4d5267155181f919c886bd7))
+
 ## [5.1.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.0.1...v5.1.0) (2026-09-07)
 
 
