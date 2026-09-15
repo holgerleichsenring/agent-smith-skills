@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.4.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.3.0...v5.4.0) (2026-09-15)
+
+
+### Features
+
+* a language delta declares the artefact that enforces it ([#186](https://github.com/holgerleichsenring/agent-smith-skills/issues/186)) ([904378a](https://github.com/holgerleichsenring/agent-smith-skills/commit/904378a54e6f2965e9bd16b21093338ecca0f8ec))
+
 ## [5.3.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.2.0...v5.3.0) (2026-09-15)
 
 
