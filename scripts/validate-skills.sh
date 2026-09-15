@@ -215,4 +215,68 @@ if [[ -s "${RUST_DELTA}" ]]; then
   grep -qi "Result"     "${RUST_DELTA}"        || fail "principles: rust.md must route errors via Result/?"
 fi
 
-echo "validate-skills: all masters OK, principles templates OK"
+# 2026-09-13-ab17: WHICH SOURCE WINS is stated ONCE, in
+# references/source-precedence.md — principles are law, a template gives the form
+# of what is NEW, the existing code gives the form of an EXTENSION, a prototype or
+# a design gives the WHAT and never the form. Three masters can be handed a
+# template project to read, and one pin ships all three at once: the first time
+# two of them word the order differently, the estate has two methods and no way to
+# tell which one ran. So the wording lives in the reference and the masters cite
+# it.
+PRECEDENCE_SLUG="source-precedence"
+PRECEDENCE_REF="${REFERENCES_DIR}/${PRECEDENCE_SLUG}.md"
+PRECEDENCE_CITE="{{ref:${PRECEDENCE_SLUG}}}"
+# The masters that are handed a template project. They cite the section even if a
+# later edit removes the word "template" from their own prose.
+TEMPLATE_AWARE_MASTERS=(spec-derivation-master coding-agent-master design-partner-master)
+
+echo "checking ${PRECEDENCE_SLUG}"
+
+if [[ -s "${PRECEDENCE_REF}" ]]; then
+  # Each of the four sources, and the test that separates new from extension —
+  # the one part nothing else in the catalog states.
+  grep -qi "principles are law"        "${PRECEDENCE_REF}" || fail "${PRECEDENCE_SLUG}: must state that the principles are law and win every collision"
+  grep -qi "form of what is NEW"       "${PRECEDENCE_REF}" || fail "${PRECEDENCE_SLUG}: must give a template the form of what is NEW"
+  grep -qi "form of an EXTENSION"      "${PRECEDENCE_REF}" || fail "${PRECEDENCE_SLUG}: must give the existing code the form of an EXTENSION"
+  grep -qi "never the form"            "${PRECEDENCE_REF}" || fail "${PRECEDENCE_SLUG}: must limit a prototype or a design to the WHAT"
+  grep -qi "counterpart already exist" "${PRECEDENCE_REF}" || fail "${PRECEDENCE_SLUG}: must state the new-versus-extension test (does a counterpart already exist in the target)"
+else
+  fail "${PRECEDENCE_SLUG}: ${PRECEDENCE_REF} is missing or empty — it is the only statement of the source order"
+fi
+
+for dir_name in "${TEMPLATE_AWARE_MASTERS[@]}"; do
+  skill_md="${MASTERS_DIR}/${dir_name}/SKILL.md"
+  if [[ ! -f "${skill_md}" ]]; then
+    fail "${PRECEDENCE_SLUG}: ${dir_name} is listed as template-aware but has no SKILL.md"
+    continue
+  fi
+  grep -qF "${PRECEDENCE_CITE}" "${skill_md}" \
+    || fail "${dir_name}: is handed a template and must cite ${PRECEDENCE_CITE} instead of wording its own order"
+done
+
+# Every OTHER master that talks about a template cites it too. The bare word is
+# not the trigger: a master may carry a SECTION TEMPLATE for its own output, or
+# carry code templates out of a ticket, and neither is a template project. Those
+# senses are struck out by name and whatever still says "template" is the source
+# sense — which either cites the section or gets reworded. A new benign phrase
+# trips this check rather than slipping past it, and that is the safe direction.
+for skill_md in "${MASTERS_DIR}"/*/SKILL.md; do
+  dir_name="$(basename "$(dirname "${skill_md}")")"
+  # `if`, never `grep && continue`: under `set -e` the && list's own non-zero
+  # status aborts the script, which is how a guard becomes a silent pass.
+  if grep -qF "${PRECEDENCE_CITE}" "${skill_md}"; then continue; fi
+  prose="$(tr '[:upper:]' '[:lower:]' < "${skill_md}" \
+    | sed -e 's/template format//g' -e 's/section template//g' -e 's/code templates*//g')"
+  if grep -qE '\btemplates?\b' <<<"${prose}"; then
+    fail "${dir_name}: mentions a template but does not cite ${PRECEDENCE_CITE} — a master that may read a template states no order of its own"
+  fi
+done
+
+# 13de328 dropped the exit that made every ✗ above cost something; until it came
+# back the whole script was a printer, and package.sh built the tarball anyway.
+if (( errors > 0 )); then
+  echo "validate-skills: ${errors} error(s)" >&2
+  exit 1
+fi
+
+echo "validate-skills: all masters OK, principles templates OK, source precedence OK"

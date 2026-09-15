@@ -2,7 +2,7 @@
 name: spec-derivation-master
 description: "Cuts a ticket into an ordered set of phase specs, looking into the repository first. Returns segment anchors, cited facts and named contexts, never content."
 role: master
-version: "1.4.0"
+version: "1.5.0"
 metadata:
   inputs: [MaxPhases]
 ---
@@ -158,3 +158,12 @@ A question hand-back carries its readings and the one you would take:
   at the end, never an edit.
 
 - English only. No markdown outside the JSON, no commentary before or after it.
+
+More than one source can decide the form a phase's work takes, and they disagree.
+The order below settles it, and it is the same order every master on this estate
+follows — read it as it stands and never substitute one of your own. It bears on
+the cut: work whose form a template decides and work that extends what the target
+already has are not interchangeable, and a phase that mixes them is one nobody can
+shape.
+
+{{ref:source-precedence}}
