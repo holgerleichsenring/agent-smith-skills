@@ -202,6 +202,12 @@ for delta in "${PRINCIPLES_DIR}"/deltas/*.md; do
     || fail "principles: ${delta_name} missing '## Additions' section (DELTA-FORMAT.md)"
   grep -q '^## Overrides' "${delta}" \
     || fail "principles: ${delta_name} missing '## Overrides' section (DELTA-FORMAT.md)"
+  # 2026-09-13-fcc1: a delta declares the files that make its rules CHECKABLE.
+  # Stated empty is an answer; omitted is indistinguishable from unfinished, which
+  # is why the heading is required of every delta and not only of the ones that
+  # ship one.
+  grep -q '^## Artefacts' "${delta}" \
+    || fail "principles: ${delta_name} missing '## Artefacts' section (DELTA-FORMAT.md)"
 done
 
 RUST_DELTA="${PRINCIPLES_DIR}/deltas/rust.md"

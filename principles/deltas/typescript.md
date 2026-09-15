@@ -62,3 +62,9 @@
 - **Class-first composition with constructor-injected services** → module
   and function composition is equally idiomatic: passing collaborators as
   typed function parameters satisfies dependency inversion without classes.
+
+## Artefacts
+
+No artefacts — this delta's rules are enforced by the toolchain the stack
+already runs by default, and a file restating them would be a second place
+for them to disagree.
