@@ -20,7 +20,7 @@ One file per language at `principles/deltas/<slug>.md` in the catalog, where
 
 ## Required structure
 
-```markdown
+````markdown
 # <Language> Delta
 
 <!-- agentsmith:principles-delta <slug> v1 -->
@@ -39,11 +39,43 @@ override names the rule it replaces and states what applies INSTEAD:
 
 - **<imported rule>** → <what applies in this language, and why it is the
   documented idiom here>.
-```
 
-Both sections are mandatory. When a language genuinely overrides nothing,
-the Overrides section says so explicitly ("No overrides — the reference
-mechanisms map 1:1") rather than being omitted.
+## Artefacts
+
+Files the framework writes into a repository so this delta's rules are
+CHECKED rather than described. One entry per artefact: a heading with the
+repository-root-relative path, one sentence saying which rule it enforces,
+then the exact content in a fenced block.
+
+### <repository-root-relative path>
+
+<which rule of this delta this file makes checkable>
+
+```<fence language>
+<the exact file content>
+```
+````
+
+All three sections are mandatory. When a language genuinely overrides
+nothing, the Overrides section says so explicitly ("No overrides — the
+reference mechanisms map 1:1") rather than being omitted; when a language
+declares no artefact, the Artefacts section says so the same way ("No
+artefacts — ...") rather than being omitted. An omitted section reads the
+same as an unfinished one.
+
+## Writing artefacts
+
+- An artefact is DECLARATIVE. A ruleset, an editor configuration, a build
+  property file: they name a mechanism of the language and no type, file or
+  namespace of any target. That is what makes them byte-identical for two
+  repositories of one stack, which is the rule the whole format rests on.
+- Anything that must reflect over a target's own types is NOT an artefact.
+  It would differ per repository, which is the opposite of a delta.
+- The path is relative to the repository root and never escapes it. An
+  artefact belongs where the stack's build already looks, not beside the
+  composed principles, which no build reads.
+- An artefact that arrives red is a FINDING. The framework writes the file;
+  it does not rewrite the repository to satisfy it.
 
 ## Writing rules for deltas
 

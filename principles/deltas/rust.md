@@ -65,3 +65,9 @@
   failures flow as `Result` through `?`, and the never-swallow rule means
   never discarding a `Result` (`#[must_use]` stays honored) and never
   `.unwrap()` outside tests.
+
+## Artefacts
+
+No artefacts — this delta's rules are enforced by the toolchain the stack
+already runs by default, and a file restating them would be a second place
+for them to disagree.
