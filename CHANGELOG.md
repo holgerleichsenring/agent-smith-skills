@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.3.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.2.0...v5.3.0) (2026-09-15)
+
+
+### Features
+
+* one section states which source wins, three masters cite it ([#184](https://github.com/holgerleichsenring/agent-smith-skills/issues/184)) ([7a63a46](https://github.com/holgerleichsenring/agent-smith-skills/commit/7a63a464d945c0d7807a0664f23a362fda8bb971))
+
 ## [5.2.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.1.0...v5.2.0) (2026-09-08)
 
 
