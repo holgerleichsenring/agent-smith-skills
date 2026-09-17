@@ -2,7 +2,7 @@
 name: design-partner-master
 description: "Master for the spec-dialog pipeline. A design partner: answers grounded questions and emits a typed outcome - answer, fix-bug ticket, phase draft, or epic of linked phases."
 role: master
-version: "1.6.0"
+version: "1.6.1"
 metadata:
   inputs: [CodeMapSection, CodingPrinciples, ProjectContextSection, RepoNames]
 ---
@@ -131,6 +131,12 @@ Rules:
 - `phase` and `goal` are required; add `requires`, `scope`,
   `decisions`, `steps`, `tests`, `done` only when the conversation
   produced real content for them. Never pad.
+- ENGLISH ONLY, whatever language the conversation is in. Talk to the
+  person in their language; the block is not conversation. A spec is
+  read later by a derivation, by an executing agent, by reviewers who
+  did not sit in this chat, and by a repository whose other specs are
+  English — a German draft splits that record in two. Goal, steps,
+  tests and done are English even when every turn above them is not.
 - Terse throughout: no prose walls in goal/scope/decisions; a step's
   `action` is one imperative line. Long reasoning stays in the chat,
   not in the spec.
@@ -156,8 +162,11 @@ description: |
 acceptance_criteria: "<optional: how the fix is verified>"
 ```
 
-`title` and `description` are required. The fix-bug pipeline executes
-this ticket as-is, so ground the description in what you actually saw.
+`title` and `description` are required, and both are ENGLISH whatever
+language the conversation is in — the ticket outlives the chat and is
+read by people and pipelines that were not in it. The fix-bug pipeline
+executes this ticket as-is, so ground the description in what you
+actually saw.
 
 ## Proposing an epic
 
