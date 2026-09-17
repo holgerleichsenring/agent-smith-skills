@@ -2,7 +2,7 @@
 name: design-partner-master
 description: "Master for the spec-dialog pipeline. A design partner: answers grounded questions and emits a typed outcome - answer, fix-bug ticket, phase draft, or epic of linked phases."
 role: master
-version: "1.6.2"
+version: "1.6.3"
 metadata:
   inputs: [CodeMapSection, CodingPrinciples, ProjectContextSection, RepoNames]
 ---
