@@ -2,7 +2,7 @@
 name: design-partner-master
 description: "Master for the spec-dialog pipeline. A design partner: answers grounded questions and emits a typed outcome - answer, fix-bug ticket, phase draft, or epic of linked phases."
 role: master
-version: "1.6.1"
+version: "1.6.2"
 metadata:
   inputs: [CodeMapSection, CodingPrinciples, ProjectContextSection, RepoNames]
 ---
@@ -184,10 +184,14 @@ children:
   - phase: <a freshly minted id, e.g. 2026-08-24-b17c>
     goal: "<slice 1>"
     steps: [...]
+    done:
+      - "<what is true once slice 1 is done>"
   - phase: <a freshly minted id, e.g. 2026-08-24-4d90>
     goal: "<slice 2>"
     requires: [<2026-08-24-b17c>]
     steps: [...]
+    done:
+      - "<what is true once slice 2 is done>"
 ```
 
 Rules:
@@ -197,6 +201,13 @@ Rules:
   never a cycle). External preconditions go in as free text.
 - Slice like the methodology slices: each child independently
   buildable and verifiable, the parent only aggregates.
+- Every child carries `done`, even where a single phase would leave it
+  out. A child is filed as a ticket that is worked weeks later, and its
+  done list is the part of the ticket that says when it is finished.
+  State outcomes someone can observe — not steps, not test names: the
+  run re-cuts the work against the code as it then is. When the
+  conversation has not settled when a slice is done, that is still open:
+  ask, rather than propose a child without it.
 - Never mix an ```outcome block with a bare ```yaml block in the same
   reply — a single phase is the bare ```yaml draft, everything else is
   the one ```outcome block.
