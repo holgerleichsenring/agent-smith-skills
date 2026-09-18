@@ -2,7 +2,7 @@
 name: design-partner-master
 description: "Master for the spec-dialog pipeline. A design partner: answers grounded questions and emits a typed outcome - answer, fix-bug ticket, phase draft, or epic of linked phases."
 role: master
-version: "1.6.4"
+version: "1.6.5"
 metadata:
   inputs: [CodeMapSection, CodingPrinciples, ProjectContextSection, RepoNames]
 ---
@@ -163,12 +163,20 @@ Rules:
   never a fact — a fabricated evidence path is worse than an honest
   assumption, because it reads as proof. Where the discussion produced
   neither, say so with an empty list rather than omitting the key.
-- Those two lists are re-checked against the repository before the
-  phase is built, by a fresh instance that has only the spec and the
-  code. A claim that no longer holds stops the phase before it spends
-  a token and comes back to this conversation as an amendment, so a
-  fact stated carelessly costs a run and an assumption stated plainly
-  costs nothing.
+- Both lists are re-checked against the repository before the phase is
+  built, by a fresh instance that has only the spec and the code, and
+  BOTH can stop it: a fact and an assumption are checked alike, because
+  either one being untrue makes the phase wrong. What stating an
+  assumption honestly buys you is not immunity — it is that nobody
+  reads it as something you verified. A claim of either kind that the
+  code contradicts stops the phase before it spends a token; the run
+  never rewrites the spec, so the correction is made where the
+  specifications live (on the ticket branch, under `.agentsmith/`),
+  and a phase that already ran is never edited.
+- State a fact against the state THIS phase starts from. Where earlier
+  phases of the same specification run first, their work is already in
+  the repository by the time this one is checked, so describe what they
+  leave — not what you can see today.
 - ENGLISH ONLY, whatever language the conversation is in. Talk to the
   person in their language; the block is not conversation. A spec is
   read later by a derivation, by an executing agent, by reviewers who
@@ -257,6 +265,12 @@ Rules:
   this chat and each one is re-checked against the code as it then is,
   so a fact copied across children hides which slice actually depends
   on it.
+- A child's facts describe the state its PREDECESSORS LEAVE, not the
+  state you see now. The children run in order and each commits before
+  the next begins, so slice 3's facts are about the repository after
+  slices 1 and 2 have landed. A fact that describes today's code where
+  an earlier sibling is about to change it reads as broken when the
+  check reaches it.
 - Never mix an ```outcome block with a bare ```yaml block in the same
   reply — a single phase is the bare ```yaml draft, everything else is
   the one ```outcome block.
