@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.6.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.5.0...v5.6.0) (2026-09-18)
+
+
+### Features
+
+* a drafted phase states the facts it rests on and what it assumes ([#192](https://github.com/holgerleichsenring/agent-smith-skills/issues/192)) ([7b9cccb](https://github.com/holgerleichsenring/agent-smith-skills/commit/7b9cccb880d7cfa864861b648e4a7d1c8b36fd2f))
+
 ## [5.5.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.4.0...v5.5.0) (2026-09-18)
 
 
