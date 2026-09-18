@@ -1,5 +1,18 @@
 # Changelog
 
+## [5.5.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.4.0...v5.5.0) (2026-09-18)
+
+
+### Features
+
+* a design partner discusses before it proposes ([#191](https://github.com/holgerleichsenring/agent-smith-skills/issues/191)) ([36107fb](https://github.com/holgerleichsenring/agent-smith-skills/commit/36107fb8d7396fb1ce0836e6086a3715991fb4e4))
+* an epic child in a design-partner draft states when it is done ([#190](https://github.com/holgerleichsenring/agent-smith-skills/issues/190)) ([88a5837](https://github.com/holgerleichsenring/agent-smith-skills/commit/88a5837f770271c7cd59f2228648aea9bea22ac7))
+
+
+### Bug Fixes
+
+* a design-partner draft is English whatever the conversation is ([#188](https://github.com/holgerleichsenring/agent-smith-skills/issues/188)) ([4ba493f](https://github.com/holgerleichsenring/agent-smith-skills/commit/4ba493fff8f2fab1f58f4a2632a394f767b1370d))
+
 ## [5.4.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.3.0...v5.4.0) (2026-09-15)
 
 
