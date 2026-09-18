@@ -2,7 +2,7 @@
 name: design-partner-master
 description: "Master for the spec-dialog pipeline. A design partner: answers grounded questions and emits a typed outcome - answer, fix-bug ticket, phase draft, or epic of linked phases."
 role: master
-version: "1.6.3"
+version: "1.6.4"
 metadata:
   inputs: [CodeMapSection, CodingPrinciples, ProjectContextSection, RepoNames]
 ---
@@ -141,6 +141,11 @@ tests:
   - "<Method_Scenario_Expected>"
 done:
   - "<verifiable completion criterion>"
+facts:
+  - claim: "<what you established about the code>"
+    evidence: "<where you saw it, e.g. src/Api/OrderHandler.cs:34-41>"
+assumptions:
+  - "<what the draft rests on that you did NOT open a file to confirm>"
 ```
 
 Rules:
@@ -148,6 +153,22 @@ Rules:
 - `phase` and `goal` are required; add `requires`, `scope`,
   `decisions`, `steps`, `tests`, `done` only when the conversation
   produced real content for them. Never pad.
+- `facts` and `assumptions` say what the draft RESTS ON, and every
+  draft states both. A FACT is a claim about the code you actually
+  read; its `evidence` names where you saw it — a repository-relative
+  path and, where you have it, the line range. An ASSUMPTION is
+  anything the draft depends on that you did not open a file to
+  confirm: a behaviour you were told about, a shape you expect, a
+  library you did not check. If you did not look, it is an assumption,
+  never a fact — a fabricated evidence path is worse than an honest
+  assumption, because it reads as proof. Where the discussion produced
+  neither, say so with an empty list rather than omitting the key.
+- Those two lists are re-checked against the repository before the
+  phase is built, by a fresh instance that has only the spec and the
+  code. A claim that no longer holds stops the phase before it spends
+  a token and comes back to this conversation as an amendment, so a
+  fact stated carelessly costs a run and an assumption stated plainly
+  costs nothing.
 - ENGLISH ONLY, whatever language the conversation is in. Talk to the
   person in their language; the block is not conversation. A spec is
   read later by a derivation, by an executing agent, by reviewers who
@@ -203,6 +224,11 @@ children:
     steps: [...]
     done:
       - "<what is true once slice 1 is done>"
+    facts:
+      - claim: "<what you established about the code>"
+        evidence: "<where you saw it, e.g. src/Api/OrderHandler.cs:34-41>"
+    assumptions:
+      - "<what this slice rests on that you did not confirm>"
   - phase: <a freshly minted id, e.g. 2026-08-24-4d90>
     goal: "<slice 2>"
     requires: [<2026-08-24-b17c>]
@@ -225,6 +251,12 @@ Rules:
   run re-cuts the work against the code as it then is. When the
   conversation has not settled when a slice is done, that is still open:
   ask, rather than propose a child without it.
+- Every child carries `facts` and `assumptions` too, and they are the
+  child's own: a claim that decided slice 3 belongs to slice 3, with
+  the evidence naming where you read it. A child is worked weeks after
+  this chat and each one is re-checked against the code as it then is,
+  so a fact copied across children hides which slice actually depends
+  on it.
 - Never mix an ```outcome block with a bare ```yaml block in the same
   reply — a single phase is the bare ```yaml draft, everything else is
   the one ```outcome block.
