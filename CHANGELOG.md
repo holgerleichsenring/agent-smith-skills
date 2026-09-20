@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.6.1](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.6.0...v5.6.1) (2026-09-20)
+
+
+### Bug Fixes
+
+* the C# delta ships no build-breaking artefacts ([#195](https://github.com/holgerleichsenring/agent-smith-skills/issues/195)) ([9d38445](https://github.com/holgerleichsenring/agent-smith-skills/commit/9d3844588bacd6ee90b8ab36dc672a2ef08f8da0))
+
 ## [5.6.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.5.0...v5.6.0) (2026-09-18)
 
 
