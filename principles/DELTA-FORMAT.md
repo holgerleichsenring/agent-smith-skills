@@ -43,13 +43,14 @@ override names the rule it replaces and states what applies INSTEAD:
 ## Artefacts
 
 Files the framework writes into a repository so this delta's rules are
-CHECKED rather than described. One entry per artefact: a heading with the
-repository-root-relative path, one sentence saying which rule it enforces,
+RECORDED where the stack keeps its own configuration. An artefact must not
+change what the target compiles to. One entry per artefact: a heading with
+the repository-root-relative path, one sentence saying which rule it records,
 then the exact content in a fenced block.
 
 ### <repository-root-relative path>
 
-<which rule of this delta this file makes checkable>
+<which rule of this delta this file records>
 
 ```<fence language>
 <the exact file content>
@@ -65,17 +66,19 @@ same as an unfinished one.
 
 ## Writing artefacts
 
-- An artefact is DECLARATIVE. A ruleset, an editor configuration, a build
-  property file: they name a mechanism of the language and no type, file or
-  namespace of any target. That is what makes them byte-identical for two
-  repositories of one stack, which is the rule the whole format rests on.
+- An artefact MUST NOT change what the target compiles to. A file that turns
+  code already in the repository into a build failure — warnings promoted to
+  errors, a severity a compiler or an analyser honours, a switch that makes
+  style a build outcome — is not an artefact this format licenses. Nobody on
+  that side agreed to it, and the team's own tooling already owns the
+  decision.
+- An artefact is DECLARATIVE: it names a mechanism of the language and no
+  type, file or namespace of any target. That is what makes it byte-identical
+  for two repositories of one stack, which is the rule the whole format rests
+  on.
 - Anything that must reflect over a target's own types is NOT an artefact.
   It would differ per repository, which is the opposite of a delta.
-- The path is relative to the repository root and never escapes it. An
-  artefact belongs where the stack's build already looks, not beside the
-  composed principles, which no build reads.
-- An artefact that arrives red is a FINDING. The framework writes the file;
-  it does not rewrite the repository to satisfy it.
+- The path is relative to the repository root and never escapes it.
 
 ## Writing rules for deltas
 
