@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.7.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.6.1...v5.7.0) (2026-09-21)
+
+
+### Features
+
+* the design partner cuts by branch state, not by size ([#197](https://github.com/holgerleichsenring/agent-smith-skills/issues/197)) ([7eb2703](https://github.com/holgerleichsenring/agent-smith-skills/commit/7eb2703bdcfc95ff8e997cd1ac406129574dabf5))
+
 ## [5.6.1](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.6.0...v5.6.1) (2026-09-20)
 
 
