@@ -1,6 +1,6 @@
 ---
 name: "project-discovery"
-version: "1.0.1"
+version: "1.0.2"
 description: "Enumerate a repo's independently-deployable components with evidence. Drives BootstrapDispatch fan-out: init-project writes one .agentsmith/contexts/ entry per component."
 role: "producer"
 output_schema: "discovery"
