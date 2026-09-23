@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.7.1](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.7.0...v5.7.1) (2026-09-23)
+
+
+### Bug Fixes
+
+* the single-component example no longer collapses a sub-tree workdir ([#199](https://github.com/holgerleichsenring/agent-smith-skills/issues/199)) ([75ae24b](https://github.com/holgerleichsenring/agent-smith-skills/commit/75ae24bc575ae0d283aa7687a6fb4519ba5c4065))
+
 ## [5.7.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.6.1...v5.7.0) (2026-09-21)
 
 
