@@ -1,6 +1,6 @@
 ---
 name: "project-discovery"
-version: "1.0.1"
+version: "1.0.2"
 description: "Enumerate a repo's independently-deployable components with evidence. Drives BootstrapDispatch fan-out: init-project writes one .agentsmith/contexts/ entry per component."
 role: "producer"
 output_schema: "discovery"
@@ -82,7 +82,26 @@ is the deployable component from the tree alone:
 ## Output
 
 Return ONE JSON document (no prose, no markdown fence) matching
-`output_schema: discovery`. Single-component example:
+`output_schema: discovery`. One component is not the same as one at the
+repository root — `workdir` is the component root you found, whatever the
+component count. Single component in a sub-tree:
+
+```json
+{
+  "status": "complete",
+  "components": [
+    {
+      "name": "default",
+      "workdir": "src/Sample.Cli",
+      "language": "csharp",
+      "evidence": "src/Sample.Cli/Program.cs"
+    }
+  ]
+}
+```
+
+Single component that really does occupy the root — the manifest is there,
+not one directory down:
 
 ```json
 {
@@ -91,8 +110,8 @@ Return ONE JSON document (no prose, no markdown fence) matching
     {
       "name": "default",
       "workdir": ".",
-      "language": "csharp",
-      "evidence": "src/Sample.Cli/Program.cs"
+      "language": "typescript",
+      "evidence": "index.ts"
     }
   ]
 }
