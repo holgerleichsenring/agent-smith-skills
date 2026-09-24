@@ -2,7 +2,7 @@
 name: design-partner-master
 description: "Master for the spec-dialog pipeline. A design partner: answers grounded questions and emits a typed outcome - answer, fix-bug ticket, phase draft, or epic of linked phases."
 role: master
-version: "1.7.0"
+version: "1.7.1"
 metadata:
   inputs: [CodeMapSection, CodingPrinciples, ProjectContextSection, RepoNames]
 ---
@@ -163,6 +163,9 @@ fenced block in your reply:
 ```yaml
 phase: <id from the conversation, or a freshly minted {yyyy-MM-dd}-{4 hex}, e.g. 2026-08-24-8a3f>
 goal: "<one terse sentence: what and why>"
+scope:                      # optional; these two keys and no others
+  in: "<what this phase covers>"
+  out: "<what it deliberately does not — deferred, rejected, another phase's>"
 steps:
   - id: <short-noun>
     action: "<single imperative line>"
@@ -182,6 +185,10 @@ Rules:
 - `phase` and `goal` are required; add `requires`, `scope`,
   `decisions`, `steps`, `tests`, `done` only when the conversation
   produced real content for them. Never pad.
+- `scope` takes **`in` and `out` only**. It is the one block the schema
+  closes, so a key you invent for it — `repositories`, `constraints`,
+  `exclusions` — fails the whole draft and the operator never sees it.
+  Repositories, constraints and exclusions are PROSE inside `in` / `out`.
 - `facts` and `assumptions` say what the draft RESTS ON, and every
   draft states both. A FACT is a claim about the code you actually
   read; its `evidence` names where you saw it — a repository-relative
