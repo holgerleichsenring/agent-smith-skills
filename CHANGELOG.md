@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.7.2](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.7.1...v5.7.2) (2026-09-24)
+
+
+### Bug Fixes
+
+* the bootstrap skill asks for the component root, not where the source lives ([#201](https://github.com/holgerleichsenring/agent-smith-skills/issues/201)) ([bca6bd0](https://github.com/holgerleichsenring/agent-smith-skills/commit/bca6bd04407bdce4823f7e758b454b0ea505eb86))
+
 ## [5.7.1](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.7.0...v5.7.1) (2026-09-23)
 
 
