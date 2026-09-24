@@ -44,8 +44,9 @@ versions), follow the "Writing principles.md yourself" section below.
 
 ## Inputs (from the user prompt)
 
-- **Component**: a `name` (context slug), `workdir` (repo-relative path
-  for this component), and an `evidence` path that proved it.
+- **Component**: a `name` (context slug), `workdir` (the repo-relative COMPONENT
+  ROOT — the directory holding the manifest that governs it, e.g. `client` for a
+  `client/package.json`, never `client/src`), and an `evidence` path that proved it.
 - **WriteFile target paths**: the repo-relative paths the user prompt spells
   out explicitly. Use those paths verbatim — **do not** hardcode any other
   path in your own logic. They look like
@@ -125,7 +126,9 @@ the write calls succeed.
 
 Populate slots you can defend; omit slots you can't (the framework
 omits null fields from the emitted YAML). `meta.workdir` is REQUIRED —
-the framework rejects the call without it. Keep the document under
+the framework rejects the call without it. Carry through the workdir the
+user prompt gave you; do not re-derive it, and do not deepen it to the
+directory the sources happen to sit in. Keep the document under
 ~250 lines of content.
 
 `stack.resources` (cpu_request / cpu_limit / memory_request /
@@ -167,9 +170,9 @@ Rules that decide the block:
 - **Every command must be able to FAIL.** A declared `echo ...` or `true` stops the run
   at resolution — a gate that cannot go red is not a gate.
 - **Every command runs from the REPOSITORY ROOT**, whatever `meta.workdir` this context
-  declares — that field says where the component's SOURCE lives, not where anything is
-  built or tested. Write each command so it works from the root, and give one that needs
-  another directory its own `cd`: `cd frontend && npm test`. Two stages in one block may
+  declares — that field names the component's ROOT, not where anything is built
+  or tested. Write each command so it works from the root, and give one that
+  needs another directory its own `cd`: `cd frontend && npm test`. Two stages in one block may
   need two different directories; that is ordinary.
 - **`when_present`** for a stage that only means something when a path exists; an absent
   path skips that stage instead of reddening it. Its path is read from the root too.
