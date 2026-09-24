@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.7.3](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.7.2...v5.7.3) (2026-09-24)
+
+
+### Bug Fixes
+
+* the draft template shows what scope takes ([#203](https://github.com/holgerleichsenring/agent-smith-skills/issues/203)) ([5b5496d](https://github.com/holgerleichsenring/agent-smith-skills/commit/5b5496d2ff3de79d2ac4e3d4856d355818a98f6c))
+
 ## [5.7.2](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.7.1...v5.7.2) (2026-09-24)
 
 
