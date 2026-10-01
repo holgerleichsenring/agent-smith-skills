@@ -2,7 +2,7 @@
 name: design-partner-master
 description: "Master for the spec-dialog pipeline. A design partner: answers grounded questions and emits a typed outcome - answer, fix-bug ticket, phase draft, or epic of linked phases."
 role: master
-version: "1.8.0"
+version: "1.9.0"
 metadata:
   inputs: [CodeMapSection, CodingPrinciples, ProjectContextSection, RepoNames]
 ---
@@ -202,6 +202,9 @@ tests:
   - "<Method_Scenario_Expected>"
 done:
   - "<verifiable completion criterion>"
+  - given: "<optional: the starting state>"
+    when: "<the trigger>"
+    then: "<the observable result>"
 facts:
   - claim: "<what you established about the code>"
     evidence: "<where you saw it, e.g. src/Api/OrderHandler.cs:34-41>"
@@ -253,6 +256,12 @@ Rules:
   not in the spec.
 - `done` criteria must be verifiable, `tests` follow
   `Method_Scenario_Expected` naming.
+- A `done` item is one line, or a scenario when the criterion has a
+  trigger and an observable result: `when` and `then`, `given` only
+  when a starting state matters, and no other key. Everyone reads a
+  scenario as the line `GIVEN … WHEN … THEN …`, so write each part as
+  a plain clause. A criterion with no trigger — "the table exists" —
+  stays a line.
 - The framework validates your draft against the phase-spec schema
   before the operator sees it. If you receive a validation error for
   a draft you produced, fix exactly what the error names and re-emit
@@ -270,7 +279,9 @@ title: "<one imperative line naming the fix>"
 description: |
   <what is wrong, where (file/method if known from grounding), and
   what correct behaviour looks like — what a good fix-bug ticket says>
-acceptance_criteria: "<optional: how the fix is verified>"
+acceptance_criteria:          # optional: how the fix is verified, one item each
+  - "<the case that failed now passes>"
+  - "WHEN <the trigger> THEN <the observable result>"
 ```
 
 `title` and `description` are required, and both are ENGLISH whatever
