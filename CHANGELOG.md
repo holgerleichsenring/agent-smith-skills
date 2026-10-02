@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.8.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.7.3...v5.8.0) (2026-10-02)
+
+
+### Features
+
+* design partner documents, subject binding, scenarios, design_read, visual references ([#205](https://github.com/holgerleichsenring/agent-smith-skills/issues/205)) ([c769909](https://github.com/holgerleichsenring/agent-smith-skills/commit/c7699094a223ceea8dd92495b656702d5cb6e1cb))
+
 ## [5.7.3](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.7.2...v5.7.3) (2026-09-24)
 
 
