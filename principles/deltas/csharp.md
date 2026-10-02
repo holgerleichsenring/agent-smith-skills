@@ -11,8 +11,6 @@
   service classes are 20–60 lines; 80 lines is a warning.
 - One type per file: every class, interface, enum, or record gets its own
   file.
-- Base classes max 30 lines: template-method skeleton only, never business
-  logic, parsing, or I/O — inject services for anything complex.
 
 ### Naming
 
@@ -37,6 +35,8 @@
 
 ### Abstractions, DI, and composition
 
+- Base classes hold a template-method skeleton only — never business logic,
+  parsing, or I/O; inject services for anything complex.
 - Every injectable service has an interface in `Contracts/`; depend on the
   interface, never the implementation.
 - All dependencies arrive via constructor injection (primary constructors).
