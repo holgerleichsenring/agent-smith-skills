@@ -2,7 +2,7 @@
 
 Up to four sources can tell you what to write — the project's principles, a
 declared template project, the code already in the target, and a prototype or
-design. They disagree. This order settles it, and it is the same order for every
+design (a visual reference among them). They disagree. This order settles it, and it is the same order for every
 master, so that two runs on one estate never follow two methods.
 
 1. **The principles are law.** The project's coding principles apply to
@@ -24,6 +24,14 @@ master, so that two runs on one estate never follow two methods.
    naming, layering and code style carry no authority at all. A prototype was
    built to be looked at and a design to be read; copying the form of either is
    the failure this rule exists to stop.
+
+   A **visual reference** — an uploaded website, a design mock, a URL, a
+   repository's `DESIGN.md` — is asked for because of how it looks, so its
+   **look is part of the WHAT**: its colours, type, spacing, radii and shadows,
+   as the computed values the browser reports or the tokens the file states.
+   Its markup and its stylesheet's structure — class names, selectors, file
+   layout, framework — are form and carry no authority: build the look with
+   the target's own components and conventions, and match the values.
 
 ### New or extension — the test
 
