@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.9.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.8.0...v5.9.0) (2026-10-02)
+
+
+### Features
+
+* masters treat an upload as material with a recorded recipe ([#207](https://github.com/holgerleichsenring/agent-smith-skills/issues/207)) ([9ffee85](https://github.com/holgerleichsenring/agent-smith-skills/commit/9ffee856799468fc66f758ea7d372a69cb7acc5f))
+
 ## [5.8.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.7.3...v5.8.0) (2026-10-02)
 
 
