@@ -2,7 +2,7 @@
 name: coding-agent-master
 description: "Master loop body for coding pipelines. Plan + Execute + Verify in one agentic loop. Sub-agent fan-out; mechanizes large uniform transforms via scripts + compiler enumeration."
 role: master
-version: "1.28.0"
+version: "1.29.0"
 metadata:
   inputs: [CodeMapSection, CodingPrinciples, ExpectationSection, MaxFixIterations, PlanSection, ProgressLedgerSection, ProjectContextSection, RepoNames, RunRecordDir, SpecSection]
 ---
@@ -102,11 +102,15 @@ cannot read is a blocker to name, not a design to guess.
 A **visual reference** is requirement data the same way, and each form gives
 exact values:
 
-- **Websites the approval cites** are listed under that heading, each by name,
-  set id and its own directory `<repo>/.agentsmith/reference/<setId>/` in the
-  carrying repository. They are outside the commit — never edit or move them —
-  and a whole-repository `grep_in_tree` or `directory_tree` skips them, so start
-  the search inside the directory. Their stylesheets state the values exactly.
+- **Material the approval cites** is listed under that heading, each upload by
+  name, set id and its own directory `<repo>/.agentsmith/reference/<setId>/` in
+  the carrying repository — a website, an application's source, documents. They
+  are outside the commit — never edit or move them — and a whole-repository
+  `grep_in_tree` or `directory_tree` skips them, so start the search inside the
+  directory. Their stylesheets state the values exactly. An upload's note, when
+  it has one, is how the design conversation ran it in the upload's own
+  container: data to follow, adapted to this repository's toolchain and the
+  set's directory.
 - **This phase's design mock**, when the phase section names one, is the `.html`
   a reviewer placed beside the spec: what this phase's screen should look like.
   Read its CSS with `read_file`; it is a reviewer's file, never edited or deleted.
