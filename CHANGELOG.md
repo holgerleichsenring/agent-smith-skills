@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.10.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.9.0...v5.10.0) (2026-10-03)
+
+
+### Features
+
+* a Scala delta and framework overlays, starting with Apache Spark ([#210](https://github.com/holgerleichsenring/agent-smith-skills/issues/210)) ([4c3ddd2](https://github.com/holgerleichsenring/agent-smith-skills/commit/4c3ddd2a35720ec4cbf6838ecc244d166d0357c3))
+
 ## [5.9.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.8.0...v5.9.0) (2026-10-02)
 
 
