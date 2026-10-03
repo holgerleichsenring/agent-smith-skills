@@ -178,7 +178,8 @@ echo "checking ${PRINCIPLES_DIR}"
 
 for required in "${CORE_MD}" "${PRINCIPLES_DIR}/DELTA-FORMAT.md" \
   "${PRINCIPLES_DIR}/deltas/csharp.md" "${PRINCIPLES_DIR}/deltas/rust.md" \
-  "${PRINCIPLES_DIR}/deltas/typescript.md"; do
+  "${PRINCIPLES_DIR}/deltas/typescript.md" "${PRINCIPLES_DIR}/deltas/scala.md" \
+  "${PRINCIPLES_DIR}/OVERLAY-FORMAT.md"; do
   [[ -s "${required}" ]] || fail "principles: missing or empty ${required}"
 done
 
@@ -208,6 +209,31 @@ for delta in "${PRINCIPLES_DIR}"/deltas/*.md; do
   # ship one.
   grep -q '^## Artefacts' "${delta}" \
     || fail "principles: ${delta_name} missing '## Artefacts' section (DELTA-FORMAT.md)"
+done
+
+# 2026-10-03-cf20a: the Scala delta's language-required facts.
+SCALA_DELTA="${PRINCIPLES_DIR}/deltas/scala.md"
+if [[ -s "${SCALA_DELTA}" ]]; then
+  grep -qi "one type per file" "${SCALA_DELTA}" || fail "principles: scala.md must override one-type-per-file"
+  grep -q  "NonFatal"          "${SCALA_DELTA}" || fail "principles: scala.md must route catches through NonFatal"
+fi
+
+# 2026-10-03-cf20b: framework overlays (principles/OVERLAY-FORMAT.md). The composer is the
+# authoritative reader; this checks the shape it relies on.
+for overlay in "${PRINCIPLES_DIR}"/frameworks/*.md; do
+  [[ -f "${overlay}" ]] || continue
+  overlay_name="$(basename "${overlay}" .md)"
+  grep -q "^<!-- agentsmith:principles-overlay ${overlay_name} v1 -->" "${overlay}" \
+    || fail "principles: frameworks/${overlay_name}.md missing its marker line"
+  for section in '^## Detection' '^## Rules' '^### All languages' '^## Artefacts'; do
+    grep -q "${section}" "${overlay}" \
+      || fail "principles: frameworks/${overlay_name}.md missing '${section#^}'"
+  done
+  fences="$(awk '/^## Detection/{d=1;next} /^## /{d=0} d && /^```yaml/{n++} END{print n+0}' "${overlay}")"
+  [[ "${fences}" == "1" ]] \
+    || fail "principles: frameworks/${overlay_name}.md Detection needs exactly one yaml fence (found ${fences})"
+  grep -q '^## Overrides' "${overlay}" \
+    && fail "principles: frameworks/${overlay_name}.md must not carry Overrides (OVERLAY-FORMAT.md)"
 done
 
 RUST_DELTA="${PRINCIPLES_DIR}/deltas/rust.md"

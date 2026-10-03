@@ -16,7 +16,10 @@ a delta. Pure intent stays in the core.
 One file per language at `principles/deltas/<slug>.md` in the catalog, where
 `<slug>` is the lowercase language slug that project discovery emits
 (`csharp`, `rust`, `typescript`, `go`, `python`, ...). The framework composes
-`core.md + deltas/<slug>.md` at init-project time.
+`core.md + deltas/<slug>.md` at init-project time, followed by every framework
+overlay whose detection signal matches the component (`frameworks/<slug>.md`,
+see `OVERLAY-FORMAT.md`). A delta describes a language; an overlay describes a
+framework that several languages share.
 
 ## Required structure
 
