@@ -17,7 +17,7 @@
   small, closely related types live together in one module file. Split a
   module when its responsibility sentence needs an "and".
 - Max 40 lines per function, counted as physical lines of the item —
-  extract when reached. Cohesion is measured per module, not per type.
+  extract when reached. The Limits section states it as data. Cohesion is measured per module, not per type.
   Source: measured — the p95 of tokio (33), ripgrep (42) and serde (41),
   `#[cfg(test)]` modules excluded, ratified 2026-10-06 (agent-smith decisions/2026-10-03-24d4.yaml). clippy's
   `too_many_lines` (100 code lines) is allowed by default.
@@ -68,6 +68,12 @@
   failures flow as `Result` through `?`, and the never-swallow rule means
   never discarding a `Result` (`#[must_use]` stays honored) and never
   `.unwrap()` outside tests.
+
+## Limits
+
+```yaml
+function_lines: 40
+```
 
 ## Artefacts
 

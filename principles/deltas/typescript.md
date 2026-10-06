@@ -16,7 +16,8 @@
 
 - A module (file) is one cohesive responsibility; a small type and the
   functions that operate on it may share a file. Max 300 lines per module
-  and 50 lines per function, physical lines — extract when exceeded.
+  and 50 lines per function, physical lines — extract when exceeded. The Limits section states both as
+  data.
   Source: ESLint's stated defaults for `max-lines` (300) and
   `max-lines-per-function` (50), https://eslint.org/docs/latest/rules/,
   read 2026-10-06.
@@ -65,6 +66,13 @@
 - **Class-first composition with constructor-injected services** → module
   and function composition is equally idiomatic: passing collaborators as
   typed function parameters satisfies dependency inversion without classes.
+
+## Limits
+
+```yaml
+function_lines: 50
+file_lines: 300
+```
 
 ## Artefacts
 

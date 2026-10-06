@@ -43,6 +43,14 @@ override names the rule it replaces and states what applies INSTEAD:
 - **<imported rule>** → <what applies in this language, and why it is the
   documented idiom here>.
 
+## Limits
+
+The size limits of the Additions, as data. One yaml fence:
+
+```yaml
+function_lines: <n>
+```
+
 ## Artefacts
 
 Files the framework writes into a repository so this delta's rules are
@@ -60,11 +68,12 @@ then the exact content in a fenced block.
 ```
 ````
 
-All three sections are mandatory. When a language genuinely overrides
+All four sections are mandatory. When a language genuinely overrides
 nothing, the Overrides section says so explicitly ("No overrides — the
 reference mechanisms map 1:1") rather than being omitted; when a language
 declares no artefact, the Artefacts section says so the same way ("No
-artefacts — ...") rather than being omitted. An omitted section reads the
+artefacts — ...") rather than being omitted; when no limit is set, the Limits
+section says "No limits — ..." and carries no fence. An omitted section reads the
 same as an unfinished one.
 
 ## Writing artefacts
@@ -82,6 +91,27 @@ same as an unfinished one.
 - Anything that must reflect over a target's own types is NOT an artefact.
   It would differ per repository, which is the opposite of a delta.
 - The path is relative to the repository root and never escapes it.
+
+## Writing limits
+
+A limit is green on the day it is installed. What a delta's Limits declare is
+measured at init and recorded as the baseline; from then on only what gets
+worse fails.
+
+- The fence holds only these keys, each a positive integer; an absent key
+  sets no limit:
+  - `function_lines` — a function or method;
+  - `type_lines` — a type declaration;
+  - `types_per_file` — type declarations in one file;
+  - `file_lines` — a whole file.
+- Lines are physical, from a declaration's first non-attribute line to its
+  last; nested units are included, leading comments are not.
+- Every value is the number the size prose states, where its `Source:` line
+  lives. The fence restates; it never introduces a number.
+- A project's own stricter or looser limits are a `### Limits` heading with
+  one yaml fence under the composed file's Project Specifics; it overrides
+  the delta key by key and survives every refresh.
+- Framework overlays carry no Limits.
 
 ## Writing rules for deltas
 

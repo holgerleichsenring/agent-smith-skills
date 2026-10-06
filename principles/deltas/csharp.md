@@ -7,7 +7,7 @@
 ### Layout and size
 
 - Max 55 lines per method, counted as physical lines of the declaration —
-  extract helper methods when reached.
+  extract helper methods when reached. The Limits section states it as data.
   Source: measured — the p95 of CleanArchitecture (39), efcore (56) and
   aspire (70), tests and generated code excluded, ratified 2026-10-06
   (agent-smith decisions/2026-10-03-24d4.yaml). No C# tool enables a method-length rule by default.
@@ -104,6 +104,12 @@
 
 No overrides — this is the reference stack the mechanism vocabulary comes
 from; the core's defaults map 1:1.
+
+## Limits
+
+```yaml
+function_lines: 55
+```
 
 ## Artefacts
 
