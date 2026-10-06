@@ -209,6 +209,17 @@ for delta in "${PRINCIPLES_DIR}"/deltas/*.md; do
   # ship one.
   grep -q '^## Artefacts' "${delta}" \
     || fail "principles: ${delta_name} missing '## Artefacts' section (DELTA-FORMAT.md)"
+  # 2026-10-03-24d4: a size limit names its source. Every bullet of the size
+  # section that states "Max <n> lines" carries a 'Source:' line in that bullet.
+  unsourced="$(awk '
+    /^### Layout and size/ { in_size = 1; next }
+    /^#/ { in_size = 0 }
+    in_size && /^- / { if (bullet ~ /Max [0-9]+ lines/ && bullet !~ /Source:/) print bullet; bullet = $0; next }
+    in_size { bullet = bullet " " $0 }
+    END { if (bullet ~ /Max [0-9]+ lines/ && bullet !~ /Source:/) print bullet }
+  ' "${delta}")"
+  [[ -z "${unsourced}" ]] \
+    || fail "principles: ${delta_name} states a size limit without a 'Source:' line (DELTA-FORMAT.md):"$'\n'"${unsourced}"
 done
 
 # 2026-10-03-cf20a: the Scala delta's language-required facts.

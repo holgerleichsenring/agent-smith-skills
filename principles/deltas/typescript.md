@@ -15,8 +15,11 @@
 ### Layout and size
 
 - A module (file) is one cohesive responsibility; a small type and the
-  functions that operate on it may share a file. Keep modules under roughly
-  200 lines and functions under roughly 30 — extract when exceeded.
+  functions that operate on it may share a file. Max 300 lines per module
+  and 50 lines per function, physical lines — extract when exceeded.
+  Source: ESLint's stated defaults for `max-lines` (300) and
+  `max-lines-per-function` (50), https://eslint.org/docs/latest/rules/,
+  read 2026-10-06.
 - Public surface is exported deliberately; everything else stays
   module-private. No barrel files that re-export the world.
 

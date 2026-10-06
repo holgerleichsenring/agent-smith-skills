@@ -31,7 +31,7 @@ framework that several languages share.
 ## Additions
 
 Mechanism rules that apply ON TOP of the core: naming style, code layout and
-size limits, abstraction/composition idiom, error mechanics, test placement
+size limits where the stack documents one, abstraction/composition idiom, error mechanics, test placement
 and tooling, formatter/linter enforcement. Cover every hook the core's
 "Delta hooks" section names.
 
@@ -89,6 +89,10 @@ same as an unfinished one.
   able to hold a diff against it.
 - Ground each rule in the language's documented convention (style guide,
   standard tooling, official docs), not in one repo's habits.
+- A size limit carries a `Source:` line: a rule the stack's tooling or
+  guides state, with where and when it was read, or a measurement of named
+  reference repositories with the operator's ratification. A number without
+  one is not a limit; say that no limit is set instead.
 - Keep it thin: a delta states mechanisms; it never restates the core's
   intent. If a sentence would be true in every language, it belongs in the
   core.
