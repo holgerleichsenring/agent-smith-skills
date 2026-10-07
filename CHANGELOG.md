@@ -1,5 +1,13 @@
 # Changelog
 
+## [5.11.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.10.0...v5.11.0) (2026-10-07)
+
+
+### Features
+
+* delta size limits name their source and are declared as a Limits fence ([#212](https://github.com/holgerleichsenring/agent-smith-skills/issues/212)) ([dab3b60](https://github.com/holgerleichsenring/agent-smith-skills/commit/dab3b60fdddada1f16d3044798b7d6937f0f2e11))
+* the design partner drafts spec: with placeholder ids the framework replaces ([#213](https://github.com/holgerleichsenring/agent-smith-skills/issues/213)) ([fbddd2f](https://github.com/holgerleichsenring/agent-smith-skills/commit/fbddd2f14804dce3c9d1290018e71617bab0722e))
+
 ## [5.10.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.9.0...v5.10.0) (2026-10-03)
 
 
