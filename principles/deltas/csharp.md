@@ -4,11 +4,16 @@
 
 ## Additions
 
-### Hard limits (enforced)
+### Layout and size
 
-- Max 20 lines per method — extract helper methods, no exceptions.
-- Max 120 lines per class — split by responsibility when reached. Most
-  service classes are 20–60 lines; 80 lines is a warning.
+- Max 55 lines per method, counted as physical lines of the declaration —
+  extract helper methods when reached. The Limits section states it as data.
+  Source: measured — the p95 of CleanArchitecture (39), efcore (56) and
+  aspire (70), tests and generated code excluded, ratified 2026-10-06
+  (agent-smith decisions/2026-10-03-24d4.yaml). No C# tool enables a method-length rule by default.
+- No class line limit is set: no C# source states one as a rule, and the
+  same reference repositories' p95 ranges from 78 to 697 lines. Split by
+  responsibility, as the core requires.
 - One type per file: every class, interface, enum, or record gets its own
   file.
 
@@ -99,6 +104,12 @@
 
 No overrides — this is the reference stack the mechanism vocabulary comes
 from; the core's defaults map 1:1.
+
+## Limits
+
+```yaml
+function_lines: 55
+```
 
 ## Artefacts
 

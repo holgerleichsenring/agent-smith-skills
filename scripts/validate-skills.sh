@@ -196,6 +196,37 @@ if [[ -s "${CORE_MD}" ]]; then
   done
 fi
 
+# 2026-10-06-8565a: a delta's Limits section — one yaml fence of closed keys whose
+# values the size prose states, or "No limits" and no fence. Engine and master read
+# this block; an unknown key would be a silent no-op, so it fails here.
+check_delta_limits() {
+  local delta="$1" name="$2" section fences key value
+  grep -q '^## Limits' "${delta}" \
+    || { fail "principles: ${name} missing '## Limits' section (DELTA-FORMAT.md)"; return; }
+  section="$(awk '/^## Limits/ { on = 1; next } /^## / { on = 0 } on' "${delta}")"
+  fences="$(grep -c '^```yaml' <<< "${section}" || true)"
+  if [[ "${fences}" -eq 0 ]]; then
+    grep -q 'No limits' <<< "${section}" \
+      || fail "principles: ${name} Limits has no fence and does not say 'No limits'"
+    return
+  fi
+  [[ "${fences}" -eq 1 ]] || { fail "principles: ${name} Limits has ${fences} yaml fences, one allowed"; return; }
+  if grep -q 'No limits' <<< "${section}"; then
+    fail "principles: ${name} Limits carries a fence and says 'No limits'"
+  fi
+  while IFS=: read -r key value; do
+    value="${value// /}"
+    case "${key}" in
+      function_lines|type_lines|types_per_file|file_lines) ;;
+      *) fail "principles: ${name} Limits key '${key}' is not one of function_lines, type_lines, types_per_file, file_lines"; continue ;;
+    esac
+    [[ "${value}" =~ ^[1-9][0-9]*$ ]] \
+      || { fail "principles: ${name} Limits ${key} '${value}' is not a positive integer"; continue; }
+    awk '/^### Layout and size/ { on = 1; next } /^#/ { on = 0 } on' "${delta}" | grep -qE "\b${value} lines\b" \
+      || fail "principles: ${name} Limits ${key}: ${value} is not stated in the size prose"
+  done < <(awk '/^```yaml/ { on = 1; next } /^```/ { on = 0 } on && NF' <<< "${section}")
+}
+
 for delta in "${PRINCIPLES_DIR}"/deltas/*.md; do
   [[ -f "${delta}" ]] || continue
   delta_name="$(basename "${delta}")"
@@ -209,6 +240,18 @@ for delta in "${PRINCIPLES_DIR}"/deltas/*.md; do
   # ship one.
   grep -q '^## Artefacts' "${delta}" \
     || fail "principles: ${delta_name} missing '## Artefacts' section (DELTA-FORMAT.md)"
+  # 2026-10-03-24d4: a size limit names its source. Every bullet of the size
+  # section that states "Max <n> lines" carries a 'Source:' line in that bullet.
+  unsourced="$(awk '
+    /^### Layout and size/ { in_size = 1; next }
+    /^#/ { in_size = 0 }
+    in_size && /^- / { if (bullet ~ /Max [0-9]+ lines/ && bullet !~ /Source:/) print bullet; bullet = $0; next }
+    in_size { bullet = bullet " " $0 }
+    END { if (bullet ~ /Max [0-9]+ lines/ && bullet !~ /Source:/) print bullet }
+  ' "${delta}")"
+  [[ -z "${unsourced}" ]] \
+    || fail "principles: ${delta_name} states a size limit without a 'Source:' line (DELTA-FORMAT.md):"$'\n'"${unsourced}"
+  check_delta_limits "${delta}" "${delta_name}"
 done
 
 # 2026-10-03-cf20a: the Scala delta's language-required facts.
@@ -223,6 +266,10 @@ fi
 for overlay in "${PRINCIPLES_DIR}"/frameworks/*.md; do
   [[ -f "${overlay}" ]] || continue
   overlay_name="$(basename "${overlay}" .md)"
+  # 2026-10-06-8565a: the composer renders an overlay's Rules only, so Limits there would vanish.
+  if grep -q '^## Limits' "${overlay}"; then
+    fail "principles: frameworks/${overlay_name}.md carries '## Limits'; overlays carry no limits"
+  fi
   grep -q "^<!-- agentsmith:principles-overlay ${overlay_name} v1 -->" "${overlay}" \
     || fail "principles: frameworks/${overlay_name}.md missing its marker line"
   for section in '^## Detection' '^## Rules' '^### All languages' '^## Artefacts'; do
