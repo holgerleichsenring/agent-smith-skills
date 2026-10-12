@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.12.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.11.0...v5.12.0) (2026-10-12)
+
+
+### Features
+
+* project-bootstrap names a published image tag, never one composed from repository versions ([#215](https://github.com/holgerleichsenring/agent-smith-skills/issues/215)) ([26b3430](https://github.com/holgerleichsenring/agent-smith-skills/commit/26b34303bebeb891eb098757e7849153970fecb0))
+
 ## [5.11.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.10.0...v5.11.0) (2026-10-07)
 
 
