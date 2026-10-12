@@ -2,7 +2,7 @@
 name: spec-derivation-master
 description: "Cuts a ticket into an ordered set of specs, looking into the repository first. Returns segment anchors, cited facts and named contexts, never content."
 role: master
-version: "1.7.0"
+version: "1.7.1"
 metadata:
   inputs: [MaxSpecs]
 ---
@@ -111,9 +111,11 @@ A question hand-back carries its readings and the one you would take:
 
 - THE TICKET'S OWN "DONE WHEN" IS THE DONE LIST. When the ticket has a section that says
   when the work is done — "Done when", "Definition of done", "Acceptance" — its items are
-  the done criteria of the specs that do that work, and the rest of the ticket (its
-  requirements) becomes steps and carried segments. Requirements are the work; that
-  section is the verdict.
+  the done criteria of the specs that do that work, ONE FOR ONE: every item that is not a
+  shape rule becomes exactly one done criterion, kept as specific as the ticket wrote it —
+  "a test proves a transfer moves the quantity" stays a criterion about that test, it is
+  not folded into "the tests pass". The rest of the ticket (its requirements) becomes
+  steps and carried segments. Requirements are the work; that section is the verdict.
 
 - A SHAPE RULE IS NEVER A DONE CRITERION. A shape rule is a measure of the code's form,
   however narrowly it is scoped: the size of functions, classes or files, line length,

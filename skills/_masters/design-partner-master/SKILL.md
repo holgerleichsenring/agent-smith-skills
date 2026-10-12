@@ -2,7 +2,7 @@
 name: design-partner-master
 description: "Master for the spec-dialog pipeline. A design partner: answers grounded questions and emits a typed outcome - answer, fix-bug ticket, spec draft, or epic of linked specs."
 role: master
-version: "1.15.0"
+version: "1.15.1"
 metadata:
   inputs: [CodeMapSection, CodingPrinciples, ProjectContextSection, RepoNames]
 ---
@@ -378,7 +378,9 @@ Rules:
 - **The operator's own done list is the done list.** When the ticket or
   the message has a section that says when the work is done — "Done
   when", "Definition of done", "Acceptance" — its items ARE the `done`
-  entries, for a single spec exactly as for an epic child. The rest of
+  entries, one for one and as specific as written ("a test proves X"
+  stays that criterion, never folded into "the tests pass"), for a
+  single spec exactly as for an epic child. The rest of
   the message — its requirements — becomes `steps`. Requirements are
   the work; that section is the verdict, and folding the two turns
   hints into fails. Design values read from a reference stay criteria,
