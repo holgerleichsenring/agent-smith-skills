@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.14.1](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.14.0...v5.14.1) (2026-10-12)
+
+
+### Bug Fixes
+
+* project-bootstrap keeps a formatter's own syntax when it turns the check command into the writing one ([#221](https://github.com/holgerleichsenring/agent-smith-skills/issues/221)) ([10d33db](https://github.com/holgerleichsenring/agent-smith-skills/commit/10d33db7877e08a2e6c86d8d60a9ba5f8781d73f))
+
 ## [5.14.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.13.0...v5.14.0) (2026-10-12)
 
 
