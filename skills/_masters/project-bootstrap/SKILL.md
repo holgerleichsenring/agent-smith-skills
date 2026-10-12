@@ -132,9 +132,9 @@ directory the sources happen to sit in. Keep the document under
 ~250 lines of content.
 
 `stack.image` names a tag its registry publishes. Tag shapes differ
-per image, so a tag composed from versions found in the repository
-(`build.properties`, `build.sbt`, `package.json`) usually does not
-exist. `write_context_yaml` checks the tag against its registry: when
+per image, so never compose a tag from versions found in the
+repository (`build.properties`, `build.sbt`, `package.json`) — such a
+tag usually does not exist. `write_context_yaml` checks the tag against its registry: when
 it answers that the image does not exist and lists published tags,
 choose one whose toolchain fits this stack; when it lists none, name a
 tag you know is published, in that repository or another. The trusted
@@ -143,7 +143,7 @@ Docker Hub official images. An image outside them is written, and a
 code run stops at preflight until the operator trusts that registry or
 names the project's image — so choose an image inside them when one
 carries this stack's whole toolchain, never one that lacks it; the
-tool result says which applies. An image that could not be checked
+tool result names the trusted registries in force. An image that could not be checked
 against its registry needs no rewrite for that reason alone.
 
 `stack.resources` (cpu_request / cpu_limit / memory_request /
