@@ -131,6 +131,18 @@ user prompt gave you; do not re-derive it, and do not deepen it to the
 directory the sources happen to sit in. Keep the document under
 ~250 lines of content.
 
+`stack.image` names a tag its registry publishes. Tag shapes differ
+per image (`eclipse-temurin-25.0.1_8_1.11.7_2.13.18`, not
+`eclipse-temurin-25_1.11.7_2.13.18`), so a tag composed from versions
+in `build.properties`, `build.sbt` or `package.json` usually does not
+exist. `write_context_yaml` checks the tag against its registry: when
+it answers that the image does not exist, it lists the closest
+published tags — choose one of them; when it answers that the image
+could not be verified, keep it. Prefer an image from a trusted
+registry (by default `mcr.microsoft.com/`, `ghcr.io/` and Docker Hub
+official images); one outside is written, but a run refuses it until
+the operator allows that registry, and the tool result says so.
+
 `stack.resources` (cpu_request / cpu_limit / memory_request /
 memory_limit) is optional: include it only when the codebase gives you
 something to defend (a heavy build, a big test suite), and then always
