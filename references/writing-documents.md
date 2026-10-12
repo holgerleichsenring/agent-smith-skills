@@ -10,14 +10,14 @@ reader.
 - **First line.** A `#` heading naming what the document is ("Hand-off:
   continue the parser migration"). It is the title the operator sees.
 - **Grounded, not remembered.** State the project's state from the
-  project context, the phases (done, active, planned), the decisions and
+  project context, the specs (done, active, planned), the decisions and
   the code you read — not from the chat alone. Name files by path. Where
   the context and the conversation disagree, the context is the record;
   say so in the document.
 - **Self-contained.** No "as discussed", no "see above". Every term the
   reader needs is defined or pointed at by path.
 - **The operator's language.** A document is the operator's to take, so it
-  is written in the language they asked in — unlike a phase draft or a
+  is written in the language they asked in — unlike a spec draft or a
   ticket, which are English.
 
 When the reader is an AGENT — the operator asked for a prompt — use this
@@ -25,7 +25,7 @@ shape, each section short:
 
 1. **Goal** — what the agent is to achieve next, in one or two sentences.
 2. **Where things stand** — what exists and works, what is in progress,
-   with the paths and phase ids that prove it.
+   with the paths and spec ids that prove it.
 3. **Rules of the house** — the conventions and principles the agent must
    follow, and where they are written down; the workflow it must keep.
 4. **Open work** — what is next, in order, and what is deliberately not
