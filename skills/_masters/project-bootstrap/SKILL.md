@@ -1,6 +1,6 @@
 ---
 name: "project-bootstrap"
-version: "2.6.0"
+version: "2.6.1"
 description: "Write context.yaml (facts from archaeology) for the component named in the prompt; principles transfer from the authored core + language delta for operator ratification."
 role: "producer"
 output_schema: "bootstrap"
@@ -207,8 +207,10 @@ declare it in `format`, when the repository already runs a formatter — in its 
 scripts, the same files you read for `verify`.
 
 - **The REWRITING form of that formatter.** CI usually runs it in check mode; you declare
-  the form that rewrites the files: CI's `dotnet csharpier --check .` becomes
-  `dotnet csharpier {files}`, `prettier --check .` becomes `prettier --write {files}`.
+  the form that rewrites the files, in the tool's own syntax: replace only the check
+  subcommand or flag with its writing counterpart and the path with `{files}`. CI's
+  `dotnet csharpier check .` becomes `dotnet csharpier format {files}`; `prettier --check .`
+  becomes `prettier --write {files}`.
 - **`{files}` is required.** The framework replaces it with the repository-root-relative
   paths the spec changed, shell-quoted; a command without it is refused. Never format the
   whole tree — untouched code would land in the spec's diff.
