@@ -1,6 +1,6 @@
 ---
 name: "project-bootstrap"
-version: "2.6.1"
+version: "2.7.0"
 description: "Write context.yaml (facts from archaeology) for the component named in the prompt; principles transfer from the authored core + language delta for operator ratification."
 role: "producer"
 output_schema: "bootstrap"
@@ -121,6 +121,7 @@ the write calls succeed.
   ],
   "verify_derived_from": { "files": ["<the file you read those commands out of>", "..."] },
   "format": { "command": "<the repository's own formatter, rewriting form, with {files}>", "when_present": "<optional path it needs>" },
+  "sources": ["<repository-root-relative directory beyond meta.workdir the component is built or tested from>", "..."],
   "behavior": { ... only if explicit pipeline/orchestration code present ... }
 }
 ```
@@ -224,6 +225,23 @@ scripts, the same files you read for `verify`.
 - **No formatter in the repository, no `format`.** Choose none for it: a formatter the
   estate does not run rewrites code its own tooling never would. A whitespace-only fixer
   is not a substitute either — `dotnet format whitespace` does not wrap a long line.
+
+## `sources` — the directories the component is built and tested from
+
+`sources` lists the repository-root-relative directories beyond `meta.workdir` that the
+component is built and tested from, because the structure baseline, the commit gate and the
+formatter cover the workdir and these directories.
+
+- **The transitive project-reference closure of the component.** For .NET, read the
+  component's `.csproj` `ProjectReference` entries, then theirs, until no new project turns
+  up; for other stacks, follow the equivalent manifest references the same way (a workspace
+  dependency on a sibling package, a path dependency, a local module).
+- **Plus the test projects** that reference the component or any project in that closure.
+- **Read them from the manifests with your repository tools.** The ProjectMap you receive
+  covers the workdir only. Never guess a directory from folder names.
+- **A directory is the project's directory**, repository-root-relative: never `.`, never
+  rooted, no `..`.
+- **None beyond the workdir, no `sources`.** Omit the slot.
 
 ## Opening the memory store
 
