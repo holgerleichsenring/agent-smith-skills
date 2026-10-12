@@ -1,6 +1,6 @@
 ---
 name: "project-bootstrap"
-version: "2.4.1"
+version: "2.5.0"
 description: "Write context.yaml (facts from archaeology) for the component named in the prompt; principles transfer from the authored core + language delta for operator ratification."
 role: "producer"
 output_schema: "bootstrap"
@@ -136,12 +136,16 @@ per image (`eclipse-temurin-25.0.1_8_1.11.7_2.13.18`, not
 `eclipse-temurin-25_1.11.7_2.13.18`), so a tag composed from versions
 in `build.properties`, `build.sbt` or `package.json` usually does not
 exist. `write_context_yaml` checks the tag against its registry: when
-it answers that the image does not exist, it lists the closest
-published tags — choose one of them; when it answers that the image
-could not be verified, keep it. Prefer an image from a trusted
-registry (by default `mcr.microsoft.com/`, `ghcr.io/` and Docker Hub
-official images); one outside is written, but a run refuses it until
-the operator allows that registry, and the tool result says so.
+it answers that the image does not exist and lists published tags,
+choose one whose toolchain fits this stack; when it lists none, name a
+tag you know the registry publishes; when it answers that the image
+could not be checked against its registry, keep it. The trusted
+registries are, by default, `mcr.microsoft.com/`, `ghcr.io/` and
+Docker Hub official images. An image outside them is written, and a
+code run stops at preflight until the operator trusts that registry or
+names the project's image — so choose an image inside them when one
+carries this stack's whole toolchain, never one that lacks it; the
+tool result says which applies.
 
 `stack.resources` (cpu_request / cpu_limit / memory_request /
 memory_limit) is optional: include it only when the codebase gives you
