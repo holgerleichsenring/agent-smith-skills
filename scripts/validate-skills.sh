@@ -199,8 +199,11 @@ fi
 # 2026-10-06-8565a: a delta's Limits section — one yaml fence of closed keys whose
 # values the size prose states, or "No limits" and no fence. Engine and master read
 # this block; an unknown key would be a silent no-op, so it fails here.
+# 2026-10-12-fbbda: tolerance_percent is the one key the size prose does not state —
+# it is 0 or more, sourced by the operator's ratification, and the Limits section says
+# it in a sentence "Tolerance: <t> percent". It is never a limit on its own.
 check_delta_limits() {
-  local delta="$1" name="$2" section fences key value
+  local delta="$1" name="$2" section fences key value limits=0
   grep -q '^## Limits' "${delta}" \
     || { fail "principles: ${name} missing '## Limits' section (DELTA-FORMAT.md)"; return; }
   section="$(awk '/^## Limits/ { on = 1; next } /^## / { on = 0 } on' "${delta}")"
@@ -218,13 +221,23 @@ check_delta_limits() {
     value="${value// /}"
     case "${key}" in
       function_lines|type_lines|types_per_file|file_lines) ;;
-      *) fail "principles: ${name} Limits key '${key}' is not one of function_lines, type_lines, types_per_file, file_lines"; continue ;;
+      tolerance_percent)
+        if [[ ! "${value}" =~ ^(0|[1-9][0-9]*)$ ]]; then
+          fail "principles: ${name} Limits tolerance_percent '${value}' is not an integer of 0 or more"
+        elif ! grep -qE "^Tolerance: ${value} percent\b" <<< "${section}"; then
+          fail "principles: ${name} Limits tolerance_percent: ${value} is not stated as 'Tolerance: ${value} percent' in the Limits section"
+        fi
+        continue ;;
+      *) fail "principles: ${name} Limits key '${key}' is not one of function_lines, type_lines, types_per_file, file_lines, tolerance_percent"; continue ;;
     esac
+    limits=$((limits + 1))
     [[ "${value}" =~ ^[1-9][0-9]*$ ]] \
       || { fail "principles: ${name} Limits ${key} '${value}' is not a positive integer"; continue; }
     awk '/^### Layout and size/ { on = 1; next } /^#/ { on = 0 } on' "${delta}" | grep -qE "\b${value} lines\b" \
       || fail "principles: ${name} Limits ${key}: ${value} is not stated in the size prose"
   done < <(awk '/^```yaml/ { on = 1; next } /^```/ { on = 0 } on && NF' <<< "${section}")
+  (( limits > 0 )) \
+    || fail "principles: ${name} Limits fence sets no limit; a tolerance alone limits nothing — say 'No limits' instead"
 }
 
 for delta in "${PRINCIPLES_DIR}"/deltas/*.md; do

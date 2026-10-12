@@ -1,6 +1,6 @@
 ---
 name: "project-bootstrap"
-version: "2.5.0"
+version: "2.6.0"
 description: "Write context.yaml (facts from archaeology) for the component named in the prompt; principles transfer from the authored core + language delta for operator ratification."
 role: "producer"
 output_schema: "bootstrap"
@@ -120,6 +120,7 @@ the write calls succeed.
     { "label": "test", "command": "<...>", "when_present": "<optional path it needs>" }
   ],
   "verify_derived_from": { "files": ["<the file you read those commands out of>", "..."] },
+  "format": { "command": "<the repository's own formatter, rewriting form, with {files}>", "when_present": "<optional path it needs>" },
   "behavior": { ... only if explicit pipeline/orchestration code present ... }
 }
 ```
@@ -197,6 +198,30 @@ Rules that decide the block:
 
 The operator ratifies the block by reviewing the init pull request, where the principles
 are already ratified. Point at it in your summary the same way.
+
+## `format` — adopt the formatter the repository already runs
+
+When a spec commits, the framework can run this repository's own formatter over the files
+that spec changed, so layout is the formatter's job and never a criterion or a gate. You
+declare it in `format`, when the repository already runs a formatter — in its CI or its
+scripts, the same files you read for `verify`.
+
+- **The REWRITING form of that formatter.** CI usually runs it in check mode; you declare
+  the form that rewrites the files: CI's `dotnet csharpier --check .` becomes
+  `dotnet csharpier {files}`, `prettier --check .` becomes `prettier --write {files}`.
+- **`{files}` is required.** The framework replaces it with the repository-root-relative
+  paths the spec changed, shell-quoted; a command without it is refused. Never format the
+  whole tree — untouched code would land in the spec's diff.
+- **It runs from the REPOSITORY ROOT, with no `cd` of its own**, because the paths in
+  `{files}` are relative to the root. Address a binary from the root:
+  `frontend/node_modules/.bin/prettier --write {files}`.
+- **`when_present`** names a path the command needs (e.g.
+  `frontend/node_modules/.bin/prettier`); an absent path skips the run.
+- **Name the file you read it from** in `verify_derived_from.files`, beside the files the
+  verify commands came from, so a later run can tell when the declaration went stale.
+- **No formatter in the repository, no `format`.** Choose none for it: a formatter the
+  estate does not run rewrites code its own tooling never would. A whitespace-only fixer
+  is not a substitute either — `dotnet format whitespace` does not wrap a long line.
 
 ## Opening the memory store
 
