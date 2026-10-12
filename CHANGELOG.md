@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.14.2](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.14.1...v5.14.2) (2026-10-12)
+
+
+### Bug Fixes
+
+* an explicit Done when becomes the done list one for one, a test-proves item stays its own criterion ([#223](https://github.com/holgerleichsenring/agent-smith-skills/issues/223)) ([f322318](https://github.com/holgerleichsenring/agent-smith-skills/commit/f3223189005ade029a41b57e68d178d0201820e2))
+
 ## [5.14.1](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.14.0...v5.14.1) (2026-10-12)
 
 
