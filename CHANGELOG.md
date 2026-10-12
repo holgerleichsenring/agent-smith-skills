@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.14.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.13.0...v5.14.0) (2026-10-12)
+
+
+### Features
+
+* limits carry a tolerance band, bootstrap adopts the repository's formatter, done criteria are outcomes ([#219](https://github.com/holgerleichsenring/agent-smith-skills/issues/219)) ([97a5030](https://github.com/holgerleichsenring/agent-smith-skills/commit/97a5030f2f53e536f8b6bbc659b02ea5a65d636d))
+
 ## [5.13.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.12.0...v5.13.0) (2026-10-12)
 
 
