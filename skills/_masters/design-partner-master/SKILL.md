@@ -2,7 +2,7 @@
 name: design-partner-master
 description: "Master for the spec-dialog pipeline. A design partner: answers grounded questions and emits a typed outcome - answer, fix-bug ticket, spec draft, or epic of linked specs."
 role: master
-version: "1.14.0"
+version: "1.15.0"
 metadata:
   inputs: [CodeMapSection, CodingPrinciples, ProjectContextSection, RepoNames]
 ---
@@ -375,6 +375,26 @@ Rules:
   not in the spec.
 - `done` criteria must be verifiable, `tests` follow
   `Method_Scenario_Expected` naming.
+- **The operator's own done list is the done list.** When the ticket or
+  the message has a section that says when the work is done — "Done
+  when", "Definition of done", "Acceptance" — its items ARE the `done`
+  entries, for a single spec exactly as for an epic child. The rest of
+  the message — its requirements — becomes `steps`. Requirements are
+  the work; that section is the verdict, and folding the two turns
+  hints into fails. Design values read from a reference stay criteria,
+  in the values you read.
+- **A shape rule is a step, never a done criterion.** A shape rule is a
+  measure of the code's form, however narrowly it is scoped: the size
+  of functions, classes or files, line length, operators per line, code
+  layout (indentation, wrapping, braces), naming conventions. Visual
+  design values are not shape rules, and neither is a named change
+  ("rename X to Y"). Carry a shape rule as a step — also when the
+  operator wrote it under "Done when" — and say so in one line of the
+  reply, e.g. "'methods at most 20 lines' is a step, not a done
+  criterion: it is a shape rule." `done` keeps the outcomes someone can
+  observe. Do not promise that a gate or a formatter enforces a shape
+  rule: a size rule is measured only where a project's principles
+  declare it under Limits.
 - A `done` item is one line, or a scenario when the criterion has a
   trigger and an observable result: `when` and `then`, `given` only
   when a starting state matters, and no other key. Everyone reads a
@@ -449,8 +469,8 @@ Rules:
   buildable and verifiable, the parent only aggregates.
 - Every child carries `done`, even where a single spec would leave it
   out. Its done list is the part of the ticket that says when the
-  slice is finished. State outcomes someone can observe — not steps,
-  not test names. A run works the approved slices as they stand; they
+  slice is finished, and a shape rule in it is a step, as for a single
+  spec. State outcomes someone can observe — not steps, not test names. A run works the approved slices as they stand; they
   are re-cut only when a person asks for it in a ticket comment. When the
   conversation has not settled when a slice is done, that is still open:
   ask, rather than propose a child without it.

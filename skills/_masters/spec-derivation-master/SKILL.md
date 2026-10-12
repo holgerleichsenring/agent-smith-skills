@@ -2,7 +2,7 @@
 name: spec-derivation-master
 description: "Cuts a ticket into an ordered set of specs, looking into the repository first. Returns segment anchors, cited facts and named contexts, never content."
 role: master
-version: "1.6.0"
+version: "1.7.0"
 metadata:
   inputs: [MaxSpecs]
 ---
@@ -108,6 +108,22 @@ A question hand-back carries its readings and the one you would take:
   branch remains local", "the work was done in the agreed order". Nobody can check those
   against a repository, and a criterion nobody can check fails the spec that honoured
   it perfectly.
+
+- THE TICKET'S OWN "DONE WHEN" IS THE DONE LIST. When the ticket has a section that says
+  when the work is done — "Done when", "Definition of done", "Acceptance" — its items are
+  the done criteria of the specs that do that work, and the rest of the ticket (its
+  requirements) becomes steps and carried segments. Requirements are the work; that
+  section is the verdict.
+
+- A SHAPE RULE IS NEVER A DONE CRITERION. A shape rule is a measure of the code's form,
+  however narrowly it is scoped: the size of functions, classes or files, line length,
+  operators per line, code layout (indentation, wrapping, braces), naming conventions.
+  Visual design values are not shape rules, and neither is a named change ("rename X to
+  Y"). Carry the segment that states a shape rule — the spec's agent reads it byte for
+  byte — and keep it out of "done", also when the ticket lists it under "Done when": a
+  reader judging sizes from a diff fails work that did what it promised. A size rule is
+  measured only where a project's principles declare it under Limits; no criterion of
+  yours makes it so.
 
 - THE CUT IS SIZED TO THE SHAPE OF THE WORK. When the prompt states a shape, it decides
   how many specs the ticket is worth — never whether the work is done carefully.

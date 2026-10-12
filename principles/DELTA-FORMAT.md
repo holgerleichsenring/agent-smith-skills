@@ -45,10 +45,14 @@ override names the rule it replaces and states what applies INSTEAD:
 
 ## Limits
 
-The size limits of the Additions, as data. One yaml fence:
+The size limits of the Additions, as data, and the tolerance they carry. One
+sentence stating the tolerance, then one yaml fence:
+
+Tolerance: <t> percent — <where the number comes from>.
 
 ```yaml
 function_lines: <n>
+tolerance_percent: <t>
 ```
 
 ## Artefacts
@@ -98,19 +102,38 @@ A limit is green on the day it is installed. What a delta's Limits declare is
 measured at init and recorded as the baseline; from then on only what gets
 worse fails.
 
-- The fence holds only these keys, each a positive integer; an absent key
-  sets no limit:
+- The fence holds only these keys; an absent key sets no limit:
   - `function_lines` — a function or method;
   - `type_lines` — a type declaration;
   - `types_per_file` — type declarations in one file;
-  - `file_lines` — a whole file.
+  - `file_lines` — a whole file;
+  - `tolerance_percent` — the band every limit of the fence carries.
+- Each of the four limit keys is a positive integer. `tolerance_percent` is
+  an integer of 0 or more; absent, it is 0 and every limit is strict. It is
+  never a limit of its own: a fence holding only `tolerance_percent` sets no
+  limit.
 - Lines are physical, from a declaration's first non-attribute line to its
   last; nested units are included, leading comments are not.
-- Every value is the number the size prose states, where its `Source:` line
-  lives. The fence restates; it never introduces a number.
+- Every limit value is the number the size prose states, where its `Source:`
+  line lives. The fence restates; it never introduces a limit.
+- `tolerance_percent` is the one exception: it is not a size the stack
+  states, so the size prose cannot carry it. Its source is the operator's
+  ratification of 2026-10-12 — "a 123-line class is no problem, 150 neither,
+  but it has to be solid" — which set it at 25 percent. A delta that sets it
+  states it in a sentence of its Limits section, `Tolerance: <t> percent`,
+  naming that source.
+- The band, for a limit `L` and a tolerance `t`, ends at
+  `floor(L * (100 + t) / 100)`. A unit past `L` but at or inside the band is
+  a DIVERGENCE: it passes, and the pull request of its repository names it,
+  so a reviewer judges whether it is solid. A unit past the band is an
+  EXCESS: the commit gate sends the work back once to bring it to the limit
+  — the limit, not the band — and fails it if it is still past the band.
+  The baseline recorded at init holds excesses only; a divergence is never
+  recorded.
 - A project's own stricter or looser limits are a `### Limits` heading with
   one yaml fence under the composed file's Project Specifics; it overrides
-  the delta key by key and survives every refresh.
+  the delta key by key, `tolerance_percent` included (0 there makes the
+  project strict), and survives every refresh.
 - Framework overlays carry no Limits.
 
 ## Writing rules for deltas
