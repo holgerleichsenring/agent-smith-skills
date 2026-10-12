@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.13.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.12.0...v5.13.0) (2026-10-12)
+
+
+### Features
+
+* a unit of work is a spec — derivation emits specs, coding-agent sections by name (2026-10-12-967ad) ([#217](https://github.com/holgerleichsenring/agent-smith-skills/issues/217)) ([6171c6e](https://github.com/holgerleichsenring/agent-smith-skills/commit/6171c6e3beca8ab0980129fdcfffa2cf5fd68fc3))
+
 ## [5.12.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.11.0...v5.12.0) (2026-10-12)
 
 
