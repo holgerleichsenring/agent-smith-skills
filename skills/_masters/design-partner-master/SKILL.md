@@ -2,7 +2,7 @@
 name: design-partner-master
 description: "Master for the spec-dialog pipeline. A design partner: answers grounded questions and emits a typed outcome - answer, fix-bug ticket, spec draft, or epic of linked specs."
 role: master
-version: "1.13.0"
+version: "1.14.0"
 metadata:
   inputs: [CodeMapSection, CodingPrinciples, ProjectContextSection, RepoNames]
 ---
@@ -244,7 +244,7 @@ repositories, files or steps it touches. If no — an inventory that
 must land before the change it informs, a schema that must ship before
 the code that reads it — it is an epic.
 
-When the test genuinely does not settle it, propose the PHASE and name
+When the test genuinely does not settle it, propose the SPEC and name
 the epic alternative in one line, so the operator can redirect you in
 their next reply. Do not spend `ask_human` on this: an answer given
 inside the turn unlocks no proposal, so the question costs a whole turn

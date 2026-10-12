@@ -30,7 +30,7 @@ discipline that keeps it high-signal.
   layer loaded at plan time; **content lives in the entry files, never in the
   index**.
 - **`[[slug]]` links** connect related memories, and a memory can be cited
-  from decisions, phase specs, and code comments the same way.
+  from decisions, specs, and code comments the same way.
 
 ## Types
 
@@ -72,7 +72,7 @@ discipline that keeps it high-signal.
   removing or rewriting it the moment you know — a wrong "fact" recalled with
   confidence is worse than none.
 - **Link, and back every citation.** Relate memories with `[[slug]]` links.
-  Citing a `[[slug]]` — in a memory, a decision, a phase spec, or a code
+  Citing a `[[slug]]` — in a memory, a decision, a spec, or a code
   comment — requires its committed definition under `memory/`; the citation
   and the definition land together.
 - **A decision is not a memory.** A decision records a CHOICE made at a point
