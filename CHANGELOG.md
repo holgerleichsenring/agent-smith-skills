@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.15.1](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.15.0...v5.15.1) (2026-10-13)
+
+
+### Bug Fixes
+
+* **coding-agent-master:** a missing ecosystem tool is installed, never a reason to decline ([#228](https://github.com/holgerleichsenring/agent-smith-skills/issues/228)) ([d248274](https://github.com/holgerleichsenring/agent-smith-skills/commit/d2482742ed9dead570112000b592f2db043d28b8))
+
 ## [5.15.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.14.2...v5.15.0) (2026-10-13)
 
 
