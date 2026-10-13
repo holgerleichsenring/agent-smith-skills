@@ -364,6 +364,74 @@ for skill_md in "${MASTERS_DIR}"/*/SKILL.md; do
   fi
 done
 
+# 2026-10-12-7bd7: the noun for a unit of planned work is "spec". "phase" survives only
+# as a step of a master's method, in the files scripts/phase-word-allowlist.tsv lists
+# with the number of phase-word lines each may hold. A file gaining a line or an
+# unlisted file fails; a file under its count fails too, so the list only shrinks.
+# Plain grep, not git grep: an untracked file must be seen as well.
+PHASE_ALLOWLIST="scripts/phase-word-allowlist.tsv"
+PHASE_SOURCES=(skills references principles patterns)
+
+check_spec_word() {
+  local src actual_file problems
+  if [[ ! -f "${PHASE_ALLOWLIST}" ]]; then
+    fail "spec-word: ${PHASE_ALLOWLIST} is missing"
+    return
+  fi
+
+  # path<TAB>count for every file with at least one phase line. `|| true`: a tree
+  # with no phase line at all is a pass, not an abort.
+  actual_file="$(mktemp)"
+  for src in "${PHASE_SOURCES[@]}"; do
+    [[ -d "${src}" ]] || continue
+    { grep -rIci 'phase' "${src}" || true; } \
+      | awk -F: -v OFS='\t' '$NF != "0" { n = $NF; sub(/:[0-9]+$/, ""); print $0, n }' \
+      | { grep -vE '(^|/)CHANGELOG[^/\t]*\t' || true; } >> "${actual_file}"
+  done
+
+  # Awk is the comparison because bash 3.2 (macOS) has no associative arrays.
+  # Paths the allowlist names that no longer exist are reported by the shell below.
+  problems="$(awk -F'\t' '
+    FNR == NR {
+      if ($0 ~ /^[[:space:]]*(#|$)/) next
+      if ($2 !~ /^[1-9][0-9]*$/ || $3 == "") { print "BAD\t" $1; next }
+      allowed[$1] = $2; next
+    }
+    { actual[$1] = $2 }
+    END {
+      for (p in actual) {
+        if (!(p in allowed)) print "UNLISTED\t" p "\t" actual[p]
+        else if (actual[p] + 0 > allowed[p] + 0) print "GREW\t" p "\t" actual[p] "\t" allowed[p]
+      }
+      for (p in allowed) {
+        a = (p in actual) ? actual[p] : 0
+        if (a + 0 < allowed[p] + 0) print "SHRANK\t" p "\t" a "\t" allowed[p]
+      }
+    }' "${PHASE_ALLOWLIST}" "${actual_file}")"
+  rm -f "${actual_file}"
+
+  local kind path actual allowed
+  while IFS=$'\t' read -r kind path actual allowed; do
+    case "${kind}" in
+      BAD)
+        fail "spec-word: ${PHASE_ALLOWLIST} line for '${path}' needs a positive count and a reason" ;;
+      UNLISTED)
+        fail "spec-word: ${path} says 'phase' on ${actual} line(s) and is not in ${PHASE_ALLOWLIST} — the noun is 'spec':"$'\n'"$(grep -nIi 'phase' "${path}" || true)" ;;
+      GREW)
+        fail "spec-word: ${path} says 'phase' on ${actual} line(s), ${PHASE_ALLOWLIST} allows ${allowed}" ;;
+      SHRANK)
+        if [[ ! -f "${path}" ]]; then
+          fail "spec-word: ${PHASE_ALLOWLIST} lists ${path}, which no longer exists — remove the line"
+        else
+          fail "spec-word: ${path} says 'phase' on ${actual} line(s) but ${PHASE_ALLOWLIST} allows ${allowed} — lower the number (the list only shrinks)"
+        fi ;;
+    esac
+  done <<< "${problems}"
+}
+
+echo "checking spec word"
+check_spec_word
+
 # 13de328 dropped the exit that made every ✗ above cost something; until it came
 # back the whole script was a printer, and package.sh built the tarball anyway.
 if (( errors > 0 )); then

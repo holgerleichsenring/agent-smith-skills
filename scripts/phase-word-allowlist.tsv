@@ -1,0 +1,9 @@
+# 2026-10-12-7bd7: the files that may say "phase", and how many lines of each may.
+# The noun for a unit of planned work is "spec"; "phase" survives only as a step of a
+# master's method. Columns (tab-separated): path, max phase-word lines, reason.
+# The list only shrinks: a file under its count fails until the number is lowered.
+references/phase-discipline.md	2	workflow-step meaning: the phase-discipline reference itself
+skills/_masters/api-security-master/SKILL.md	8	workflow-step meaning: "## Phase N" method headings and {{ref:phase-discipline}}
+skills/_masters/legal-analyst-master/SKILL.md	3	workflow-step meaning: "## Phase N" method headings
+skills/_masters/mad-discussion-master/SKILL.md	4	workflow-step meaning: "## Phase N" method headings
+skills/_masters/security-master/SKILL.md	9	workflow-step meaning: "## Phase N" method headings and {{ref:phase-discipline}}

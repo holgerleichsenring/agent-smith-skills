@@ -12,6 +12,29 @@ jobs:
       - uses: actions/checkout@v4
       - name: Validate master skills (frontmatter, description cap, declared inputs, principles)
         run: bash scripts/validate-skills.sh
+      - name: The validator refuses the word phase outside the workflow-step allowlist (negative fixture)
+        # 2026-10-12-7bd7: a guard that is never seen failing proves nothing. The
+        # validator resolves its root from its own location, so it runs from the copy.
+        run: |
+          copy="$RUNNER_TEMP/phase-word-fixture"
+          rm -rf "$copy"
+          cp -R "$GITHUB_WORKSPACE" "$copy"
+          mkdir -p "$copy/skills/phase-word-fixture"
+          echo "Work on the phase you were given." > "$copy/skills/phase-word-fixture/SKILL.md"
+          echo "## Phase 6 — one line more than the allowlist permits" >> "$copy/skills/_masters/security-master/SKILL.md"
+          set +e
+          bash "$copy/scripts/validate-skills.sh" > "$copy.log" 2>&1
+          status=$?
+          set -e
+          cat "$copy.log"
+          if [ "$status" -eq 0 ]; then
+            echo "::error::validate-skills.sh passed on the phase-word fixture; it must fail"
+            exit 1
+          fi
+          grep -q "skills/phase-word-fixture/SKILL.md says 'phase'" "$copy.log" \
+            || { echo "::error::the unlisted fixture skill was not reported"; exit 1; }
+          grep -q "skills/_masters/security-master/SKILL.md says 'phase' on 10 line(s)" "$copy.log" \
+            || { echo "::error::the grown allowlisted file was not reported"; exit 1; }
 
   version-bump:
     # p0313: a changed master body with an unchanged version is invisible to every
