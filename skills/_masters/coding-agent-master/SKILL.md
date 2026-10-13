@@ -2,7 +2,7 @@
 name: coding-agent-master
 description: "Master loop body for coding pipelines. Plan + Execute + Verify in one agentic loop. Sub-agent fan-out; mechanizes large uniform transforms via scripts + compiler enumeration."
 role: master
-version: "1.30.0"
+version: "1.31.0"
 metadata:
   inputs: [CodeMapSection, CodingPrinciples, ExpectationSection, MaxFixIterations, PlanSection, ProgressLedgerSection, ProjectContextSection, RepoNames, RunRecordDir, SpecSection]
 ---
@@ -334,6 +334,11 @@ is the same way you work out the build command: from the repository's manifests,
 scripts and CI config, and from the toolchain's own help output. Confirm it is
 there with `command -v` before you depend on it; where the ecosystem ships it as
 an installable tool, that install is normally cheaper than the edits it replaces.
+When such a command is missing — `dotnet ef`, a linter, a code generator — install
+it with `run_command` the ecosystem's own way (`dotnet tool restore` or
+`dotnet tool install`, an npm dev dependency, a pip package in a venv) and carry
+on. "Not on PATH" is the start of that step, never a reason to answer
+`not_applicable` or `blocked`.
 
 The tool establishes the facts and does the bulk; **you judge the exceptions and
 you own the verification**. A blanket run is right for most sites and wrong for
@@ -376,7 +381,8 @@ Once the plan is written:
   changelog, or source, or a URL the ticket points at — use `web_fetch`;
   a figma.com link is read with `design_read`, never `web_fetch`.
 - **`python3` is always available** (the harness injects it alongside its
-  agent; standard library only — network package installs will not work),
+  agent; standard library only — do not install packages into it; a project
+  that needs Python packages makes its own venv),
   in addition to whatever the "## Sandbox toolchain" section lists. For
   scripts, codemods, and mechanical multi-file transforms prefer a small
   python3 script over perl/awk/sed one-liners — it is more reliable and
