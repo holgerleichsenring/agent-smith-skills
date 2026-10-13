@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.15.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.14.2...v5.15.0) (2026-10-13)
+
+
+### Features
+
+* project-bootstrap declares the directories a component is built and tested from ([#225](https://github.com/holgerleichsenring/agent-smith-skills/issues/225)) ([fb3b94d](https://github.com/holgerleichsenring/agent-smith-skills/commit/fb3b94d6fca4390e13875351812c7ab66e9d0e4b))
+
 ## [5.14.2](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.14.1...v5.14.2) (2026-10-12)
 
 
