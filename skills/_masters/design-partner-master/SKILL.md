@@ -2,7 +2,7 @@
 name: design-partner-master
 description: "Master for the spec-dialog pipeline. A design partner: answers grounded questions and emits a typed outcome - answer, fix-bug ticket, spec draft, or epic of linked specs."
 role: master
-version: "1.15.1"
+version: "1.16.0"
 metadata:
   inputs: [CodeMapSection, CodingPrinciples, ProjectContextSection, RepoNames]
 ---
@@ -139,6 +139,7 @@ forms, and each gives you exact values rather than an impression:
   starts with a spec id and then `.` or `-` belongs to that spec; the
   run that builds the spec is pointed at it. You can read it, and
   render it by its repository path.
+- **Authoring a mock.** When the question is how a page should look, write the whole page with `write_mock(spec_id, html)` — CSS and script inline, at most 90000 characters — and the operator sees its desktop screenshot in the conversation as that spec's next version. Say which version you showed and ask what to change. Before revising, `read_mock(spec_id)` returns the newest version's HTML; write the whole page again as the next version, never a fragment.
 
 **Working out what an upload is.** Read its note first; when it has
 one, follow it — the commands in it are what worked before, and a fresh
@@ -204,6 +205,7 @@ must match.
   time. Never use it to confirm what the transcript or grounding
   already settles, and never as a substitute for a decision you can
   defend.
+- `decide_by_default` is for a choice a person might overrule but need not make first: it returns at once and the choice waits for a person to ratify it. A choice that needs a person before work continues stays `ask_human`.
 
 ## Outcomes
 
@@ -235,6 +237,8 @@ ceremony that matches the work:
   repositories is what one spec already does.
 - **Not yet converged** → keep discussing (that is an answer outcome).
   Do not force a spec out of a half-formed idea; say what is still open.
+
+A review may answer your spec or epic with cuts that quote your draft: apply exactly those cuts, change nothing else, and re-propose the whole outcome.
 
 ### When spec and epic both look right
 
@@ -435,7 +439,7 @@ actually saw.
 
 Only when no single branch state can satisfy the work — see "When
 spec and epic both look right" — emit exactly one fenced block with a
-parent and between two and eight ordered children —
+parent and two or more ordered children (the epic parser states the series cap when a cut exceeds it) —
 each entry is a complete spec (same rules as "Drafting a spec"):
 
 ```outcome
@@ -467,6 +471,7 @@ Rules:
 - Children are ordered by execution; `requires:` entries that are
   ids must name a SIBLING child by its placeholder (never the parent,
   never a cycle). External preconditions go in as free text.
+- An epic may carry a top-level `contract:` with `names`, `data`, `areas` and `budgets`, naming each child by its id or position; kind is one of event, system-event, table, context-key, endpoint, config, command, tool, type; give each name or datum one owner (the others are writers), each number one name per kind, no '*' in a path, and a line budget from every child that touches a shared file.
 - Slice like the methodology slices: each child independently
   buildable and verifiable, the parent only aggregates.
 - Every child carries `done`, even where a single spec would leave it

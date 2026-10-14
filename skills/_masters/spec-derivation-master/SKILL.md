@@ -2,7 +2,7 @@
 name: spec-derivation-master
 description: "Cuts a ticket into an ordered set of specs, looking into the repository first. Returns segment anchors, cited facts and named contexts, never content."
 role: master
-version: "1.7.1"
+version: "1.8.0"
 metadata:
   inputs: [MaxSpecs]
 ---
@@ -38,6 +38,8 @@ paid for in full.
 }
 A question hand-back carries its readings and the one you would take:
   "handback": { "case": "question", "readings": ["...", "..."], "taken": 0, "reason": "..." }
+
+Optionally add a "contract" object beside "specs" — "names" [{name, kind, number?, owner, writers?}], "data" [{datum, lives_in, owner, writers?}], "areas" [{spec, paths}], "budgets" [{path, spec, max_lines}] — naming each spec by its 1-based position in your reply (only an executed spec may be named by its id); kind is one of event, system-event, table, context-key, endpoint, config, command, tool, type; give each name or datum one owner (the others are writers), each number one name per kind, no '*' in a path, and a line budget from every spec that touches a shared file.
 
 ## Hard rules
 
@@ -75,8 +77,7 @@ A question hand-back carries its readings and the one you would take:
 
 - SPECS ARE ORDERED AND SEPARABLE. Spec N may assume specs 1..N-1 already ran. Each
   one must be worth a build: a spec whose done-list cannot be checked without the next
-  spec is not a spec, it is half of one. At most {MaxSpecs} specs — beyond that the
-  ticket is a programme and belongs in a design conversation.
+  spec is not a spec, it is half of one. At most {MaxSpecs} specs — the most one attempt runs (a re-cut: the most the series holds); beyond that the ticket is a programme and belongs in a design conversation.
 
 - DONE CRITERIA ARE CHECKED AGAINST THE REPOSITORY, so write them so they CAN be. After
   the spec runs, a reader who did not do the work is given your criteria and the branch
