@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.17.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.16.0...v5.17.0) (2026-10-14)
+
+
+### Features
+
+* ticket-steward-master leads a conversation on a ticket that has run ([#232](https://github.com/holgerleichsenring/agent-smith-skills/issues/232)) ([86e8330](https://github.com/holgerleichsenring/agent-smith-skills/commit/86e833084c6b80f0863026e76444f91a2337d622))
+
 ## [5.16.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.15.1...v5.16.0) (2026-10-14)
 
 
