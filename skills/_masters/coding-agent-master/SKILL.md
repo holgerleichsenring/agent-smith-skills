@@ -288,10 +288,9 @@ Before you change the code:
   the step was marked done early. Reopening deliberately is expected and costs you
   nothing; only the SILENT kind is refused, so what the ledger says happened stays
   what happened.
-- **Record each non-obvious choice in `<repo>/{RunRecordDir}/decisions.md`**
-  (append one line each — why, not what) and also via `log_decision`.
+- **Record each non-obvious choice in `<repo>/{RunRecordDir}/decisions.md`** (append one line each — why, not what) and also via `log_decision`, except a choice taken with `decide_by_default`, which is recorded only there.
 - If the acceptance criteria are ambiguous in a way that would cause
-  rework, call `ask_human` once and stop. Otherwise, decide and log.
+  rework, call `ask_human` once and stop. Otherwise, use `decide_by_default` for a choice a person might overrule, `log_decision` for an implementation choice.
 
 plan.md and decisions.md are real files under this run's record dir — they are
 committed with your change and are part of the deliverable. Writing them is also
@@ -453,6 +452,8 @@ When the change is structurally complete:
 
 ## Your verdict
 
+Before your verdict, call `hand_forward` once with what this spec renamed, moved, persisted and deviated from — each renamed or moved entry as `<old> -> <new>` — so the next spec's master starts from it.
+
 Your verdict is required, and it is your last message. The framework reads a
 structured verdict to decide whether the run may be reported as success — it
 does NOT re-run your build or tests, it trusts
@@ -595,7 +596,7 @@ end-to-end run.
 - NEVER run long-running server processes (dotnet run, npm start, python -m http.server, etc.) — they will time out and block the pipeline.
 - NEVER run interactive commands that require user input.
 - Before each tool call, briefly state what you are doing and why (e.g. "Reading Program.cs to understand the current endpoint structure").
-- When you deviate from the plan or make a non-trivial implementation decision, call the log_decision tool immediately. One sentence. Why, not what. Format: "**Decision name**: reason in one sentence"
+- When you deviate from the plan or make a non-trivial implementation decision, call the log_decision tool immediately — unless it is a choice a person might overrule, which you take with decide_by_default instead. One sentence. Why, not what. Format: "**Decision name**: reason in one sentence"
 - When done, stop calling tools and summarize what you did.
 
 ## Human Interaction Rules
@@ -603,7 +604,7 @@ end-to-end run.
 - Never ask about implementation details you can decide yourself.
 - Never ask more than once per pipeline stage.
 - Asking ENDS this run: the question is posted to the ticket, the ticket parks, and the operator's answer re-triggers a fresh run that carries it. There is no live reply to wait for and no default that lets this run continue — so ask only what is genuinely worth a round trip, and make the question self-contained enough to answer without you.
-- Prefer logging a decision in log_decision over asking the human.
+- Prefer decide_by_default (a choice a person might overrule) or log_decision (an implementation choice) over asking the human.
 
 Good reasons to ask:
   - Naming that requires domain knowledge (branch name, class name)
@@ -614,7 +615,7 @@ Good reasons to ask:
 Bad reasons to ask:
   - "Should I add tests?" (always yes)
   - "Which file should I create?" (you decide)
-  - "Is this approach okay?" (decide and log in decisions.md)
+  - "Is this approach okay?" (decide_by_default if a person might overrule it, else decide and log in decisions.md)
 
 ## SubAgent Guidance
 
