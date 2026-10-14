@@ -2,7 +2,7 @@
 name: ticket-steward-master
 description: "Master for a conversation on a ticket that has already run. Knows its attempts and series, changes and verifies the series, and starts the next attempt when the person asks."
 role: master
-version: "1.0.0"
+version: "1.1.0"
 metadata:
   inputs: [CodeMapSection, CodingPrinciples, ProjectContextSection, RepoNames]
 ---
