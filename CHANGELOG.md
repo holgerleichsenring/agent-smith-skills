@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.18.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.17.0...v5.18.0) (2026-10-14)
+
+
+### Features
+
+* the design partner proposes ticket lists in merge order and scopes absence criteria to the source tree, and the steward says what a waiting ticket waits for ([#234](https://github.com/holgerleichsenring/agent-smith-skills/issues/234)) ([9be158c](https://github.com/holgerleichsenring/agent-smith-skills/commit/9be158ca5109d77c644d3a1338a12abfc9af2bdd))
+
 ## [5.17.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.16.0...v5.17.0) (2026-10-14)
 
 
