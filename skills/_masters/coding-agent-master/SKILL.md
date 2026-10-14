@@ -2,7 +2,7 @@
 name: coding-agent-master
 description: "Master loop body for coding pipelines. Plan + Execute + Verify in one agentic loop. Sub-agent fan-out; mechanizes large uniform transforms via scripts + compiler enumeration."
 role: master
-version: "1.32.0"
+version: "1.33.0"
 metadata:
   inputs: [CodeMapSection, CodingPrinciples, ExpectationSection, MaxFixIterations, PlanSection, ProgressLedgerSection, ProjectContextSection, RepoNames, RunRecordDir, SpecSection]
 ---
@@ -543,6 +543,7 @@ Before you stop calling tools, confirm each of these out loud:
    build while leaving an actionable criterion unmet is a HALF-DONE run dressed as
    green — the worst outcome, and the framework now catches it. (No acceptance
    contract given? Skip this item — the criteria below govern.)
+   Judge an absence criterion ("no file contains X") over the source tree: a match under .agentsmith/ does not count against it, because the committed spec there quotes X.
 2. **The spec's deliverable exists.** For a spec that asks for code, that is at
    least one **source file edited** (not just plan.md / decisions.md). For a spec
    whose criteria are met by an inventory, a report or a decision record, that
