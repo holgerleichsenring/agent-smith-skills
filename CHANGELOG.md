@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.16.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.15.1...v5.16.0) (2026-10-14)
+
+
+### Features
+
+* masters review, hand forward, decide by default, write mocks and respect series caps ([#230](https://github.com/holgerleichsenring/agent-smith-skills/issues/230)) ([8f6037a](https://github.com/holgerleichsenring/agent-smith-skills/commit/8f6037a36463acb8a8696cc7dbb4b2ca3ba344d3))
+
 ## [5.15.1](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.15.0...v5.15.1) (2026-10-13)
 
 
