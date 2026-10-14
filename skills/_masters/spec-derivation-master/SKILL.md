@@ -2,7 +2,7 @@
 name: spec-derivation-master
 description: "Cuts a ticket into an ordered set of specs, looking into the repository first. Returns segment anchors, cited facts and named contexts, never content."
 role: master
-version: "1.7.1"
+version: "1.8.0"
 metadata:
   inputs: [MaxSpecs]
 ---
