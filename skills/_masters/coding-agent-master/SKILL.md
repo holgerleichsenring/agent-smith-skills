@@ -2,7 +2,7 @@
 name: coding-agent-master
 description: "Master loop body for coding pipelines. Plan + Execute + Verify in one agentic loop. Sub-agent fan-out; mechanizes large uniform transforms via scripts + compiler enumeration."
 role: master
-version: "1.33.0"
+version: "1.34.0"
 metadata:
   inputs: [CodeMapSection, CodingPrinciples, ExpectationSection, MaxFixIterations, PlanSection, ProgressLedgerSection, ProjectContextSection, RepoNames, RunRecordDir, SpecSection]
 ---
@@ -464,7 +464,8 @@ this shape:
 ```verdict
 { "status": "green", "build_ran": true, "build_passed": true, "tests_ran": true, "tests_passed": true,
   "failing_tests": [], "baseline_failing_tests": [], "ignored_instructions": [],
-  "acceptance": [ { "criterion": "<the ratified assertion, verbatim>", "status": "met", "evidence": "<the edit that satisfies it>" } ],
+  "acceptance": [ { "criterion": "<the ratified assertion, verbatim>", "status": "met", "evidence": "<the edit that satisfies it>",
+                    "citations": ["<a path you changed>", "<a command you ran, copied verbatim>"] } ],
   "blocked": false, "blocker": "",
   "summary": "<one line: what changed / why red>" }
 ```
@@ -492,7 +493,15 @@ this shape:
 - `acceptance`: REQUIRED when an `## Acceptance contract` section was given above —
   one entry per ratified "Expected" assertion, IN ORDER, each `{ "criterion": "<the
   assertion verbatim>", "status": "met" | "not_applicable", "evidence": "<...>" }`.
-  `met` = you made the edit that satisfies it (name it in evidence). `not_applicable`
+  `met` = you made the edit that satisfies it (name it in evidence) AND `citations`
+  lists what the claim rests on, each element ONE whole thing: a path you changed,
+  as the branch shows it, or a command copied character for character as you ran it
+  with `run_command` or `run_gate_stage`. A criterion about something being ABSENT
+  is cited by the `run_command` search that found nothing (`grep_in_tree` leaves no
+  record and cannot be cited); a build or test criterion by the command or gate
+  stage that ran it. The framework resolves every citation before your loop ends
+  and sends back a `met` whose citations name nothing that changed or ran — a
+  sentence such as "a final scan found no references" is not a citation. `not_applicable`
   = it genuinely does not apply, and evidence carries the EVALUATED MEANING of not
   doing it (e.g. "no MassTransit present → nothing to migrate, no messaging behaviour
   changes") — a bare "N/A" with no reason is rejected. There is no "unmet" you may
