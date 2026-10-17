@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.20.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.19.0...v5.20.0) (2026-10-17)
+
+
+### Features
+
+* **spec-derivation-master:** segment audience via shared, facts describe code and ticket ([#238](https://github.com/holgerleichsenring/agent-smith-skills/issues/238)) ([bf73ea5](https://github.com/holgerleichsenring/agent-smith-skills/commit/bf73ea51c4dc77c95129b7e31aff532e601ca4ac))
+
 ## [5.19.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.18.0...v5.19.0) (2026-10-17)
 
 
