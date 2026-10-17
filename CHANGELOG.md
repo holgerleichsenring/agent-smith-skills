@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.19.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.18.0...v5.19.0) (2026-10-17)
+
+
+### Features
+
+* **coding-agent-master:** met claims list their citations ([#236](https://github.com/holgerleichsenring/agent-smith-skills/issues/236)) ([fc27a6f](https://github.com/holgerleichsenring/agent-smith-skills/commit/fc27a6f60dbec6554328f72af3584335aeb2025d))
+
 ## [5.18.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.17.0...v5.18.0) (2026-10-14)
 
 
