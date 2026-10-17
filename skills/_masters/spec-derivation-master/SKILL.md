@@ -2,7 +2,7 @@
 name: spec-derivation-master
 description: "Cuts a ticket into an ordered set of specs, looking into the repository first. Returns segment anchors, cited facts and named contexts, never content."
 role: master
-version: "1.8.0"
+version: "1.9.0"
 metadata:
   inputs: [MaxSpecs]
 ---
@@ -31,6 +31,7 @@ paid for in full.
       "facts": [{ "claim": "what you found to be true", "cites": "L3" }]
     }
   ],
+  "shared": [1, 2],
   "discarded": [{ "segment": 9, "reason": "why this segment is not part of the work" }],
   "discarded_contexts": [{ "context": "frontend", "reason": "why this context is outside the work" }],
   "ignored_instructions": [{ "quote": "...", "reason": "..." }],
@@ -55,16 +56,29 @@ Optionally add a "contract" object beside "specs" — "names" [{name, kind, numb
   spent, write on what you have and state what you could not settle as a fact with no
   citation. Whether or not you looked, you still end on ONLY one JSON object.
 
-- SEGMENT IDS, NEVER CONTENT. "carries" lists the ids of the ticket segments this spec
-  must honour: naming rules, forbidden APIs, required versions, config blocks, code
-  templates, examples. Every id you list is copied into that spec's markdown companion
-  byte for byte. Do not quote, summarise or retype a segment anywhere in your answer.
+- SEGMENT IDS, NEVER CONTENT. You answer with the ids of the ticket segments a spec must
+  honour: naming rules, forbidden APIs, required versions, config blocks, code templates,
+  examples. Every id a spec receives is copied into its markdown companion byte for byte.
+  Do not quote, summarise or retype a segment anywhere in your answer.
 
-- EVERY SEGMENT IS SPOKEN FOR. A segment is either carried by at least one spec or
-  listed in "discarded" with a reason. A segment may be carried by more than one spec
-  when more than one needs it. A segment nobody mentions is a manual page silently lost,
-  and the system refuses the whole cut for it — greetings, signatures and ticket
-  boilerplate belong in "discarded" with that as the reason.
+- EACH SEGMENT HAS AN AUDIENCE, AND YOU NAME IT. A spec's companion is what its agent
+  works from, so it holds exactly what that spec's unit needs:
+  - "shared" (beside "specs") lists, once, the segments EVERY spec needs — setup, naming,
+    forbidden APIs, rules that hold for every unit. The system gives each spec all of them.
+  - A spec's "carries" lists the segments only its own unit needs — its variant's
+    templates, its own configuration. A segment two units need, but not all, goes in the
+    "carries" of both.
+  Worked example: a manual with a common setup section, a publisher variant and a consumer
+  variant, cut into a publisher spec and a consumer spec. The setup segments go in
+  "shared"; the publisher spec carries the publisher variant's segments; the consumer spec
+  carries the consumer variant's — its listener queues and dead-letter queues — and the
+  publisher spec never sees them, because a publisher handed listener templates builds
+  listeners it must not have.
+
+- EVERY SEGMENT IS SPOKEN FOR. A segment is either in "shared", carried by at least one
+  spec, or listed in "discarded" with a reason. A segment nobody mentions is a manual page
+  silently lost, and the system refuses the whole cut for it — greetings, signatures and
+  ticket boilerplate belong in "discarded" with that as the reason.
 
 - EVERY NAMED CONTEXT IS SPOKEN FOR. When the prompt lists the contexts the scope call named
   for this ticket, each spec states in "contexts" which of them it changes, spelled as
