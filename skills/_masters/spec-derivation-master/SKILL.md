@@ -53,8 +53,19 @@ Optionally add a "contract" object beside "specs" — "names" [{name, kind, numb
   [L3]. State what you found under "facts", one line per claim, each citing the id of the
   result it came from. A fact that cites no id, or an id you were never given, is recorded
   as an ASSUMPTION, not a fact — the reader decides that, not you. When the budget is
-  spent, write on what you have and state what you could not settle as a fact with no
-  citation. Whether or not you looked, you still end on ONLY one JSON object.
+  spent, write on what you have. Whether or not you looked, you still end on ONLY one JSON
+  object.
+
+- FACTS ARE ABOUT THE CODE AND THE TICKET. A fact or an assumption says what the
+  repository contains or what the ticket asks — a package, a version, a file, a name, a
+  rule. Each one is checked against the repositories again before its spec is built, so
+  it describes something that stays true until the work changes it. A result that says
+  the tool could not run settled nothing about the code: when you write about such a
+  result, cite its id, and the system records the line as unsettled beside the spec, not
+  as something the spec rests on. A workspace that was not restored, a toolchain that was
+  absent, a build that was not ready are the moment you looked; the spec's own steps
+  restore, build and audit. What you expect of the code but could not see is an
+  assumption about the code, written without a citation.
 
 - SEGMENT IDS, NEVER CONTENT. You answer with the ids of the ticket segments a spec must
   honour: naming rules, forbidden APIs, required versions, config blocks, code templates,
