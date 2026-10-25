@@ -1,6 +1,6 @@
 ---
 name: "project-bootstrap"
-version: "2.7.0"
+version: "2.8.0"
 description: "Write context.yaml (facts from archaeology) for the component named in the prompt; principles transfer from the authored core + language delta for operator ratification."
 role: "producer"
 output_schema: "bootstrap"
@@ -253,17 +253,18 @@ exactly this content:
 ```markdown
 # Memory Index
 
-One line per memory: `- [name](name.md) — description`. Content lives in the
-entry files, never here. Each entry file carries frontmatter `name`
+One line per memory: `- [name](name.md) (type) — description`. Content lives
+in the entry files, never here. Each entry file carries frontmatter `name`
 (kebab-slug = filename), `description` (one line), and `metadata.type`
-(`feedback` | `project` | `reference`). `feedback` entries are policy only
-after operator ratification. See the memory-curation discipline shipped with
-the skills catalog.
+(`feedback` | `project` | `reference`). A memory is a hint with a track
+record, never a rule: the runs that rely on it decide its standing, and the
+spec record step writes the label beside the type. See the memory-curation
+discipline shipped with the skills catalog.
 ```
 
 The store opens EMPTY of entries — memories arrive from later runs and from
-the operator, and a `feedback` entry becomes policy only through operator
-ratification. Archaeology feeds `context.yaml`, never the memory store:
+the operator, and every entry earns its standing from the runs that use it;
+none waits for anyone's approval. Archaeology feeds `context.yaml`, never the memory store:
 seeding "memories" from the median code would codify exactly what the
 principles split above avoids.
 

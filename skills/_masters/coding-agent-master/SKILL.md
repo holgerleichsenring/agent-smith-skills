@@ -2,9 +2,9 @@
 name: coding-agent-master
 description: "Master loop body for coding pipelines. Plan + Execute + Verify in one agentic loop. Sub-agent fan-out; mechanizes large uniform transforms via scripts + compiler enumeration."
 role: master
-version: "1.34.0"
+version: "1.35.0"
 metadata:
-  inputs: [CodeMapSection, CodingPrinciples, ExpectationSection, MaxFixIterations, PlanSection, ProgressLedgerSection, ProjectContextSection, RepoNames, RunRecordDir, SpecSection]
+  inputs: [CodeMapSection, CodingPrinciples, ExpectationSection, MaxFixIterations, MemoryIndexSection, PlanSection, ProgressLedgerSection, ProjectContextSection, RepoNames, RunRecordDir, SpecSection]
 ---
 ## Coding Principles
 {CodingPrinciples}
@@ -15,6 +15,7 @@ metadata:
 {ExpectationSection}
 {SpecSection}
 {ProgressLedgerSection}
+{MemoryIndexSection}
 When an acceptance section appears above, it is the **binding acceptance contract**
 for this run: verify each of its criteria out loud before emitting your final
 verdict, and if one cannot be met, say so explicitly rather than reinterpreting it.
@@ -186,22 +187,32 @@ The project may carry an experiential-memory store at
 
 - **The index is your pointer layer at plan time.** When a memory INDEX
   section appears in your context (one line per memory), scan it while
-  planning: it lists the facts this project has already recorded. When a
-  line hints at something you are about to work out from scratch — a
-  build quirk, a ratified operator preference, a previously confirmed
-  approach — pull the detail instead of re-deriving it: call
+  planning: it lists the facts this project has already recorded, each a
+  hint with a track record, never a rule — the line says how often work
+  that relied on it was confirmed, strained or contradicted, and holding
+  entries come first. When a line hints at something you are about to work
+  out from scratch — a build quirk, an operator preference, a previously
+  confirmed approach — pull the detail instead of re-deriving it: call
   `recall(query)` when that tool is on your surface, or `read_file` the
   entry at `<repo>/.agentsmith/memory/<name>.md` (the entries are plain
-  Markdown, readable on every surface).
-- **Propose memories with `remember` when it is on your surface.** Two
-  triggers earn a proposal: an operator correction — the operator told
-  you how they want the work done (type `feedback`) — and a confirmed
-  approach a future run would otherwise re-derive (type `project`).
-  `remember` is a PROPOSAL: a feedback-type entry is flagged for
-  operator ratification and is never silently policy. Follow the
-  discipline: check the index for an existing entry and update rather
-  than duplicate, keep one fact per entry, and store what code and git
-  cannot already tell the next agent.
+  Markdown, readable on every surface). Check what a memory says against
+  the code before you build on it.
+- **Say which memories you acted on.** In your `hand_forward` call, list
+  in `relied_on` every memory this spec actually acted on (`slug`, or
+  `repository/slug` when several repositories store it). What becomes of
+  the spec becomes their record — so cite only what you used.
+- **Dispute a memory that led you wrong.** When a memory turns out not to
+  hold here, or following it broke the work, call `dispute_memory(slug,
+  reason)` with what was wrong. Enough evidence against a memory takes it
+  out of the index every master is shown.
+- **Record memories with `remember` when it is on your surface.** Two
+  triggers earn one: an operator correction — the operator told you how
+  they want the work done (type `feedback`) — and a confirmed approach a
+  future run would otherwise re-derive (type `project`). No memory waits
+  for anyone's approval; it starts unconfirmed and the runs decide its
+  standing. Follow the discipline: check the index for an existing entry
+  and update rather than duplicate, keep one fact per entry, and store
+  what code and git cannot already tell the next agent.
 
 When neither the index section nor the tools are present in this run,
 the store is simply absent — proceed normally.

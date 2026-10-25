@@ -17,28 +17,28 @@ coverage, evidence and honesty, not to think for you.
   `log_decision` reason. One substantiated finding is worth more than ten
   plausible ones — noise destroys trust in the whole report.
 
-### Ratified dismissals — recall before you emit
+### Recorded dismissals — recall before you emit
 
 The target project may carry an experiential-memory store at
 `.agentsmith/memory/` — one Markdown fact per file, indexed by
 `memory/MEMORY.md`. Prior assessments of this
-repository record their operator-ratified false-positive dismissals there as
-`feedback` memories — and a dismissed finding stays dismissed.
+repository record their false-positive dismissals there as `feedback`
+memories. Each is a hint with a track record, never a rule: the index shows how
+often it held up, and leaves out the ones the evidence turned against.
 
 Before you synthesize, check for such dismissals: call `recall` (for the
 finding's anchor — file, endpoint, parameter or category) when the tool is on
 your surface, or scan the memory INDEX section when one appears in your context
 and `read_file` the entries it points at. When a surviving finding matches a
-ratified dismissal, drop it from your array and log the reason via
-`log_decision`, citing the memory's `[[slug]]` — re-emitting an
-operator-ratified dismissal wastes the operator's trust exactly like a fresh
-false positive. A dismissal memory documents WHY it was a false positive; when
-the code or spec has since changed so the recorded reasoning no longer holds,
-the finding is new evidence, not a re-emission — deliver it and say what
-changed.
+recorded dismissal whose reasoning still holds, drop it from your array and log
+the reason via `log_decision`, citing the memory's `[[slug]]`. A dismissal
+memory documents WHY it was a false positive; when the code or spec has since
+changed so the recorded reasoning no longer holds, the finding is new evidence,
+not a re-emission — deliver it, say what changed, and `dispute_memory` the
+dismissal with that reason.
 
 When operator feedback establishes one of your findings as a false positive and
-`remember` is on your surface, propose a `feedback` dismissal memory (the
-finding's anchor + why it is not real). The proposal is pending operator
-ratification — once ratified, the next assessment starts from it. Absent the
+`remember` is on your surface, record a `feedback` dismissal memory (the
+finding's anchor + why it is not real). The next assessment starts from it; its
+standing is what later runs make of it. Absent the
 store, the tools and the index section, work exactly as above.
