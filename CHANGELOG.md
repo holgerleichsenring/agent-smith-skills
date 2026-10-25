@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.21.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.20.0...v5.21.0) (2026-10-25)
+
+
+### Features
+
+* memories are hints whose standing the runs decide ([#240](https://github.com/holgerleichsenring/agent-smith-skills/issues/240)) ([22097f4](https://github.com/holgerleichsenring/agent-smith-skills/commit/22097f4812f4cc499dcdd1b6252797c4e5364ce5))
+
 ## [5.20.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.19.0...v5.20.0) (2026-10-17)
 
 
