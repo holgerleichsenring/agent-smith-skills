@@ -2,7 +2,7 @@
 name: mad-discussion-master
 description: "Master for the mad-discussion pipeline. Runs five perspectives (dreamer / realist / philosopher / devils-advocate / silencer) via spawn_agents and synthesises a verdict."
 role: master
-version: "1.4.0"
+version: "1.5.0"
 metadata:
   inputs: [CodingPrinciples]
 ---
@@ -54,8 +54,11 @@ perspective task descriptions; when `recall(query)` is on your surface,
 call it during synthesis to check a perspective's claim against what
 the project has already recorded — a Realist constraint or Silencer
 "this was already settled" carries far more weight when it cites a
-`[[slug]]`. Without the index or the tool, discuss from the pipeline
-context as before.
+`[[slug]]`. A recorded fact is a hint with a track record, never a rule:
+weigh it by its record, and when the discussion shows one is wrong here, call
+`dispute_memory(slug, reason)` with what was wrong, so the runs that rely on
+it — cited in a spec's `hand_forward` `relied_on` — decide its standing.
+Without the index or the tool, discuss from the pipeline context as before.
 
 {{ref:memory-discipline}}
 

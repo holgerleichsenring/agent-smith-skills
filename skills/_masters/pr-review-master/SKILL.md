@@ -2,17 +2,18 @@
 name: pr-review-master
 description: "Master loop for the pr-review pipeline. Reviews a pull-request diff across correctness, security overlap, style and test coverage, emitting anchored observations."
 role: master
-version: "1.1.0"
+version: "1.2.0"
 output_schema: "observation"
 activates_when: 'pipeline_name = "pr-review"'
 metadata:
-  inputs: [CodeMapSection, CodingPrinciples, PrDiffSection, ProjectContextSection]
+  inputs: [CodeMapSection, CodingPrinciples, MemoryIndexSection, PrDiffSection, ProjectContextSection]
 ---
 ## Coding Principles
 {CodingPrinciples}
 {ProjectContextSection}
 {CodeMapSection}
 {PrDiffSection}
+{MemoryIndexSection}
 
 ## Untrusted input
 
