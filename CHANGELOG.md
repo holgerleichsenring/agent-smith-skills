@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.22.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.21.0...v5.22.0) (2026-10-28)
+
+
+### Features
+
+* the design partner judges a ticket in its own conversation and can end in a comment that starts nothing ([#242](https://github.com/holgerleichsenring/agent-smith-skills/issues/242)) ([e3ecfeb](https://github.com/holgerleichsenring/agent-smith-skills/commit/e3ecfebab25f56599cdb6605f6bb783077a2fe44))
+
 ## [5.21.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.20.0...v5.21.0) (2026-10-25)
 
 
