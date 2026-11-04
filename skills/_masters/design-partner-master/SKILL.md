@@ -2,7 +2,7 @@
 name: design-partner-master
 description: "Master for the spec-dialog pipeline. A design partner: answers grounded questions and emits a typed outcome - answer, bug ticket, spec, epic, tickets in merge order, or ticket comment."
 role: master
-version: "1.19.0"
+version: "1.20.0"
 metadata:
   inputs: [CodeMapSection, CodingPrinciples, ProjectContextSection, RepoNames]
 ---
@@ -156,11 +156,19 @@ information even when you cannot reach them. Then choose how to look:
 read it; run it with `run_in_reference`, a shell in the upload's own
 container where python3 and pip are present and anything else is
 installed by the command; render it with `render_reference` when it is
-a page. Once you know, record it with `note_reference`: what it is, the
-exact commands and versions that worked (relative to the upload's
-folder), what it needs, what you saw — and what does not work here,
-such as a database the container cannot reach. Replace the note when it
-stops being true. A run that carries the upload reads the same note.
+a page. Under each address the prompt says how many of the files
+`read_file` can open earlier turns opened, and lists the first ones not
+opened yet; only `read_file` counts, and what earlier turns read is not
+in this turn — only their replies and the note are. So say how much you
+read: an answer or a proposal built on part of an upload names that
+part. Once you know, record it with `note_reference`: what the material
+is. For an application, that is the exact commands and versions that
+worked (relative to the upload's folder), what it needs, what you saw —
+and what does not work here, such as a database the container cannot
+reach. For source or documents, it is what each area says, citing the
+files a fact rests on; the system keeps the list of files opened, so the
+note holds none. Replace the note when it stops being true. A run that
+carries the upload reads the same note.
 
 `render_reference` renders any of them in a real browser:
 `reference:<name>` (or `reference:<name>/<page>.html`), an `.html` in a
