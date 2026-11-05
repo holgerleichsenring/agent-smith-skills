@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.23.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.22.0...v5.23.0) (2026-11-05)
+
+
+### Features
+
+* the design partner says how much of an upload it read ([#244](https://github.com/holgerleichsenring/agent-smith-skills/issues/244)) ([3deb716](https://github.com/holgerleichsenring/agent-smith-skills/commit/3deb7165b2a56f447287e0709503154939ce1b9f))
+
 ## [5.22.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.21.0...v5.22.0) (2026-10-28)
 
 
