@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.24.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.23.0...v5.24.0) (2026-11-05)
+
+
+### Features
+
+* the design partner's outcome formats move to references served on demand ([#246](https://github.com/holgerleichsenring/agent-smith-skills/issues/246)) ([1ba1039](https://github.com/holgerleichsenring/agent-smith-skills/commit/1ba1039ad51e19e642b9d3d35ef4f8e388ef9591))
+
 ## [5.23.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.22.0...v5.23.0) (2026-11-05)
 
 
