@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.25.1](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.25.0...v5.25.1) (2026-11-09)
+
+
+### Bug Fixes
+
+* the rewritten masters keep their guarantees and stop repeating their tools ([#250](https://github.com/holgerleichsenring/agent-smith-skills/issues/250)) ([f11b74b](https://github.com/holgerleichsenring/agent-smith-skills/commit/f11b74b5d0c170b98243f09e2d55fca860eeccc4))
+
 ## [5.25.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.24.0...v5.25.0) (2026-11-09)
 
 
