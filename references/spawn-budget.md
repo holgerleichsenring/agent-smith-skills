@@ -16,7 +16,7 @@ is your own methodology's call; how sub-agents work is the same for every master
   The framework refuses a generic one (`agent1`, `worker`, `helper`) before any
   call is made, because the name is how the operator follows the run.
 - **Budget.** The run has a finite number of children, typically 20 for the
-  whole run, and a cap per turn. Spend them on work that is genuinely parallel —
+  whole run; a design turn has its own smaller cap instead. Spend them on work that is genuinely parallel —
   independent reads, independent checks, independent perspectives — rather than
   on work one pass of your own would finish.
 - **Shared sandbox.** Children work in your sandbox. Give two children disjoint
