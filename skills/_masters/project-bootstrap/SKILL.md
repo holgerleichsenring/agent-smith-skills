@@ -1,6 +1,6 @@
 ---
 name: "project-bootstrap"
-version: "2.8.0"
+version: "2.9.0"
 description: "Write context.yaml (facts from archaeology) for the component named in the prompt; principles transfer from the authored core + language delta for operator ratification."
 role: "producer"
 output_schema: "bootstrap"
@@ -57,32 +57,28 @@ versions), follow the "Writing principles.md yourself" section below.
   entry points, conventions, CI config. Repo-level — interpret it
   through the lens of `workdir`.
 
-## Required behavior
+## What a round produces
 
-1. Read the user-prompt inputs (component + ProjectMap + target paths).
-2. Read source under the component's `workdir` as needed to ground
-   non-obvious claims (csproj/package.json, top-level Program.cs /
-   index.ts, sample test). Use as many read calls as you actually need —
-   there is no cap.
-3. Call `write_context_yaml` for the context.yaml file. Pass `repo` =
-   the repository name from the user prompt (empty string for
-   single-repo runs), `context_name` = the component slug, and
-   `document` = a JSON object matching the schema below. The framework
-   serialises to YAML — do NOT use `write_file` for context.yaml; the
-   framework rejects it with a hint pointing here.
-4. If — and only if — the user prompt names `principles.md` as a file
-   for YOU to write, call `write_file` for it following the guidance below.
-   That file is prose, so write_file is right for it.
-5. Return a short Markdown summary of the choices you made. When the
-   principles were transferred by the framework, the summary explicitly asks
-   the operator to RATIFY them: review `principles.md` in the init
-   pull request, merge to accept, and append project-specific rules —
-   about the environment as much as about code — under "Project
-   Specifics". Re-runs preserve that file as ratified.
+- **`context.yaml`, through `write_context_yaml`.** Read the source under the
+  component's `workdir` as far as a claim needs it — the manifest, the
+  top-level `Program.cs` or `index.ts`, a sample test; there is no cap on
+  reads. Then call the tool with `context_name` = the component slug and
+  `document` = a JSON object of the shape below; `repo` can stay empty, since
+  the tool writes into this run's repository. The framework serialises the
+  YAML and refuses a context.yaml written any other way, so its shape and
+  quoting stay its own.
+- **`principles.md`, only when the user prompt names it as a file for you to
+  write** — see "Writing principles.md yourself". It is prose, so `write_file`
+  writes it.
+- **A short Markdown summary of your choices**, returned after the writes
+  succeed. When the framework transferred the principles, the summary asks the
+  operator to ratify them: review `principles.md` in the init pull request,
+  merge to accept, and add project-specific rules — about the environment as
+  much as about code — under "Project Specifics". Re-runs keep that file as
+  ratified.
 
-A response with zero tool calls is a failure of this skill, no matter
-how thorough the prose is. The summary is what you return **after**
-the write calls succeed.
+The files are the deliverable: a summary without the write calls delivers
+nothing.
 
 ## `context.yaml` — call `write_context_yaml` with this JSON shape
 
@@ -166,12 +162,11 @@ Every later run proves its change by running the `verify` stages this file decla
 order, stopping at the first non-zero exit. So they have to be the commands this
 repository is actually verified by — and in an established estate those are already
 written down. The pipeline definition (`azure-pipelines.yml`, `.github/workflows/*`,
-`.gitlab-ci.yml`, `Jenkinsfile`), the `Makefile`, the scripts, the manifests and the task
-runner's own help output between them state the commands, the versions and the order.
+`.gitlab-ci.yml`, `Jenkinsfile`), the `Makefile`, the scripts and the manifests between
+them state the commands, the versions and the order.
 
-**Work them out the way you work out the build command** — from the repository's
-manifests, scripts and CI config, never from an assumption about the stack. Read those
-files. A real estate pinned Python 3.10, installed a JRE so PySpark would start and ran
+**Work them out from the repository's manifests, scripts and CI config**, not from an
+assumption about the stack. Read those files. A real estate pinned Python 3.10, installed a JRE so PySpark would start and ran
 its unit tests against a live cluster; none of that is guessable, and all of it was in
 their repository. Adopting what is there is the whole point: a gate invented here can
 only disagree with the one that estate actually runs.
@@ -243,33 +238,6 @@ formatter cover the workdir and these directories.
   rooted, no `..`.
 - **None beyond the workdir, no `sources`.** Omit the slot.
 
-## Opening the memory store
-
-Bootstrap also opens the project's experiential-memory store: unless the user prompt says
-the framework already created it, call `write_file` for
-`.agentsmith/memory/MEMORY.md` (repo-prefixed like every other path) with
-exactly this content:
-
-```markdown
-# Memory Index
-
-One line per memory: `- [name](name.md) (type) — description`. Content lives
-in the entry files, never here. Each entry file carries frontmatter `name`
-(kebab-slug = filename), `description` (one line), and `metadata.type`
-(`feedback` | `project` | `reference`). A memory is a hint with a track
-record, never a rule: the runs that rely on it decide its standing, and the
-spec record step writes the label beside the type. See the memory-curation
-discipline shipped with the skills catalog.
-```
-
-The store opens EMPTY of entries — memories arrive from later runs and from
-the operator, and every entry earns its standing from the runs that use it;
-none waits for anyone's approval. Archaeology feeds `context.yaml`, never the memory store:
-seeding "memories" from the median code would codify exactly what the
-principles split above avoids.
-
-{{ref:memory-discipline}}
-
 ## Writing principles.md yourself (older frameworks only)
 
 When the user prompt names `principles.md` as a write target, transfer
@@ -304,13 +272,10 @@ standard above, not a transcript of the median code you observed.
 - Ground every context.yaml claim in evidence you read; drop claims you
   can't support.
 - Default conservatively (`Layered` over `CleanArch` if unsure).
-- One pass per file: read what you need, then write each file. Don't
-  loop.
-- No `run_command`, no `http_request`. Read tools + `write_context_yaml`
-  (for context.yaml) + `write_file` (for principles.md when the
-  prompt asks for it, and for `memory/MEMORY.md`) only.
-- Paths come from the user prompt. Do not write to `.agentsmith/context.yaml`
-  (the flat root path) — that path is rejected by the write-guard in
-  p0161d and later. `write_file` to any
-  `.agentsmith/contexts/*/context.yaml` is also rejected since p0193 —
-  use `write_context_yaml` for those.
+- Write each file once you have read what it needs. Rewrite it when its tool
+  refuses it and says why — an image tag the registry does not publish, a
+  missing `workdir` — and otherwise move on.
+- Your tools read the repository and write the files the user prompt names;
+  this round runs no commands. A write elsewhere, the flat
+  `.agentsmith/context.yaml` included, is refused by the write guard, and
+  context.yaml is written only through `write_context_yaml`.
