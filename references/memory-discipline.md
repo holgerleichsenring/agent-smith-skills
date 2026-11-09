@@ -49,6 +49,9 @@ that has paid off. Neither replaces reading the code it is about.
   preference and its why, a constraint found the hard way, a pointer to an
   external truth. The diff, the log and the run record already keep what
   happened.
+- **Three types.** `feedback` is how the operator wants the work done,
+  `project` a goal, constraint or state the code does not show, `reference` a
+  pointer to an external source.
 - **One fact per entry.** A description that needs "and" is two memories, so
   that each can be recalled and updated on its own.
 - **Update rather than duplicate.** Scan the index first; when the fact has an
