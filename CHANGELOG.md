@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.25.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.24.0...v5.25.0) (2026-11-09)
+
+
+### Features
+
+* masters describe their situation and goal instead of prescribing a procedure ([#248](https://github.com/holgerleichsenring/agent-smith-skills/issues/248)) ([4c8bb24](https://github.com/holgerleichsenring/agent-smith-skills/commit/4c8bb242c3064eac7c9d0c76e24198385a7bd63d))
+
 ## [5.24.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.23.0...v5.24.0) (2026-11-05)
 
 
