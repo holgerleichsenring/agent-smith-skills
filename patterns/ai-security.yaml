@@ -6,7 +6,7 @@ patterns:
     confidence: 6
     cwe: CWE-77
     title: "User Input Concatenated in Prompt"
-    description: "User input concatenated directly into LLM prompt, vulnerable to prompt injection"
+    description: "User input concatenated directly into LLM prompt — a lead for prompt injection when any part can be attacker-controlled"
 
   - id: prompt-injection-template
     regex: "(?i)(prompt|system[_-]?message|instruction)\\s*=\\s*(?:`.*\\$\\{|f[\"'].*\\{)"
@@ -22,7 +22,7 @@ patterns:
     confidence: 7
     cwe: CWE-94
     title: "eval() on LLM Output"
-    description: "LLM output passed to eval(), enabling arbitrary code execution"
+    description: "LLM output passed to eval() — a lead for arbitrary code execution"
 
   - id: llm-output-in-sql
     regex: "(?i)\\b(?:SELECT\\b.+\\bFROM|INSERT\\s+INTO|UPDATE\\b.+\\bSET|DELETE\\s+FROM)\\b.*(?:llm|gpt|openai|claude|anthropic|completion|ai[_-]?response|chat[_-]?completion|generated[_-]?(?:text|sql|content)|model[_-]?output)"
@@ -30,7 +30,7 @@ patterns:
     confidence: 7
     cwe: CWE-89
     title: "LLM Output in SQL Query"
-    description: "LLM-generated content used in a SQL statement, vulnerable to SQL injection. Requires a real SQL structure (SELECT...FROM / INSERT INTO / UPDATE...SET / DELETE FROM) co-occurring with an LLM-output identifier, so PascalCase names like UpdateXxxResponse no longer false-match."
+    description: "LLM-generated content used in a SQL statement — a lead for SQL injection when any part can be attacker-controlled. Requires a real SQL structure (SELECT...FROM / INSERT INTO / UPDATE...SET / DELETE FROM) co-occurring with an LLM-output identifier, so PascalCase names like UpdateXxxResponse no longer false-match."
 
   - id: no-max-tokens
     regex: "(?i)(openai|anthropic|claude|gpt|llm|chat).*(?:create|complete|generate)(?!.*max[_-]?tokens)"
@@ -70,7 +70,7 @@ patterns:
     confidence: 6
     cwe: CWE-79
     title: "LLM Output in HTML Rendering"
-    description: "LLM-generated content rendered as raw HTML, vulnerable to XSS"
+    description: "LLM-generated content rendered as raw HTML — a lead for XSS when any part can be attacker-controlled"
 
   - id: api-key-in-frontend
     regex: "(?i)(openai|anthropic|cohere|huggingface)[_-]?api[_-]?key\\s*[=:]\\s*[\"']"

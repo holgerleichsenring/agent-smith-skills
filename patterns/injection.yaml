@@ -6,7 +6,7 @@ patterns:
     confidence: 8
     cwe: CWE-94
     title: "eval() with Dynamic Input"
-    description: "eval() called with variable or template literal input, enabling code injection"
+    description: "eval() called with variable or template literal input — a lead for code injection when the input can be attacker-controlled"
 
   - id: js-new-function-variable
     regex: "new\\s+Function\\s*\\([^)]*[+`$]"
@@ -14,7 +14,7 @@ patterns:
     confidence: 8
     cwe: CWE-94
     title: "new Function() with Dynamic Input"
-    description: "Function constructor called with dynamic input, enabling code injection"
+    description: "Function constructor called with dynamic input — a lead for code injection when the input can be attacker-controlled"
 
   - id: js-exec-template
     regex: "(?:exec|execSync|spawn|spawnSync)\\s*\\([^)]*`"
@@ -22,7 +22,7 @@ patterns:
     confidence: 8
     cwe: CWE-78
     title: "Command Execution with Template Literal"
-    description: "Shell command execution using template literal, vulnerable to command injection"
+    description: "Shell command execution using template literal — a lead for command injection when any part can be attacker-controlled"
 
   - id: js-exec-concat
     regex: "(?:exec|execSync|spawn|spawnSync)\\s*\\([^)]*\\+"
@@ -30,7 +30,7 @@ patterns:
     confidence: 7
     cwe: CWE-78
     title: "Command Execution with String Concatenation"
-    description: "Shell command execution using string concatenation, vulnerable to command injection"
+    description: "Shell command execution using string concatenation — a lead for command injection when any part can be attacker-controlled"
 
   - id: js-shell-true
     regex: "shell\\s*:\\s*true"
@@ -62,7 +62,7 @@ patterns:
     confidence: 7
     cwe: CWE-79
     title: "Vue v-html Directive"
-    description: "Vue v-html directive renders raw HTML, vulnerable to XSS"
+    description: "Vue v-html directive renders raw HTML — a lead for XSS when any part can be attacker-controlled"
 
   - id: js-document-write
     regex: "document\\.write\\s*\\("
@@ -78,7 +78,7 @@ patterns:
     confidence: 7
     cwe: CWE-89
     title: "SQL String Concatenation"
-    description: "SQL query built with string concatenation, vulnerable to SQL injection"
+    description: "SQL query built with string concatenation — a lead for SQL injection when any part can be attacker-controlled"
 
   - id: sql-template-literal
     regex: "(?i)(SELECT|INSERT|UPDATE|DELETE|FROM|WHERE)\\s+.*\\$\\{"
@@ -86,7 +86,7 @@ patterns:
     confidence: 7
     cwe: CWE-89
     title: "SQL with Template Literal"
-    description: "SQL query built with template literal interpolation, vulnerable to SQL injection"
+    description: "SQL query built with template literal interpolation — a lead for SQL injection when any part can be attacker-controlled"
 
   - id: python-pickle-loads
     regex: "pickle\\.loads?\\s*\\("
@@ -126,4 +126,4 @@ patterns:
     confidence: 7
     cwe: CWE-78
     title: "Process.Start with Interpolated String"
-    description: "Process.Start using string interpolation, vulnerable to command injection"
+    description: "Process.Start using string interpolation — a lead for command injection when any part can be attacker-controlled"

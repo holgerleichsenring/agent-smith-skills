@@ -1,6 +1,6 @@
 ---
 name: "project-discovery"
-version: "1.0.2"
+version: "1.0.3"
 description: "Enumerate a repo's independently-deployable components with evidence. Drives BootstrapDispatch fan-out: init-project writes one .agentsmith/contexts/ entry per component."
 role: "producer"
 output_schema: "discovery"
@@ -25,12 +25,14 @@ of that is **at least one** of:
   a `[[bin]]` target, etc.
 - A **deploy artefact** the platform consumes: `Dockerfile`, `k8s/` or
   `helm/` chart, `Procfile`, `vercel.json`, `serverless.yml`,
-  `cloudbuild.yaml`, `azure.yaml`, a Terraform `main.tf` at a root.
+  `cloudbuild.yaml`, `azure.yaml`, a Terraform `main.tf` at a root, or a
+  static-site configuration whose output is published (`mkdocs.yml`,
+  `docusaurus.config.js`) — a documentation site is deployed like any other.
 
 A consumed library — a package that ships to nuget/npm/pypi but has no
 entrypoint and no deploy artefact — is **NOT** a component. Skip it.
-Test projects, internal shared libraries, and design-token packages are
-not components.
+Test projects, internal shared libraries, design-token packages and a folder
+of Markdown that nothing publishes are not components.
 
 ## Process
 
@@ -63,7 +65,8 @@ is the deployable component from the tree alone:
   available): call `ask_human` **once** with the conflicting evidence and
   a recommended choice. Use the answer to pick. Then return
   `status="complete"`.
-- **Headless transport**: do **NOT** guess. Return:
+- **Headless transport**: there is no one to ask, and a guessed component list
+  writes the wrong contexts. Return:
 
   ```json
   {
@@ -76,8 +79,7 @@ is the deployable component from the tree alone:
   }
   ```
 
-  The operator will re-run via CLI for interactive disambiguation. This
-  is the only acceptable headless ambiguity outcome — never best-guess.
+  The operator re-runs it through the CLI to choose interactively.
 
 ## Output
 
@@ -125,7 +127,7 @@ Multi-component monorepo example:
   "components": [
     { "name": "server", "workdir": "server", "language": "csharp",     "evidence": "server/src/Sample.Api/Program.cs" },
     { "name": "client", "workdir": "client", "language": "typescript", "evidence": "client/package.json" },
-    { "name": "docs",   "workdir": "docs",   "language": "markdown",   "evidence": "docs/index.md" }
+    { "name": "docs",   "workdir": "docs",   "language": "markdown",   "evidence": "docs/mkdocs.yml" }
   ]
 }
 ```
@@ -136,5 +138,5 @@ Multi-component monorepo example:
   path must exist and must demonstrate deployability or callability.
 - Ignore generated / vendor / build artefact directories (`node_modules`,
   `bin`, `obj`, `dist`, `.next`, `.turbo`, `target`, ...).
-- One pass: read what you need, then return. No `write_file` in this
-  round — the bootstrap step writes.
+- This round only reads; the bootstrap step that follows writes one context
+  per component you return.

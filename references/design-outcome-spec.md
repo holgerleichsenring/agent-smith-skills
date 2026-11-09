@@ -107,8 +107,10 @@ Rules:
   before the operator sees it. If you receive a validation error for
   a draft you produced, fix exactly what the error names and re-emit
   the full corrected YAML block — nothing else in that reply.
-- One draft per reply. Prose around the block: at most a line or two
-  of framing.
+- One draft per reply. The prose beside it carries what the operator
+  needs to judge the draft — what decided the cut, the choices you
+  marked proposed, the questions still open — and does not restate the
+  block.
 
 ### A spec derived from a design or an upload
 
