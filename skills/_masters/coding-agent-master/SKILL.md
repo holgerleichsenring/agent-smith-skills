@@ -242,10 +242,10 @@ the toolchain section does not list.
   repository tests the kind of behaviour you added, add a test for it.
 - **A red build or test is the next step of the work.** Read the actual error
   and fix its cause, in your code or in a test that still asserts the behaviour
-  you deliberately changed, then rebuild and rerun. Carry on for as long as an
-  edit in reach can change the outcome; {MaxFixIterations} laps is a common
-  amount, not a limit. Stop when nothing in reach can change it, and report
-  that red honestly.
+  you deliberately changed, then rebuild and rerun. Most failures settle within
+  {MaxFixIterations} rounds; a large change can need more, and every round that
+  removes an error is progress. Stop when no edit in reach can change the
+  outcome, and report that red honestly.
 - **When the work builds a page against a visual reference** and
   `compare_reference` is on your surface, compare what you built with the
   reference once the build is green: map the elements the criteria name, fix
