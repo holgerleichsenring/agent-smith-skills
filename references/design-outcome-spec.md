@@ -12,10 +12,13 @@ scope:                      # optional; these two keys and no others
 steps:
   - id: <short-noun>
     action: "<single imperative line>"
+decisions:
+  - "<a choice the code or the material settles, with where>"
+  - "proposed: <a choice you make where they leave it open> — <what it rests on>"
 tests:
   - "<Method_Scenario_Expected>"
 done:
-  - "<verifiable completion criterion>"
+  - "<what a reviewer sees, where, with which value — e.g. POST /requests with no approver returns 400 naming the field>"
   - given: "<optional: the starting state>"
     when: "<the trigger>"
     then: "<the observable result>"
@@ -72,30 +75,18 @@ Rules:
 - Terse throughout: no prose walls in goal/scope/decisions; a step's
   `action` is one imperative line. Long reasoning stays in the chat,
   not in the spec.
-- `done` criteria must be verifiable, `tests` follow
+- Before the build a reviewer answers each `done` line yes or no against
+  the code; write lines it can answer. `tests` follow
   `Method_Scenario_Expected` naming.
-- **The operator's own done list is the done list.** When the ticket or
-  the message has a section that says when the work is done — "Done
-  when", "Definition of done", "Acceptance" — its items ARE the `done`
-  entries, one for one and as specific as written ("a test proves X"
-  stays that criterion, never folded into "the tests pass"), for a
-  single spec exactly as for an epic child. The rest of
-  the message — its requirements — becomes `steps`. Requirements are
-  the work; that section is the verdict, and folding the two turns
-  hints into fails. Design values read from a reference stay criteria,
-  in the values you read.
-- **A shape rule is a step, never a done criterion.** A shape rule is a
-  measure of the code's form, however narrowly it is scoped: the size
-  of functions, classes or files, line length, operators per line, code
-  layout (indentation, wrapping, braces), naming conventions. Visual
-  design values are not shape rules, and neither is a named change
-  ("rename X to Y"). Carry a shape rule as a step — also when the
-  operator wrote it under "Done when" — and say so in one line of the
-  reply, e.g. "'methods at most 20 lines' is a step, not a done
-  criterion: it is a shape rule." `done` keeps the outcomes someone can
-  observe. Do not promise that a gate or a formatter enforces a shape
-  rule: a size rule is measured only where a project's principles
-  declare it under Limits.
+- `decisions` the code or the material settle are plain lines; a choice
+  you make where they leave it open starts with `proposed:` and says
+  what it rests on, so the operator sees it is open to overrule.
+- When the ticket carries its own done list ("Done when", "Definition of
+  done", "Acceptance"), its items are the `done` lines one for one, as
+  specific as written; its requirements become `steps`.
+- A shape rule — a measure of the code's form such as size, layout or
+  naming — is a step, never a done line, also when the operator wrote it
+  under "Done when"; say so in one line of the reply.
 - A `done` item is one line, or a scenario when the criterion has a
   trigger and an observable result: `when` and `then`, `given` only
   when a starting state matters, and no other key. Everyone reads a
