@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.27.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.26.0...v5.27.0) (2026-11-10)
+
+
+### Features
+
+* design turn states its effort and lists open questions ([#261](https://github.com/holgerleichsenring/agent-smith-skills/issues/261)) ([3488e34](https://github.com/holgerleichsenring/agent-smith-skills/commit/3488e34b3201cf157eff4cd4a6560beb68817cef))
+
 ## [5.26.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.25.4...v5.26.0) (2026-11-10)
 
 
