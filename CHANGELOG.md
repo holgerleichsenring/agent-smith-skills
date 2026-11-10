@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.27.1](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.27.0...v5.27.1) (2026-11-10)
+
+
+### Bug Fixes
+
+* design partner names remember only when it is offered ([#263](https://github.com/holgerleichsenring/agent-smith-skills/issues/263)) ([9036094](https://github.com/holgerleichsenring/agent-smith-skills/commit/9036094e2d8333d3a8c6bf34ed7ff81d8ed15c82))
+
 ## [5.27.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.26.0...v5.27.0) (2026-11-10)
 
 
