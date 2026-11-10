@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.25.2](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.25.1...v5.25.2) (2026-11-10)
+
+
+### Bug Fixes
+
+* the design partner and the steward ask in their reply, and name only the tools a conversation carries ([#252](https://github.com/holgerleichsenring/agent-smith-skills/issues/252)) ([baa96a2](https://github.com/holgerleichsenring/agent-smith-skills/commit/baa96a27530450120d18d2f4191c072bb8ebc1d4))
+
 ## [5.25.1](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.25.0...v5.25.1) (2026-11-09)
 
 
