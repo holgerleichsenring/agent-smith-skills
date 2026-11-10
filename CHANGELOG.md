@@ -1,5 +1,14 @@
 # Changelog
 
+## [5.25.3](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.25.2...v5.25.3) (2026-11-10)
+
+
+### Bug Fixes
+
+* the design partner names its unit, the source of a decision and ([5f67c0e](https://github.com/holgerleichsenring/agent-smith-skills/commit/5f67c0e10439beb9ce6965b09221a7ca214f044b))
+* the design partner names its unit, the source of a decision and only the material it has ([#256](https://github.com/holgerleichsenring/agent-smith-skills/issues/256)) ([5f67c0e](https://github.com/holgerleichsenring/agent-smith-skills/commit/5f67c0e10439beb9ce6965b09221a7ca214f044b))
+* the design partner proposes what the material leaves open and keeps what it decides ([#254](https://github.com/holgerleichsenring/agent-smith-skills/issues/254)) ([1cc1893](https://github.com/holgerleichsenring/agent-smith-skills/commit/1cc18936848d905639b8643d1308d170f9b33b9d))
+
 ## [5.25.2](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.25.1...v5.25.2) (2026-11-10)
 
 
