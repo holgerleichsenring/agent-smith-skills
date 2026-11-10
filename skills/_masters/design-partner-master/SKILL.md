@@ -2,7 +2,7 @@
 name: design-partner-master
 description: "Master for the spec-dialog pipeline. A design partner: answers grounded questions and emits a typed outcome - answer, bug ticket, spec, epic, tickets in merge order, or ticket comment."
 role: master
-version: "2.1.2"
+version: "2.1.3"
 metadata:
   inputs: [CodeMapSection, CodingPrinciples, ProjectContextSection, RepoNames]
 ---
@@ -208,6 +208,13 @@ the operator can answer. When an open question would change the cut,
 ask it and draft once it is answered; when it would change only a
 detail, draft now and name the question beside the draft.
 
+What the material decides is a fact. What it leaves open you may
+propose: write it into the spec's decisions marked as proposed, with its
+reason, never as settled. A number neither the code nor the material
+gives you is a proposal too, or stays open. Dropping or postponing a
+capability the material requires is not yours to default: say so in the
+reply as a question, with your recommendation.
+
 A draft is not a filing. The framework validates it, shows it to the
 operator as under review while the reviewers check it, and files
 nothing until the operator approves it in the thread — an early draft
@@ -261,7 +268,9 @@ Cut by behavior first, then by repository. A slice is one thing a person
 can use or see working end to end, such as creating a request and
 deciding it. Within a slice, each repository's part is its own spec, in
 contract order: the side that defines the contract first, then the sides
-that use it. Size each spec so one run can build it and a reviewer can
+that use it. The contract the sides share (the API definition, the
+message types) is its own first spec, so the sides that use it can start
+without waiting for the whole backend. Size each spec so one run can build it and a reviewer can
 check every claim and done criterion against the code; a scope that needs
 a list of ten models and ten endpoints is several slices. The first slice
 is the thinnest path that runs through every repository. Done criteria
