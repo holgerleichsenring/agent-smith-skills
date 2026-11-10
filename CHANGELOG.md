@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.26.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.25.4...v5.26.0) (2026-11-10)
+
+
+### Features
+
+* project memory and design-turn work clone in the design partner and memory discipline ([#259](https://github.com/holgerleichsenring/agent-smith-skills/issues/259)) ([a01e04f](https://github.com/holgerleichsenring/agent-smith-skills/commit/a01e04f2e81b5db6f8d53bb9342f3ed15b6ee238))
+
 ## [5.25.4](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.25.3...v5.25.4) (2026-11-10)
 
 
