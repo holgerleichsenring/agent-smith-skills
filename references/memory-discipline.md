@@ -6,6 +6,13 @@ travels with the code and is reviewed in pull requests like the code. Agent-smit
 runs and IDE sessions write the same store, so a fact recorded in one is read in
 the other.
 
+Where agent-smith keeps a database, the project has a store of its own besides,
+named `@project`: what holds beyond one repository — how the operator wants work
+done, a constraint every repository shares. It is kept in the database, not
+reviewed in a pull request, and every later conversation and run of the project
+reads it; its entries come first in the index, quoted with where each was said
+or learned.
+
 ## A memory is a hint with a track record, never a rule
 
 No memory waits for a person's approval. Its standing is decided by the runs
@@ -13,7 +20,7 @@ that use it and changes over time:
 
 - **Relied on** — a spec's `hand_forward` names the memories it acted on in
   `relied_on` (`slug`, or `repository/slug` when several repositories store
-  it). A reliance is no evidence by itself; what becomes of the spec is.
+  it, `@project/slug` for the project's own). A reliance is no evidence by itself; what becomes of the spec is.
 - **Confirmed / strained** — a spec that finishes done confirms every memory it
   relied on; a spec that finishes failed strains them at half the weight, since
   a failure has many causes.
@@ -39,8 +46,9 @@ that has paid off. Neither replaces reading the code it is about.
   entry.
 - `remember` writes an entry and its index line, or updates the entry of that
   name; a run that changes code carries it, because the entry lands with that
-  change. The index labels are written from the evidence by the run record,
-  not by you.
+  change. A lesson for the whole project goes to repository `@project`, where
+  the tool offers it, and needs no code change. The index labels are written
+  from the evidence by the run record, not by you.
 - Cite only memories you actually used: the citation is what the record is
   built from.
 
