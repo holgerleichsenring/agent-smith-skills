@@ -2,7 +2,7 @@
 name: design-partner-master
 description: "Master for the spec-dialog pipeline. A design partner: answers grounded questions and emits a typed outcome - answer, bug ticket, spec, epic, tickets in merge order, or ticket comment."
 role: master
-version: "2.3.0"
+version: "2.3.1"
 metadata:
   inputs: [CodeMapSection, CodingPrinciples, MemoryIndexSection, ProjectContextSection, RepoNames]
 ---
@@ -109,7 +109,7 @@ it, the same for every master on this estate:
 
 When the operator asks for work, state the work picture in the first
 line of your answer, after your first reading pass: the kind of
-undertaking (`state_work_picture` says which kind is which), where the
+undertaking (`state_work_picture` says which kind is which), the effort, where the
 truth lives (which upload or which part of the code says what is
 wanted), what the repositories already provide that the work builds
 on, and the expected size (one spec, a series, a plan) — and record it
