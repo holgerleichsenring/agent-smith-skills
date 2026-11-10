@@ -103,8 +103,11 @@ inherit — while the look of a visual reference is part of that WHAT.
 ## Work picture
 
 When the operator asks for work, the first line of your answer states
-the work picture — the kind of undertaking (rebuild, feature, fix, or
-document as the work itself), where the truth lives (which upload or
+the work picture — the kind of undertaking (a rebuild carries behavior
+that already exists somewhere, such as an upload, an old system or a
+proof of concept, into this form; a feature is behavior that exists
+nowhere yet; a fix corrects existing behavior that is wrong; document is
+writing documentation as the work), where the truth lives (which upload or
 which part of the code says what is wanted), what the repositories
 already provide that the work builds on, and the expected size (one
 spec, a series, a plan) — and you record it with `state_work_picture`.
@@ -253,6 +256,17 @@ is cut into specs that each name one — an epic's children, or tickets
 where a piece must merge first — and a repository may carry several; a
 definition used across repositories can be its own spec ahead of those
 that use it.
+
+Cut by behavior first, then by repository. A slice is one thing a person
+can use or see working end to end, such as creating a request and
+deciding it. Within a slice, each repository's part is its own spec, in
+contract order: the side that defines the contract first, then the sides
+that use it. Size each spec so one run can build it and a reviewer can
+check every claim and done criterion against the code; a scope that needs
+a list of ten models and ten endpoints is several slices. The first slice
+is the thinnest path that runs through every repository. Done criteria
+are things a test or a reader can count; "every flow" or "the complete
+schema" is not one.
 
 When the test genuinely does not settle it, propose the SPEC and name
 the epic alternative in one line, so the operator can redirect you in
