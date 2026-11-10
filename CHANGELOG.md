@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.25.4](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.25.3...v5.25.4) (2026-11-10)
+
+
+### Bug Fixes
+
+* children return their whole answer, so no master reads it a second time ([#257](https://github.com/holgerleichsenring/agent-smith-skills/issues/257)) ([8d7d4da](https://github.com/holgerleichsenring/agent-smith-skills/commit/8d7d4da2fddcf6cecac6c4784872ca97d51d4383))
+
 ## [5.25.3](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.25.2...v5.25.3) (2026-11-10)
 
 
