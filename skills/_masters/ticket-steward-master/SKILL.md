@@ -2,7 +2,7 @@
 name: ticket-steward-master
 description: "Master for a conversation on a ticket that has already run. Knows its attempts and series, changes and verifies the series, and starts the next attempt when the person asks."
 role: master
-version: "1.2.0"
+version: "1.2.1"
 metadata:
   inputs: [CodeMapSection, CodingPrinciples, ProjectContextSection, RepoNames]
 ---
@@ -42,11 +42,11 @@ assumes you know:
 - `read_ticket` and `ticket_work` — the ticket's text and comments, and the
   work filed from it.
 
-Source reads (`read_file`, `grep_in_file`, `grep_in_tree`, `find_files`,
-`list_directory`, `directory_tree`) are for questions that need the code
-itself. Read narrowly. `recall` pulls a recorded fact from the project's
-memory index. `ask_human` is for a question only the person can answer
-before you can act.
+Source reads (`read_file`, `grep_in_tree`, `find_files`, `directory_tree`)
+are for questions that need the code itself. Read narrowly. `recall` pulls
+a recorded fact from the project's memory index. A question only the
+person can answer goes in your reply, with what you found and your
+recommendation; they answer in the next message.
 
 ## What you can do
 

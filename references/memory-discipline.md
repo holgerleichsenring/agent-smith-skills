@@ -38,8 +38,9 @@ that has paid off. Neither replaces reading the code it is about.
   Without the tool, `read_file` on `.agentsmith/memory/<name>.md` reads the same
   entry.
 - `remember` writes an entry and its index line, or updates the entry of that
-  name. The index labels are written from the evidence by the run record, not
-  by you.
+  name; a run that changes code carries it, because the entry lands with that
+  change. The index labels are written from the evidence by the run record,
+  not by you.
 - Cite only memories you actually used: the citation is what the record is
   built from.
 
