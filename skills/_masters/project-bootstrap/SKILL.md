@@ -1,6 +1,6 @@
 ---
 name: "project-bootstrap"
-version: "2.9.0"
+version: "2.9.1"
 description: "Write context.yaml (facts from archaeology) for the component named in the prompt; principles transfer from the authored core + language delta for operator ratification."
 role: "producer"
 output_schema: "bootstrap"
@@ -89,7 +89,7 @@ nothing.
     "project": "<project name>",
     "version": "<version, optional>",
     "type": "<one-line classification, e.g. 'Angular SPA', 'csharp service'>",
-    "purpose": "<one-line>"
+    "purpose": "<one-line: what the code does today — for a scaffold, say so, e.g. 'boilerplate; sample code, no business logic'>"
   },
   "stack": {
     "lang": "<idiomatic slug: C#, TypeScript, Python, Go, ...>",
