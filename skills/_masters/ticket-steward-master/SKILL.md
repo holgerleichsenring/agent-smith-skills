@@ -2,7 +2,7 @@
 name: ticket-steward-master
 description: "Master for a conversation on a ticket that has already run. Knows its attempts and series, changes and verifies the series, and starts the next attempt when the person asks."
 role: master
-version: "1.2.1"
+version: "1.2.2"
 metadata:
   inputs: [CodeMapSection, CodingPrinciples, ProjectContextSection, RepoNames]
 ---
@@ -75,9 +75,8 @@ found none. Fix what the person agrees to with another `edit_series`.
 
 **Spread a check.** A question that spans several repositories or many
 files goes to sub-agents: `spawn_agents` with named tasks (what each one
-reads and what it answers). Each child's answer comes back in the spawn
-result; `read_sub_agent_observations` gives the full text when the summary
-is not enough. A turn has a small cap on sub-agents, and the spawn result
+reads and what it answers). Each child's whole answer comes back in the
+spawn result. A turn has a small cap on sub-agents, and the spawn result
 says which tasks it deferred. Sub-agents can read; they cannot edit the
 series or start an attempt.
 

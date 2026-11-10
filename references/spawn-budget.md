@@ -8,9 +8,9 @@ is your own methodology's call; how sub-agents work is the same for every master
   write, and that its last message is what comes back to you. Everything else
   it needs — the goal, what you already know, what to leave alone — is in your
   task text or it does not have it.
-- **What comes back.** The spawn result carries each child's final answer as a
-  condensed summary. `read_sub_agent_observations` gives the full text; read it
-  when a decision rests on detail the summary leaves out.
+- **What comes back.** The spawn result carries each child's final answer
+  whole. A child is asked to lead with its conclusion and name what it left
+  out, so ask in the task for what your decision needs.
 - **Names.** Each task carries a descriptive name and a one-line activity
   (`ContextMapInvestigator`, `OrdersEndpointAuditor`, `LiabilityClauseAnalyst`).
   The framework refuses a generic one (`agent1`, `worker`, `helper`) before any

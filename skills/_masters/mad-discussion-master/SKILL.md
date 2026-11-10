@@ -2,7 +2,7 @@
 name: mad-discussion-master
 description: "Master for the mad-discussion pipeline. Runs five perspectives (dreamer / realist / philosopher / devils-advocate / silencer) via spawn_agents and synthesises a verdict."
 role: master
-version: "1.6.0"
+version: "1.6.1"
 metadata:
   inputs: [CodingPrinciples]
 ---
@@ -68,12 +68,11 @@ perspectives, and cross-reply belongs to the synthesis.
 
 ## Phase 2 — Synthesis
 
-The spawn result lists each perspective with its status and a summary of its
+The spawn result lists each perspective with its status and its whole
 answer. A failed perspective is noted in the synthesis, not retried.
 
-- Read each perspective's full output with
-  `read_sub_agent_observations(<sub_agent_id>)`: the synthesis cites points by
-  number, and a summary does not carry them.
+- Read each perspective's answer in full: the synthesis cites points by
+  number.
 - Identify the strongest claim from each perspective.
 - Find the genuine disagreements (not surface-level wording
   mismatches; conceptual conflicts).
