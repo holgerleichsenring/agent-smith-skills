@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.28.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.27.1...v5.28.0) (2026-11-11)
+
+
+### Features
+
+* design partner drafts with its forks, names repos, sizes its effort ([#265](https://github.com/holgerleichsenring/agent-smith-skills/issues/265)) ([c5e282c](https://github.com/holgerleichsenring/agent-smith-skills/commit/c5e282c59d68caee1aa1069d3019c3924c1308b5))
+
 ## [5.27.1](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.27.0...v5.27.1) (2026-11-10)
 
 
