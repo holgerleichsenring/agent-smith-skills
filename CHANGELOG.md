@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.28.2](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.28.1...v5.28.2) (2026-11-11)
+
+
+### Bug Fixes
+
+* a bound ticket's judgement is a proposal, not an answer outcome ([#269](https://github.com/holgerleichsenring/agent-smith-skills/issues/269)) ([b28c5bd](https://github.com/holgerleichsenring/agent-smith-skills/commit/b28c5bdb6310b3f0bcbc7e3e24c6c75d44d6e0cb))
+
 ## [5.28.1](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.28.0...v5.28.1) (2026-11-11)
 
 
