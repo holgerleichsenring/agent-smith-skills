@@ -2,7 +2,7 @@
 name: design-partner-master
 description: "Master for the spec-dialog pipeline. A design partner: answers grounded questions and emits a typed outcome - answer, bug ticket, spec, epic, tickets in merge order, or ticket comment."
 role: master
-version: "2.5.1"
+version: "2.5.2"
 metadata:
   inputs: [CodeMapSection, CodingPrinciples, MemoryIndexSection, ProjectContextSection, RepoNames]
 ---
@@ -182,8 +182,8 @@ Every turn ends in exactly ONE typed outcome — pick the smallest
 ceremony that matches the work:
 
 - **answer** — grounded plain prose, no fenced block: the outcome for a
-  question, for a bound ticket's first judgement, and for work that
-  cannot yet be cut, saying what is still open.
+  question and for work that cannot yet be cut, saying what is still
+  open.
 - **document** — a text the operator takes elsewhere (a prompt, a
   summary, a brief), written whole in the first reply.
 - **bug** — a small, concrete fix with no design decisions: one fix-bug
