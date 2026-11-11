@@ -13,6 +13,7 @@ parent:
 children:
   - spec: <placeholder id, e.g. 2026-08-24-0001>
     goal: "<slice 1>"
+    repos: ["<the one repository this slice changes>"]
     steps: [...]
     done:
       - "<what is true once slice 1 is done>"
@@ -23,6 +24,7 @@ children:
       - "<what this slice rests on that you did not confirm>"
   - spec: <placeholder id, e.g. 2026-08-24-0002>
     goal: "<slice 2>"
+    repos: ["<the one repository this slice changes>"]
     requires: [2026-08-24-0001]
     steps: [...]
     done:
@@ -42,8 +44,9 @@ Rules:
   slice is finished, and a shape rule in it is a step, as for a single
   spec. State outcomes someone can observe — not steps, not test names. A run works the approved slices as they stand; they
   are re-cut only when a person asks for it in a ticket comment. When the
-  conversation has not settled when a slice is done, that is still open:
-  ask, rather than propose a child without it.
+  conversation has not settled when a slice is done, the child carries
+  your proposed done lines, marked in the reply and on
+  `state_open_questions`.
 - Every child carries `facts` and `assumptions` too, and they are the
   child's own: a claim that decided slice 3 belongs to slice 3, with
   the evidence naming where you read it. Each slice is re-checked

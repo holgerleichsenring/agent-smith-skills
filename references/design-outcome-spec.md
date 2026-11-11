@@ -6,6 +6,7 @@ fenced block in your reply:
 ```yaml
 spec: <placeholder id {yyyy-MM-dd}-{4 hex}, e.g. 2026-08-24-0000 — the framework replaces it>
 goal: "<one terse sentence: what and why>"
+repos: ["<the one repository this spec changes, spelled as the prompt lists it>"]
 scope:                      # optional; these two keys and no others
   in: "<what this spec covers>"
   out: "<what it deliberately does not — deferred, rejected, another spec's>"
@@ -41,7 +42,9 @@ Rules:
 - `scope` takes **`in` and `out` only**. It is the one block the schema
   closes, so a key you invent for it — `repositories`, `constraints`,
   `exclusions` — fails the whole draft and the operator never sees it.
-  Repositories, constraints and exclusions are PROSE inside `in` / `out`.
+  Constraints and exclusions are prose inside `in` / `out`.
+- `repos` names the one repository the spec changes, spelled as the
+  prompt lists it; in a scope of one repository it may be left out.
 - `facts` and `assumptions` say what the draft RESTS ON, and every
   draft states both. A FACT is a claim about the code you actually
   read; its `evidence` names where you saw it — a repository-relative
@@ -124,8 +127,9 @@ A spec built against an upload names it — its name and its
 `reference:` address — in its `goal` or `scope.in`. The approval
 carries the conversation's uploads into the run, where the coding
 master finds each by name in its own directory with its note; an upload
-made after the approval is not carried, so a draft that needs one asks
-for it before it is proposed. State the criteria in the
+made after the approval is not carried, so a draft that needs one
+names it on `state_open_questions` for the operator to upload before
+approving. State the criteria in the
 values you read — the computed or declared colour, size, font, spacing,
 the `DESIGN.md` token — never "looks like the reference". A run compares
 its result against the reference and reports the differences; nothing
