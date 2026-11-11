@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.28.1](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.28.0...v5.28.1) (2026-11-11)
+
+
+### Bug Fixes
+
+* design partner keeps drafting facts and drops run lore and a scripted first reply ([#267](https://github.com/holgerleichsenring/agent-smith-skills/issues/267)) ([b508cb0](https://github.com/holgerleichsenring/agent-smith-skills/commit/b508cb04903edfbaf90635702ef6395de8a1c86d))
+
 ## [5.28.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.27.1...v5.28.0) (2026-11-11)
 
 
