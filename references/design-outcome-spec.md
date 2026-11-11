@@ -61,10 +61,7 @@ Rules:
   either one being untrue makes the spec wrong. What stating an
   assumption honestly buys you is not immunity — it is that nobody
   reads it as something you verified. A claim of either kind that the
-  code contradicts stops the spec before it spends a token; the run
-  never rewrites the spec, so the correction is made where the
-  specifications live (on the ticket branch, under `.agentsmith/`),
-  and a spec that already ran is never edited.
+  code contradicts stops the spec before it spends a token.
 - State a fact against the state THIS spec starts from. Where earlier
   specs of the same specification run first, their work is already in
   the repository by the time this one is checked, so describe what they
