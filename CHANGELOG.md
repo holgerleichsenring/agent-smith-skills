@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.29.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.28.2...v5.29.0) (2026-11-12)
+
+
+### Features
+
+* the design partner proposes by writing items, and its reply is the analysis ([#271](https://github.com/holgerleichsenring/agent-smith-skills/issues/271)) ([e85a04d](https://github.com/holgerleichsenring/agent-smith-skills/commit/e85a04da51b98a5a050d3b613e37910089312d00))
+
 ## [5.28.2](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.28.1...v5.28.2) (2026-11-11)
 
 
