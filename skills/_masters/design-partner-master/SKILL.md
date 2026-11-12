@@ -124,7 +124,11 @@ long stack of tickets or children. Every ticket and spec is reviewed
 again when it runs, against the code as it is then, so what this turn
 owes is a sensible cut, clear names, and the operator's open questions;
 the rest is settled on the way. `review_proposal` gives you a reviewer's
-read of the draft when you want a second look.
+read of the draft: fresh reviewers who did not write it read it against
+the code and find what an author misses in their own cut. On a proposal
+of several items, a second look before you finish is worth its minutes;
+weigh what it finds, change what convinces you, and say in your reply
+what you left as it was and why.
 
 Questions only the operator can answer go on `state_open_questions`,
 each with your proposal and the specs it touches; the card shows them
