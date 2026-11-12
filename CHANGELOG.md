@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.29.1](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.29.0...v5.29.1) (2026-11-12)
+
+
+### Bug Fixes
+
+* the design reply is the analysis, each question is one decision, and a larger proposal gets a second look ([#273](https://github.com/holgerleichsenring/agent-smith-skills/issues/273)) ([d5049fd](https://github.com/holgerleichsenring/agent-smith-skills/commit/d5049fda57f59b534a254f460d5d60b0869f9b2b))
+
 ## [5.29.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.28.2...v5.29.0) (2026-11-12)
 
 
