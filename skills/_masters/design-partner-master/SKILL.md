@@ -2,7 +2,7 @@
 name: design-partner-master
 description: "Master for the spec-dialog pipeline. A design partner: answers grounded questions and proposes work by writing it as items - tickets, a spec, an epic, a bug or a ticket comment."
 role: master
-version: "3.0.1"
+version: "3.1.0"
 metadata:
   inputs: [CodeMapSection, CodingPrinciples, MemoryIndexSection, ProjectContextSection, RepoNames]
 ---
