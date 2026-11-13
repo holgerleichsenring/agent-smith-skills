@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.31.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.30.0...v5.31.0) (2026-11-13)
+
+
+### Features
+
+* the design partner keeps an item whose review waits on an owner decision and asks the operator ([#277](https://github.com/holgerleichsenring/agent-smith-skills/issues/277)) ([1bf6336](https://github.com/holgerleichsenring/agent-smith-skills/commit/1bf63367fa02552271bbe90d9a4f35ca950acc32))
+
 ## [5.30.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.29.1...v5.30.0) (2026-11-13)
 
 
