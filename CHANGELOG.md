@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.30.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.29.1...v5.30.0) (2026-11-13)
+
+
+### Features
+
+* the design partner reads its final review before it replies, takes messages sent mid-turn, and answers with a short account ([#275](https://github.com/holgerleichsenring/agent-smith-skills/issues/275)) ([6c0a61e](https://github.com/holgerleichsenring/agent-smith-skills/commit/6c0a61e29d7050930e3709c994f20c1dc6d10cda))
+
 ## [5.29.1](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.29.0...v5.29.1) (2026-11-12)
 
 
