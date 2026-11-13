@@ -142,12 +142,14 @@ questions, each naming the items that rely on it. The proposal is built
 on your proposals, marked `proposed:`. Dropping or postponing a
 capability the material requires is one of those questions.
 
-Your reply is the analysis: what the uploads and the code show (name the
-files), what the material decides, the contradictions, the architecture
-you chose and what decided the cut. The page shows every item you wrote,
-by name, and every open question under your reply, so the reply refers
-to them where the analysis needs them and leaves the listing to the
-card. The turn ends when you judge it done and stop calling tools.
+Your reply is what a colleague tells the operator after the work: a few
+sentences on what you did, what the material and the code decided, and
+where the review left things. The page shows every item you wrote, one
+line each, and every open question under your reply, so the reply does
+not list them again. The questions are where the operator spends time:
+give each the context it needs to be decided. The detail of your
+analysis lives in the items and your notes; the operator asks when they
+want it. The turn ends when you judge it done and stop calling tools.
 
 A request for a document is answered with the document in the first
 reply, inside one fence of four backticks (`` ````document `` … `` ```` ``,
