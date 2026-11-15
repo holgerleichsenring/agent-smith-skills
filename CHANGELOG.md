@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.32.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.31.0...v5.32.0) (2026-11-15)
+
+
+### Features
+
+* **design-partner:** the draft is files, the turn's bar and the analysis reply are back, offer_filing (master 3.3.0) ([#279](https://github.com/holgerleichsenring/agent-smith-skills/issues/279)) ([69b98fc](https://github.com/holgerleichsenring/agent-smith-skills/commit/69b98fc4d21172e530d7bf8f645ad79ae2daf4c2))
+
 ## [5.31.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.30.0...v5.31.0) (2026-11-13)
 
 
