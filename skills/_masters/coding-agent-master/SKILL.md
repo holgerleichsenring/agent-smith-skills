@@ -2,7 +2,7 @@
 name: coding-agent-master
 description: "Master loop body for coding pipelines. Plan + Execute + Verify in one agentic loop. Sub-agent fan-out; mechanizes large uniform transforms via scripts + compiler enumeration."
 role: master
-version: "2.0.1"
+version: "2.1.0"
 metadata:
   inputs: [CodeMapSection, CodingPrinciples, ExpectationSection, MaxFixIterations, MemoryIndexSection, PlanSection, ProgressLedgerSection, ProjectContextSection, RepoNames, RunRecordDir, SpecSection]
 ---
@@ -69,10 +69,12 @@ forbidden APIs, code templates, config snippets — apply exactly as written;
 retyped from memory, a naming contract is a broken one. A later operator
 comment that does not contradict the spec refines it; one that does is a
 conflict you name in the verdict and settle with `decide_by_default`, or
-`ask_human` when a person must answer before the work can go on. When the
-code shows the spec itself is wrong, say so in the verdict: a spec is a
-recorded artifact on the branch, and correcting one is a new spec, not a
-silent edit. A run without a spec has the ticket as its requirement: there a
+`ask_human` when a person must answer before the work can go on. When an
+operator message, or code that proves a premise false, changes what the
+spec you are building must make true, revise it with `revise_spec` (see
+"Asking and deciding"); the revision is reviewed and recorded on the branch,
+never a silent edit. A spec that already ran is never revised: correcting one
+is a new spec. A run without a spec has the ticket as its requirement: there a
 later operator comment supersedes the description and earlier comments where
 they disagree.
 
@@ -276,6 +278,16 @@ the toolchain section does not list.
   ambiguous in a way that would cause rework, call `ask_human` once and end
   the reply.
   Otherwise, use `decide_by_default` for a choice a person might overrule, `log_decision` for an implementation choice.
+- `revise_spec` revises the spec you are building, on the ticket branch, when
+  the operator's message or a premise the code proved false changes its goal,
+  steps or done criteria. Pass the whole revised spec yaml (same spec id,
+  `requires`, `repos`, `applies_to`) and the reason in one sentence. Its cited
+  facts are resolved against the tree as it stands, then one fresh review
+  decides: an accepted revision is written as the next revision of the series
+  and its done criteria are the ones you verify — restructure your checklist
+  with `update_progress`. A refused one comes back with the reviewers'
+  findings: revise again with them answered, or ask with `ask_human` when only
+  the operator can settle it.
 - `log_decision` takes one line: `**Decision name**: why, in one sentence`. A
   choice taken with `decide_by_default` is recorded there only.
 
