@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.34.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.33.0...v5.34.0) (2026-11-17)
+
+
+### Features
+
+* **coding-master:** revise_spec revises the spec being built with one review (master 2.1.0) ([#283](https://github.com/holgerleichsenring/agent-smith-skills/issues/283)) ([d925989](https://github.com/holgerleichsenring/agent-smith-skills/commit/d9259897f7b1037e7bad5d830ecb31609f78e6c0))
+
 ## [5.33.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.32.0...v5.33.0) (2026-11-17)
 
 
