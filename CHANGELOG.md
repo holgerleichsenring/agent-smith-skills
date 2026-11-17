@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.33.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.32.0...v5.33.0) (2026-11-17)
+
+
+### Features
+
+* **design-partner:** a ticket carries its specs under draft:tickets/&lt;key&gt;/ (master 3.4.0) ([#281](https://github.com/holgerleichsenring/agent-smith-skills/issues/281)) ([b1be5a5](https://github.com/holgerleichsenring/agent-smith-skills/commit/b1be5a546042fc83fab1bb3c97df91c1a6336483))
+
 ## [5.32.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.31.0...v5.32.0) (2026-11-15)
 
 
