@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.37.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.36.0...v5.37.0) (2026-11-18)
+
+
+### Features
+
+* **coding-agent:** the report is markdown for the person; finish_spec carries what the pipeline needs (master 3.1.0) ([#291](https://github.com/holgerleichsenring/agent-smith-skills/issues/291)) ([d5bbb42](https://github.com/holgerleichsenring/agent-smith-skills/commit/d5bbb429d4e5872c12ad142b0c929d113c0794e0))
+
 ## [5.36.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.35.0...v5.36.0) (2026-11-18)
 
 
