@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.36.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.35.0...v5.36.0) (2026-11-18)
+
+
+### Features
+
+* **coding-agent:** the master leads one spec — briefs a sub-agent, checks by looking, sends work back, reports with follow-ups (master 3.0.0) ([#289](https://github.com/holgerleichsenring/agent-smith-skills/issues/289)) ([be03cd2](https://github.com/holgerleichsenring/agent-smith-skills/commit/be03cd25c88efeab2e14721104c6d6848ff82abe))
+
 ## [5.35.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.34.0...v5.35.0) (2026-11-18)
 
 
