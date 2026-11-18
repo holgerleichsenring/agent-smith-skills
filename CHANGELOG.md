@@ -1,5 +1,18 @@
 # Changelog
 
+## [5.35.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.34.0...v5.35.0) (2026-11-18)
+
+
+### Features
+
+* **design-partner:** describe the cut plainly, one ticket per theme; one claim per done line (master 3.5.0) ([#285](https://github.com/holgerleichsenring/agent-smith-skills/issues/285)) ([93c939b](https://github.com/holgerleichsenring/agent-smith-skills/commit/93c939be201196eccde54845a0d6176a9a51f752))
+
+
+### Bug Fixes
+
+* **spec-derivation:** the done list is the verdict without a one-for-one rule; work beyond MaxSpecs is a question (master 1.10.1) ([#287](https://github.com/holgerleichsenring/agent-smith-skills/issues/287)) ([e70e825](https://github.com/holgerleichsenring/agent-smith-skills/commit/e70e825a2a5bae52e4b7d221be52b92d9bf6c598))
+* **ticket-steward:** read what the answer depends on; no narrow-read, confirm or length rules (master 1.2.3) ([#286](https://github.com/holgerleichsenring/agent-smith-skills/issues/286)) ([ea68952](https://github.com/holgerleichsenring/agent-smith-skills/commit/ea689529a3f291c4b3a3213260c7c851ae9ef4f2))
+
 ## [5.34.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.33.0...v5.34.0) (2026-11-17)
 
 
