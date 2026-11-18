@@ -2,7 +2,7 @@
 name: spec-derivation-master
 description: "Cuts a ticket into an ordered set of specs, looking into the repository first. Returns segment anchors, cited facts and named contexts, never content."
 role: master
-version: "1.10.0"
+version: "1.10.1"
 metadata:
   inputs: [MaxSpecs]
 ---
@@ -102,7 +102,7 @@ Optionally add a "contract" object beside "specs" — "names" [{name, kind, numb
 
 - SPECS ARE ORDERED AND SEPARABLE. Spec N may assume specs 1..N-1 already ran. Each
   one must be worth a build: a spec whose done-list cannot be checked without the next
-  spec is not a spec, it is half of one. At most {MaxSpecs} specs — the most one attempt runs (a re-cut: the most the series holds); beyond that the ticket is a programme and belongs in a design conversation.
+  spec is not a spec, it is half of one. One attempt runs at most {MaxSpecs} specs (a re-cut: the most the series holds); work that needs more is a question: one reading builds the first {MaxSpecs} now and the rest in a later attempt, the other cuts the ticket into several in a design conversation.
 
 - DONE CRITERIA ARE CHECKED AGAINST THE REPOSITORY, so write them so they CAN be. After
   the spec runs, a reader who did not do the work is given your criteria and the branch
@@ -130,18 +130,19 @@ Optionally add a "contract" object beside "specs" — "names" [{name, kind, numb
 - TWO KINDS OF CRITERION CAN BE CHECKED, AND NO OTHERS. Something visible in the
   repository ("WolverineExtension.cs exists in each host project's Installers folder"),
   or the RESULT OF A COMMAND that the framework runs ("the build exits 0", "the tests
-  pass"). Never state a criterion about the PROCESS — "no push has been performed", "the
-  branch remains local", "the work was done in the agreed order". Nobody can check those
-  against a repository, and a criterion nobody can check fails the spec that honoured
-  it perfectly.
+  pass"). A criterion about the PROCESS — "no push has been performed", "the branch
+  remains local", "the work was done in the agreed order" — cannot be checked against a
+  repository, and a criterion nobody can check fails the spec that honoured it perfectly.
 
-- THE TICKET'S OWN "DONE WHEN" IS THE DONE LIST. When the ticket has a section that says
-  when the work is done — "Done when", "Definition of done", "Acceptance" — its items are
-  the done criteria of the specs that do that work, ONE FOR ONE: every item that is not a
-  shape rule becomes exactly one done criterion, kept as specific as the ticket wrote it —
-  "a test proves a transfer moves the quantity" stays a criterion about that test, it is
-  not folded into "the tests pass". The rest of the ticket (its requirements) becomes
-  steps and carried segments. Requirements are the work; that section is the verdict.
+- THE TICKET'S OWN "DONE WHEN" IS THE VERDICT. When the ticket has a section that says
+  when the work is done — "Done when", "Definition of done", "Acceptance" — carry its
+  items into the done lines of the specs that do that work, as specifically as written,
+  where the diff or a command can show them: "a test proves a transfer moves the
+  quantity" stays a criterion about that test, it is not folded into "the tests pass".
+  An item about the process (how to work, where a branch lives) is not a done line; its
+  segment stays carried, so the spec's agent still reads it. The rest of the ticket (its
+  requirements) becomes steps and carried segments. Requirements are the work; that
+  section is the verdict.
 
 - A SHAPE RULE IS NEVER A DONE CRITERION. A shape rule is a measure of the code's form,
   however narrowly it is scoped: the size of functions, classes or files, line length,
