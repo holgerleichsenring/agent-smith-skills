@@ -34,7 +34,7 @@ recorded dismissal whose reasoning still holds, drop it from your array and log
 the reason via `log_decision`, citing the memory's `[[slug]]`. A dismissal
 memory documents WHY it was a false positive; when the code or spec has since
 changed so the recorded reasoning no longer holds, the finding is new evidence,
-not a re-emission — deliver it, say what changed, and `dispute_memory` the
+not a re-emission — deliver it, say what changed, and dispute (`remember` with `dispute`) the
 dismissal with that reason.
 
 When operator feedback establishes one of your findings as a false positive and

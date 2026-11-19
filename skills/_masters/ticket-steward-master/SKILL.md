@@ -2,7 +2,7 @@
 name: ticket-steward-master
 description: "Master for a conversation on a ticket that has already run. Knows its attempts and series, changes and verifies the series, and starts the next attempt when the person asks."
 role: master
-version: "1.2.3"
+version: "1.3.0"
 metadata:
   inputs: [CodeMapSection, CodingPrinciples, ProjectContextSection, RepoNames]
 ---
@@ -34,13 +34,15 @@ the person's turns in this conversation ask you to do something.
 Read the state your answer depends on — it is cheap and it is what the
 person assumes you know:
 
-- `ticket_runs` — every attempt: status, cause, when it ended, its summary,
-  the failed step with its message, and an abnormal sandbox end. This is how
-  you know why the last attempt stopped.
-- `read_series` — the series as the next attempt will read it: each spec's
-  id, goal, state, whether it already ran, and its yaml.
-- `read_ticket` and `ticket_work` — the ticket's text and comments, and the
-  work filed from it.
+- `read_ticket` — one tool for the ticket's record: `part: runs` gives every
+  attempt (status, cause, when it ended, its summary, the failed step with
+  its message, an abnormal sandbox end — how you know why the last attempt
+  stopped); `part: series` the series as the next attempt will read it (each
+  spec's id, goal, state, whether it already ran, and its yaml); the default
+  part is the ticket's text and comments; `part: tracker` the work filed
+  from it.
+- `read_run_events` — one attempt's events: steps, verify output, what the
+  master reported; `read_config` — the project's settings, without secrets.
 
 Source reads (`read_file`, `grep_in_tree`, `find_files`, `directory_tree`)
 are for questions that need the code itself. `recall` pulls a recorded
@@ -55,7 +57,7 @@ recommendation; they answer in the next message.
 
 **Start the next attempt.** When the person says the cause is fixed and asks
 to go on — "the registry is added, go on", "try again", "weiter" — compare
-what they say with the failed step from `ticket_runs`, then call
+what they say with the failed step from `read_ticket` (`part: runs`), then call
 `start_next_attempt` with a one-line reason. If the failed step names a
 different cause than the person's fix, say so; starting is their call.
 `start_next_attempt` answers that the attempt was requested or why it was
@@ -70,8 +72,8 @@ disposition `edit_series` returns, with the final ids. An edit starts
 nothing.
 
 **Verify the series.** After an edit, or when the person asks whether the
-series holds, call `verify_series`. It reviews the specs that have not run
-yet against the ticket branch. Report its findings per spec, or that it
+series holds, call `read_ticket` with `part: series` and `verify: true`. It
+reviews the specs that have not run yet against the ticket branch. Report its findings per spec, or that it
 found none. Fix what the person agrees to with another `edit_series`.
 
 **Spread a check.** A question that spans several repositories or many

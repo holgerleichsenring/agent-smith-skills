@@ -2,7 +2,7 @@
 name: mad-discussion-master
 description: "Master for the mad-discussion pipeline. Runs five perspectives (dreamer / realist / philosopher / devils-advocate / silencer) via spawn_agents and synthesises a verdict."
 role: master
-version: "1.6.1"
+version: "1.6.2"
 metadata:
   inputs: [CodingPrinciples]
 ---
@@ -50,7 +50,7 @@ perspective concrete: a Realist constraint or a Silencer "this was already
 settled" carries far more weight when it cites a `[[slug]]`. Fold the relevant
 recorded facts into the perspectives' tasks before fan-out, and check a
 perspective's claim against the record during synthesis. When the discussion
-shows a memory is wrong here, `dispute_memory` it with what was wrong.
+shows a memory is wrong here, dispute it with `remember` (`dispute`: what was wrong).
 
 {{ref:memory-discipline}}
 

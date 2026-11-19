@@ -1,6 +1,6 @@
 ---
 name: "project-discovery"
-version: "1.0.3"
+version: "1.0.4"
 description: "Enumerate a repo's independently-deployable components with evidence. Drives BootstrapDispatch fan-out: init-project writes one .agentsmith/contexts/ entry per component."
 role: "producer"
 output_schema: "discovery"
@@ -40,7 +40,7 @@ of Markdown that nothing publishes are not components.
    deeper if the top level is sparse and meaningful structure lives a
    level down).
 2. For every plausible component candidate, **prove it** with one or two
-   targeted reads (`read_file` on the entrypoint, `list_directory` on
+   targeted reads (`read_file` on the entrypoint, `directory_tree` with `max_depth: 1` on
    the deploy folder). Note the evidence path for each.
 3. Read the manifest at the component's root (`*.csproj`, `package.json`,
    `pyproject.toml`, `go.mod`, `Cargo.toml`, ...) to confirm the
