@@ -18,14 +18,14 @@ or learned.
 No memory waits for a person's approval. Its standing is decided by the runs
 that use it and changes over time:
 
-- **Relied on** — a spec's `hand_forward` names the memories it acted on in
+- **Relied on** — a spec's `finish_spec` names the memories it acted on in
   `relied_on` (`slug`, or `repository/slug` when several repositories store
   it, `@project/slug` for the project's own). A reliance is no evidence by itself; what becomes of the spec is.
 - **Confirmed / strained** — a spec that finishes done confirms every memory it
   relied on; a spec that finishes failed strains them at half the weight, since
   a failure has many causes.
 - **Contradicted** — a person's not-met judgement of the spec's criteria counts
-  against its memories; `dispute_memory(slug, reason)` names a memory that led
+  against its memories; `remember` with `name: <slug>` and `dispute: <reason>` names a memory that led
   you wrong, and counts most.
 - **Standing** — evidence fades with a 90-day half-life. A memory is `holding`
   while its evidence is positive, `unconfirmed` otherwise, and `disputed` once a
@@ -65,7 +65,7 @@ that has paid off. Neither replaces reading the code it is about.
   that each can be recalled and updated on its own.
 - **Update rather than duplicate.** Scan the index first; when the fact has an
   entry, sharpen that one under its name.
-- **A wrong memory is disputed, then corrected.** `dispute_memory` records what
+- **A wrong memory is disputed, then corrected.** `remember` with `dispute` records what
   was wrong and counts against the entry; when you know the true fact,
   `remember` it under the same name so the entry says what holds now.
 - **Link, and back every link.** Relate memories with `[[slug]]`. A `[[slug]]`
