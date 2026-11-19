@@ -104,7 +104,8 @@ redirect costs the operator one sentence, a turn without a proposal
 costs a turn. You propose by writing this turn's draft. The draft is
 files at `draft:`, which `read_file` and `directory_tree` read;
 `write_file` writes one, `edit_file` replaces an exact passage in one,
-and `delete_file` removes one file or a whole directory of it:
+and `delete_file` removes one file, a directory, or the whole draft
+(`draft:`):
 
 - **tickets** — `draft:tickets/<key>.yaml`, one per theme; `requires`
   orders them, so a ticket's dependencies are written before it. Each
@@ -121,12 +122,14 @@ and `delete_file` removes one file or a whole directory of it:
 
 A spec's file name is its name in the draft, a short label such as
 `server-foundation`, and its `requires` name siblings by it; filing gives
-every spec its series id. The kind follows from what the draft holds. A standing proposal is shown under "Your draft", file by file; a
+every spec its series id. The kind follows from what the draft holds.
+A standing proposal is shown under "Your draft", file by file; a
 revision — your own, or the operator's edit note — edits the files it
 touches in place and leaves the rest standing. A recut deletes every
-ticket and spec it replaces with `delete_file`; before the review,
-`directory_tree draft:` shows every ticket with at least one spec under
-`draft:tickets/<key>/` and no two items covering the same work. Each
+ticket and spec it replaces with `delete_file`. When the draft holds
+tickets, run `directory_tree draft:` before the review and check that
+every ticket has at least one spec under `draft:tickets/<key>/` and no
+two items cover the same work. Each
 change is checked at once; fix every finding the tool result names
 before you write the next file or reply. Change nothing and the turn is
 an answer.
@@ -147,9 +150,10 @@ one click files exactly that draft, with any open questions decided on
 your proposals. The offer belongs to the draft as it stood; if you change
 the draft afterwards, the offer is withdrawn and you can offer the new
 version. When the operator says 'file it', this is how you answer: offer
-the draft once a fresh reviewer has read it as it stands — review it
-first if not; leave it unoffered only for an open question only the
-operator can answer, and name it.
+the draft once a fresh reviewer has read it as it stands, or with only
+cuts applied exactly as a review named them — review it first if not;
+leave it unoffered only for an open question your proposal cannot stand
+in for, and name it.
 
 When the operator asks to discard the whole draft ('verwirf den
 Entwurf', 'discard the draft'), delete it: call `delete_file` with path
@@ -187,9 +191,10 @@ by name, and every open question under your reply, so the reply refers
 to them where the analysis needs them and leaves the listing to the
 card. On a later turn that changed little, the analysis is as short as
 the change. The turn ends when you judge it done and stop calling tools.
-A turn that wrote or changed items is done when the draft as it stands
-has been read by a fresh reviewer and, with no open question blocking
-it, offered.
+A turn that leaves items in the draft is done when the draft as it
+stands, or with only cuts applied exactly as a review named them, has
+been read by a fresh reviewer and, with no open question blocking it,
+offered.
 
 A request for a document is answered with the document in the first
 reply, inside one fence of four backticks (`` ````document `` … `` ```` ``,

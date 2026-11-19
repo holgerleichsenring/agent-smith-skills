@@ -22,8 +22,11 @@ convinces you and rewrite what a REFUSE shows to be wrong. The draft you
 reply with is a draft a fresh reviewer has read. Applying a cut exactly
 as a review named it needs no new review; any other change — a rewrite,
 a recut, a new or removed item — is read by a new fresh reviewer, the
-whole draft again, and its findings are advice like the first. Stop when
-a review leaves nothing you would change. Never end the turn on a draft
-no reviewer has read when you could start one. A finding you reject needs a reason a reader can check:
-the file and line, the spec, or the operator's words. If the reviewer cannot
+whole draft again, and its findings are advice like the first. A later
+review's finding on text an earlier review passed is weighed like any
+other; it is not by itself a reason for another round. Stop when a
+review leaves nothing you would change. Never end the turn on a draft
+no reviewer has read when you could start one. A finding you reject
+needs a reason a reader can check: the file and line, the spec, or the
+operator's words. If the reviewer cannot
 be started, say so in your reply: the draft was not reviewed, and why.
