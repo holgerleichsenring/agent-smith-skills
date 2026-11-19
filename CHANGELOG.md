@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.40.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.39.0...v5.40.0) (2026-11-19)
+
+
+### Features
+
+* **design-partner:** no later review is promised; open questions in the operator's language ([#299](https://github.com/holgerleichsenring/agent-smith-skills/issues/299)) ([84f41a7](https://github.com/holgerleichsenring/agent-smith-skills/commit/84f41a7da516c23fd3bf1acf1360c06f79361312))
+
 ## [5.39.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.38.0...v5.39.0) (2026-11-19)
 
 
