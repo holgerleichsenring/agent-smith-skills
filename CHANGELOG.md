@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.39.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.38.0...v5.39.0) (2026-11-19)
+
+
+### Features
+
+* **masters:** the coding master writes a stand-in's spec itself; spec-derivation-master removed ([#297](https://github.com/holgerleichsenring/agent-smith-skills/issues/297)) ([4e8ee13](https://github.com/holgerleichsenring/agent-smith-skills/commit/4e8ee131d4d0988e6128bd6d8881131e9f84d64e))
+
 ## [5.38.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.37.1...v5.38.0) (2026-11-19)
 
 
