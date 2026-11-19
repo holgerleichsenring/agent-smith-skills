@@ -320,7 +320,7 @@ PRECEDENCE_REF="${REFERENCES_DIR}/${PRECEDENCE_SLUG}.md"
 PRECEDENCE_CITE="{{ref:${PRECEDENCE_SLUG}}}"
 # The masters that are handed a template project. They cite the section even if a
 # later edit removes the word "template" from their own prose.
-TEMPLATE_AWARE_MASTERS=(spec-derivation-master coding-agent-master design-partner-master)
+TEMPLATE_AWARE_MASTERS=(coding-agent-master design-partner-master)
 
 echo "checking ${PRECEDENCE_SLUG}"
 
