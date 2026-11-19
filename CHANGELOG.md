@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.38.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.37.1...v5.38.0) (2026-11-19)
+
+
+### Features
+
+* **masters:** the master owns its review and works with a smaller tool set (design-partner 3.6.0, coding-agent 3.2.0, ticket-steward 1.3.0) ([#295](https://github.com/holgerleichsenring/agent-smith-skills/issues/295)) ([57c03f7](https://github.com/holgerleichsenring/agent-smith-skills/commit/57c03f75714cfa7ca5eb030f942693ceba3ebaee))
+
 ## [5.37.1](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.37.0...v5.37.1) (2026-11-18)
 
 
