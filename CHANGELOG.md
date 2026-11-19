@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.41.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.40.0...v5.41.0) (2026-11-19)
+
+
+### Features
+
+* **masters:** review is a step of the master's work — a fresh sub-agent reviews the draft and the diff ([#301](https://github.com/holgerleichsenring/agent-smith-skills/issues/301)) ([a377df8](https://github.com/holgerleichsenring/agent-smith-skills/commit/a377df8374085e09e794952756c98e0c45831a25))
+
 ## [5.40.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.39.0...v5.40.0) (2026-11-19)
 
 
