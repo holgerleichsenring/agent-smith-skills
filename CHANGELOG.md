@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.41.2](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.41.1...v5.41.2) (2026-11-19)
+
+
+### Bug Fixes
+
+* **design-partner:** the replied draft is reviewed as it stands; a recut removes what it replaces; delete_file ([#305](https://github.com/holgerleichsenring/agent-smith-skills/issues/305)) ([f3fba8d](https://github.com/holgerleichsenring/agent-smith-skills/commit/f3fba8d5f5c199daa9c60e9f23572f495d7e1e97))
+
 ## [5.41.1](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.41.0...v5.41.1) (2026-11-19)
 
 
