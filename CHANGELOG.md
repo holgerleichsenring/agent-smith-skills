@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.41.1](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.41.0...v5.41.1) (2026-11-19)
+
+
+### Bug Fixes
+
+* **design-partner:** questions and proposals in the operator's language; discard a draft by words ([#303](https://github.com/holgerleichsenring/agent-smith-skills/issues/303)) ([2981c75](https://github.com/holgerleichsenring/agent-smith-skills/commit/2981c75a556e06527801b68486f12c4fcac93755))
+
 ## [5.41.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.40.0...v5.41.0) (2026-11-19)
 
 
