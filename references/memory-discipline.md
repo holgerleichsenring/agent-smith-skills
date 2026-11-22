@@ -18,8 +18,8 @@ or learned.
 No memory waits for a person's approval. Its standing is decided by the runs
 that use it and changes over time:
 
-- **Relied on** — a spec's `finish_spec` names the memories it acted on in
-  `relied_on` (`slug`, or `repository/slug` when several repositories store
+- **Relied on** — a spec's report names the memories it acted on
+  (`slug`, or `repository/slug` when several repositories store
   it, `@project/slug` for the project's own). A reliance is no evidence by itself; what becomes of the spec is.
 - **Confirmed / strained** — a spec that finishes done confirms every memory it
   relied on; a spec that finishes failed strains them at half the weight, since
