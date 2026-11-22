@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.41.3](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.41.2...v5.41.3) (2026-11-22)
+
+
+### Bug Fixes
+
+* **coding-master:** the closing reply carries the report and the finish_spec call ([#307](https://github.com/holgerleichsenring/agent-smith-skills/issues/307)) ([c334feb](https://github.com/holgerleichsenring/agent-smith-skills/commit/c334feb422c3ceb339b9a49aaf0fadbaca7d9f1d))
+
 ## [5.41.2](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.41.1...v5.41.2) (2026-11-19)
 
 
