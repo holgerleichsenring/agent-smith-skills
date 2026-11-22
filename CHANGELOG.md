@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.42.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.41.3...v5.42.0) (2026-11-22)
+
+
+### Features
+
+* **coding-master:** the report is the master's last reply; no closing tool ([#309](https://github.com/holgerleichsenring/agent-smith-skills/issues/309)) ([595ad26](https://github.com/holgerleichsenring/agent-smith-skills/commit/595ad266a1efe899993dd162508eefd4ebe3054e))
+
 ## [5.41.3](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.41.2...v5.41.3) (2026-11-22)
 
 
