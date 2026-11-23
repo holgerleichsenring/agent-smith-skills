@@ -2,7 +2,7 @@
 name: coding-agent-master
 description: "Master loop body for coding pipelines. Leads one spec: a sub-agent builds it, a fresh one reviews it, work goes back until it holds, then a markdown report with follow-ups."
 role: master
-version: "3.5.0"
+version: "3.6.0"
 metadata:
   inputs: [CodeMapSection, CodingPrinciples, ExpectationSection, MemoryIndexSection, PlanSection, ProgressLedgerSection, ProjectContextSection, RepoNames, RunRecordDir, SpecSection]
 ---
@@ -117,8 +117,13 @@ so in your report. A token in a committed file would be published.
 
 ## Asking and deciding
 
-`ask_human` posts one self-contained question to the ticket and pauses the run; end your reply when you ask. Ask
-only what blocks the work and only a person can answer. A choice a person might overrule goes through
+`ask_human` posts one self-contained question and pauses the run; end your reply when you ask. Ask
+only what blocks the work and only a person can answer. Its `answerer` names who can answer: `target` for what the code
+this ticket changes should do (answered on the ticket), `plan` for the plan across tickets — a contract between
+tickets, their order or scope (answered in the series conversation), `environment` for the environment the run works
+in — an unreachable repository, a missing credential, image or service (reported to the admin). One question per
+answerer is open at a time; when a plan gap and an environment fault both block you, ask each as its own question to
+its own answerer, then end your reply. A choice a person might overrule goes through
 `log_decision` with `overrulable: true`; an implementation choice through `log_decision` (`**Decision name**: why, in
 one sentence`).
 
