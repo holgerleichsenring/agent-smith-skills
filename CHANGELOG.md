@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.43.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.42.0...v5.43.0) (2026-11-23)
+
+
+### Features
+
+* **coding-master:** ask_human names its answerer — target, plan or environment ([#311](https://github.com/holgerleichsenring/agent-smith-skills/issues/311)) ([4e367a8](https://github.com/holgerleichsenring/agent-smith-skills/commit/4e367a83d6e6cca6f2096f443a54ac349a149255))
+
 ## [5.42.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.41.3...v5.42.0) (2026-11-22)
 
 
