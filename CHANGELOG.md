@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.43.1](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.43.0...v5.43.1) (2026-11-24)
+
+
+### Bug Fixes
+
+* **patterns:** quoted AWS secret keys match and connection strings with a password reach confidence 8 ([#313](https://github.com/holgerleichsenring/agent-smith-skills/issues/313)) ([e34e82e](https://github.com/holgerleichsenring/agent-smith-skills/commit/e34e82e41dfc2635682870998586b11810026d96))
+
 ## [5.43.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.42.0...v5.43.0) (2026-11-23)
 
 
