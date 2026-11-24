@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.44.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.43.1...v5.44.0) (2026-11-24)
+
+
+### Features
+
+* **project-bootstrap:** init declares the stack's standard formatter when the repository runs none ([#315](https://github.com/holgerleichsenring/agent-smith-skills/issues/315)) ([a2dec4c](https://github.com/holgerleichsenring/agent-smith-skills/commit/a2dec4c71fe0417a8a083c44f77a4f8e39a3087b))
+
 ## [5.43.1](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.43.0...v5.43.1) (2026-11-24)
 
 
