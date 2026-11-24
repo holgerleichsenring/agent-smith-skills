@@ -1,6 +1,6 @@
 ---
 name: "project-bootstrap"
-version: "2.9.1"
+version: "2.10.0"
 description: "Write context.yaml (facts from archaeology) for the component named in the prompt; principles transfer from the authored core + language delta for operator ratification."
 role: "producer"
 output_schema: "bootstrap"
@@ -116,7 +116,7 @@ nothing.
     { "label": "test", "command": "<...>", "when_present": "<optional path it needs>" }
   ],
   "verify_derived_from": { "files": ["<the file you read those commands out of>", "..."] },
-  "format": { "command": "<the repository's own formatter, rewriting form, with {files}>", "when_present": "<optional path it needs>" },
+  "format": { "command": "<this stack's formatter, rewriting form, with {files}>", "when_present": "<optional path it needs>" },
   "sources": ["<repository-root-relative directory beyond meta.workdir the component is built or tested from>", "..."],
   "behavior": { ... only if explicit pipeline/orchestration code present ... }
 }
@@ -195,31 +195,64 @@ Rules that decide the block:
 The operator ratifies the block by reviewing the init pull request, where the principles
 are already ratified. Point at it in your summary the same way.
 
-## `format` — adopt the formatter the repository already runs
+## `format` — the formatter of this stack
 
-When a spec commits, the framework can run this repository's own formatter over the files
-that spec changed, so layout is the formatter's job and never a criterion or a gate. You
-declare it in `format`, when the repository already runs a formatter — in its CI or its
-scripts, the same files you read for `verify`.
+When a spec commits, the framework runs this formatter over the files that spec changed,
+before it measures their size against the Limits and before the commit. Layout is the
+formatter's job, never a criterion or a gate — and a size counted in physical lines only
+means something over formatted code: an unformatted method written on one line passes
+any line limit. Where no formatter touched a source file the commit gate measures, the
+run says so.
 
-- **The REWRITING form of that formatter.** CI usually runs it in check mode; you declare
-  the form that rewrites the files, in the tool's own syntax: replace only the check
-  subcommand or flag with its writing counterpart and the path with `{files}`. CI's
-  `dotnet csharpier check .` becomes `dotnet csharpier format {files}`; `prettier --check .`
-  becomes `prettier --write {files}`.
-- **`{files}` is required.** The framework replaces it with the repository-root-relative
-  paths the spec changed, shell-quoted; a command without it is refused. Never format the
-  whole tree — untouched code would land in the spec's diff.
+Choose it in this order:
+
+1. **The formatter the repository already runs** — in its CI or its scripts, or one it
+   configures (`.csharpierrc`, a `csharpier` entry in `.config/dotnet-tools.json`,
+   `.prettierrc`, `[tool.black]`/`[tool.ruff]` in `pyproject.toml`, `.scalafmt.conf`).
+   Name the file in `verify_derived_from.files`. A formatter adopted from configuration
+   alone names its binary in `when_present` (`node_modules/.bin/prettier`), so a tree
+   that has not installed it skips the run instead of failing it.
+2. **Otherwise the stack's standard formatter, when the SDK of the image you chose ships
+   it** and it formats one file without reaching into others: for .NET
+   `dotnet format whitespace --folder --include {files}`; for Go
+   `for f in {files}; do case "$f" in *.go) gofmt -w "$f" || exit 1;; esac; done`.
+   Skip this step when the sources visibly use another layout than the formatter's
+   defaults (tabs where it indents with spaces, braces on the line of the declaration
+   where it puts them on their own) — it would restyle every file a spec touches. Nothing
+   to name in `verify_derived_from`; say in your summary that the format is the stack's
+   standard and the repository runs none.
+3. **Otherwise none.** A formatter that needs a download, a dependency the repository does
+   not declare, or that formats more than the files it is given (rustfmt follows a
+   file's `mod` declarations) is declared only when the repository already runs it. Write
+   no `format` and say in your summary that this stack's code is committed as the agent
+   writes it.
+
+Rules for the command:
+
+- **The REWRITING form.** CI usually runs a check; declare the form that rewrites, in the
+  tool's own syntax: replace only the check subcommand or flag with its writing counterpart
+  and the path with `{files}`. CI's `dotnet csharpier check .` becomes
+  `dotnet csharpier format {files}`; `prettier --check .` becomes
+  `prettier --write --ignore-unknown {files}`. Read the tool's version where the repository
+  pins it: CSharpier 1.x formats with `dotnet csharpier format`, 0.x with
+  `dotnet csharpier`. A repository-local .NET tool is restored first:
+  `dotnet tool restore && dotnet csharpier format {files}`, with `when_present`
+  `.config/dotnet-tools.json`.
+- **`{files}` is every file the spec changed under this context**, not only its sources:
+  shell-quoted, repository-root-relative. A formatter that fails on a file it does not
+  format needs its flag for that (`--ignore-unknown`) or the filter shown for Go above.
+  A command without `{files}` is refused. Never format the whole tree — untouched code
+  would land in the spec's diff.
 - **It runs from the REPOSITORY ROOT, with no `cd` of its own**, because the paths in
   `{files}` are relative to the root. Address a binary from the root:
-  `frontend/node_modules/.bin/prettier --write {files}`.
-- **`when_present`** names a path the command needs (e.g.
-  `frontend/node_modules/.bin/prettier`); an absent path skips the run.
-- **Name the file you read it from** in `verify_derived_from.files`, beside the files the
-  verify commands came from, so a later run can tell when the declaration went stale.
-- **No formatter in the repository, no `format`.** Choose none for it: a formatter the
-  estate does not run rewrites code its own tooling never would. A whitespace-only fixer
-  is not a substitute either — `dotnet format whitespace` does not wrap a long line.
+  `frontend/node_modules/.bin/prettier --write --ignore-unknown {files}`.
+- **`when_present`** names a path the command needs; while it is absent the formatter
+  does not run, and the run says so.
+- **Never write formatter configuration** into the repository (`.editorconfig`, a tool
+  manifest, a `.prettierrc`): the format declared here uses what the repository and the
+  image already have. Without an `.editorconfig` asking otherwise, `dotnet format
+  whitespace` indents and spaces C# but leaves a block written on one line as it is; it is
+  still the stack's formatter, so declare it.
 
 ## `sources` — the directories the component is built and tested from
 
