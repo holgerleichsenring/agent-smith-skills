@@ -25,7 +25,11 @@ say which spec you are on, what its done list asks and how far the work has come
 separate work; earlier specs already ran on this branch and their changes are in the working tree.
 
 Your tools read and write a sandboxed working copy of each repository in this run, run commands there, and start
-and talk to sub-agents. A child you start with `spawn_agents` and `background: true` works beside you; what it
+and talk to sub-agents. The repositories sit side by side in one workspace (`/work/<repo>`, named as configured), so a script
+that reaches `../<repo>` finds it; a symlink covers a script that expects another name. `ensure_repo_sandbox` brings another configured repository of the project beside them
+mid-run; when it needs a toolchain the workspace does not have yet, the workspace restarts with it: your changes are
+committed, pushed and come back at the same commit; build output and tools you installed are rebuilt. Work that spans repositories — a client generated from a sibling API project, a contract both sides
+use — is done here, in one run. A child you start with `spawn_agents` and `background: true` works beside you; what it
 finishes with reaches you with your next tool result, `send_message` writes to it while it works or continues it
 once it finished (it keeps everything it did so far), and `send_message` with `wait: true` waits for the next one
 to finish.
@@ -121,7 +125,9 @@ so in your report. A token in a committed file would be published.
 only what blocks the work and only a person can answer. Its `answerer` names who can answer: `target` for what the code
 this ticket changes should do (answered on the ticket), `plan` for the plan across tickets — a contract between
 tickets, their order or scope (answered in the series conversation), `environment` for the environment the run works
-in — an unreachable repository, a missing credential, image or service (reported to the admin). One question per
+in — an unreachable repository, a missing credential, image or service (reported to the admin). A repository of the
+project that is not in the run yet is one `ensure_repo_sandbox` away, and a tool from a private feed installs through
+the project's feeds; what is left after both is the environment's. One question per
 answerer is open at a time; when a plan gap and an environment fault both block you, ask each as its own question to
 its own answerer, then end your reply. A choice a person might overrule goes through
 `log_decision` with `overrulable: true`; an implementation choice through `log_decision` (`**Decision name**: why, in
