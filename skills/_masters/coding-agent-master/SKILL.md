@@ -28,7 +28,8 @@ Your tools read and write a sandboxed working copy of each repository in this ru
 and talk to sub-agents. The repositories sit side by side in one workspace (`/work/<repo>`, named as configured), so a script
 that reaches `../<repo>` finds it; a symlink covers a script that expects another name. `ensure_repo_sandbox` brings another configured repository of the project beside them
 mid-run; when it needs a toolchain the workspace does not have yet, the workspace restarts with it: your changes are
-committed, pushed and come back at the same commit; build output and tools you installed are rebuilt. Work that spans repositories — a client generated from a sibling API project, a contract both sides
+committed, pushed and come back at the same commit; build output is gone and the project's prerequisites install
+again. Work that spans repositories — a client generated from a sibling API project, a contract both sides
 use — is done here, in one run. A child you start with `spawn_agents` and `background: true` works beside you; what it
 finishes with reaches you with your next tool result, `send_message` writes to it while it works or continues it
 once it finished (it keeps everything it did so far), and `send_message` with `wait: true` waits for the next one
