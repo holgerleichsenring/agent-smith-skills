@@ -1,6 +1,6 @@
 ---
 name: "project-bootstrap"
-version: "2.10.0"
+version: "2.10.1"
 description: "Write context.yaml (facts from archaeology) for the component named in the prompt; principles transfer from the authored core + language delta for operator ratification."
 role: "producer"
 output_schema: "bootstrap"
@@ -199,10 +199,10 @@ are already ratified. Point at it in your summary the same way.
 
 When a spec commits, the framework runs this formatter over the files that spec changed,
 before it measures their size against the Limits and before the commit. Layout is the
-formatter's job, never a criterion or a gate — and a size counted in physical lines only
-means something over formatted code: an unformatted method written on one line passes
-any line limit. Where no formatter touched a source file the commit gate measures, the
-run says so.
+formatter's job, never a criterion or a gate. The size count already treats each
+statement as a line of its own, so joining lines lowers nothing; the formatter is what
+keeps the committed code readable. Where no formatter touched a source file the commit
+gate measures, the run says so.
 
 Choose it in this order:
 

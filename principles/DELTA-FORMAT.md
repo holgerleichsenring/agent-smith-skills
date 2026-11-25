@@ -112,8 +112,13 @@ worse fails.
   an integer of 0 or more; absent, it is 0 and every limit is strict. It is
   never a limit of its own: a fence holding only `tolerance_percent` sets no
   limit.
-- Lines are physical, from a declaration's first non-attribute line to its
-  last; nested units are included, leading comments are not.
+- Lines run from a declaration's first non-attribute line to its last,
+  counted as if each statement or member, and each closing brace, began its
+  own line: an opening brace stays on the line it ends, a case label shares
+  the line of its first statement, and a block holding at most one
+  statement may stay on one line. Joining statements onto one line never
+  lowers a count. Nested units are included, leading comments
+  are not.
 - Every limit value is the number the size prose states, where its `Source:`
   line lives. The fence restates; it never introduces a limit.
 - `tolerance_percent` is the one exception: it is not a size the stack
