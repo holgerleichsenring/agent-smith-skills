@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.46.1](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.46.0...v5.46.1) (2026-11-25)
+
+
+### Bug Fixes
+
+* **coding-agent-master:** a workspace restart loses build output ([#321](https://github.com/holgerleichsenring/agent-smith-skills/issues/321)) ([d338eb4](https://github.com/holgerleichsenring/agent-smith-skills/commit/d338eb43e0caff595332934b2c7f631374dbee81))
+
 ## [5.46.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.45.0...v5.46.0) (2026-11-25)
 
 
