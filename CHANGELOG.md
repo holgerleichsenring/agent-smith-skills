@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.46.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.45.0...v5.46.0) (2026-11-25)
+
+
+### Features
+
+* **coding-agent-master:** repositories side by side in one workspace ([#319](https://github.com/holgerleichsenring/agent-smith-skills/issues/319)) ([a2d82a8](https://github.com/holgerleichsenring/agent-smith-skills/commit/a2d82a860f4cbe07bf6f0b562e2bd338b147d3dc))
+
 ## [5.45.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.44.0...v5.45.0) (2026-11-25)
 
 
