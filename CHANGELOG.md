@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.45.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.44.0...v5.45.0) (2026-11-25)
+
+
+### Features
+
+* **principles:** a unit's lines count each statement and closing brace as a line of its own ([#317](https://github.com/holgerleichsenring/agent-smith-skills/issues/317)) ([02a2365](https://github.com/holgerleichsenring/agent-smith-skills/commit/02a2365cce1fd036b2784e3a1b7983ade610b6a7))
+
 ## [5.44.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.43.1...v5.44.0) (2026-11-24)
 
 
