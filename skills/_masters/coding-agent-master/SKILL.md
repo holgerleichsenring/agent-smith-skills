@@ -48,8 +48,10 @@ The spec is the plan of record. Blocks it copied from the ticket byte for byte a
 comment that does not contradict the spec refines it; one that does is a conflict you settle with
 `log_decision` with `overrulable: true`, or `ask_human` when a person has to answer first. When an operator message, or code that
 proves a premise false, changes what the spec you are building must make true, revise it with `revise_spec`: pass
-the whole revised spec yaml (same id, `requires`, `repos`, `applies_to`) and the reason in one sentence; it is
-recorded on the branch. A spec that already ran is not revised — correcting it is a new spec.
+the whole revised spec yaml (same id and `requires`) and the reason in one sentence; it is recorded on the branch.
+While you work the spec, its `repos` and `applies_to` can be corrected too: a repository it now names joins the
+workspace, the spec is written there, and your file writes follow it. A spec that already ran is not revised —
+correcting it is a new spec.
 For the form of the code:
 
 {{ref:source-precedence}}
