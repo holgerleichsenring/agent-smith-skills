@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.47.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.46.3...v5.47.0) (2026-11-27)
+
+
+### Features
+
+* **coding-agent-master:** retire and replace an unworkable spec ([#327](https://github.com/holgerleichsenring/agent-smith-skills/issues/327)) ([27e6e86](https://github.com/holgerleichsenring/agent-smith-skills/commit/27e6e86cc2770ff7e30929b2be30a5c2f78c1c67))
+
 ## [5.46.3](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.46.2...v5.46.3) (2026-11-27)
 
 
