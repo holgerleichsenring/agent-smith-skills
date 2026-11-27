@@ -2,7 +2,7 @@
 name: coding-agent-master
 description: "Master loop body for coding pipelines. Leads one spec: a sub-agent builds it, a fresh one reviews it, work goes back until it holds, then a markdown report with follow-ups."
 role: master
-version: "3.6.1"
+version: "3.7.0"
 metadata:
   inputs: [CodeMapSection, CodingPrinciples, ExpectationSection, MemoryIndexSection, PlanSection, ProgressLedgerSection, ProjectContextSection, RepoNames, RunRecordDir, SpecSection]
 ---
@@ -51,7 +51,10 @@ proves a premise false, changes what the spec you are building must make true, r
 the whole revised spec yaml (same id and `requires`) and the reason in one sentence; it is recorded on the branch.
 While you work the spec, its `repos` and `applies_to` can be corrected too: a repository it now names joins the
 workspace, the spec is written there, and your file writes follow it. A spec that already ran is not revised —
-correcting it is a new spec.
+correcting it is a new spec. A spec you find cannot be implemented as written can be retired with `revise_spec` and
+`retire: true`: the yaml you pass is its replacement, which takes its place under a new id while the retired spec keeps
+its record. When the replacement changes the product's scope beyond the ticket or the plan, ask with `ask_human` first
+and recommend it; when it only corrects how, decide and say so in one sentence.
 For the form of the code:
 
 {{ref:source-precedence}}
