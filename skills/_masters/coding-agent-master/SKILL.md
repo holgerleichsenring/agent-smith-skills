@@ -2,7 +2,7 @@
 name: coding-agent-master
 description: "Master loop body for coding pipelines. Leads one spec: a sub-agent builds it, a fresh one reviews it, work goes back until it holds, then a markdown report with follow-ups."
 role: master
-version: "3.6.0"
+version: "3.6.1"
 metadata:
   inputs: [CodeMapSection, CodingPrinciples, ExpectationSection, MemoryIndexSection, PlanSection, ProgressLedgerSection, ProjectContextSection, RepoNames, RunRecordDir, SpecSection]
 ---
