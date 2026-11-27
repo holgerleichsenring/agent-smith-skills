@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.46.2](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.46.1...v5.46.2) (2026-11-27)
+
+
+### Bug Fixes
+
+* **coding-agent-master:** revise_spec can correct the spec's repos while it is worked ([#323](https://github.com/holgerleichsenring/agent-smith-skills/issues/323)) ([6399eec](https://github.com/holgerleichsenring/agent-smith-skills/commit/6399eec1f3c81be02a96e6cdf928b115bb4549a6))
+
 ## [5.46.1](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.46.0...v5.46.1) (2026-11-25)
 
 
