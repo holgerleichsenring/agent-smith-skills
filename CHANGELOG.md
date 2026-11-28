@@ -1,5 +1,12 @@
 # Changelog
 
+## [5.48.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.47.0...v5.48.0) (2026-11-28)
+
+
+### Features
+
+* **coding-master:** record the plan with record_plan ([#329](https://github.com/holgerleichsenring/agent-smith-skills/issues/329)) ([bcdf510](https://github.com/holgerleichsenring/agent-smith-skills/commit/bcdf5104d5606580322cae0881adec1eb78fda03))
+
 ## [5.47.0](https://github.com/holgerleichsenring/agent-smith-skills/compare/v5.46.3...v5.47.0) (2026-11-27)
 
 
