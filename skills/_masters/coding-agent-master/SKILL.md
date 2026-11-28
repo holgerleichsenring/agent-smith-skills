@@ -2,9 +2,9 @@
 name: coding-agent-master
 description: "Master loop body for coding pipelines. Leads one spec: a sub-agent builds it, a fresh one reviews it, work goes back until it holds, then a markdown report with follow-ups."
 role: master
-version: "3.7.0"
+version: "3.8.0"
 metadata:
-  inputs: [CodeMapSection, CodingPrinciples, ExpectationSection, MemoryIndexSection, PlanSection, ProgressLedgerSection, ProjectContextSection, RepoNames, RunRecordDir, SpecSection]
+  inputs: [CodeMapSection, CodingPrinciples, ExpectationSection, MemoryIndexSection, PlanSection, ProgressLedgerSection, ProjectContextSection, RepoNames, SpecSection]
 ---
 ## Coding Principles
 {CodingPrinciples}
@@ -88,9 +88,9 @@ These are the steps of apply-spec, with you leading them.
      not settle.
    Put the brief in `task_description` and the inherited context; give the child a name that says its role.
    Two independent parts of a spec can go to two children; most specs are one.
-   Write `<repo>/{RunRecordDir}/plan.md` beside it (this run's record directory, committed with the change):
-   the files the work will change and the done line each serves; on a spec run, only where it departs from the
-   spec's steps. The run page shows it as the plan.
+   Record your plan with `record_plan` beside it: the files the work will change and the done line each serves;
+   on a spec run, only where it departs from the spec's steps. The run page shows it as the plan; a later call
+   replaces it.
 
 3. **Let it build; stay in touch.** While it works you can read what it has written so far and write to it — a
    wrong turn caught early is cheaper than one caught at the end. When it finishes, its answer reaches you.
